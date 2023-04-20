@@ -39,6 +39,12 @@
 - Spring Validation 2.7.7
 - Spring Web 2.7.7
 - QueryDSL 5.0.0
+- Spring Cloud 2.2.1
+- Swagger2 3.0.0
+- jjwt 0.11.5
+- caffeine 2.9.3
+- bucket4j 4.10.0
+- gson 2.10.1
 
 **CI/CD**
 
@@ -51,46 +57,38 @@
 
 **Frontend**
 
-- _Visual Studio Code IDE_
-- _react 18.2.0_
-- _redux 4.2.1_
-- _typescript 5.0.4_
-- _react-redux 8.0.5_
+- Visual Studio Code IDE
+- react 18.2.0
+- r*edux 4.2.1*
+- _react-redux_ 8.0.5
 - _redux-persist 6.0.0_
+- p*rop-types 15.8.1*
 - _styled-components 5.3.8_
 - _styled-reset 4.4.5_
-- _next: 13.3.0_
 - _react-router-dom 6.8.2_
 - _react-toastify 9.1.2_
 - _react-responsive 9.0.2_
+- _react-qrcode-logo 2.9.0_
+- _emoji-picker-react 4.4.7_
+- _@uiw/react-md-editor 3.20.5_
+- _html-to-image 1.11.11_
+- _react-spinners 0.13.8_
 
 ## 📝 요구사항정의서
 
-![요구사항정의서]()
+![요구사항정의서](./assets/donjo-srs.png)
 
 ## 💄 디자인 시안
 
-![요구사항정의서]()
+![요구사항정의서](./assets/donjo-design.png)
 
 ## 🔒 ERD
 
-![요구사항정의서](./docs/라일락-ERD.png)
+![요구사항정의서](./assets/donjo-erd.png)
 
 ## 📄 아키텍처 구성도
 
-![아키텍처 설계도](./docs/라일락-아키텍쳐설계도.png)
-
-## 📄 시퀀스다이어그램
-
-![시퀀스다이어그램](./docs/라일락-시퀀스다이어그램.png)
-
-## 📄 컴포넌트 명세서
-
-![컴포넌트 명세서1](./assets/컴포넌트명세서1.PNG)
-![컴포넌트 명세서2](./assets/컴포넌트명세서2.PNG)
-![컴포넌트 명세서3](./assets/컴포넌트명세서3.PNG)
-![컴포넌트 명세서4](./assets/컴포넌트명세서4.PNG)
-![컴포넌트 명세서5](./assets/컴포넌트명세서5.PNG)
+![아키텍처 구성도](./assets/donjo-architecture.png)
 
 ## ⚙️ 프로젝트 파일 구조
 
