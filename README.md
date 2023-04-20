@@ -25,10 +25,10 @@
 - 백엔드
   - 오윤식 - Team Leader
   - 김명준 - Backend Leader
-  - 조수정 - CI/CD
+  - 조수정 - DevOps Leader
 - 프론트엔드
   - 김현수 - Frontend Leader
-  - 정소영 - Frontend Follower
+  - 정소영 - Frontend QA Leader
   - 최윤지 - Design Leader
 
 ## 🔨 주요 기술
