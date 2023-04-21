@@ -20,15 +20,22 @@
 
 ## ✨ 프로젝트 핵심 기능
 
-## 🧑🏻‍💻 팀 구성
+## 👩🏻‍💻 팀 구성
 
 - 백엔드
+
   - 오윤식 - Team Leader
+
   - 김명준 - Backend Leader
+
   - 조수정 - CI/CD
+
 - 프론트엔드
+
   - 김현수 - Frontend Leader
+
   - 정소영 - Frontend Follower
+
   - 최윤지 - Design Leader
 
 ## 🔨 주요 기술
@@ -70,27 +77,27 @@
 
 ## 📝 요구사항정의서
 
-![요구사항정의서]()
+![요구사항정의서](https://user-images.githubusercontent.com/97906125/233523032-e30cf65f-cdb1-42d7-a39b-c9d669d81ceb.png)
 
 ## 💄 디자인 시안
 
-![디자인 시안](./docs/WireFrame.png)
+![디자인 시안](https://user-images.githubusercontent.com/97906125/233523381-75505f25-d20c-4779-982f-49e12a0731b4.png)
 
 ## 🔒 ERD
 
-![요구사항정의서](./docs/라일락-ERD.png)
+![요구사항정의서](https://user-images.githubusercontent.com/97906125/233522751-a51bd93b-2518-4325-b029-2408f2b5b46e.png)
 
 ## 📄 아키텍처 구성도
 
-![아키텍처 설계도](./docs/라일락-아키텍쳐설계도.png)
+![아키텍처 설계도](https://user-images.githubusercontent.com/97906125/233522945-e08da732-4429-45c5-9e62-ff1ead4913a8.png)
 
 ## 📄 시퀀스다이어그램
 
-![시퀀스다이어그램](./docs/라일락-시퀀스다이어그램.png)
+![시퀀스다이어그램](https://user-images.githubusercontent.com/97906125/233522989-47ec085d-3f7f-4fc5-b706-41ea05092b28.png)
 
 ## 📄 컴포넌트 명세서
 
-![컴포넌트 명세서1](./assets/Lilac_컴포넌트명세서.png)
+![컴포넌트 명세서1](https://user-images.githubusercontent.com/97906125/233523091-fe8b3dee-d96b-492a-b048-edb8eb852379.png)
 
 ## ⚙️ 프로젝트 파일 구조
 
@@ -189,14 +196,20 @@
 ## 🗣 협업 환경
 
 - Jira
+
   - 프로젝트 스프린트를 정하고 한 주의 계획대로 프로젝트를 진행했습니다.
   - 팀원마다 주간 40의 Story Point를 설정하였습니다.
+
 - Notion
+
   - 데일리 회의 스크럼, 요구 사항 정의서, API 명세서등을 문서화했습니다.
   - 코딩 컨벤션, 깃 컨벤션 등 팀원간 개발 규칙을 정의했습니다.
+
 - Github
+
   - 코딩 컨벤션을 준수하며 프로젝트를 진행하였습니다.
   - Pull Request를 요청하고 팀원들과 코드리뷰를 진행하였습니다.
+
 - Figma
   - 웹 페이지의 디자인 와이어프레임, 시안을 제작하였습니다.
   - 서비스 프로토타입을 제작하였습니다.
