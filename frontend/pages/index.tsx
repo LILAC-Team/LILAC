@@ -1,7 +1,34 @@
-import React from "react";
+import { useState } from "react";
+import SmallModal from "@/components/common/CommonModal/SmallModal";
+import BasicInput from "@/components/common/BasicInput";
 
-const index = () => {
-  return <div>index</div>;
+const Home = ({ initValues = false, initInput = "" }) => {
+  const [isModalOpen, setIsModalOpen] = useState(initValues);
+  const [inputValue, setInputValue] = useState(initInput);
+
+  const handleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
+  const handleOnChangeValue = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  return isModalOpen ? (
+    <SmallModal handleSetShowModal={handleModal} width="33">
+      <div>이번 프로젝트 두렵다</div>
+      <BasicInput
+        id="input"
+        type="text"
+        value={inputValue}
+        handleOnChangeValue={handleOnChangeValue}
+        placeholder=""
+        isReadOnly={false}
+      />
+    </SmallModal>
+  ) : (
+    <button onClick={handleModal}>버튼</button>
+  );
 };
 
-export default index;
+export default Home;
