@@ -22,12 +22,12 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public ReleasedAlbumListResponse getReleasedAlbums(Integer pageNumber, Long userId) {
         Page<Album> albumPage = albumRepository.getAlbumsByUserId(userId,
-                PageRequest.of(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "releasedDate"));
+                PageRequest.of(pageNumber-1, PAGE_SIZE, Sort.Direction.DESC, "releasedDate"));
         Page<AlbumResponse> albumResponsePage = albumPage.map(album -> new AlbumResponse(album.getName(),
                 album.getAlbumImage(), album.getCode()));
         ReleasedAlbumListResponse response = ReleasedAlbumListResponse.builder()
                 .releasedAlbumList(albumResponsePage.getContent())
-                .number(albumResponsePage.getNumber())
+                .number(albumResponsePage.getNumber()+1)
                 .totalPages(albumResponsePage.getTotalPages())
                 .totalElements(albumResponsePage.getTotalElements())
                 .first(albumResponsePage.isFirst())
@@ -39,12 +39,12 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public CollectedAlbumListResponse getCollectedAlbums(Integer pageNumber, Long userId) {
         Page<Album> albumPage = albumRepository.getAlbumsByUserCollectAlbums(userId,
-                PageRequest.of(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdTime"));
+                PageRequest.of(pageNumber-1, PAGE_SIZE, Sort.Direction.DESC, "createdTime"));
         Page<AlbumResponse> albumResponsePage = albumPage.map(album -> new AlbumResponse(album.getName(),
                 album.getAlbumImage(), album.getCode()));
         CollectedAlbumListResponse response = CollectedAlbumListResponse.builder()
                 .collectedAlbumList(albumResponsePage.getContent())
-                .number(albumResponsePage.getNumber())
+                .number(albumResponsePage.getNumber()+1)
                 .totalPages(albumResponsePage.getTotalPages())
                 .totalElements(albumResponsePage.getTotalElements())
                 .first(albumResponsePage.isFirst())
