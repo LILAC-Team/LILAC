@@ -37,8 +37,8 @@ public class Music {
     @Column(name = "code", nullable = false, length = 100, unique = true)
     private String code;
 
-    @Column(name = "indexing", nullable = false)
-    private Integer indexing;
+    @Column(name = "music_index", nullable = false)
+    private Integer musicIndex;
 
     @Column(name = "is_title", nullable = false)
     private Boolean isTitle = false;
