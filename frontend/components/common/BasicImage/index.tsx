@@ -7,8 +7,8 @@ interface BasicImageProps {
   radius?: number;
 }
 
-const index = ({ src, size, radius }: BasicImageProps) => {
+const BasicImage = ({ src, size, radius }: BasicImageProps) => {
   return <S.BasicImage src={src} size={size} radius={radius} />;
 };
 
-export default index;
+export default BasicImage;
