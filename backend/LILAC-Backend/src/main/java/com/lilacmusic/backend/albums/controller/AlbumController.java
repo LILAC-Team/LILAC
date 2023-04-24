@@ -28,7 +28,11 @@ public class AlbumController {
     @GetMapping("/collected/{pageNumber}")
     public ResponseEntity<CollectedAlbumListResponse> getCollectedAlbums(@PathVariable("pageNumber") Integer pageNumber,
                                                                         @RequestHeader HttpHeaders headers){
-        return null;
+//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
+        Long userId = 1L;
+
+        CollectedAlbumListResponse response = albumService.getCollectedAlbums(pageNumber, userId);
+        return ResponseEntity.ok().body(response);
     }
 
 }
