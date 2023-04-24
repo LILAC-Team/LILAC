@@ -8,7 +8,7 @@ interface TextProps {
 
 export const Text = styled.div<TextProps>`
   color: ${(props) => props.color};
-  font-size: ${(props) => props.size}px;
+  font-size: ${(props) => props.size}rem;
   font-family: ${(props) => props.font};
   width: 100%;
   height: 100%;
