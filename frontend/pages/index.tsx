@@ -15,7 +15,7 @@ const Home = ({ initValues = false, initInput = "" }) => {
   };
 
   return isModalOpen ? (
-    <SmallModal handleSetShowModal={handleModal} width="33">
+    <SmallModal handleSetShowModal={handleModal} width="17.5">
       <div>이번 프로젝트 두렵다</div>
       <BasicInput
         id="input"
