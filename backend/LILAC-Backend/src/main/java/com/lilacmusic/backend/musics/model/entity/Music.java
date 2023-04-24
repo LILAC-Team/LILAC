@@ -19,7 +19,6 @@ public class Music {
     @Column(name = "music_id", unique = true, nullable = false)
     private Long musicId;
 
-
     @Column(name = "album_id", nullable = false)
     private Long albumId;
 
@@ -38,8 +37,8 @@ public class Music {
     @Column(name = "code", nullable = false, length = 100, unique = true)
     private String code;
 
-    @Column(name = "index", nullable = false)
-    private Integer index;
+    @Column(name = "indexing", nullable = false)
+    private Integer indexing;
 
     @Column(name = "is_title", nullable = false)
     private Boolean isTitle = false;
