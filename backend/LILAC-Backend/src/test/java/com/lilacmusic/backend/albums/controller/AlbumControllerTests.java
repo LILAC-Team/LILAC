@@ -132,12 +132,75 @@ public class AlbumControllerTests {
     }
 
     @Test
+    public void testGetReleasedAlbumsPaging() throws Exception {
+        // given
+
+        // 테스트 데이터 설정
+        AlbumResponse album1 = AlbumResponse.builder().name("hypeboy").code("AAAA").albumImage("AAAA.jpg").build();
+        AlbumResponse album2 = AlbumResponse.builder().name("cookie").code("BBBB").albumImage("BBBB.jpg").build();
+        List<AlbumResponse> releasedAlbums = Arrays.asList(album2, album1);
+
+        // 모킹 설정: albumService의 getUserReleasedAlbums가 테스트 데이터를 반환하도록 함
+        Mockito.when(albumService.getReleasedAlbums(2, 1L))
+                .thenReturn(ReleasedAlbumListResponse.builder()
+                        .releasedAlbumList(releasedAlbums)
+                        .first(false)
+                        .last(true)
+                        .totalElements(8L)
+                        .totalPages(2)
+                        .number(2)
+                        .build());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "test1234");
+
+        // when, then
+
+        // 테스트 실행
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/albums/released/2")
+                        .headers(headers))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.releasedAlbumList[0].name").value("cookie"))
+                .andExpect(jsonPath("$.releasedAlbumList[1].name").value("hypeboy"))
+                .andExpect(jsonPath("$.releasedAlbumList[0].code").value("BBBB"))
+                .andExpect(jsonPath("$.releasedAlbumList[1].code").value("AAAA"))
+                .andExpect(jsonPath("$.releasedAlbumList[0].albumImage").value("BBBB.jpg"))
+                .andExpect(jsonPath("$.releasedAlbumList[1].albumImage").value("AAAA.jpg"))
+                .andExpect(jsonPath("$.first").value("false"))
+                .andExpect(jsonPath("$.last").value("true"))
+                .andExpect(jsonPath("$.totalPages").value("2"))
+                .andExpect(jsonPath("$.totalElements").value("8"))
+        ;
+
+        // 모킹이 올바르게 호출되었는지 확인
+        Mockito.verify(albumService, Mockito.times(1)).getReleasedAlbums(2, 1L);
+
+    }
+
+    @Test
+    public void testGetReleasedAlbumsWrongParameter() throws Exception {
+        // given
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "test1234");
+
+        // when, then
+
+        // 테스트 실행
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/albums/released/aaa")
+                        .headers(headers))
+                .andExpect(status().isBadRequest())
+        ;
+    }
+
+    @Test
     public void testGetReleasedAlbumsNoUser() throws Exception {
 
     }
 
     @Test
-    public void testGetReleasedAlbumsPaging() throws Exception {
+    public void testGetReleasedAlbumsNoHeader() throws Exception {
 
     }
+
+
 }

@@ -1,28 +1,32 @@
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: test
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lilac_mysql?serverTimezone=Asia/Seoul
-    username: ssafy
-    password: ssafy
-
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+  sql:
+    init:
+      mode: always
   jpa:
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    generate-ddl: true
     hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-      open-in-view: true
+      ddl-auto: create-drop
+    database: h2
+    generate-ddl: true
+    defer-datasource-initialization: true
+    show-sql: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL;
+    username: ssafy
+    password:
 
   data:
     mongodb:
@@ -46,6 +50,7 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
+
 
 jwt:
   header: Authorization
