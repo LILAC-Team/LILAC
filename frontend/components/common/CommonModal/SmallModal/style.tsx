@@ -37,7 +37,11 @@ export const ModalWrapper = styled.div`
   }
 `;
 
-export const Modal = styled.div`
+interface ModalProps {
+  width?: string;
+}
+
+export const Modal = styled.div<ModalProps>`
   min-width: ${(props) => props.width || "17.5"}rem;
   background-color: red;
   border-radius: 1.25rem;
