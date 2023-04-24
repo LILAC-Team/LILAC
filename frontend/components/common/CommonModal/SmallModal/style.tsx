@@ -31,15 +31,14 @@ export const ModalContainer = styled.div`
 
 export const ModalWrapper = styled.div`
   margin: auto;
-
   @media (max-width: 48rem) {
     width: 100%;
-    min-width: 19.125rem;
+    min-width: 17.5rem;
   }
 `;
 
 export const Modal = styled.div`
-  min-width: ${(props) => props.width || "33"}rem;
+  min-width: ${(props) => props.width || "17.5"}rem;
   background-color: red;
   border-radius: 1.25rem;
   box-sizing: border-box;

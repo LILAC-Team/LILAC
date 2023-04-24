@@ -1,4 +1,14 @@
+import { isReadable } from "stream";
 import * as S from "./style";
+
+interface BasicInputProps {
+  id: string;
+  type: string;
+  value: string;
+  handleOnChangeValue: Function;
+  placeholder: string;
+  isReadOnly: boolean;
+}
 
 const BasicInput = ({
   id,
@@ -7,14 +17,7 @@ const BasicInput = ({
   handleOnChangeValue,
   placeholder = "",
   isReadOnly = false,
-}: {
-  id: any;
-  type: any;
-  value: any;
-  handleOnChangeValue: any;
-  placeholder: any;
-  isReadOnly: any;
-}) => {
+}: BasicInputProps) => {
   return (
     <S.Input
       id={id}
