@@ -10,12 +10,12 @@ const Home = ({ initValues = false, initInput = "" }) => {
     setIsModalOpen((prev) => !prev);
   };
 
-  const handleOnChangeValue = (e) => {
+  const handleOnChangeValue: Function = (e) => {
     setInputValue(e.target.value);
   };
 
   return isModalOpen ? (
-    <SmallModal handleSetShowModal={handleModal} width="33">
+    <SmallModal handleSetShowModal={handleModal}>
       <div>이번 프로젝트 두렵다</div>
       <BasicInput
         id="input"

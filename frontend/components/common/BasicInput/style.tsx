@@ -3,13 +3,13 @@ import styled from 'styled-components';
 export const Input = styled.input`
   width: 100%;
   height: 2.75rem;
-  padding-left: 0.75rem;
+  font-size: 20px;
   border: none;
-  border-radius: 0.5rem;
-  background-color: white;
+  background-color: transparent;
   margin-bottom: 0.75rem;
-  border: 1px solid transparent;
+  border-bottom: 2px solid black;
   &:focus {
-    border-color: var(red);
+    border-bottom: 3px solid black;
+    outline: none;
   }
 `;

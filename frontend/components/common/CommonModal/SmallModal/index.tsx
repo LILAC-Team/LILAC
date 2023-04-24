@@ -3,15 +3,17 @@ import * as S from "./style";
 import { FiX } from "@react-icons/all-files/fi/FiX";
 import { createPortal } from "react-dom";
 
+interface SmallModalProps {
+  handleSetShowModal: Function;
+  children: React.ReactNode;
+  width?: string;
+}
+
 const SmallModal = ({
   handleSetShowModal,
   children,
-  width,
-}: {
-  handleSetShowModal: any;
-  children: any;
-  width: any;
-}) => {
+  width = "17.5",
+}: SmallModalProps) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
   }, []);
