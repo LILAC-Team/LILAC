@@ -2,7 +2,7 @@ import * as S from "./style";
 
 interface BasicTextProps {
   text: string;
-  size: number;
+  size: string;
   color: string;
   font: string;
 }
