@@ -8,7 +8,6 @@ interface ProfileProps {
 
 export const ProfileImage = styled.div<ProfileProps>`
   width: ${(props) => props.size};
-  height: ${(props) => props.size};
   border-radius: 50%;
   border: 0.125rem solid var(--color-primary);
   aspect-ratio: 1 / 1;
