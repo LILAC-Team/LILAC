@@ -105,7 +105,9 @@
 }
 
 html {
-  --color-background: #2f2f2f;
+  --color-background: #3d3a4b;
+  --color-primary: #cca4fc;
+  --color-light: #e3dfff;
 }
 
 body {
