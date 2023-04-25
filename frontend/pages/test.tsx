@@ -19,9 +19,11 @@ const Test = () => {
       <BasicImage
         src="https://i.namu.wiki/i/m60BZ35BZRrbiqpurjIPB7GAs74I2LPNXe0MuHeEemha3ksZzGJo21PfgIdXn6JXZV0Wnps6xiAMPCVb_BYIwMeDwGEtL1R9Sxe5lmGUb4ZlPMyUO-vxTNG-6RMTR23h-myh5DqQk0h38DUi-wxiUA.jpg"
         size={20}
+        radius={10}
+        isRotate={true}
       />
       <div style={tmpStyle}>
-        {test.releasedAlbumList.map((item, index) => {
+        {test.releasedAlbumList.map((item) => {
           return (
             <AlbumCard
               key={item.code}
