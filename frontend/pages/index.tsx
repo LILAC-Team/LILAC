@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import BasicInput from "@/components/common/BasicInput";
+import BasicSlider from "@/components/Home/BasicSlider";
 
 const Home = ({ initValues = false, initInput = "" }) => {
   const [isModalOpen, setIsModalOpen] = useState(initValues);
@@ -27,7 +28,10 @@ const Home = ({ initValues = false, initInput = "" }) => {
       />
     </SmallModal>
   ) : (
-    <button onClick={handleModal}>버튼</button>
+    <Fragment>
+      <button onClick={handleModal}>버튼</button>
+      <BasicSlider />
+    </Fragment>
   );
 };
 
