@@ -48,10 +48,13 @@ spring:
       max-request-size: 100MB
 
 jwt:
-  header: Authorization
-  secret: hellothisislilacmusicsdevelopversionsecretkey
-  access-token-validity-milliseconds: 1800000
-  refresh-token-validity-milliseconds: 604800000
+  secretKey: ${JWT_SECRET_KEY}
+  access:
+    expiration: 3600000 # 1시간
+    header: Authorization
+  refresh:
+    expiration: 1209600000 # 2주
+    header: Authorization-refresh
 
 logging:
   level:
