@@ -5,7 +5,7 @@ interface BasicInputProps {
   id: string;
   type: string;
   value: string;
-  handleOnChangeValue: Function;
+  handleOnChangeValue: () => void;
   placeholder: string;
   isReadOnly: boolean;
 }

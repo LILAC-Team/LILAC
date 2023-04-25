@@ -1,21 +1,19 @@
 import styled from "styled-components";
-// import defalutProfile from "../../../assets/img/common/defaultProfile.svg";
+
 interface ProfileProps {
   src?: string;
-  size: number;
+  size: string;
   to?: string;
 }
 
 export const ProfileImage = styled.div<ProfileProps>`
-  width: ${(props) => props.size}rem;
-  height: ${(props) => props.size}rem;
+  width: ${(props) => props.size};
   border-radius: 50%;
-  border: 0.125rem solid #d7aedc;
-  background-color: var(--color-primary);
+  border: 0.125rem solid var(--color-primary);
+  aspect-ratio: 1 / 1;
 
   background-size: cover;
   background-image: url(${(props) => `${props.src}`});
-  /* background-image: ${(props) => `url(${props.src})` || ""}; */
   background-position: center center;
 
   display: flex;
