@@ -5,20 +5,20 @@ import { MdModeEdit } from "@react-icons/all-files/md/MdModeEdit";
 interface ProfileImgProps {
   src?: string;
   size: number;
-  to?: string;
+  onClickEvent: () => void;
   isEditable?: boolean;
 }
 
 const ProfileImg = ({
   src = "/defaultProfile.svg",
   size,
+  onClickEvent,
   isEditable,
-  to = "",
 }: ProfileImgProps) => {
   return (
     <Fragment>
       {isEditable ? (
-        <S.ProfileImage src={src} size={size}>
+        <S.ProfileImage src={src} size={size} onClick={onClickEvent}>
           <S.EditIconWrapper>
             <label htmlFor="featured-image">
               <MdModeEdit className="edit-icon" size={20} />
@@ -32,7 +32,7 @@ const ProfileImg = ({
           </S.EditIconWrapper>
         </S.ProfileImage>
       ) : (
-        <S.ProfileImage src={src} size={size} to={to} />
+        <S.ProfileImage src={src} size={size} onClick={onClickEvent} />
       )}
     </Fragment>
   );
