@@ -3,7 +3,7 @@ import React from "react";
 
 interface BasicImageProps {
   src: string;
-  size: number;
+  size: string;
   radius?: number;
   isRotate?: boolean;
 }
