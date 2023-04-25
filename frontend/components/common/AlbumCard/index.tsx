@@ -17,12 +17,12 @@ const AlbumCard = ({ onClickEvent, data, showAlbumDetail }: AlbumCardProps) => {
   return (
     <S.AlbumCard onClick={onClickEvent}>
       <S.AlbumCardImg>
-        <BasicImage src={data.albumImage} size={12} />
+        <BasicImage src={data.albumImage} size="12rem" />
       </S.AlbumCardImg>
       <S.AlbumCardTitle>
         <BasicText
           text={data.name}
-          size={1.5}
+          size="1.5rem"
           color={"#ffffff"}
           font={""}
         ></BasicText>
@@ -37,7 +37,7 @@ const AlbumCard = ({ onClickEvent, data, showAlbumDetail }: AlbumCardProps) => {
               "." +
               data.releasedDate.split("-")[1]
             }
-            size={1}
+            size="1rem"
             color={"#ffffff"}
             font={""}
           ></BasicText>
