@@ -13,13 +13,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class RecentCommentResponse {
-    private String code;
 
     private String content;
 
     private Integer presentTime;
-
-    private LocalDateTime createdTime;
 
     private UserInfoResponse userInfo;
 }
