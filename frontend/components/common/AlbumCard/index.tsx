@@ -15,9 +15,9 @@ interface AlbumCardProps {
 
 const AlbumCard = ({ onClickEvent, data, showAlbumDetail }: AlbumCardProps) => {
   return (
-    <S.AlbumCard onClick={onClickEvent}>
+    <S.AlbumCard showAlbumDetail={showAlbumDetail} onClick={onClickEvent}>
       <S.AlbumCardImg>
-        <BasicImage src={data.albumImage} size={12} />
+        <BasicImage src={data.albumImage} size={5} />
       </S.AlbumCardImg>
       <S.AlbumCardTitle>
         <BasicText

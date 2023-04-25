@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import BasicInput from "@/components/common/BasicInput";
 import BasicSlider from "@/components/Home/BasicSlider";
+import { DragAndDrop } from "@/components/Container/DragAndDrop";
 
 const Home = ({ initValues = false, initInput = "" }) => {
   const [isModalOpen, setIsModalOpen] = useState(initValues);
@@ -31,6 +32,7 @@ const Home = ({ initValues = false, initInput = "" }) => {
     <Fragment>
       <button onClick={handleModal}>버튼</button>
       <BasicSlider />
+      <DragAndDrop />
     </Fragment>
   );
 };
