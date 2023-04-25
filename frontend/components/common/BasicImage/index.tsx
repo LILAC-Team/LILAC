@@ -3,12 +3,17 @@ import React from "react";
 
 interface BasicImageProps {
   src: string;
-  size: string;
+  size?: string;
   radius?: number;
   isRotate?: boolean;
 }
 
-const BasicImage = ({ src, size, radius, isRotate }: BasicImageProps) => {
+const BasicImage = ({
+  src,
+  size = "100%",
+  radius,
+  isRotate,
+}: BasicImageProps) => {
   return (
     <S.BasicImage src={src} size={size} radius={radius} isRotate={isRotate} />
   );
