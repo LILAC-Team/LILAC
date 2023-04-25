@@ -11,18 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MusicDetailResponse {
-
-    private String name;
-
-    private String artistName;
-
-    private Integer playtime;
-
-    private String storagePath;
-
-    private String code;
-
-    List<RecentCommentResponse> recentCommentList;
-
+public class CommentListResponse {
+    List<CommentResponse> commentList;
+    private Integer totalPages;
+    private Long totalElements;
+    private Integer number;
+    private Boolean first;
+    private Boolean last;
 }

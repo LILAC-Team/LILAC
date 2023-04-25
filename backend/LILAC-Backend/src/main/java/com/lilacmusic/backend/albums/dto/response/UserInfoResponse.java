@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserAlbumResponse {
-
-    private String email;
+public class UserInfoResponse {
 
     private String nickname;
 

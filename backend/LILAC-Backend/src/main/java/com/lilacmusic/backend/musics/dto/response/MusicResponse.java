@@ -18,8 +18,6 @@ public class MusicResponse {
 
     private Integer playtime;
 
-    private String storagePath;
-
     private String code;
 
     private Integer musicIndex;

@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
-import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,5 +27,5 @@ public class AlbumDetailResponse {
 
     private List<MusicResponse> musicList;
 
-    private UserAlbumResponse user;
+    private UserInfoResponse userInfo;
 }
