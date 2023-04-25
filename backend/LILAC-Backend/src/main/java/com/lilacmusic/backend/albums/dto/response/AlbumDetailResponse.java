@@ -17,7 +17,7 @@ public class AlbumDetailResponse {
 
     private String code;
 
-    private Long userId;
+    private AlbumStatus albumStatus;
 
     private String name;
 
@@ -28,4 +28,5 @@ public class AlbumDetailResponse {
     private List<MusicResponse> musicList;
 
     private UserInfoResponse userInfo;
+
 }

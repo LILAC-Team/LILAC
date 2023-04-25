@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 
@@ -15,4 +16,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 
     @Query(value = "SELECT a.code, a.name, a.albumImage, a.releasedDate, u.nickname FROM UserCollectAlbum ua INNER JOIN Album a ON ua.albumId = a.albumId INNER JOIN User u ON a.userId = u.userId WHERE ua.userId = ?1")
     Page<Object[]> getAlbumsByUserCollectAlbums(Long userId, Pageable pageable);
+
+    Optional<Album> getAlbumByCode(String code);
 }
