@@ -1,0 +1,38 @@
+package com.lilacmusic.backend.albums.controller;
+
+import com.lilacmusic.backend.albums.dto.response.CollectedAlbumListResponse;
+import com.lilacmusic.backend.albums.dto.response.ReleasedAlbumListResponse;
+import com.lilacmusic.backend.albums.service.AlbumService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/v1/albums")
+@RequiredArgsConstructor
+public class AlbumController {
+    private final AlbumService albumService;
+
+    @GetMapping("/released/{pageNumber}")
+    public ResponseEntity<ReleasedAlbumListResponse> getReleasedAlbums(@PathVariable("pageNumber") Integer pageNumber,
+                                                                        @RequestHeader HttpHeaders headers){
+//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
+        Long userId = 1L;
+
+        ReleasedAlbumListResponse response = albumService.getReleasedAlbums(pageNumber, userId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/collected/{pageNumber}")
+    public ResponseEntity<CollectedAlbumListResponse> getCollectedAlbums(@PathVariable("pageNumber") Integer pageNumber,
+                                                                        @RequestHeader HttpHeaders headers){
+//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
+        Long userId = 1L;
+
+        CollectedAlbumListResponse response = albumService.getCollectedAlbums(pageNumber, userId);
+        return ResponseEntity.ok().body(response);
+    }
+
+}
