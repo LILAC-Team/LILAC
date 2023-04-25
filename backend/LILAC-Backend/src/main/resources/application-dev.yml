@@ -74,7 +74,7 @@ logging:
         registration:
           kakao:
             client-id: ${KAKAO_ID}
-            redirect-uri: "http://localhost:8080/api/v1/oauth2/code/kakao"
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
             client-authentication-method: POST
             client-secret: ${KAKAO_SECRET}
             authorization-grant-type: authorization_code
