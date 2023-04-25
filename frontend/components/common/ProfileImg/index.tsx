@@ -5,8 +5,8 @@ import defalutProfile from "../../../assets/img/common/defaultProfile.png";
 interface ProfileImgProps {
   src: string;
   size: number;
-  isEditable: boolean;
   to?: string;
+  isEditable?: boolean;
 }
 
 const ProfileImg = ({ src, size, isEditable, to = "" }: ProfileImgProps) => {

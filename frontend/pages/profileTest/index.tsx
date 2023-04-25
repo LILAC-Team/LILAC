@@ -2,14 +2,17 @@
 
 import React from "react";
 import ProfileImg from "@/components/common/ProfileImg";
+import * as S from "./style";
 
 const ProfileTest = () => {
   return (
-    <ProfileImg
-      src="https://source.unsplash.com/user/c_v_r"
-      size={10}
-      isEditable={true}
-    />
+    <S.Container>
+      <ProfileImg
+        src="https://source.unsplash.com/user/c_v_r"
+        size={12}
+        isEditable={true}
+      />
+    </S.Container>
   );
 };
 

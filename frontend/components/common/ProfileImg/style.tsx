@@ -29,14 +29,16 @@ export const ProfileImage = styled.div<ProfileProps>`
 `;
 
 export const EditIconWrapper = styled.div`
-  /* position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0; */
-  /* position: relative; */
-  /* z-index: 2; */
+  display: flex;
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const EditIcon = styled.input`
