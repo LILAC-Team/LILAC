@@ -1,9 +1,8 @@
 package com.lilacmusic.backend.users.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.lilacmusic.backend.users.model.enums.Role;
+import com.lilacmusic.backend.users.model.enums.SocialType;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -25,6 +24,9 @@ public class User {
 
     @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
+
+    @Column(name = "oauth2_id", unique = true, nullable = false)
+    private String oAuth2Id;
 
     @Column(name = "nickname", length = 50, nullable = false)
     private String nickname;
@@ -49,4 +51,22 @@ public class User {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private SocialType socialType; // KAKAO, NAVER, GOOGLE
+
+    private String socialId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null)
+
+    private String refreshToken; // 리프레시 토큰
+
+
+    // 유저 권한 설정 메소드
+    public void authorizeUser() {
+        this.role = Role.USER;
+    }
+
+
 }
+
