@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface ProfileProps {
-  src: string;
+  src?: string;
   size: number;
   to?: string;
 }
@@ -10,6 +10,7 @@ export const ProfileImage = styled.div<ProfileProps>`
   width: ${(props) => props.size}rem;
   height: ${(props) => props.size}rem;
   border-radius: 50%;
+  border: 0.125rem solid #d7aedc;
 
   background-size: cover;
   background-image: url(${(props) => props.src});
@@ -19,13 +20,6 @@ export const ProfileImage = styled.div<ProfileProps>`
   align-items: center;
   justify-content: center;
   position: relative;
-
-  .editable {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
 `;
 
 export const EditIconWrapper = styled.div`

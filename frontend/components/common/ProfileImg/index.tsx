@@ -1,19 +1,26 @@
 import * as S from "./style";
 import { MdModeEdit } from "@react-icons/all-files/md/MdModeEdit";
-import defalutProfile from "../../../assets/img/common/defaultProfile.png";
+// import defalutProfile from "../../../assets/img/common/defaultProfile.png";
 
 interface ProfileImgProps {
-  src: string;
+  // src?: string | typeof defalutProfile;
+  src?: string;
   size: number;
   to?: string;
   isEditable?: boolean;
 }
 
-const ProfileImg = ({ src, size, isEditable, to = "" }: ProfileImgProps) => {
+const ProfileImg = ({
+  src = "../../../assets/img/common/defaultProfile.svg",
+  // src = defalutProfile,
+  size,
+  isEditable,
+  to = "",
+}: ProfileImgProps) => {
   return (
     <>
       {isEditable ? (
-        <S.ProfileImage className="editable" src={src} size={size}>
+        <S.ProfileImage src={src} size={size}>
           <S.EditIconWrapper>
             <label htmlFor="featured-image">
               <MdModeEdit className="edit-icon" size={20} />

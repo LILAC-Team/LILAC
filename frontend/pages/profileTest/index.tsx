@@ -9,7 +9,7 @@ const ProfileTest = () => {
     <S.Container>
       <ProfileImg
         src="https://source.unsplash.com/user/c_v_r"
-        size={12}
+        size={15}
         isEditable={true}
       />
     </S.Container>
