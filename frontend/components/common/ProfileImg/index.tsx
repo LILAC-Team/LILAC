@@ -4,14 +4,14 @@ import { MdModeEdit } from "@react-icons/all-files/md/MdModeEdit";
 
 interface ProfileImgProps {
   src?: string;
-  size: number;
+  size?: string;
   onClickEvent: () => void;
   isEditable?: boolean;
 }
 
 const ProfileImg = ({
   src = "/defaultProfile.svg",
-  size,
+  size = "100%",
   onClickEvent,
   isEditable,
 }: ProfileImgProps) => {
