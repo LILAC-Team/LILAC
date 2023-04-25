@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { keyframes } from "styled-components";
 
 interface ImageProps {
-  size: string;
+  size?: string;
   radius?: number;
   isRotate?: boolean;
 }

@@ -2,12 +2,12 @@ import * as S from "./style";
 
 interface BasicTextProps {
   text: string;
-  size: string;
+  size?: string;
   color: string;
   font: string;
 }
 
-const BasicText = ({ text, size, color, font }: BasicTextProps) => {
+const BasicText = ({ text, size = "100%", color, font }: BasicTextProps) => {
   return (
     <S.Text size={size} color={color} font={font}>
       {text}
