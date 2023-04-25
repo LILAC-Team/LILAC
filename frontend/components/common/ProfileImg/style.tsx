@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 interface ProfileProps {
   src?: string;
-  size: number;
+  size: string;
   to?: string;
 }
 
 export const ProfileImage = styled.div<ProfileProps>`
-  width: ${(props) => props.size}rem;
-  height: ${(props) => props.size}rem;
+  width: ${(props) => props.size};
   border-radius: 50%;
   border: 0.125rem solid var(--color-primary);
+  aspect-ratio: 1 / 1;
 
   background-size: cover;
   background-image: url(${(props) => `${props.src}`});
