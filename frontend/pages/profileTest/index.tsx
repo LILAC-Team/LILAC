@@ -7,11 +7,7 @@ import * as S from "./style";
 const ProfileTest = () => {
   return (
     <S.Container>
-      <ProfileImg
-        src="https://source.unsplash.com/user/c_v_r"
-        size={15}
-        isEditable={true}
-      />
+      <ProfileImg size={15} isEditable={true} />
     </S.Container>
   );
 };

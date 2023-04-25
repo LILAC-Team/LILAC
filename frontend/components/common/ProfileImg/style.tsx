@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+// import defalutProfile from "../../../assets/img/common/defaultProfile.svg";
 interface ProfileProps {
   src?: string;
   size: number;
@@ -11,9 +11,11 @@ export const ProfileImage = styled.div<ProfileProps>`
   height: ${(props) => props.size}rem;
   border-radius: 50%;
   border: 0.125rem solid #d7aedc;
+  background-color: var(--color-primary);
 
   background-size: cover;
-  background-image: url(${(props) => props.src});
+  background-image: url(${(props) => `${props.src}`});
+  /* background-image: ${(props) => `url(${props.src})` || ""}; */
   background-position: center center;
 
   display: flex;
@@ -41,5 +43,6 @@ export const EditIcon = styled.input`
   height: 0;
   padding: 0;
   overflow: hidden;
+  display: none;
   border: 0;
 `;

@@ -1,9 +1,8 @@
+import { Fragment } from "react";
 import * as S from "./style";
 import { MdModeEdit } from "@react-icons/all-files/md/MdModeEdit";
-// import defalutProfile from "../../../assets/img/common/defaultProfile.png";
 
 interface ProfileImgProps {
-  // src?: string | typeof defalutProfile;
   src?: string;
   size: number;
   to?: string;
@@ -11,14 +10,13 @@ interface ProfileImgProps {
 }
 
 const ProfileImg = ({
-  src = "../../../assets/img/common/defaultProfile.svg",
-  // src = defalutProfile,
+  src = "/defaultProfile.svg",
   size,
   isEditable,
   to = "",
 }: ProfileImgProps) => {
   return (
-    <>
+    <Fragment>
       {isEditable ? (
         <S.ProfileImage src={src} size={size}>
           <S.EditIconWrapper>
@@ -36,7 +34,7 @@ const ProfileImg = ({
       ) : (
         <S.ProfileImage src={src} size={size} to={to} />
       )}
-    </>
+    </Fragment>
   );
 };
 
