@@ -3,15 +3,13 @@ import BasicText from "../BasicText";
 import ProfileImg from "../ProfileImg";
 import * as S from "./style";
 
-const Header = () => {
-  const [isUser, setIsUser] = useState<boolean>(true);
+interface HeaderProps {
+  isShown?: boolean;
+}
 
+const Header = ({ isShown = true }: HeaderProps) => {
   const handleProfileClick = () => {
-    if (isUser) {
-      console.log("Navigate to User Profile Page");
-    } else {
-      console.log("Navigate to Landing Page");
-    }
+    console.log("Navigate to User Profile Page");
   };
   const handleLogoClick = () => {
     console.log("Navigate to Main Page");
@@ -22,13 +20,15 @@ const Header = () => {
       <S.LogoWrapper onClick={handleLogoClick}>
         <BasicText
           text="LILAC"
-          size="5rem"
           font=""
-          color="linear-gradient(0deg, rgba(216,194,254,1) 0%, rgba(204,164,252,1) 35%, rgba(61,58,75,1) 100%)"
+          background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 55%, rgba(216,194,254,1) 100%)"
+          color="transparent"
+          clip={true}
         />
       </S.LogoWrapper>
-      <ProfileImg size="10%" onClickEvent={handleProfileClick} />
-      {/* <S.ProfileWrapper></S.ProfileWrapper> */}
+      <S.ProfileWrapper>
+        {isShown && <ProfileImg onClickEvent={handleProfileClick} />}
+      </S.ProfileWrapper>
     </S.HeaderWrapper>
   );
 };
