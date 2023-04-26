@@ -1,57 +1,59 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-export const DragAndDrop = () => {
-  const [dragItem, setDragItem] = useState(0);
-  const [list, setList] = useState([
-    "The Call Of Ktulu",
-    "For Whom The Bell Tolls",
-    "The Day That Never Comes",
-    "The Memory Remains",
-    "Confusion",
-    "Moth Into Flame",
-    "The Outlaw Torn",
-    "No Leaf Clover",
-    "Halo on Fire",
-  ]);
+const DragAndDrop = ({ list, setList }) => {
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
 
-  const handleDragStart = (index) => {
-    setDragItem(index);
-  };
+    const items = Array.from(list);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
 
-  const handleDragEnter = (e, index) => {
-    e.target.style.backgroundColor = "#336699";
-    const newList = [...list];
-    const item = newList[dragItem];
-    newList.splice(dragItem, 1);
-    newList.splice(index, 0, item);
-    setDragItem(index);
-    setList(newList);
-  };
-
-  const handleDragLeave = (e) => {
-    e.target.style.backgroundColor = "black";
-  };
-
-  const handleDrop = (e) => {
-    e.target.style.backgroundColor = "black";
+    setList(items);
   };
 
   return (
-    <ul className="dnd">
-      {list &&
-        list.map((item, index) => (
-          <li
-            draggable
-            key={index}
-            onDragStart={() => handleDragStart(index)}
-            onDragEnter={(e) => handleDragEnter(e, index)}
-            onDragLeave={(e) => handleDragLeave(e)}
-            onDrop={(e) => handleDrop(e)}
-            onDragOver={(e) => e.preventDefault()}
-          >
-            {item}
-          </li>
-        ))}
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <Droppable droppableId="list">
+        {(provided) => (
+          <ul {...provided.droppableProps} ref={provided.innerRef}>
+            {list.map(({ id, content }, index) => (
+              <Draggable key={id} draggableId={id} index={index}>
+                {(provided) => (
+                  <li
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                    {content}
+                  </li>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </ul>
+        )}
+      </Droppable>
+    </DragDropContext>
+  );
+};
+
+const DragAndDropWithClientOnly = ({ list, setList }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return isClient ? (
+    <DragAndDrop list={list} setList={setList} />
+  ) : (
+    <ul>
+      {list.map(({ id, content }) => (
+        <li key={id}>{content}</li>
+      ))}
     </ul>
   );
 };
+
+export default DragAndDropWithClientOnly;

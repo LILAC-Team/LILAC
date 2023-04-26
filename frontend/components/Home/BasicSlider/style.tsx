@@ -9,9 +9,8 @@ export const DummyWrap = styled.div`
 `;
 
 export const AlbumWrap = styled.div`
-  /* width: 100%; */
   display: flex;
+  aspect-ratio: 1/1.5;
   height: auto;
-  /* object-fit: contain; */
 `;
 export const ContentWrap = styled.div``;

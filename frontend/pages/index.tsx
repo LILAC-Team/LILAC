@@ -12,7 +12,7 @@ const Home = ({ initValues = false, initInput = "" }) => {
     setIsModalOpen((prev) => !prev);
   };
 
-  const handleOnChangeValue: Function = (e) => {
+  const handleOnChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 

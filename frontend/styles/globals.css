@@ -1,5 +1,7 @@
 :root {
-  --max-width: 1100px;
+  --max-width: 900px;
+  /* --max-width: 1100px; */
+
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
@@ -111,9 +113,10 @@ html {
 }
 
 body {
-  font-family: "NotoSansKR700", "NotoSansKR500", "NotoSansKR400", sans-serif;
+  font-family: "NotoSansKR400", "NotoSansKR500", "NotoSansKR700", sans-serif;
   max-width: 100vw;
   margin: 0rem;
+  color: red;
   padding: 0rem 1rem 0rem 1rem;
   overflow-x: hidden;
   background: var(--color-background);
