@@ -1,7 +1,21 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const AlbumCard = styled.div`
+interface AlbumCardProps {
+  showAlbumDetail: boolean;
+}
+
+export const AlbumCard = styled.div<AlbumCardProps>`
+  width: 100%;
   display: grid;
+
+  ${(props) =>
+    props.showAlbumDetail
+      ? css`
+          grid-template-rows: 2fr 1fr 1fr;
+        `
+      : css`
+          grid-template-rows: 2fr 1fr;
+        `}
   align-items: center;
   justify-content: center;
   text-align: center;

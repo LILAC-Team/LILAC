@@ -5,7 +5,7 @@ interface BasicInputProps {
   id: string;
   type: string;
   value: string;
-  handleOnChangeValue: () => void;
+  handleOnChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   isReadOnly: boolean;
 }

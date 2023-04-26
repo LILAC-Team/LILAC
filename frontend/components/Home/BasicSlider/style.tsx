@@ -8,4 +8,9 @@ export const DummyWrap = styled.div`
   align-items: center;
 `;
 
+export const AlbumWrap = styled.div`
+  display: flex;
+  aspect-ratio: 1/1.5;
+  height: auto;
+`;
 export const ContentWrap = styled.div``;
