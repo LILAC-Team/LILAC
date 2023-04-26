@@ -19,7 +19,7 @@ const Header = ({ isShown = true }: HeaderProps) => {
           <BasicText
             text="LILAC"
             font=""
-            size="3rem"
+            size="2.3rem"
             background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
             color="transparent"
             clip={true}
