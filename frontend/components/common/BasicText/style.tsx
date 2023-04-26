@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface TextProps {
   color: string;
-  size: string;
+  size?: string;
   font: string;
 }
 

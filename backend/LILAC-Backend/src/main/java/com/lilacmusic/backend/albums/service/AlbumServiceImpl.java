@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AlbumServiceImpl implements AlbumService{
+public class AlbumServiceImpl implements AlbumService {
     private static final int PAGE_SIZE = 6;
 
     private final AlbumRepository albumRepository;
@@ -41,21 +41,21 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public ReleasedAlbumListResponse getReleasedAlbums(Integer pageNumber, Long userId) {
         Page<Object[]> albumPage = albumRepository.getAlbumsByUserId(userId,
-                PageRequest.of(pageNumber-1, PAGE_SIZE, Sort.Direction.DESC, "releasedDate"));
+                PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "releasedDate"));
         Page<AlbumResponse> albumResponsePage = albumPage.map(album -> {
-                log.debug(Arrays.toString(album));
-                return AlbumResponse.builder()
-                .code((String) album[0])
-                .name((String) album[1])
-                .albumImage((String) album[2])
-                .releasedDate((LocalDateTime) album[3])
-                .nickname((String) album[4])
-                .build();
+            log.debug(Arrays.toString(album));
+            return AlbumResponse.builder()
+                    .code((String) album[0])
+                    .name((String) album[1])
+                    .albumImage((String) album[2])
+                    .releasedDate((LocalDateTime) album[3])
+                    .nickname((String) album[4])
+                    .build();
         });
 
         ReleasedAlbumListResponse response = ReleasedAlbumListResponse.builder()
                 .releasedAlbumList(albumResponsePage.getContent())
-                .number(albumResponsePage.getNumber()+1)
+                .number(albumResponsePage.getNumber() + 1)
                 .totalPages(albumResponsePage.getTotalPages())
                 .totalElements(albumResponsePage.getTotalElements())
                 .first(albumResponsePage.isFirst())
@@ -67,7 +67,7 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public CollectedAlbumListResponse getCollectedAlbums(Integer pageNumber, Long userId) {
         Page<Object[]> albumPage = albumRepository.getAlbumsByUserCollectAlbums(userId,
-                PageRequest.of(pageNumber-1, PAGE_SIZE, Sort.Direction.DESC, "createdTime"));
+                PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "createdTime"));
         Page<AlbumResponse> albumResponsePage = albumPage.map(album -> AlbumResponse.builder()
                 .code((String) album[0])
                 .name((String) album[1])
@@ -78,7 +78,7 @@ public class AlbumServiceImpl implements AlbumService{
         );
         CollectedAlbumListResponse response = CollectedAlbumListResponse.builder()
                 .collectedAlbumList(albumResponsePage.getContent())
-                .number(albumResponsePage.getNumber()+1)
+                .number(albumResponsePage.getNumber() + 1)
                 .totalPages(albumResponsePage.getTotalPages())
                 .totalElements(albumResponsePage.getTotalElements())
                 .first(albumResponsePage.isFirst())
@@ -90,7 +90,7 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public AlbumDetailResponse getAlbumDetail(String albumCode, Long userId) throws NoAlbumFoundException {
         Optional<Album> optionalAlbum = albumRepository.getAlbumByCode(albumCode);
-        if (optionalAlbum.isEmpty()){
+        if (optionalAlbum.isEmpty()) {
             throw new NoAlbumFoundException();
         }
         Album album = optionalAlbum.get();
@@ -105,10 +105,11 @@ public class AlbumServiceImpl implements AlbumService{
                 .build()
         ).collect(Collectors.toList());
         User singer = userRepository.getReferenceById(album.getUserId());
-        AlbumStatus albumStatus = AlbumStatus.NOT_COLLECTED;;
-        if (userId.equals(album.getUserId())){
+        AlbumStatus albumStatus = AlbumStatus.NOT_COLLECTED;
+        ;
+        if (userId.equals(album.getUserId())) {
             albumStatus = AlbumStatus.RELEASED;
-        } else if (userCollectAlbumRepository.findByUserIdAndAlbumId(userId, album.getAlbumId()).isPresent()){
+        } else if (userCollectAlbumRepository.findByUserIdAndAlbumId(userId, album.getAlbumId()).isPresent()) {
             albumStatus = AlbumStatus.COLLECTED;
         }
 

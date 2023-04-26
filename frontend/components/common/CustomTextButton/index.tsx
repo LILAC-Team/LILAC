@@ -3,7 +3,7 @@ import BasicText from "../BasicText";
 
 interface CustomTextButtonProps {
   text: string;
-  size: string;
+  size?: string;
   font: string;
   fontColor: string;
   border?: string;
@@ -14,7 +14,7 @@ interface CustomTextButtonProps {
 
 const CustomTextButton = ({
   text,
-  size,
+  size = "100%",
   font,
   fontColor,
   border,
