@@ -13,7 +13,11 @@ interface AlbumCardProps {
   showAlbumDetail: boolean;
 }
 
-const AlbumCard = ({ onClickEvent, data, showAlbumDetail }: AlbumCardProps) => {
+const AlbumCard = ({
+  onClickEvent,
+  data,
+  showAlbumDetail = false,
+}: AlbumCardProps) => {
   return (
     <S.AlbumCard onClick={onClickEvent}>
       <S.AlbumCardImg>

@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import test from "./test.json";
 import CustomTextButton from "@/components/common/CustomTextButton";
+import CustomIconButton from "@/components/common/CustomIconButton";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const Test = () => {
   const router = useRouter();
@@ -49,6 +51,17 @@ const Test = () => {
           // isDisabled={true}
           handleOnClickButton={tmpFunction}
         />
+      </div>
+      <div style={btnStyle}>
+        <CustomIconButton
+          color="#d47a7a"
+          size="5rem"
+          // border="5px dashed black"
+          // isDisabled={true}
+          handleOnClickButton={tmpFunction}
+        >
+          <AiOutlinePlus color="#ffffff" size="5rem" />
+        </CustomIconButton>
       </div>
     </>
   );
