@@ -1,4 +1,4 @@
-import { useState } from "react";
+import Link from "next/link";
 import BasicText from "../BasicText";
 import ProfileImg from "../ProfileImg";
 import * as S from "./style";
@@ -11,23 +11,27 @@ const Header = ({ isShown = true }: HeaderProps) => {
   const handleProfileClick = () => {
     console.log("Navigate to User Profile Page");
   };
-  const handleLogoClick = () => {
-    console.log("Navigate to Main Page");
-  };
 
   return (
     <S.HeaderWrapper>
-      <S.LogoWrapper onClick={handleLogoClick}>
-        <BasicText
-          text="LILAC"
-          font=""
-          background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 55%, rgba(216,194,254,1) 100%)"
-          color="transparent"
-          clip={true}
-        />
-      </S.LogoWrapper>
+      <Link href={"/"}>
+        <S.LogoWrapper>
+          <BasicText
+            text="LILAC"
+            font=""
+            size="3rem"
+            background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
+            color="transparent"
+            clip={true}
+          />
+        </S.LogoWrapper>
+      </Link>
       <S.ProfileWrapper>
-        {isShown && <ProfileImg onClickEvent={handleProfileClick} />}
+        {isShown && (
+          <Link href={"/"}>
+            <ProfileImg onClickEvent={handleProfileClick} />
+          </Link>
+        )}
       </S.ProfileWrapper>
     </S.HeaderWrapper>
   );
