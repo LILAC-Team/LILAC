@@ -20,6 +20,10 @@ export const ProfileImage = styled.div<ProfileProps>`
   align-items: center;
   justify-content: center;
   position: relative;
+
+  // Additional Design Change
+  margin: 1%;
+  // ========================
 `;
 
 export const EditIconWrapper = styled.div`
