@@ -4,7 +4,9 @@ import com.lilacmusic.backend.albums.dto.response.UserInfoResponse;
 import com.lilacmusic.backend.musics.dto.request.CommentRequest;
 import com.lilacmusic.backend.musics.dto.response.CommentListResponse;
 import com.lilacmusic.backend.musics.dto.response.CommentResponse;
+import com.lilacmusic.backend.musics.exceptions.NoCommentFoundException;
 import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
+import com.lilacmusic.backend.musics.exceptions.NotMyCommentException;
 import com.lilacmusic.backend.musics.model.entity.Comment;
 import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.entity.RecentComment;
@@ -106,5 +108,28 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return comment.getCommentId();
+    }
+
+    @Override
+    @Transactional
+    public Long deleteMusicComment(Long userId, String musicCode, String commentCode) throws NoCommentFoundException, NotMyCommentException {
+        Optional<Comment> optionalComment = commentRepository.findByCode(commentCode);
+        if (optionalComment.isEmpty()) {
+            throw new NoCommentFoundException();
+        }
+        if (!userId.equals(optionalComment.get().getUserId())) {
+            throw new NotMyCommentException();
+        }
+        // 지우는 댓글과 최신 댓글 비교해서 같은 댓글일시 둘다 삭제
+        Optional<RecentComment> recentComment = recentCommentRepository
+                .getRecentCommentByMusicIdAndPresentTime(optionalComment.get().getMusicId(), optionalComment.get().getPresentTime());
+        if (recentComment.isPresent() && optionalComment.get().getUserId().equals(recentComment.get().getUserId())
+                && optionalComment.get().getContent().equals(recentComment.get().getContent())) {
+            recentCommentRepository.delete(recentComment.get());
+        }
+        Long id = optionalComment.get().getCommentId();
+        commentRepository.delete(optionalComment.get());
+
+        return id;
     }
 }
