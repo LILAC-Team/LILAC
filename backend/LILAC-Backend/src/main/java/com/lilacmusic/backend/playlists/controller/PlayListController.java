@@ -1,5 +1,6 @@
 package com.lilacmusic.backend.playlists.controller;
 
+import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
 import com.lilacmusic.backend.playlists.dto.request.PlayListAddRequest;
 import com.lilacmusic.backend.playlists.dto.request.PlayListRequest;
 import com.lilacmusic.backend.playlists.dto.response.PlayListResponse;
@@ -25,7 +26,7 @@ public class PlayListController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Void> addMusicToPlayList(@RequestHeader HttpHeaders headers, @RequestBody PlayListAddRequest playListAddRequest) {
+    public ResponseEntity<Void> addMusicToPlayList(@RequestHeader HttpHeaders headers, @RequestBody PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
 //        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
         Long userId = 1L;
         Long musicId = playListService.addMusicToPlayList(userId, playListAddRequest);

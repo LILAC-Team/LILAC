@@ -10,12 +10,15 @@ import com.lilacmusic.backend.playlists.model.entitiy.PlayList;
 import com.lilacmusic.backend.playlists.model.entitiy.PlayListMusic;
 import com.lilacmusic.backend.playlists.model.repository.PlayListRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PlayListServiceImpl implements PlayListService {
@@ -43,17 +46,18 @@ public class PlayListServiceImpl implements PlayListService {
     @Override
     @Transactional
     public Long addMusicToPlayList(Long userId, PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
-        Optional<Object[]> optionalMusic = musicRepository.findByCodeWithAlbumImage(playListAddRequest.getCode());
+        List<Object[]> optionalMusic = musicRepository.findByCodeWithAlbumImage(playListAddRequest.getCode());
         if (optionalMusic.isEmpty()) {
             throw new NoMusicFoundException();
         }
+        Object[] music = optionalMusic.get(0);
         Optional<PlayList> playList = playListRepository.findById(userId);
         PlayListMusic newMusic = PlayListMusic.builder()
-                .code((String) optionalMusic.get()[1])
-                .name((String) optionalMusic.get()[2])
-                .artistName((String) optionalMusic.get()[3])
-                .playtime((Integer) optionalMusic.get()[4])
-                .albumImage((String) optionalMusic.get()[6])
+                .code((String) music[1])
+                .name((String) music[2])
+                .artistName((String) music[3])
+                .playtime((Integer) music[4])
+                .albumImage((String) music[6])
                 .build();
         if (playList.isEmpty()) {
             PlayList newPlayList = new PlayList(userId, List.of(newMusic));
@@ -62,7 +66,7 @@ public class PlayListServiceImpl implements PlayListService {
         List<PlayListMusic> list = playList.get().getMusicList();
         list.add(newMusic);
         playListRepository.save(new PlayList(userId, list));
-        return (Long) optionalMusic.get()[0];
+        return (Long) optionalMusic.get(0)[0];
     }
 
     @Override

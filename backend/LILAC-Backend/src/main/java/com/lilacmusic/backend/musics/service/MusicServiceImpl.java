@@ -25,13 +25,14 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public MusicDetailResponse getMusicDetail(String musicCode, Long userId) throws NoMusicFoundException {
-        Optional<Object[]> optionalMusic = musicRepository.findByCodeWithAlbumImage(musicCode);
+        List<Object[]> optionalMusic = musicRepository.findByCodeWithAlbumImage(musicCode);
         if (optionalMusic.isEmpty()) {
             throw new NoMusicFoundException();
         }
+        Object[] music = optionalMusic.get(0);
 
         // 유저의 음원 소유 확인 여부 로직 추가할건지???????????
-        List<Object[]> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc((Long) optionalMusic.get()[0]);
+        List<Object[]> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc((Long) music[0]);
         List<RecentCommentResponse> recentCommentResponseList = recentComments.stream().map(c ->
                 RecentCommentResponse.builder()
                         .content((String) c[0])
@@ -41,12 +42,12 @@ public class MusicServiceImpl implements MusicService {
         ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()
                 .recentCommentList(recentCommentResponseList)
-                .code((String) optionalMusic.get()[1])
-                .name((String) optionalMusic.get()[2])
-                .artistName((String) optionalMusic.get()[3])
-                .playtime((Integer) optionalMusic.get()[4])
-                .storagePath((String) optionalMusic.get()[5])
-                .albumImage((String) optionalMusic.get()[6])
+                .code((String) music[1])
+                .name((String) music[2])
+                .artistName((String) music[3])
+                .playtime((Integer) music[4])
+                .storagePath((String) music[5])
+                .albumImage((String) music[6])
                 .build();
 
         return response;

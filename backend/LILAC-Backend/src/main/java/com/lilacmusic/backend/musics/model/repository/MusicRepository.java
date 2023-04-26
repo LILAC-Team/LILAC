@@ -15,7 +15,7 @@ public interface MusicRepository extends JpaRepository<Music, Long> {
     Optional<Long> findMusicIdByCode(String code);
 
     @Query("SELECT m.musicId, m.code, m.name, m.artistName, m.playtime, m.storagePath, a.albumImage FROM Music m INNER JOIN Album a ON m.albumId = a.albumId WHERE m.code = ?1")
-    Optional<Object[]> findByCodeWithAlbumImage(String code);
+    List<Object[]> findByCodeWithAlbumImage(String code);
 
     List<Music> getAllByAlbumIdOrderByMusicIndex(Long albumId);
 }
