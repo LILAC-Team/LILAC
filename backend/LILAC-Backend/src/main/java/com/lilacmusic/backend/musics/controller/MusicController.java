@@ -1,5 +1,6 @@
 package com.lilacmusic.backend.musics.controller;
 
+import com.lilacmusic.backend.musics.dto.request.CommentRequest;
 import com.lilacmusic.backend.musics.dto.response.CommentListResponse;
 import com.lilacmusic.backend.musics.dto.response.MusicDetailResponse;
 import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
@@ -8,6 +9,7 @@ import com.lilacmusic.backend.musics.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +40,16 @@ public class MusicController {
         Long userId = 1L;
         CommentListResponse response = commentService.getCommentList(musicCode, pageNumber, userId);
         return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/{musicCode}/comments")
+    public ResponseEntity<Void> createMusicComment(@RequestHeader HttpHeaders headers,
+                                                   @RequestBody CommentRequest commentRequest,
+                                                   @PathVariable("musicCode") String musicCode) throws NoMusicFoundException {
+//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
+        Long userId = 1L;
+        Long commentId = commentService.createMusicComment(userId, commentRequest, musicCode);
+        log.info("Comment Created : ID = " + commentId.toString());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
