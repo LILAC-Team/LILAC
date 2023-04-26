@@ -5,7 +5,7 @@ interface TextProps {
   background?: string;
   clip?: boolean;
   size?: string;
-  font: string;
+  font?: string;
 }
 
 export const Text = styled.div<TextProps>`
