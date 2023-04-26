@@ -5,10 +5,29 @@ const Document = ({ styles }) => {
   return (
     <Html>
       <Head>
-        {/* <link
+        <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
           rel="stylesheet"
-        /> */}
+        />
+        <style>
+          {`
+            html {
+              --color-background: #3d3a4b;
+              --color-primary: #cca4fc;
+              --color-light: #e3dfff;
+            }
+            body {
+              font-family: "NotoSansKR700", "NotoSansKR500", "NotoSansKR400", sans-serif;
+              max-width: 100vw;
+              margin: 0rem;
+              padding: 0rem 1rem 0rem 1rem;
+              overflow-x: hidden;
+              background: var(--color-background);
+              color: red;
+            }
+          `}
+        </style>
+        {styles}
       </Head>
       <body>
         <Main />
