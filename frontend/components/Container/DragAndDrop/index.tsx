@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import * as S from "./style";
 const DragAndDrop = ({ list, setList }) => {
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
@@ -16,7 +16,7 @@ const DragAndDrop = ({ list, setList }) => {
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <Droppable droppableId="list">
         {(provided) => (
-          <ul {...provided.droppableProps} ref={provided.innerRef}>
+          <S.DragDropWrap {...provided.droppableProps} ref={provided.innerRef}>
             {list.map(({ id, content }, index) => (
               <Draggable key={id} draggableId={id} index={index}>
                 {(provided) => (
@@ -31,7 +31,7 @@ const DragAndDrop = ({ list, setList }) => {
               </Draggable>
             ))}
             {provided.placeholder}
-          </ul>
+          </S.DragDropWrap>
         )}
       </Droppable>
     </DragDropContext>
@@ -48,11 +48,11 @@ const DragAndDropWithClientOnly = ({ list, setList }) => {
   return isClient ? (
     <DragAndDrop list={list} setList={setList} />
   ) : (
-    <ul>
+    <S.DragDropWrap>
       {list.map(({ id, content }) => (
         <li key={id}>{content}</li>
       ))}
-    </ul>
+    </S.DragDropWrap>
   );
 };
 
