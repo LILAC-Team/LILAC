@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import test from "./test.json";
 import CustomTextButton from "@/components/common/CustomTextButton";
+import CustomIconButton from "@/components/common/CustomIconButton";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const Test = () => {
   const router = useRouter();
@@ -19,7 +21,14 @@ const Test = () => {
   };
   return (
     <>
-      <BasicText text="테스트" color="#ffffff" font="" size="2rem" />
+      <BasicText
+        text="테스트"
+        // color="transparent"
+        // background="linear-gradient(0deg, rgba(216,194,254,1) 0%, rgba(204,164,252,1) 35%, rgba(61,58,75,1) 100%)"
+        font=""
+        // clip={true}
+        size="2rem"
+      />
       <BasicImage
         src="https://i.namu.wiki/i/m60BZ35BZRrbiqpurjIPB7GAs74I2LPNXe0MuHeEemha3ksZzGJo21PfgIdXn6JXZV0Wnps6xiAMPCVb_BYIwMeDwGEtL1R9Sxe5lmGUb4ZlPMyUO-vxTNG-6RMTR23h-myh5DqQk0h38DUi-wxiUA.jpg"
         size="15rem"
@@ -49,6 +58,17 @@ const Test = () => {
           // isDisabled={true}
           handleOnClickButton={tmpFunction}
         />
+      </div>
+      <div style={btnStyle}>
+        <CustomIconButton
+          color="#d47a7a"
+          size="5rem"
+          // border="5px dashed black"
+          // isDisabled={true}
+          handleOnClickButton={tmpFunction}
+        >
+          <AiOutlinePlus color="#ffffff" size="5rem" />
+        </CustomIconButton>
       </div>
     </>
   );

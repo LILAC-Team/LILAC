@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MusicServiceImpl implements MusicService{
+public class MusicServiceImpl implements MusicService {
 
     private final MusicRepository musicRepository;
 
@@ -26,7 +26,7 @@ public class MusicServiceImpl implements MusicService{
     @Override
     public MusicDetailResponse getMusicDetail(String musicCode, Long userId) throws NoMusicFoundException {
         Optional<Music> optionalMusic = musicRepository.findByCode(musicCode);
-        if(optionalMusic.isEmpty()) {
+        if (optionalMusic.isEmpty()) {
             throw new NoMusicFoundException();
         }
         Music music = optionalMusic.get();
@@ -38,7 +38,7 @@ public class MusicServiceImpl implements MusicService{
                         .presentTime((Integer) c[1])
                         .userInfo(new UserInfoResponse((String) c[2], (String) c[3]))
                         .build()
-                ).collect(Collectors.toList());
+        ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()
                 .recentCommentList(recentCommentResponseList)
                 .code(music.getCode())
