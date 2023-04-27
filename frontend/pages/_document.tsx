@@ -22,8 +22,6 @@ const Document = ({ styles }) => {
               margin: 0rem;
               padding: 0rem 1rem 0rem 1rem;
               overflow-x: hidden;
-              background: var(--color-background);
-              color: red;
             }
           `}
         </style>

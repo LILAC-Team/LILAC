@@ -2,11 +2,8 @@ import styled from "styled-components";
 
 export const Modal = styled.div`
   height: 100%;
-  width: 100vw;
+  width: 100%;
   z-index: 10;
-  position: fixed;
-  top: 0;
-  left: 0;
   flex: 1;
   padding: 2rem;
   display: flex;
@@ -20,8 +17,6 @@ export const ModalContent = styled.div`
   min-height: 20rem;
   background-color: transparent;
   border-radius: 1.25rem;
-  /* padding: 2rem 1.5rem; */
-  /* margin: 0.75rem; */
   box-sizing: border-box;
   overflow-y: auto;
 `;

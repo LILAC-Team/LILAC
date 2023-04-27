@@ -7,15 +7,18 @@ interface LargeModalProps {
   children: React.ReactNode;
 }
 
+/**
+ *
+ * handleSetShowModal을 내려줄때,
+ * 반드시,
+ * document.body.style.overflow = " auto";
+ * 코드 포함.
+ */
+
 const LargeModal = ({ handleSetShowModal, children }: LargeModalProps) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
   }, []);
-
-  const closeModal = () => {
-    document.body.style.overflow = " auto";
-    handleSetShowModal();
-  };
 
   return createPortal(
     <S.Modal>
