@@ -7,6 +7,8 @@ import test from "./test.json";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import { AiOutlinePlus } from "react-icons/ai";
+import styled from "styled-components";
+import MusicCard from "@/components/Player/MusicCard";
 
 const Test = () => {
   const router = useRouter();
@@ -35,7 +37,19 @@ const Test = () => {
         radius={10}
         isRotate={true}
       />
-      <div style={tmpStyle}>
+      <Wrap>
+        {test.releasedAlbumList.map((item) => {
+          return (
+            <MusicCard
+              key={item.code}
+              onClickEvent={tmpFunction}
+              data={item}
+              isEditable={true}
+            />
+          );
+        })}
+      </Wrap>
+      <Wrapper>
         {test.releasedAlbumList.map((item) => {
           return (
             <AlbumCard
@@ -46,8 +60,8 @@ const Test = () => {
             />
           );
         })}
-      </div>
-      <div style={btnStyle}>
+      </Wrapper>
+      <Wrapper>
         <CustomTextButton
           text="생성"
           size="2rem"
@@ -58,8 +72,8 @@ const Test = () => {
           // isDisabled={true}
           handleOnClickButton={tmpFunction}
         />
-      </div>
-      <div style={btnStyle}>
+      </Wrapper>
+      <Wrapper>
         <CustomIconButton
           color="#d47a7a"
           size="5rem"
@@ -69,9 +83,19 @@ const Test = () => {
         >
           <AiOutlinePlus color="#ffffff" size="5rem" />
         </CustomIconButton>
-      </div>
+      </Wrapper>
     </>
   );
 };
 
 export default Test;
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
+const Wrap = styled.div`
+  justify-content: center;
+  width: 100%;
+`;
