@@ -29,10 +29,10 @@ public class Member {
     @Column(name = "profile_image", length = 100, nullable = true)
     private String profileImage;
 
-    @Column(name = "release_album_count", nullable = false)
+    @Column(name = "release_album_count", nullable = false, columnDefinition = "integer default 0")
     private Integer releaseAlbumCount;
 
-    @Column(name = "collect_album_count", nullable = false)
+    @Column(name = "collect_album_count", nullable = false, columnDefinition = "integer default 0")
     private Integer collectAlbumCount;
 
     @CreatedDate
@@ -43,7 +43,7 @@ public class Member {
     @Column(name = "modified_time", nullable = false)
     private LocalDateTime modifiedTime;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default false")
     private Boolean isActive;
 
     @Builder
