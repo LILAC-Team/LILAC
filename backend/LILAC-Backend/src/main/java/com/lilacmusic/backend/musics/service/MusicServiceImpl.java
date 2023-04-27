@@ -6,6 +6,7 @@ import com.lilacmusic.backend.musics.dto.response.RecentCommentResponse;
 import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
 import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.entity.RecentComment;
+import com.lilacmusic.backend.musics.model.mapping.MusicImgMapping;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import com.lilacmusic.backend.musics.model.repository.RecentCommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +26,13 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public MusicDetailResponse getMusicDetail(String musicCode, Long userId) throws NoMusicFoundException {
-        Optional<Music> optionalMusic = musicRepository.findByCode(musicCode);
-        if (optionalMusic.isEmpty()) {
+        Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(musicCode);
+        if (music.isEmpty()) {
             throw new NoMusicFoundException();
         }
-        Music music = optionalMusic.get();
+
         // 유저의 음원 소유 확인 여부 로직 추가할건지???????????
-        List<Object[]> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc(music.getMusicId());
+        List<Object[]> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc(music.get().getMusicId());
         List<RecentCommentResponse> recentCommentResponseList = recentComments.stream().map(c ->
                 RecentCommentResponse.builder()
                         .content((String) c[0])
@@ -41,13 +42,23 @@ public class MusicServiceImpl implements MusicService {
         ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()
                 .recentCommentList(recentCommentResponseList)
-                .code(music.getCode())
-                .name(music.getName())
-                .artistName(music.getArtistName())
-                .playtime(music.getPlaytime())
-                .storagePath(music.getStoragePath())
+                .code(music.get().getCode())
+                .name(music.get().getName())
+                .artistName(music.get().getArtistName())
+                .playtime(music.get().getPlaytime())
+                .storagePath(music.get().getStoragePath())
+                .albumImage(music.get().getAlbumImage())
                 .build();
 
         return response;
+    }
+
+    @Override
+    public Long getMusicIdByCode(String code) throws NoMusicFoundException {
+        Optional<Long> musicId = musicRepository.findMusicIdByCode(code);
+        if (musicId.isEmpty()) {
+            throw new NoMusicFoundException();
+        }
+        return musicId.get();
     }
 }

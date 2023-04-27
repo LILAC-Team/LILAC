@@ -5,4 +5,6 @@ import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
 
 public interface MusicService {
     MusicDetailResponse getMusicDetail(String musicCode, Long userId) throws NoMusicFoundException;
+
+    Long getMusicIdByCode(String code) throws NoMusicFoundException;
 }

@@ -35,15 +35,11 @@ public class CommentServiceImpl implements CommentService {
 
     private final RecentCommentRepository recentCommentRepository;
 
-    private final MusicRepository musicRepository;
+    private final MusicService musicService;
 
     @Override
     public CommentListResponse getCommentList(String code, Integer pageNumber, Long userId) throws NoMusicFoundException {
-        Optional<Music> optionalMusic = musicRepository.findByCode(code);
-        if (optionalMusic.isEmpty()) {
-            throw new NoMusicFoundException();
-        }
-        Long musicId = optionalMusic.get().getMusicId();
+        Long musicId = musicService.getMusicIdByCode(code);
         Page<Object[]> commentList = commentRepository.findAllByMusicId(musicId,
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "createdTime"));
         Page<CommentResponse> commentResponsePage = commentList.map(c ->
@@ -70,11 +66,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public Long createMusicComment(Long userId, CommentRequest commentRequest, String musicCode) throws NoMusicFoundException {
-        Optional<Music> optionalMusic = musicRepository.findByCode(musicCode);
-        if (optionalMusic.isEmpty()) {
-            throw new NoMusicFoundException();
-        }
-        Long musicId = optionalMusic.get().getMusicId();
+        Long musicId = musicService.getMusicIdByCode(musicCode);
         String code = UUID.randomUUID().toString();
         Comment comment = Comment.builder()
                 .musicId(musicId)

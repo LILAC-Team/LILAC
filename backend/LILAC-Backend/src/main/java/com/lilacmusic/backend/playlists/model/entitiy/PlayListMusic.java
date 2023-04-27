@@ -1,30 +1,22 @@
-package com.lilacmusic.backend.musics.dto.response;
+package com.lilacmusic.backend.playlists.model.entitiy;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MusicDetailResponse {
-
+public class PlayListMusic {
     private String name;
 
     private String artistName;
 
     private Integer playtime;
 
-    private String storagePath;
-
     private String code;
 
     private String albumImage;
-
-    List<RecentCommentResponse> recentCommentList;
-
 }
