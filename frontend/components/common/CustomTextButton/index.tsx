@@ -17,9 +17,9 @@ const CustomTextButton = ({
   size = "100%",
   font,
   fontColor,
-  border,
-  isBackground,
-  isDisabled,
+  border = "none",
+  isBackground = true,
+  isDisabled = false,
   handleOnClickButton,
 }: CustomTextButtonProps) => {
   return (

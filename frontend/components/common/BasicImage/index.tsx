@@ -11,8 +11,8 @@ interface BasicImageProps {
 const BasicImage = ({
   src,
   size = "100%",
-  radius,
-  isRotate,
+  radius = 1,
+  isRotate = false,
 }: BasicImageProps) => {
   return (
     <S.BasicImage src={src} size={size} radius={radius} isRotate={isRotate} />

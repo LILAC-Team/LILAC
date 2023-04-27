@@ -23,6 +23,8 @@ public class MusicDetailResponse {
 
     private String code;
 
+    private String albumImage;
+
     List<RecentCommentResponse> recentCommentList;
 
 }
