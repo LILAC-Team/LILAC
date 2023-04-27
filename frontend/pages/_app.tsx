@@ -1,4 +1,5 @@
 import Header from "@/components/common/Header";
+import NavigationBar from "@/components/common/NavigationBar";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 // import * as S from "../style";
@@ -19,6 +20,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <>
       <Header />
       <Component {...pageProps} />
+      <NavigationBar />
     </>
   );
 };
