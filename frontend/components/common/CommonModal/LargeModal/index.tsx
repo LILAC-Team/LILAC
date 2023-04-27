@@ -22,7 +22,9 @@ const LargeModal = ({ handleSetShowModal, children }: LargeModalProps) => {
 
   return createPortal(
     <S.Modal>
-      <S.ModalContent>{children}</S.ModalContent>
+      <S.ModalContentWrap>
+        <S.ModalContent>{children}</S.ModalContent>
+      </S.ModalContentWrap>
     </S.Modal>,
     document.body
   );

@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: false,
   webpack: (config) => {
@@ -28,5 +29,5 @@ const nextConfig = {
     return config;
   },
 };
-
+// module.exports = withPlugins([withFonts()], nextConfig);
 module.exports = nextConfig;

@@ -1,10 +1,7 @@
-import Header from "@/components/common/Header";
-import NavigationBar from "@/components/common/NavigationBar";
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-// import * as S from "../style";
-import { Fragment, useEffect } from "react";
-// import "react-beautiful-dnd/style.css";
+import { GlobalStyle } from "@/styles/globalStyle";
+import { useEffect } from "react";
+import Layout from "@/components/common/Layout";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     let vh = window.innerHeight * 0.01;
@@ -18,9 +15,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <Header />
-      <Component {...pageProps} />
-      <NavigationBar />
+      <GlobalStyle />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 };

@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 :root {
   --max-width: 900px;
   /* --max-width: 1100px; */
@@ -125,6 +128,7 @@ html {
   --color-primary: #cca4fc;
   --color-light: #e3dfff;
   height: calc(var(--vh, 1vh) * 100);
+  height: 100%;
   background-color: white;
 }
 
@@ -136,7 +140,7 @@ html {
 }
 
 body {
-  font-family: "NotoSansKR700", "HSBomBaram", "NotoSansKR400", "NotoSansKR500",
+  font-family: "HSBomBaram", "NotoSansKR700", "NotoSansKR400", "NotoSansKR500",
     sans-serif;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
@@ -145,6 +149,9 @@ body {
   padding: 0;
   overflow-x: hidden;
   background: var(--color-background);
+}
+.scrollable {
+  overflow: auto;
 }
 
 a {
@@ -157,3 +164,22 @@ a {
     color-scheme: dark;
   }
 }
+
+@media (max-width: 480px) {
+  * {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 480px) {
+  * {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  * {
+    font-size: 1.2rem;
+  }
+}
+`;
