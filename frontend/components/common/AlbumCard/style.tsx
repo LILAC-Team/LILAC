@@ -29,5 +29,7 @@ export const AlbumCard = styled.div<AlbumCardProps>`
 export const AlbumCardImg = styled.div``;
 export const AlbumCardTitle = styled.div`
   margin: 0.5rem;
+  display: flex;
+  justify-content: center;
 `;
 export const AlbumCardDetail = styled.div``;

@@ -21,10 +21,10 @@ const AlbumCard = ({
   return (
     <S.AlbumCard showAlbumDetail={showAlbumDetail} onClick={onClickEvent}>
       <S.AlbumCardImg>
-        <BasicImage src={data.albumImage} size="50%" />
+        <BasicImage src={data.albumImage} size="100%" />
       </S.AlbumCardImg>
       <S.AlbumCardTitle>
-        <BasicText text={data.name}></BasicText>
+        <BasicText text={data.name} size="150%"></BasicText>
       </S.AlbumCardTitle>
       {showAlbumDetail && (
         <S.AlbumCardDetail>
