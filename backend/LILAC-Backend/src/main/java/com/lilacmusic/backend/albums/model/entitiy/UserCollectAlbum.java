@@ -23,9 +23,9 @@ public class UserCollectAlbum {
     @Comment("소장앨범 관계 PK")
     private Long userCollectAlbumId;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "member_id", nullable = false)
     @Comment("소장한 유저 PK")
-    private Long userId;
+    private Long memberId;
 
     @Column(name = "album_id", nullable = false)
     @Comment("소장된 앨범 PK")

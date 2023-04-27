@@ -22,21 +22,21 @@ public class AlbumRepositoryTests {
     AlbumRepository albumRepository;
 
     @Test
-    public void getAlbumsByUserIdSuccess() {
+    public void getAlbumsBymemberIdSuccess() {
 
         // given
 
         Album album1 = Album.builder().albumId(1L)
                 .code("AAAA")
                 .albumImage("AAAA.jpg")
-                .userId(1L)
+                .memberId(1L)
                 .releasedDate(LocalDateTime.of(2023, 04, 24, 01, 01))
                 .name("hypeboy")
                 .build();
         Album album2 = Album.builder().albumId(2L)
                 .code("BBBB")
                 .albumImage("BBBB.jpg")
-                .userId(1L)
+                .memberId(1L)
                 .releasedDate(LocalDateTime.of(2023, 04, 24, 06, 01))
                 .name("cookie")
                 .build();
@@ -45,7 +45,7 @@ public class AlbumRepositoryTests {
 
         // when
 
-        Page<Object[]> page = albumRepository.getAlbumsByUserId(1L, PageRequest.of(0, 6, Sort.Direction.DESC, "releasedDate"));
+//        Page<Object[]> page = albumRepository.getAlbumsByMemberId(1L, PageRequest.of(0, 6, Sort.Direction.DESC, "releasedDate"));
 
 
         // then

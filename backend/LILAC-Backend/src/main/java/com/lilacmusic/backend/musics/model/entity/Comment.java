@@ -22,15 +22,15 @@ public class Comment {
     @org.hibernate.annotations.Comment("댓글 PK")
     private Long commentId;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "member_id", nullable = false)
     @org.hibernate.annotations.Comment("댓글 단 유저 PK")
-    private Long userId;
+    private Long memberId;
 
     @Column(name = "music_id", nullable = false)
     @org.hibernate.annotations.Comment("댓글이 달린 음원 PK")
     private Long musicId;
 
-    @Column(name = "code", nullable = false, length =100, unique = true)
+    @Column(name = "code", nullable = false, length = 100, unique = true)
     @org.hibernate.annotations.Comment("댓글 고유 코드 - UUID")
     private String code;
 

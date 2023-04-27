@@ -19,14 +19,14 @@ const AlbumCard = ({
   showAlbumDetail = false,
 }: AlbumCardProps) => {
   return (
-    <S.AlbumCard onClick={onClickEvent}>
+    <S.AlbumCard showAlbumDetail={showAlbumDetail} onClick={onClickEvent}>
       <S.AlbumCardImg>
-        <BasicImage src={data.albumImage} size="12rem" />
+        <BasicImage src={data.albumImage} size="100%" />
       </S.AlbumCardImg>
       <S.AlbumCardTitle>
         <BasicText
           text={data.name}
-          size="1.5rem"
+          size="1rem"
           color={"#ffffff"}
           font={""}
         ></BasicText>

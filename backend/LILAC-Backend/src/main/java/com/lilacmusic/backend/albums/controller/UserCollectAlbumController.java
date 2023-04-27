@@ -21,9 +21,9 @@ public class UserCollectAlbumController {
     @PostMapping("")
     public ResponseEntity<?> collectAlbum(@RequestHeader HttpHeaders headers,
                                           @RequestBody UserCollectAlbumRequest userCollectAlbumRequest) throws NoAlbumFoundException {
-//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
-        Long userId = 1L;
-        Long id = userCollectAlbumService.collectAlbum(userCollectAlbumRequest.getCode(), userId);
+//        Long memberId = getMemberIdByAccessToken(headers.get("Authorization"));
+        Long memberId = 1L;
+        Long id = userCollectAlbumService.collectAlbum(userCollectAlbumRequest.getCode(), memberId);
         log.debug("UCA id = " + id.toString());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

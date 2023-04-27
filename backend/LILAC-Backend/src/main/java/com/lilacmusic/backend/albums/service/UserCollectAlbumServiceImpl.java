@@ -5,8 +5,7 @@ import com.lilacmusic.backend.albums.model.entitiy.Album;
 import com.lilacmusic.backend.albums.model.entitiy.UserCollectAlbum;
 import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
 import com.lilacmusic.backend.albums.model.repository.UserCollectAlbumRepository;
-import com.lilacmusic.backend.users.model.entity.User;
-import com.lilacmusic.backend.users.model.repository.UserRepository;
+import com.lilacmusic.backend.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,23 +19,23 @@ public class UserCollectAlbumServiceImpl implements UserCollectAlbumService {
 
     private final AlbumRepository albumRepository;
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @Override
-    public Long collectAlbum(String code, Long userId) throws NoAlbumFoundException {
+    public Long collectAlbum(String code, Long memberId) throws NoAlbumFoundException {
         Optional<Album> optionalAlbum = albumRepository.getAlbumByCode(code);
-        if (optionalAlbum.isEmpty()){
+        if (optionalAlbum.isEmpty()) {
             throw new NoAlbumFoundException();
         }
         UserCollectAlbum userCollectAlbum = UserCollectAlbum.builder()
                 .albumId(optionalAlbum.get().getAlbumId())
-                .userId(userId)
+                .memberId(memberId)
                 .createdTime(LocalDateTime.now())
                 .build();
         userCollectAlbumRepository.save(userCollectAlbum);
 
-//        User user = userRepository.getReferenceById(userId); 통계추가 필요
-        
+//        User user = userRepository.getReferenceById(memberId); 통계추가 필요
+
         return userCollectAlbum.getUserCollectAlbumId();
     }
 }

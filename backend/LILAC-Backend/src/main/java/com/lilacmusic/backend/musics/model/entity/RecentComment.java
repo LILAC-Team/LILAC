@@ -20,9 +20,9 @@ public class RecentComment {
     @org.hibernate.annotations.Comment("최신 댓글 PK")
     private Long recentCommentId;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "member_id", nullable = false)
     @org.hibernate.annotations.Comment("최신 댓글 단 유저 PK")
-    private Long userId;
+    private Long memberId;
 
     @Column(name = "music_id", nullable = false)
     @org.hibernate.annotations.Comment("최신 댓글 달린 음원 PK")
