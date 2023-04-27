@@ -47,21 +47,29 @@ public class Member {
     private Boolean isActive;
 
     @Builder
-    public Member(Long memberId,String email, String nickname, RegistrationId registrationId) {
+    public Member(Long memberId,String email, String nickname, RegistrationId registrationId, String profileImage) {
         this.memberId = memberId;
         this.email = email;
         this.nickname = nickname;
         this.registrationId = registrationId;
+        this.profileImage = profileImage;
+        this.releaseAlbumCount = 0;
+        this.collectAlbumCount = 0;
+        this.isActive = false;
     }
 
     @Enumerated(EnumType.STRING)
     @Column(name = "registration_id")
     private RegistrationId registrationId;
 
-    public Member(String email, String nickname, RegistrationId registrationId) {
+    public Member(String email, String nickname, RegistrationId registrationId, String profileImage) {
         this.email = email;
         this.nickname = nickname;
         this.registrationId = registrationId;
+        this.profileImage = profileImage;
+        this.releaseAlbumCount = 0;
+        this.collectAlbumCount = 0;
+        this.isActive = false;
     }
 
     public enum RegistrationId {

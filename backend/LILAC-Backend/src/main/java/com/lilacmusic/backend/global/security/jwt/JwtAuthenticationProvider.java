@@ -17,6 +17,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Authenticated를 제공해주는 클래스
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationProvider implements AuthenticationProvider {

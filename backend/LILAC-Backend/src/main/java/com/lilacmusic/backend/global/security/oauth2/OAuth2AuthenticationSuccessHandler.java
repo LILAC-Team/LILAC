@@ -39,6 +39,15 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
 
+    /**
+     * 프론트의 로그인 추가입력 폼으로 리다이렉트
+     *
+     * @param request        the request which caused the successful authentication
+     * @param response       the response
+     * @param authentication the <tt>Authentication</tt> object which was created during
+     *                       the authentication process.
+     * @throws IOException
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
@@ -47,6 +56,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         Optional<Member> optionalMember = memberRepository.findByRegistrationIdAndEmail(memberInfo.getRegistrationId(), memberInfo.getEmail());
         String targetUrl;
+        // 가입이 되어 있다면 토큰을 만들어서 넘겨주기
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
             String tokens = BEARER_PREFIX + jwtTokenUtils.createTokens(member, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
@@ -63,17 +73,20 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     .queryParam("registrationId", member.getRegistrationId())
                     .queryParam("nickname", URLEncoder.encode(member.getNickname(), StandardCharsets.UTF_8)).toUriString();
         } else {
+        // 가입이 안 되어 있으니 추가 입력폼으로 넘기기
             targetUrl = UriComponentsBuilder.newInstance()
 //                    .scheme("http")
 //                    .host("localhost")
 //                    .port(3000)
                     .path("/oauth")
                     .queryParam("email", memberInfo.getEmail())
-                    .queryParam("registrationId", memberInfo.getRegistrationId()).toUriString();
+                    .queryParam("profileimg", memberInfo.getImageUrl())
+                    .queryParam("registrationId", memberInfo.getRegistrationId())
+                    .queryParam("nickname", URLEncoder.encode(memberInfo.getNickname(), StandardCharsets.UTF_8)).toUriString();
         }
         log.info("{}", targetUrl);
 
-        clearAuthenticationAttributes(request,response);
+        clearAuthenticationAttributes(request, response);
         response.sendRedirect(targetUrl);
     }
 
