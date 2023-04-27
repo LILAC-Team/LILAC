@@ -8,7 +8,7 @@ export const NavigationWrapper = styled.div`
   height: 3.5rem;
 
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 
   position: absolute;
   left: 50%;

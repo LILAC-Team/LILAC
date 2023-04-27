@@ -145,8 +145,9 @@ body {
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   margin: 0rem;
-  padding: 0rem 1rem 0rem 1rem;
-  overflow: hidden;
+  /* padding: 0rem 1rem 0rem 1rem; */
+  padding: 0;
+  overflow-x: hidden;
   background: var(--color-background);
 }
 .scrollable {

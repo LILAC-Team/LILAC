@@ -5,8 +5,8 @@ interface BasicTextProps {
   size?: string;
   color?: string;
   background?: string;
-  clip?: boolean;
-  font: string;
+  clipText?: boolean;
+  font?: string;
 }
 
 const BasicText = ({
@@ -14,7 +14,7 @@ const BasicText = ({
   size = "100%",
   color = "#ffffff",
   background = "transparent",
-  clip,
+  clipText,
   font,
 }: BasicTextProps) => {
   return (
@@ -22,7 +22,7 @@ const BasicText = ({
       size={size}
       color={color}
       background={background}
-      clip={clip}
+      clipText={clipText}
       font={font}
     >
       {text}

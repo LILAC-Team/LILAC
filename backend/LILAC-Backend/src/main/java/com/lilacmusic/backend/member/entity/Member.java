@@ -29,10 +29,10 @@ public class Member {
     @Column(name = "profile_image", length = 100, nullable = true)
     private String profileImage;
 
-    @Column(name = "release_album_count", nullable = false)
+    @Column(name = "release_album_count", nullable = false, columnDefinition = "integer default 0")
     private Integer releaseAlbumCount;
 
-    @Column(name = "collect_album_count", nullable = false)
+    @Column(name = "collect_album_count", nullable = false, columnDefinition = "integer default 0")
     private Integer collectAlbumCount;
 
     @CreatedDate
@@ -43,25 +43,33 @@ public class Member {
     @Column(name = "modified_time", nullable = false)
     private LocalDateTime modifiedTime;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default false")
     private Boolean isActive;
 
     @Builder
-    public Member(Long memberId,String email, String nickname, RegistrationId registrationId) {
+    public Member(Long memberId,String email, String nickname, RegistrationId registrationId, String profileImage) {
         this.memberId = memberId;
         this.email = email;
         this.nickname = nickname;
         this.registrationId = registrationId;
+        this.profileImage = profileImage;
+        this.releaseAlbumCount = 0;
+        this.collectAlbumCount = 0;
+        this.isActive = false;
     }
 
     @Enumerated(EnumType.STRING)
     @Column(name = "registration_id")
     private RegistrationId registrationId;
 
-    public Member(String email, String nickname, RegistrationId registrationId) {
+    public Member(String email, String nickname, RegistrationId registrationId, String profileImage) {
         this.email = email;
         this.nickname = nickname;
         this.registrationId = registrationId;
+        this.profileImage = profileImage;
+        this.releaseAlbumCount = 0;
+        this.collectAlbumCount = 0;
+        this.isActive = false;
     }
 
     public enum RegistrationId {

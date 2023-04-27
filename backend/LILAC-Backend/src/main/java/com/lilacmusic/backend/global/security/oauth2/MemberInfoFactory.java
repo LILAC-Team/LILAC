@@ -3,6 +3,7 @@ package com.lilacmusic.backend.global.security.oauth2;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import com.lilacmusic.backend.global.error.GlobalErrorCode;
 
 import java.util.Map;
 
@@ -24,13 +25,10 @@ public class MemberInfoFactory {
         String email = (String) attributes.get("email");
         String registrationId = authentication.getAuthorizedClientRegistrationId();
 
-        if (registrationId.equals("google")) {
-            return new GoogleMemberInfo(email);
-        } else if (registrationId.equals("kakao")) {
+        if (registrationId.equals("kakao")) {
             return new KakaoMemberInfo(attributes);
         }
-//        throw new UnsupportedInfoException(GlobalErrorCode.UNSUPPORTED_INFO);
-        throw new RuntimeException(); // TODO 나중에 UNSUPPORTED_INFO 에러로 바꿔야 됨
+        throw new UnsupportedInfoException(GlobalErrorCode.UNSUPPORTED_INFO);
     }
 
 }

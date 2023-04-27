@@ -28,6 +28,7 @@ const ContainerWrap = styled.div`
 
 const ChildrenWrap = styled.div`
   height: calc(var(--vh, 1vh) * 100 - 12rem);
+  padding: 0 1rem 0 1rem;
   ::-webkit-scrollbar {
     display: none;
   }

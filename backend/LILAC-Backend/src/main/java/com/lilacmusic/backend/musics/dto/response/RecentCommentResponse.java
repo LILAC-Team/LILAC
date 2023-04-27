@@ -1,12 +1,10 @@
 package com.lilacmusic.backend.musics.dto.response;
 
-import com.lilacmusic.backend.albums.dto.response.UserInfoResponse;
+import com.lilacmusic.backend.albums.dto.response.MemberInfoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -18,5 +16,5 @@ public class RecentCommentResponse {
 
     private Integer presentTime;
 
-    private UserInfoResponse userInfo;
+    private MemberInfoResponse memberInfo;
 }

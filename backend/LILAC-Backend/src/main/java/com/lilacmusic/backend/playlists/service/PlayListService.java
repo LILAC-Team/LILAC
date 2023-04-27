@@ -6,9 +6,9 @@ import com.lilacmusic.backend.playlists.dto.request.PlayListRequest;
 import com.lilacmusic.backend.playlists.dto.response.PlayListResponse;
 
 public interface PlayListService {
-    PlayListResponse getPlayList(Long userId);
+    PlayListResponse getPlayList(Long memberId);
 
-    Long addMusicToPlayList(Long userId, PlayListAddRequest playListAddRequest) throws NoMusicFoundException;
+    Long addMusicToPlayList(Long memberId, PlayListAddRequest playListAddRequest) throws NoMusicFoundException;
 
-    Integer editPlayList(Long userId, PlayListRequest playListRequest);
+    Integer editPlayList(Long memberId, PlayListRequest playListRequest);
 }

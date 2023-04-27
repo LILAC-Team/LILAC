@@ -6,9 +6,9 @@ import com.lilacmusic.backend.albums.dto.response.ReleasedAlbumListResponse;
 import com.lilacmusic.backend.albums.exceptions.NoAlbumFoundException;
 
 public interface AlbumService {
-    ReleasedAlbumListResponse getReleasedAlbums(Integer pageNumber, Long userId);
+    ReleasedAlbumListResponse getReleasedAlbums(Integer pageNumber, Long memberId);
 
-    CollectedAlbumListResponse getCollectedAlbums(Integer pageNumber, Long userId);
+    CollectedAlbumListResponse getCollectedAlbums(Integer pageNumber, Long memberId);
 
-    AlbumDetailResponse getAlbumDetail(String albumCode, Long userId) throws NoAlbumFoundException;
+    AlbumDetailResponse getAlbumDetail(String albumCode, Long memberId) throws NoAlbumFoundException;
 }
