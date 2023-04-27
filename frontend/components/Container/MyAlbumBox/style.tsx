@@ -5,6 +5,7 @@ export const AlbumContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
+  overflow-y: scroll;
   @media (min-width: 43.75rem) {
     grid-template-columns: 1fr 1fr 1fr;
   }

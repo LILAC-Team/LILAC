@@ -125,6 +125,7 @@ html {
   --color-primary: #cca4fc;
   --color-light: #e3dfff;
   height: calc(var(--vh, 1vh) * 100);
+  background-color: white;
 }
 
 @media (min-width: 901px) {
@@ -137,7 +138,8 @@ html {
 body {
   font-family: "NotoSansKR700", "HSBomBaram", "NotoSansKR400", "NotoSansKR500",
     sans-serif;
-  max-width: 100vw;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
   margin: 0rem;
   padding: 0rem 1rem 0rem 1rem;
   overflow-x: hidden;
