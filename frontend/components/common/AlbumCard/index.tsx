@@ -24,12 +24,7 @@ const AlbumCard = ({
         <BasicImage src={data.albumImage} size="100%" />
       </S.AlbumCardImg>
       <S.AlbumCardTitle>
-        <BasicText
-          text={data.name}
-          size="1rem"
-          color={"#ffffff"}
-          font={""}
-        ></BasicText>
+        <BasicText text={data.name} size="150%"></BasicText>
       </S.AlbumCardTitle>
       {showAlbumDetail && (
         <S.AlbumCardDetail>
@@ -41,9 +36,6 @@ const AlbumCard = ({
               "." +
               data.releasedDate.split("-")[1]
             }
-            size="1rem"
-            color={"#ffffff"}
-            font={""}
           ></BasicText>
         </S.AlbumCardDetail>
       )}
