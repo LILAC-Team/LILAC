@@ -3,7 +3,7 @@ import styled from "styled-components";
 interface TextProps {
   color?: string;
   background?: string;
-  clip?: boolean;
+  clipText?: boolean;
   size?: string;
   font?: string;
 }
@@ -14,7 +14,7 @@ export const Text = styled.div<TextProps>`
   font-family: ${(props) => props.font};
   background: ${(props) => props.background || "transparent"};
   ${(props) => {
-    if (props.clip) {
+    if (props.clipText) {
       return `
         -webkit-background-clip: text;
       `;
