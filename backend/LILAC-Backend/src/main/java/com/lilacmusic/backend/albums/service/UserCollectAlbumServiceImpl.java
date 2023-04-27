@@ -5,7 +5,6 @@ import com.lilacmusic.backend.albums.model.entitiy.Album;
 import com.lilacmusic.backend.albums.model.entitiy.UserCollectAlbum;
 import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
 import com.lilacmusic.backend.albums.model.repository.UserCollectAlbumRepository;
-import com.lilacmusic.backend.users.model.entity.User;
 import com.lilacmusic.backend.users.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

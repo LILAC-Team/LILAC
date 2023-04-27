@@ -72,6 +72,10 @@ logging:
 #    cloudfront:
 
   security:
+    user:
+      name: ${ADMIN_NAME}
+      password: ${ADMIN_PASSWORD}
+      roles: ADMIN
     oauth2:
       client:
         registration:
