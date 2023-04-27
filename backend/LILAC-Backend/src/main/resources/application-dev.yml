@@ -47,30 +47,6 @@ spring:
       max-file-size: 10MB
       max-request-size: 100MB
 
-jwt:
-  secretKey: ${JWT_SECRET_KEY}
-  access:
-    expiration: 3600000 # 1시간
-    header: Authorization
-  refresh:
-    expiration: 1209600000 # 2주
-    header: Authorization-refresh
-
-logging:
-  level:
-    root: info
-    com.lilacmusic: debug
-
-#cloud:
-#  aws:
-#    s3:
-#      bucket:
-#    region:
-#      static: ap-northeast-2
-#    stack:
-#      auto: false
-#    cloudfront:
-
   security:
     user:
       name: ${ADMIN_NAME}
@@ -97,3 +73,27 @@ logging:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
+
+jwt:
+  secretKey: ${JWT_SECRET_KEY}
+  access:
+    expiration: 3600000 # 1시간
+    header: Authorization
+  refresh:
+    expiration: 1209600000 # 2주
+    header: Authorization-refresh
+
+logging:
+  level:
+    root: info
+    com.lilacmusic: debug
+
+#cloud:
+#  aws:
+#    s3:
+#      bucket:
+#    region:
+#      static: ap-northeast-2
+#    stack:
+#      auto: false
+#    cloudfront:

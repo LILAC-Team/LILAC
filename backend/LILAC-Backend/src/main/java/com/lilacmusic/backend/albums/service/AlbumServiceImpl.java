@@ -5,10 +5,11 @@ import com.lilacmusic.backend.albums.exceptions.NoAlbumFoundException;
 import com.lilacmusic.backend.albums.model.entitiy.Album;
 import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
 import com.lilacmusic.backend.albums.model.repository.UserCollectAlbumRepository;
+import com.lilacmusic.backend.member.entity.Member;
+import com.lilacmusic.backend.member.repository.MemberRepository;
 import com.lilacmusic.backend.musics.dto.response.MusicResponse;
 import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
-import com.lilacmusic.backend.users.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -32,13 +33,13 @@ public class AlbumServiceImpl implements AlbumService {
 
     private final MusicRepository musicRepository;
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     private final UserCollectAlbumRepository userCollectAlbumRepository;
 
     @Override
-    public ReleasedAlbumListResponse getReleasedAlbums(Integer pageNumber, Long userId) {
-        Page<Object[]> albumPage = albumRepository.getAlbumsByUserId(userId,
+    public ReleasedAlbumListResponse getReleasedAlbums(Integer pageNumber, Long memberId) {
+        Page<Object[]> albumPage = albumRepository.getAlbumsByMemberId(memberId,
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "releasedDate"));
         Page<AlbumResponse> albumResponsePage = albumPage.map(album -> {
             log.debug(Arrays.toString(album));
@@ -63,8 +64,8 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public CollectedAlbumListResponse getCollectedAlbums(Integer pageNumber, Long userId) {
-        Page<Object[]> albumPage = albumRepository.getAlbumsByUserCollectAlbums(userId,
+    public CollectedAlbumListResponse getCollectedAlbums(Integer pageNumber, Long memberId) {
+        Page<Object[]> albumPage = albumRepository.getAlbumsByUserCollectAlbums(memberId,
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "createdTime"));
         Page<AlbumResponse> albumResponsePage = albumPage.map(album -> AlbumResponse.builder()
                 .code((String) album[0])
@@ -86,7 +87,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public AlbumDetailResponse getAlbumDetail(String albumCode, Long userId) throws NoAlbumFoundException {
+    public AlbumDetailResponse getAlbumDetail(String albumCode, Long memberId) throws NoAlbumFoundException {
         Optional<Album> optionalAlbum = albumRepository.getAlbumByCode(albumCode);
         if (optionalAlbum.isEmpty()) {
             throw new NoAlbumFoundException();
@@ -102,12 +103,12 @@ public class AlbumServiceImpl implements AlbumService {
                 .isTitle(music.getIsTitle())
                 .build()
         ).collect(Collectors.toList());
-        User singer = userRepository.getReferenceById(album.getUserId());
+        Member singer = memberRepository.getReferenceById(album.getMemberId());
         AlbumStatus albumStatus = AlbumStatus.NOT_COLLECTED;
         ;
-        if (userId.equals(album.getUserId())) {
+        if (memberId.equals(album.getMemberId())) {
             albumStatus = AlbumStatus.RELEASED;
-        } else if (userCollectAlbumRepository.findByUserIdAndAlbumId(userId, album.getAlbumId()).isPresent()) {
+        } else if (userCollectAlbumRepository.findByMemberIdAndAlbumId(memberId, album.getAlbumId()).isPresent()) {
             albumStatus = AlbumStatus.COLLECTED;
         }
 
@@ -118,7 +119,7 @@ public class AlbumServiceImpl implements AlbumService {
                 .name(album.getName())
                 .albumImage(album.getAlbumImage())
                 .releasedDate(album.getReleasedDate())
-                .userInfo(new UserInfoResponse(singer.getNickname(), singer.getProfileImage()))
+                .memberInfo(new MemberInfoResponse(singer.getNickname(), singer.getProfileImage()))
                 .build();
 
 

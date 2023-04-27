@@ -19,25 +19,25 @@ public class PlayListController {
 
     @GetMapping("")
     public ResponseEntity<PlayListResponse> getPlayList(@RequestHeader HttpHeaders headers) {
-//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
-        Long userId = 1L;
-        PlayListResponse response = playListService.getPlayList(userId);
+//        Long memberId = getMemberIdByAccessToken(headers.get("Authorization"));
+        Long memberId = 1L;
+        PlayListResponse response = playListService.getPlayList(memberId);
         return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("")
     public ResponseEntity<Void> addMusicToPlayList(@RequestHeader HttpHeaders headers, @RequestBody PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
-//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
-        Long userId = 1L;
-        Long musicId = playListService.addMusicToPlayList(userId, playListAddRequest);
+//        Long memberId = getMemberIdByAccessToken(headers.get("Authorization"));
+        Long memberId = 1L;
+        Long musicId = playListService.addMusicToPlayList(memberId, playListAddRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("")
     public ResponseEntity<Void> editPlayList(@RequestHeader HttpHeaders headers, @RequestBody PlayListRequest playListRequest) {
-//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
-        Long userId = 1L;
-        Integer listSize = playListService.editPlayList(userId, playListRequest);
+//        Long memberId = getMemberIdByAccessToken(headers.get("Authorization"));
+        Long memberId = 1L;
+        Integer listSize = playListService.editPlayList(memberId, playListRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

@@ -30,10 +30,10 @@ public class PlayListServiceImpl implements PlayListService {
 
     @Override
     @Transactional
-    public PlayListResponse getPlayList(Long userId) {
-        Optional<PlayList> playList = playListRepository.findById(userId);
+    public PlayListResponse getPlayList(Long memberId) {
+        Optional<PlayList> playList = playListRepository.findById(memberId);
         if (playList.isEmpty()) {
-            PlayList newPlayList = new PlayList(userId, List.of());
+            PlayList newPlayList = new PlayList(memberId, List.of());
             playListRepository.save(newPlayList);
             return PlayListResponse.builder().listSize(0).musicList(List.of()).build();
         }
@@ -46,13 +46,13 @@ public class PlayListServiceImpl implements PlayListService {
 
     @Override
     @Transactional
-    public Long addMusicToPlayList(Long userId, PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
+    public Long addMusicToPlayList(Long memberId, PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
         Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(playListAddRequest.getCode());
         if (music.isEmpty()) {
             throw new NoMusicFoundException();
         }
 
-        Optional<PlayList> playList = playListRepository.findById(userId);
+        Optional<PlayList> playList = playListRepository.findById(memberId);
         PlayListMusic newMusic = PlayListMusic.builder()
                 .code(music.get().getCode())
                 .name(music.get().getName())
@@ -61,19 +61,19 @@ public class PlayListServiceImpl implements PlayListService {
                 .albumImage(music.get().getAlbumImage())
                 .build();
         if (playList.isEmpty()) {
-            PlayList newPlayList = new PlayList(userId, List.of(newMusic));
+            PlayList newPlayList = new PlayList(memberId, List.of(newMusic));
             playListRepository.save(newPlayList);
         }
         List<PlayListMusic> list = playList.get().getMusicList();
         list.add(newMusic);
-        playListRepository.save(new PlayList(userId, list));
+        playListRepository.save(new PlayList(memberId, list));
         return music.get().getMusicId();
     }
 
     @Override
     @Transactional
-    public Integer editPlayList(Long userId, PlayListRequest playListRequest) {
-        PlayList playList = new PlayList(userId, playListRequest.getMusicList());
+    public Integer editPlayList(Long memberId, PlayListRequest playListRequest) {
+        PlayList playList = new PlayList(memberId, playListRequest.getMusicList());
         playListRepository.save(playList);
         return playListRequest.getMusicList().size();
     }

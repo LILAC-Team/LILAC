@@ -11,11 +11,11 @@ import java.util.Optional;
 
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 
-    @Query(value = "SELECT a.code, a.name, a.albumImage, a.releasedDate, u.nickname FROM Album a INNER JOIN User u ON a.userId = u.userId WHERE a.userId = ?1")
-    Page<Object[]> getAlbumsByUserId(Long userId, Pageable pageable);
+    @Query(value = "SELECT a.code, a.name, a.albumImage, a.releasedDate, u.nickname FROM Album a INNER JOIN Member u ON a.memberId = u.memberId WHERE a.memberId = ?1")
+    Page<Object[]> getAlbumsByMemberId(Long memberId, Pageable pageable);
 
-    @Query(value = "SELECT a.code, a.name, a.albumImage, a.releasedDate, u.nickname FROM UserCollectAlbum ua INNER JOIN Album a ON ua.albumId = a.albumId INNER JOIN User u ON a.userId = u.userId WHERE ua.userId = ?1")
-    Page<Object[]> getAlbumsByUserCollectAlbums(Long userId, Pageable pageable);
+    @Query(value = "SELECT a.code, a.name, a.albumImage, a.releasedDate, u.nickname FROM UserCollectAlbum ua INNER JOIN Album a ON ua.albumId = a.albumId INNER JOIN Member u ON a.memberId = u.memberId WHERE ua.memberId = ?1")
+    Page<Object[]> getAlbumsByUserCollectAlbums(Long memberId, Pageable pageable);
 
     Optional<Album> getAlbumByCode(String code);
 }

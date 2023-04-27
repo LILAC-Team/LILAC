@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Query("SELECT c.code, c.content, c.presentTime, c.createdTime, u.nickname, u.profileImage FROM Comment c INNER JOIN User u ON c.userId = u.userId WHERE c.musicId = ?1")
+    @Query("SELECT c.code, c.content, c.presentTime, c.createdTime, u.nickname, u.profileImage FROM Comment c INNER JOIN Member u ON c.memberId = u.memberId WHERE c.musicId = ?1")
     Page<Object[]> findAllByMusicId(Long musicId, Pageable pageable);
 
     Optional<Comment> findByCode(String code);

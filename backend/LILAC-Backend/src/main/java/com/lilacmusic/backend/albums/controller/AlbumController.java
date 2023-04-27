@@ -19,31 +19,31 @@ public class AlbumController {
 
     @GetMapping("/released/{pageNumber}")
     public ResponseEntity<ReleasedAlbumListResponse> getReleasedAlbums(@PathVariable("pageNumber") Integer pageNumber,
-                                                                        @RequestHeader HttpHeaders headers){
-//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
-        Long userId = 1L;
+                                                                       @RequestHeader HttpHeaders headers) {
+//        Long memberId = getMemberIdByAccessToken(headers.get("Authorization"));
+        Long memberId = 1L;
 
-        ReleasedAlbumListResponse response = albumService.getReleasedAlbums(pageNumber, userId);
+        ReleasedAlbumListResponse response = albumService.getReleasedAlbums(pageNumber, memberId);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/collected/{pageNumber}")
     public ResponseEntity<CollectedAlbumListResponse> getCollectedAlbums(@PathVariable("pageNumber") Integer pageNumber,
-                                                                        @RequestHeader HttpHeaders headers) {
-//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
-        Long userId = 1L;
+                                                                         @RequestHeader HttpHeaders headers) {
+//        Long memberId = getMemberIdByAccessToken(headers.get("Authorization"));
+        Long memberId = 1L;
 
-        CollectedAlbumListResponse response = albumService.getCollectedAlbums(pageNumber, userId);
+        CollectedAlbumListResponse response = albumService.getCollectedAlbums(pageNumber, memberId);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{albumCode}")
     public ResponseEntity<AlbumDetailResponse> getAlbumDetail(@PathVariable("albumCode") String albumCode,
                                                               @RequestHeader HttpHeaders headers) throws NoAlbumFoundException {
-//        Long userId = getUserIdByAccessToken(headers.get("Authorization"));
-        Long userId = 1L;
+//        Long memberId = getMemberIdByAccessToken(headers.get("Authorization"));
+        Long memberId = 1L;
 
-        AlbumDetailResponse response = albumService.getAlbumDetail(albumCode, userId);
+        AlbumDetailResponse response = albumService.getAlbumDetail(albumCode, memberId);
         return ResponseEntity.ok().body(response);
 
     }

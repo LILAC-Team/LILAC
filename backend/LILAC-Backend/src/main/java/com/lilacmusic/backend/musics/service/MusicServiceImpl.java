@@ -1,11 +1,9 @@
 package com.lilacmusic.backend.musics.service;
 
-import com.lilacmusic.backend.albums.dto.response.UserInfoResponse;
+import com.lilacmusic.backend.albums.dto.response.MemberInfoResponse;
 import com.lilacmusic.backend.musics.dto.response.MusicDetailResponse;
 import com.lilacmusic.backend.musics.dto.response.RecentCommentResponse;
 import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
-import com.lilacmusic.backend.musics.model.entity.Music;
-import com.lilacmusic.backend.musics.model.entity.RecentComment;
 import com.lilacmusic.backend.musics.model.mapping.MusicImgMapping;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import com.lilacmusic.backend.musics.model.repository.RecentCommentRepository;
@@ -25,7 +23,7 @@ public class MusicServiceImpl implements MusicService {
     private final RecentCommentRepository recentCommentRepository;
 
     @Override
-    public MusicDetailResponse getMusicDetail(String musicCode, Long userId) throws NoMusicFoundException {
+    public MusicDetailResponse getMusicDetail(String musicCode, Long memberId) throws NoMusicFoundException {
         Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(musicCode);
         if (music.isEmpty()) {
             throw new NoMusicFoundException();
@@ -37,7 +35,7 @@ public class MusicServiceImpl implements MusicService {
                 RecentCommentResponse.builder()
                         .content((String) c[0])
                         .presentTime((Integer) c[1])
-                        .userInfo(new UserInfoResponse((String) c[2], (String) c[3]))
+                        .memberInfo(new MemberInfoResponse((String) c[2], (String) c[3]))
                         .build()
         ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()

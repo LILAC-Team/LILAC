@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UserCollectAlbumRepository extends JpaRepository<UserCollectAlbum, Long> {
-    Optional<UserCollectAlbum> findByUserIdAndAlbumId(Long userId, Long albumId);
+    Optional<UserCollectAlbum> findByMemberIdAndAlbumId(Long memberId, Long albumId);
 }
