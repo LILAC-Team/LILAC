@@ -17,7 +17,7 @@ import java.util.List;
 public class PlayList {
 
     @Id
-    private Long userId;
+    private Long memberId;
 
     private List<PlayListMusic> musicList;
 }

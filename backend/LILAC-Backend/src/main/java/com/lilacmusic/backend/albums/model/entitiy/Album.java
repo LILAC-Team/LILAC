@@ -27,9 +27,9 @@ public class Album {
     @Comment("앨범 고유 코드 - UUID")
     private String code;
 
-    @Column(name = "user_id",nullable = false)
+    @Column(name = "member_id", nullable = false)
     @Comment("앨범 발매자 PK")
-    private Long userId;
+    private Long memberId;
 
     @Column(name = "name", length = 50, nullable = false)
     @Comment("앨범 제목")

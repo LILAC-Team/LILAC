@@ -27,6 +27,6 @@ public class AlbumDetailResponse {
 
     private List<MusicResponse> musicList;
 
-    private UserInfoResponse userInfo;
+    private MemberInfoResponse memberInfo;
 
 }

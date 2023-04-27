@@ -1,6 +1,6 @@
 package com.lilacmusic.backend.musics.dto.response;
 
-import com.lilacmusic.backend.albums.dto.response.UserInfoResponse;
+import com.lilacmusic.backend.albums.dto.response.MemberInfoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +22,5 @@ public class CommentResponse {
 
     private LocalDateTime createdTime;
 
-    private UserInfoResponse userInfo;
+    private MemberInfoResponse memberInfo;
 }

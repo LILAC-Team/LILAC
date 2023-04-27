@@ -1,12 +1,11 @@
 package com.lilacmusic.backend.musics.service;
 
-import com.lilacmusic.backend.albums.dto.response.UserInfoResponse;
+import com.lilacmusic.backend.albums.dto.response.MemberInfoResponse;
 import com.lilacmusic.backend.musics.dto.response.MusicDetailResponse;
 import com.lilacmusic.backend.musics.dto.response.RecentCommentResponse;
 import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
-import com.lilacmusic.backend.musics.model.entity.Music;
-import com.lilacmusic.backend.musics.model.entity.RecentComment;
 import com.lilacmusic.backend.musics.model.mapping.MusicImgMapping;
+import com.lilacmusic.backend.musics.model.mapping.RecentCommentMapping;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import com.lilacmusic.backend.musics.model.repository.RecentCommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,19 +24,19 @@ public class MusicServiceImpl implements MusicService {
     private final RecentCommentRepository recentCommentRepository;
 
     @Override
-    public MusicDetailResponse getMusicDetail(String musicCode, Long userId) throws NoMusicFoundException {
+    public MusicDetailResponse getMusicDetail(String musicCode, Long memberId) throws NoMusicFoundException {
         Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(musicCode);
         if (music.isEmpty()) {
             throw new NoMusicFoundException();
         }
 
         // 유저의 음원 소유 확인 여부 로직 추가할건지???????????
-        List<Object[]> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc(music.get().getMusicId());
+        List<RecentCommentMapping> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc(music.get().getMusicId());
         List<RecentCommentResponse> recentCommentResponseList = recentComments.stream().map(c ->
                 RecentCommentResponse.builder()
-                        .content((String) c[0])
-                        .presentTime((Integer) c[1])
-                        .userInfo(new UserInfoResponse((String) c[2], (String) c[3]))
+                        .content(c.getContent())
+                        .presentTime(c.getPresentTime())
+                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage()))
                         .build()
         ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()
