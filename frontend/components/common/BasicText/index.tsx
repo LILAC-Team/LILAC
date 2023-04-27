@@ -6,7 +6,7 @@ interface BasicTextProps {
   color?: string;
   background?: string;
   clip?: boolean;
-  font: string;
+  font?: string;
 }
 
 const BasicText = ({

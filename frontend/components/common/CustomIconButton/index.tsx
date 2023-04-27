@@ -6,7 +6,7 @@ interface CustomIconButtonProps {
   children: React.ReactNode;
   border?: string;
   isDisabled?: boolean;
-  handleOnClickButton: () => void;
+  handleOnClickButton?: () => void;
 }
 
 const CustomIconButton = ({
