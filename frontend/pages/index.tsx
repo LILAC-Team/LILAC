@@ -3,6 +3,7 @@ import SmallModal from "@/components/common/CommonModal/SmallModal";
 import BasicInput from "@/components/common/BasicInput";
 import BasicSlider from "@/components/Home/BasicSlider";
 import DragAndDropWithClientOnly from "@/components/Container/DragAndDrop";
+import LargeModal from "@/components/common/CommonModal/LargeModal";
 
 const Home = ({ initValues = false, initInput = "" }) => {
   const [isModalOpen, setIsModalOpen] = useState(initValues);
@@ -29,7 +30,7 @@ const Home = ({ initValues = false, initInput = "" }) => {
   };
 
   return isModalOpen ? (
-    <SmallModal handleSetShowModal={handleModal}>
+    <LargeModal handleSetShowModal={handleModal}>
       <div>이번 프로젝트 두렵다</div>
       <BasicInput
         id="input"
@@ -39,7 +40,7 @@ const Home = ({ initValues = false, initInput = "" }) => {
         placeholder=""
         isReadOnly={false}
       />
-    </SmallModal>
+    </LargeModal>
   ) : (
     <Fragment>
       <button onClick={handleModal}>버튼</button>
