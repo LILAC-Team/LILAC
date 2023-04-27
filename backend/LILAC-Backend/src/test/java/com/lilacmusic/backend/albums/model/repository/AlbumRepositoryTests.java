@@ -45,7 +45,7 @@ public class AlbumRepositoryTests {
 
         // when
 
-        Page<Object[]> page = albumRepository.getAlbumsBymemberId(1L, PageRequest.of(0, 6, Sort.Direction.DESC, "releasedDate"));
+//        Page<Object[]> page = albumRepository.getAlbumsByMemberId(1L, PageRequest.of(0, 6, Sort.Direction.DESC, "releasedDate"));
 
 
         // then

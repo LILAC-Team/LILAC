@@ -9,6 +9,7 @@ import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
 import com.lilacmusic.backend.musics.exceptions.NotMyCommentException;
 import com.lilacmusic.backend.musics.model.entity.Comment;
 import com.lilacmusic.backend.musics.model.entity.RecentComment;
+import com.lilacmusic.backend.musics.model.mapping.CommentMapping;
 import com.lilacmusic.backend.musics.model.repository.CommentRepository;
 import com.lilacmusic.backend.musics.model.repository.RecentCommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,15 +38,15 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentListResponse getCommentList(String code, Integer pageNumber, Long memberId) throws NoMusicFoundException {
         Long musicId = musicService.getMusicIdByCode(code);
-        Page<Object[]> commentList = commentRepository.findAllByMusicId(musicId,
+        Page<CommentMapping> commentList = commentRepository.findAllByMusicId(musicId,
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "createdTime"));
         Page<CommentResponse> commentResponsePage = commentList.map(c ->
                 CommentResponse.builder()
-                        .code((String) c[0])
-                        .content((String) c[1])
-                        .presentTime((Integer) c[2])
-                        .createdTime((LocalDateTime) c[3])
-                        .memberInfo(new MemberInfoResponse((String) c[4], (String) c[5]))
+                        .code(c.getCode())
+                        .content(c.getContent())
+                        .presentTime(c.getPresentTime())
+                        .createdTime(c.getCreatedTime())
+                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage()))
                         .build()
         );
         CommentListResponse response = CommentListResponse.builder()
