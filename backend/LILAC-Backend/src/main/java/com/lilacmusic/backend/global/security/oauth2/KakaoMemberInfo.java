@@ -5,7 +5,7 @@ import com.lilacmusic.backend.member.entity.Member.RegistrationId;
 
 import java.util.Map;
 /**
- * @author suker80
+ * @author skyland310
  * 카카오 로그인 정보를 담을 클래스
  */
 public class KakaoMemberInfo implements MemberInfo {
@@ -15,14 +15,46 @@ public class KakaoMemberInfo implements MemberInfo {
         this.attributes = attributes;
     }
 
+
     @Override
     public String getEmail() {
-        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-        return (String) kakaoAccount.get("email");
+        Map<String, Object> account = (Map<String, Object>) attributes.get("kakao_account");
+        if (account == null) {
+            return null;
+        }
+        return account.get("email").toString();
     }
 
     @Override
     public RegistrationId getRegistrationId() {
         return RegistrationId.kakao;
     }
+
+
+    @Override
+    public String getNickname() {
+        Map<String, Object> account = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String, Object> profile = (Map<String, Object>) account.get("profile");
+
+        if (account == null || profile == null) {
+            return null;
+        }
+
+        return (String) profile.get("nickname");
+    }
+
+    @Override
+    public String getImageUrl() {
+        Map<String, Object> account = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String, Object> profile = (Map<String, Object>) account.get("profile");
+
+        if (account == null || profile == null) {
+            return null;
+        }
+
+        return (String) profile.get("thumbnail_image_url");
+    }
+
+
+
 }

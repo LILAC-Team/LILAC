@@ -1,6 +1,7 @@
 import MyAlbumBox from "../../components/Container/MyAlbumBox";
 import { useTabs } from "@/hooks/useTabs";
 import * as S from "./style";
+
 const allTab = [
   {
     idx: 0,
@@ -17,7 +18,7 @@ const allTab = [
 const AlbumPage = () => {
   const { currentItem, changeItem } = useTabs(0, allTab);
   return (
-    <div>
+    <>
       <S.TabWrapper>
         <S.Tabs>
           {allTab.map(({ idx, name }) => (
@@ -31,9 +32,8 @@ const AlbumPage = () => {
           ))}
         </S.Tabs>
       </S.TabWrapper>
-      {/* <DashBoardTab currentItem={currentItem} changeItem={changeItem} /> */}
       {currentItem.component};
-    </div>
+    </>
   );
 };
 

@@ -27,7 +27,9 @@ public enum GlobalErrorCode {
     // 댓글과 관련된 Exception
     COMMENT_NOT_FOUND(404, "C100", "해당하는 댓글을 찾을 수 없습니다."),
     // 기록과 관련된 Exception
-    MALFORMED_DATE(400, "R100", "잘못된 날짜 형식입니다.");
+    MALFORMED_DATE(400, "R100", "잘못된 날짜 형식입니다."),
+    // 지원하지 않는 로그인 방식
+    UNSUPPORTED_INFO(400,"O100","지원하지 않는 로그인 방식입니다.");
 
     private final String code;
     private final String message;
@@ -38,4 +40,4 @@ public enum GlobalErrorCode {
         this.code = code;
         this.message = message;
     }
-}
+    }

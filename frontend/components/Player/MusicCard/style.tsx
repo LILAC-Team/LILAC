@@ -2,19 +2,19 @@ import styled from "styled-components";
 
 export const MusicCard = styled.div`
   display: flex;
-  justify-content: space-between;
   width: 100%;
-  height: calc((var(--vw, 1vw) * 18));
   max-height: 5rem;
-  padding: calc((var(--vw, 1vw) * 2));
   justify-content: center;
+  justify-content: space-between;
+  height: calc((var(--vw, 1vw) * 18));
+  padding: calc((var(--vw, 1vw) * 2));
 `;
 
 export const LeftWrapper = styled.div`
+  display: flex;
   width: 100%;
   height: calc(var(--vw, 1vw) * 14);
   max-height: calc(5rem - (var(--vw, 1vw) * 2));
-  display: flex;
 `;
 
 export const CoverImg = styled.div`
@@ -27,8 +27,8 @@ export const CoverImg = styled.div`
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: calc((var(--vw, 1vw) * 5));
   justify-content: center;
+  margin-left: calc((var(--vw, 1vw) * 5));
 `;
 
 export const Title = styled.div`
@@ -46,6 +46,6 @@ export const Singer = styled.div`
 export const Hamberger = styled.div`
   display: flex;
   height: 100%;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
