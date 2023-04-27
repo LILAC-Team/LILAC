@@ -6,6 +6,7 @@ import com.lilacmusic.backend.musics.dto.response.RecentCommentResponse;
 import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
 import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.entity.RecentComment;
+import com.lilacmusic.backend.musics.model.mapping.MusicImgMapping;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import com.lilacmusic.backend.musics.model.repository.RecentCommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +26,13 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public MusicDetailResponse getMusicDetail(String musicCode, Long userId) throws NoMusicFoundException {
-        List<Object[]> optionalMusic = musicRepository.findByCodeWithAlbumImage(musicCode);
-        if (optionalMusic.isEmpty()) {
+        Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(musicCode);
+        if (music.isEmpty()) {
             throw new NoMusicFoundException();
         }
-        Object[] music = optionalMusic.get(0);
 
         // 유저의 음원 소유 확인 여부 로직 추가할건지???????????
-        List<Object[]> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc((Long) music[0]);
+        List<Object[]> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc(music.get().getMusicId());
         List<RecentCommentResponse> recentCommentResponseList = recentComments.stream().map(c ->
                 RecentCommentResponse.builder()
                         .content((String) c[0])
@@ -42,12 +42,12 @@ public class MusicServiceImpl implements MusicService {
         ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()
                 .recentCommentList(recentCommentResponseList)
-                .code((String) music[1])
-                .name((String) music[2])
-                .artistName((String) music[3])
-                .playtime((Integer) music[4])
-                .storagePath((String) music[5])
-                .albumImage((String) music[6])
+                .code(music.get().getCode())
+                .name(music.get().getName())
+                .artistName(music.get().getArtistName())
+                .playtime(music.get().getPlaytime())
+                .storagePath(music.get().getStoragePath())
+                .albumImage(music.get().getAlbumImage())
                 .build();
 
         return response;

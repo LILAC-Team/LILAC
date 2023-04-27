@@ -2,6 +2,7 @@ package com.lilacmusic.backend.playlists.service;
 
 import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
 import com.lilacmusic.backend.musics.model.entity.Music;
+import com.lilacmusic.backend.musics.model.mapping.MusicImgMapping;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import com.lilacmusic.backend.playlists.dto.request.PlayListAddRequest;
 import com.lilacmusic.backend.playlists.dto.request.PlayListRequest;
@@ -46,18 +47,18 @@ public class PlayListServiceImpl implements PlayListService {
     @Override
     @Transactional
     public Long addMusicToPlayList(Long userId, PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
-        List<Object[]> optionalMusic = musicRepository.findByCodeWithAlbumImage(playListAddRequest.getCode());
-        if (optionalMusic.isEmpty()) {
+        Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(playListAddRequest.getCode());
+        if (music.isEmpty()) {
             throw new NoMusicFoundException();
         }
-        Object[] music = optionalMusic.get(0);
+
         Optional<PlayList> playList = playListRepository.findById(userId);
         PlayListMusic newMusic = PlayListMusic.builder()
-                .code((String) music[1])
-                .name((String) music[2])
-                .artistName((String) music[3])
-                .playtime((Integer) music[4])
-                .albumImage((String) music[6])
+                .code(music.get().getCode())
+                .name(music.get().getName())
+                .artistName(music.get().getArtistName())
+                .playtime(music.get().getPlaytime())
+                .albumImage(music.get().getAlbumImage())
                 .build();
         if (playList.isEmpty()) {
             PlayList newPlayList = new PlayList(userId, List.of(newMusic));
@@ -66,7 +67,7 @@ public class PlayListServiceImpl implements PlayListService {
         List<PlayListMusic> list = playList.get().getMusicList();
         list.add(newMusic);
         playListRepository.save(new PlayList(userId, list));
-        return (Long) optionalMusic.get(0)[0];
+        return music.get().getMusicId();
     }
 
     @Override
