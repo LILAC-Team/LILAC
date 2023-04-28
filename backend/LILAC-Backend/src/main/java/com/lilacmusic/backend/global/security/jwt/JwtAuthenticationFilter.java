@@ -60,6 +60,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         Authentication authenticate = this.getAuthenticationManager().authenticate(authenticationToken);
         if (authenticate.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(authenticate);
+            request.setAttribute("email", claims.get("email"));
         }
         chain.doFilter(request, response);
     }
