@@ -1,14 +1,16 @@
-import AlbumCard from "@/components/common/AlbumCard";
-import BasicImage from "@/components/common/BasicImage";
 import BasicText from "@/components/common/BasicText";
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import test from "./test.json";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import { AiOutlinePlus } from "react-icons/ai";
-import styled from "styled-components";
-import MusicCard from "@/components/Player/MusicCard";
+import AlbumCard from "@/components/common/AlbumCard";
+import BasicImage from "@/components/common/BasicImage";
+import styled, { css } from "styled-components";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+
+type Anchor = "bottom";
 
 const Test = () => {
   const router = useRouter();
@@ -21,35 +23,52 @@ const Test = () => {
   const tmpFunction = () => {
     router.push("/");
   };
+  const [state, setState] = React.useState({ bottom: false });
+  const toggleDrawer =
+    (anchor: Anchor, open: boolean) =>
+    (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+
+      setState({ ...state, [anchor]: open });
+    };
+  const list = (anchor: Anchor) => <MyDiv>hello</MyDiv>;
+  const iOS =
+    typeof navigator !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
     <>
-      <BasicText
-        text="테스트"
-        // color="transparent"
-        // background="linear-gradient(0deg, rgba(216,194,254,1) 0%, rgba(204,164,252,1) 35%, rgba(61,58,75,1) 100%)"
-        font=""
-        // clip={true}
-        size="2rem"
-      />
+      {(["bottom"] as const).map((anchor) => (
+        <React.Fragment key={anchor}>
+          <button onClick={toggleDrawer(anchor, true)}>{anchor}</button>
+          <SwipeableDrawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}
+            disableBackdropTransition={!iOS}
+            disableDiscovery={iOS}
+            PaperProps={{ style: { backgroundColor: "transparent" } }}
+          >
+            {list(anchor)}
+          </SwipeableDrawer>
+        </React.Fragment>
+      ))}
+      <BasicText text="테스트" size="2rem" />
       <BasicImage
         src="https://i.namu.wiki/i/m60BZ35BZRrbiqpurjIPB7GAs74I2LPNXe0MuHeEemha3ksZzGJo21PfgIdXn6JXZV0Wnps6xiAMPCVb_BYIwMeDwGEtL1R9Sxe5lmGUb4ZlPMyUO-vxTNG-6RMTR23h-myh5DqQk0h38DUi-wxiUA.jpg"
         size="15rem"
         radius={10}
         isRotate={true}
       />
-      <Wrap>
-        {test.releasedAlbumList.map((item) => {
-          return (
-            <MusicCard
-              key={item.code}
-              onClickEvent={tmpFunction}
-              data={item}
-              isEditable={true}
-            />
-          );
-        })}
-      </Wrap>
-      <Wrapper>
+
+      <div style={tmpStyle}>
         {test.releasedAlbumList.map((item) => {
           return (
             <AlbumCard
@@ -60,42 +79,38 @@ const Test = () => {
             />
           );
         })}
-      </Wrapper>
-      <Wrapper>
+      </div>
+      <div style={btnStyle}>
         <CustomTextButton
           text="생성"
           size="2rem"
           font=""
           fontColor="#ffffff"
-          // border="5px dashed green"
-          // isBackground={false}
-          // isDisabled={true}
           handleOnClickButton={tmpFunction}
         />
-      </Wrapper>
-      <Wrapper>
+      </div>
+      <div style={btnStyle}>
         <CustomIconButton
           color="#d47a7a"
           size="5rem"
-          // border="5px dashed black"
-          // isDisabled={true}
           handleOnClickButton={tmpFunction}
         >
           <AiOutlinePlus color="#ffffff" size="5rem" />
         </CustomIconButton>
-      </Wrapper>
+      </div>
     </>
   );
 };
 
 export default Test;
 
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
-
-const Wrap = styled.div`
+export const MyDiv = styled.div`
+  width: calc(var(--vw, 1vw) * 100);
+  height: calc(var(--vh, 1vh) * 95);
+  background-color: white;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
   justify-content: center;
-  width: 100%;
+  align-items: center;
+  text-align: center;
 `;
