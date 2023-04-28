@@ -4,13 +4,7 @@ import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from "react-icons/tb";
 import { FaPlay, FaPause, FaBackward, FaForward } from "react-icons/fa";
 import { useState } from "react";
 
-interface MusicControllerProps {
-  nowPlayingMusic: string;
-}
-
-const MusicController = ({ nowPlayingMusic }: MusicControllerProps) => {
-  const [currentMusic, setCurrentMusic] = useState(nowPlayingMusic);
-
+const MusicController = () => {
   const [shuffleState, setShuffleState] = useState(false);
   const [playState, setPlayState] = useState(false);
   const [repeatState, setRepeatState] = useState(0);
