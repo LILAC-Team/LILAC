@@ -4,7 +4,13 @@ import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from "react-icons/tb";
 import { FaPlay, FaPause, FaBackward, FaForward } from "react-icons/fa";
 import { useState } from "react";
 
-const MusicController = () => {
+interface MusicControllerProps {
+  nowPlayingMusic: string;
+}
+
+const MusicController = ({ nowPlayingMusic }: MusicControllerProps) => {
+  const [currentMusic, setCurrentMusic] = useState(nowPlayingMusic);
+
   const [shuffleState, setShuffleState] = useState(false);
   const [playState, setPlayState] = useState(false);
   const [repeatState, setRepeatState] = useState(0);
@@ -19,7 +25,9 @@ const MusicController = () => {
     }
   };
 
-  const handleClickBackward = () => {};
+  const handleClickBackward = () => {
+    console.log("Play previous music");
+  };
 
   const handleClickPlay = () => {
     if (playState) {
@@ -31,15 +39,20 @@ const MusicController = () => {
     }
   };
 
-  const handleClickForward = () => {};
+  const handleClickForward = () => {
+    console.log("Play next music");
+  };
 
   const handleClickRepeat = () => {
     if (repeatState === 0) {
+      console.log("Repeat all");
       setRepeatState(1);
     } else if (repeatState === 1) {
       setRepeatState(2);
+      console.log("Repeat once");
     } else {
       setRepeatState(0);
+      console.log("No repeat");
     }
   };
 
