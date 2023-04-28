@@ -21,7 +21,6 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       <Header />
       <ChildrenWrap>{children}</ChildrenWrap>
-      {/* <TempWrap>절 지워주세요.</TempWrap> */}
       <TempWrap>
         <MusicPlayerBar data={data} />
       </TempWrap>
