@@ -21,9 +21,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       <Header />
       <ChildrenWrap>{children}</ChildrenWrap>
-      <TempWrap>
-        <MusicPlayerBar data={data} />
-      </TempWrap>
+      <MusicPlayerBar data={data} />
       <NavigationBar />
     </>
   );
@@ -45,8 +43,4 @@ const ChildrenWrap = styled.div`
     display: none;
   }
   overflow-y: hidden;
-`;
-
-const TempWrap = styled.div`
-  height: 3.5rem;
 `;
