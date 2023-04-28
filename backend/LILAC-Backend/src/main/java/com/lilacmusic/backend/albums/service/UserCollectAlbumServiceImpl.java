@@ -8,6 +8,7 @@ import com.lilacmusic.backend.albums.model.repository.UserCollectAlbumRepository
 import com.lilacmusic.backend.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class UserCollectAlbumServiceImpl implements UserCollectAlbumService {
     private final MemberRepository memberRepository;
 
     @Override
+    @Transactional
     public Long collectAlbum(String code, Long memberId) throws NoAlbumFoundException {
         Optional<Album> optionalAlbum = albumRepository.getAlbumByCode(code);
         if (optionalAlbum.isEmpty()) {
@@ -33,9 +35,8 @@ public class UserCollectAlbumServiceImpl implements UserCollectAlbumService {
                 .createdTime(LocalDateTime.now())
                 .build();
         userCollectAlbumRepository.save(userCollectAlbum);
-
-//        User user = userRepository.getReferenceById(memberId); 통계추가 필요
-
+        memberRepository.updateCollectingByMemberId(memberId);
+        
         return userCollectAlbum.getUserCollectAlbumId();
     }
 }
