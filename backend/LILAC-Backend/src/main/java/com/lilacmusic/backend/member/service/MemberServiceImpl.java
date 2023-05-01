@@ -12,6 +12,7 @@ import com.lilacmusic.backend.member.request.MemberSignUpRequest;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
@@ -111,6 +112,7 @@ public class MemberServiceImpl implements MemberService {
      * @return 이메일의 멤버 아이디, 없으면 -1 리턴
      */
     @Override
+    @Cacheable
     public Long getMemberIdByEmail(String email) {
         if (email == null) {
             return -1L;
