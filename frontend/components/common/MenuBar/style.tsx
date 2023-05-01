@@ -12,9 +12,11 @@ export const MenuWrapper = styled.div`
 
   width: 100%;
   max-width: 900px;
-  height: 3.5rem;
+  height: 4.5rem;
   align-items: center;
   justify-items: center;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
+
+  padding-bottom: 1rem;
 `;

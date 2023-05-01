@@ -18,12 +18,12 @@ const Layout = ({ children }: LayoutProps) => {
   };
 
   return (
-    <>
+    <ContainerWrap>
       <Header />
       <ChildrenWrap>{children}</ChildrenWrap>
       <MusicPlayerBar data={data} />
       <NavigationBar />
-    </>
+    </ContainerWrap>
   );
 };
 
@@ -33,7 +33,7 @@ const ContainerWrap = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 5rem calc(var(--vh, 1vh) * 100 - 12rem) 3.5rem 3.5rem;
+  grid-template-rows: 5rem calc(var(--vh, 1vh) * 100 - 13.8rem) 4.3rem 4.5rem;
 `;
 
 const ChildrenWrap = styled.div`
