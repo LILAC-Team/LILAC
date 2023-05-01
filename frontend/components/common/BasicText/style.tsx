@@ -23,5 +23,4 @@ export const Text = styled.div<TextProps>`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
 `;
