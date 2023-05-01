@@ -1,16 +1,26 @@
 import styled from "styled-components";
 
 interface TextProps {
-  color: string;
-  size: number;
-  font: string;
+  color?: string;
+  background?: string;
+  clipText?: boolean;
+  size?: string;
+  font?: string;
 }
 
 export const Text = styled.div<TextProps>`
-  color: ${(props) => props.color};
-  font-size: ${(props) => props.size}rem;
+  color: ${(props) => props.color || "#ffffff"};
+  font-size: ${(props) => props.size || "100%"};
   font-family: ${(props) => props.font};
-  width: 100%;
+  background: ${(props) => props.background || "transparent"};
+  ${(props) => {
+    if (props.clipText) {
+      return `
+        -webkit-background-clip: text;
+      `;
+    }
+  }}
   height: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
 `;

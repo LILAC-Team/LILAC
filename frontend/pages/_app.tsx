@@ -1,8 +1,6 @@
-// import "@/styles/globals.css";
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
-// import * as S from "../style";
-import { Fragment, useEffect } from "react";
+import { GlobalStyle } from "@/styles/globalStyle";
+import { useEffect } from "react";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -14,8 +12,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     });
   }, []);
-
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <GlobalStyle />
+      <Component {...pageProps} />
+    </>
+  );
 };
 
 export default MyApp;

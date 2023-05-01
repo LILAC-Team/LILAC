@@ -15,7 +15,8 @@
 # ======================== COMMIT END ========================= 
 #   ✨ Feat: 
 #   🚧 Progress: 
-#   🐛 Fix: 
+#   🎯 Fix: 
+#   🐛 Bug: 
 #   🎨 Design: 
 #   💄 Style: 
 #   ♻️ Refactor: 
@@ -33,7 +34,8 @@
 #   <타입> 리스트  
 #   ✨ Feat             : 새로운 기능 추가   
 #   🚧 Progress         : 작업 진행 중인 코드
-#   🐛 Fix              : 버그 수정
+#   🎯 Fix              : 코드 수정
+#   🐛 Bug              : 버그 수정
 #   🎨 Design           : CSS 등 사용자 UI 디자인 변경  
 #   💄 Style            : 코드 포맷 변경, 세미 콜론 누락 (비즈니스 로직 변경 X)  
 #   ♻️ Refactor         : 프로덕션 코드 리팩토링
@@ -44,7 +46,7 @@
 #   📝 Rename           : 파일 혹은 폴더명을 수정, 옮기는 작업만
 #   🔥 Remove           : 사용하지 않는 파일 혹은 폴더를 삭제하는 경우
 #   📌 Init             : 초기 생성  
-#   🚑 !BREAKING CHANGE : 커다란 API 변경
+#   🚑 !BREAKING CHANGE : 커다란 API 혹은 로직 변경
 #   🔔 Merge Request    : Merge Request 생성(Branch 병합, Conflict 해결 등)
 
 

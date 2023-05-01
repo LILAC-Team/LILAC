@@ -47,23 +47,60 @@ spring:
       max-file-size: 10MB
       max-request-size: 100MB
 
+  security:
+    user:
+      name: ${ADMIN_NAME}
+      password: ${ADMIN_PASSWORD}
+      roles: ADMIN
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${KAKAO_ID}
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            client-authentication-method: POST
+            client-secret: ${KAKAO_SECRET}
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+            client_name: kakao
+
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
 jwt:
-  header: Authorization
-  secret: hellothisislilacmusicsdevelopversionsecretkey
-  access-token-validity-milliseconds: 1800000
-  refresh-token-validity-milliseconds: 604800000
+  secretKey: ${JWT_SECRET_KEY}
+  access:
+    expiration: 3600000 # 1시간
+    header: Authorization
+  refresh:
+    expiration: 1209600000 # 2주
+    header: Authorization-refresh
 
 logging:
   level:
     root: info
     com.lilacmusic: debug
 
-#cloud:
-#  aws:
-#    s3:
-#      bucket:
-#    region:
-#      static: ap-northeast-2
-#    stack:
-#      auto: false
-#    cloudfront:
+
+
+cloud:
+  aws:
+    access_key: ${AWS_ACCESS_KEY_ID}
+    secret_key: ${AWS_SECRET_KEY}
+    s3:
+      bucket: ${S3_BUCKET}
+    region:
+      static: ${AWS_REGION}
+    stack:
+      auto: false
+    mediaconvert:
+      endpoint: ${MEDIACONVERT_ENDPOINT}
+      role: ${IAM_ROLE}
+
