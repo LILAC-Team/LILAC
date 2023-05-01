@@ -53,6 +53,10 @@ dependencies {
 	// validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// aws
+	implementation 'software.amazon.awssdk:s3:2.20.56'
+	implementation 'software.amazon.awssdk:mediaconvert:2.20.56'
+
 }
 
 tasks.named('test') {
