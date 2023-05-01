@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../Header";
 import styled from "styled-components";
 import NavigationBar from "../NavigationBar";

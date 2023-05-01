@@ -31,8 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url("https://fonts.gstatic.com/s/notosanskr/v27/PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.119.woff2")
-      format("woff2");
+    src: url("/fonts/NotoSansKR-Regular.otf") format("opentype");
   }
 
   @font-face {
@@ -40,8 +39,7 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap")
-      format("woff2");
+    src: url("/fonts/NotoSansKR-Medium.otf") format("opentype");
   }
 
   @font-face {
@@ -49,21 +47,14 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap")
-      format("woff2");
-  }
-
-  @font-face {
-    font-family: "NotoSansKR700";
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap)
-      format("woff2");
+    src: url("/fonts/NotoSansKR-Bold.otf") format("opentype");
   }
 
   @font-face {
     font-family: "HSBomBaram";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
     src: url("/fonts/HSBombaram2.1.ttf") format("woff2");
   }
 
@@ -140,12 +131,11 @@ html {
 }
 
 body {
-  font-family: "HSBomBaram", "NotoSansKR700", "NotoSansKR400", "NotoSansKR500",
+  font-family: "HSBomBaram", "NotoSansKR700", "NotoSansKR400", "NotoSansKR500", 
     sans-serif;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   margin: 0rem;
-  /* padding: 0rem 1rem 0rem 1rem; */
   padding: 0;
   overflow-x: hidden;
   background: var(--color-background);
