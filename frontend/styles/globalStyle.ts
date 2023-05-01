@@ -58,12 +58,15 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url(https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap)
+    src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap")
       format("woff2");
   }
 
   @font-face {
     font-family: "HSBomBaram";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
     src: url("/fonts/HSBombaram2.1.ttf") format("woff2");
   }
 
