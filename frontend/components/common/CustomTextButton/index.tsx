@@ -4,7 +4,7 @@ import BasicText from "../BasicText";
 interface CustomTextButtonProps {
   text: string;
   size?: string;
-  font: string;
+  font?: string;
   fontColor: string;
   border?: string;
   isBackground?: boolean;

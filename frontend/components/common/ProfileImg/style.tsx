@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface ProfileProps {
-  src?: string;
+  src?: string | ArrayBuffer;
   size: string;
   to?: string;
 }
@@ -13,9 +13,8 @@ export const ProfileImage = styled.div<ProfileProps>`
   aspect-ratio: 1 / 1;
 
   background-size: cover;
-  background-image: url(${(props) => `${props.src}`});
+  background-image: ${(props) => `url(${props.src})`};
   background-position: center center;
-
   display: flex;
   align-items: center;
   justify-content: center;

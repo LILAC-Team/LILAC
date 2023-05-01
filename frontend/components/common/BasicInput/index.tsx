@@ -6,8 +6,8 @@ interface BasicInputProps {
   type: string;
   value: string;
   handleOnChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
-  isReadOnly: boolean;
+  placeholder?: string;
+  isReadOnly?: boolean;
 }
 
 const BasicInput = ({

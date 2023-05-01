@@ -1,7 +1,8 @@
+import CircularJSON from "circular-json";
 import MyAlbumBox from "../../components/Container/MyAlbumBox";
 import { useTabs } from "@/hooks/useTabs";
 import * as S from "./style";
-
+import Layout from "@/components/common/Layout";
 const allTab = [
   {
     idx: 0,
@@ -18,7 +19,7 @@ const allTab = [
 const AlbumPage = () => {
   const { currentItem, changeItem } = useTabs(0, allTab);
   return (
-    <>
+    <Layout>
       <S.TabWrapper>
         <S.Tabs>
           {allTab.map(({ idx, name }) => (
@@ -33,8 +34,17 @@ const AlbumPage = () => {
         </S.Tabs>
       </S.TabWrapper>
       {currentItem.component};
-    </>
+    </Layout>
   );
 };
+
+export async function getServerSideProps({ req }) {
+  const serializedReq = CircularJSON.stringify(req);
+  return {
+    props: {
+      req: serializedReq,
+    },
+  };
+}
 
 export default AlbumPage;

@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { GlobalStyle } from "@/styles/globalStyle";
 import { useEffect } from "react";
-import Layout from "@/components/common/Layout";
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     let vh = window.innerHeight * 0.01;
@@ -12,13 +12,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     });
   }, []);
-
   return (
     <>
       <GlobalStyle />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Component {...pageProps} />
     </>
   );
 };
