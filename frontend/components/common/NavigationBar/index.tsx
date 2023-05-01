@@ -5,35 +5,25 @@ import { MdOutlineLibraryMusic } from "react-icons/md";
 import Link from "next/link";
 
 const NavigationBar = () => {
-  const handleHomeClick = () => {
-    console.log("Navigate to Main Page");
-  };
-  const handleAddClick = () => {
-    console.log("Navigate to Add-Album Page");
-  };
-  const handlePlaylistClick = () => {
-    console.log("Navigate to Playlist Page");
-  };
-
   return (
     <S.NavigationWrapper>
       <S.ButtonWrapper>
         <Link href={"/"}>
-          <CustomIconButton handleOnClickButton={handleHomeClick}>
+          <CustomIconButton>
             <RiHome4Line size="1.125rem" color="#CCA4FC" />
           </CustomIconButton>
         </Link>
       </S.ButtonWrapper>
       <S.ButtonWrapper>
         <Link href={"/"}>
-          <CustomIconButton handleOnClickButton={handleAddClick}>
+          <CustomIconButton>
             <RiAddLine size="1.125rem" color="#CCA4FC" />
           </CustomIconButton>
         </Link>
       </S.ButtonWrapper>
       <S.ButtonWrapper>
         <Link href={"/"}>
-          <CustomIconButton handleOnClickButton={handlePlaylistClick}>
+          <CustomIconButton>
             <MdOutlineLibraryMusic size="1.125rem" color="#CCA4FC" />
           </CustomIconButton>
         </Link>
