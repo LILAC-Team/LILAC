@@ -1,3 +1,4 @@
+import CircularJSON from "circular-json";
 import MyAlbumBox from "../../components/Container/MyAlbumBox";
 import { useTabs } from "@/hooks/useTabs";
 import * as S from "./style";
@@ -36,5 +37,14 @@ const AlbumPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ req }) {
+  const serializedReq = CircularJSON.stringify(req);
+  return {
+    props: {
+      req: serializedReq,
+    },
+  };
+}
 
 export default AlbumPage;

@@ -1,8 +1,6 @@
 import type { AppProps } from "next/app";
 import { GlobalStyle } from "@/styles/globalStyle";
 import { useEffect } from "react";
-import Layout from "@/components/common/Layout";
-import { GetServerSideProps } from "next";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -14,15 +12,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     });
   }, []);
-
-  console.log("pageProps: ", pageProps);
-
   return (
     <>
       <GlobalStyle />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Component {...pageProps} />
     </>
   );
 };
