@@ -5,7 +5,7 @@ export const NavigationWrapper = styled.div`
   background-color: black;
   width: 100%;
   max-width: 900px;
-  height: 3.5rem;
+  height: 4.5rem;
 
   align-items: center;
   justify-content: space-around;
@@ -14,6 +14,8 @@ export const NavigationWrapper = styled.div`
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
+
+  padding-bottom: 1rem;
 `;
 
 export const ButtonWrapper = styled.div`
