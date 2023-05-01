@@ -9,3 +9,28 @@ export const Player = styled.div`
   align-items: center;
   text-align: center;
 `;
+
+export const AlbumCover = styled.div`
+  /* padding: 2rem; */
+`;
+
+export const Title = styled.div`
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Artist = styled.div`
+  padding: 0.5rem;
+`;
+
+export const MusicBar = styled.div`
+  padding: 0.5rem;
+`;
+
+export const ControllBar = styled.div`
+  width: 100%;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: 5rem;
+`;
