@@ -3,7 +3,7 @@ import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
 import BasicText from "@/components/common/BasicText";
-import { FaPlay, FaPause, FaForward } from "react-icons/fa";
+import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
 import { RiPlayListFill } from "react-icons/ri";
 
 interface MusicPlayerBarProps {
@@ -39,7 +39,7 @@ const MusicPlayerBar = ({ data }: MusicPlayerBarProps) => {
     <S.BarWrapper>
       <S.LeftWrapper>
         <S.AlbumImg>
-          <BasicImage src={data.albumImage} radius={0.75} />
+          <BasicImage src={data.albumImage} radius={0.15} />
         </S.AlbumImg>
         <S.TextWrapper>
           <S.Title>
@@ -53,16 +53,16 @@ const MusicPlayerBar = ({ data }: MusicPlayerBarProps) => {
       <S.RightWrapper>
         <CustomIconButton handleOnClickButton={handleClickPlay}>
           {playState ? (
-            <FaPlay size="2rem" color="#FFFFFF" />
+            <IoPlay size="2.5rem" color="#FFFFFF" />
           ) : (
-            <FaPause size="2rem" color="#FFFFFF" />
+            <IoPause size="2.5rem" color="#FFFFFF" />
           )}
         </CustomIconButton>
         <CustomIconButton handleOnClickButton={handleClickForward}>
-          <FaForward size="1.5rem" color="#FFFFFF" />
+          <IoPlayForward size="1.5rem" color="#FFFFFF" />
         </CustomIconButton>
         <CustomIconButton handleOnClickButton={handleClickList}>
-          <RiPlayListFill size="1.5rem" color="#FFFFF" />
+          <RiPlayListFill size="1.5rem" color="#FFFFFF" />
         </CustomIconButton>
       </S.RightWrapper>
     </S.BarWrapper>
