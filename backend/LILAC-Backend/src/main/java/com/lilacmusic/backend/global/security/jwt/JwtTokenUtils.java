@@ -1,7 +1,9 @@
 package com.lilacmusic.backend.global.security.jwt;
 
+import com.lilacmusic.backend.global.error.GlobalErrorCode;
 import com.lilacmusic.backend.global.redis.RefreshTokenRepository;
 import com.lilacmusic.backend.member.entity.Member;
+import com.lilacmusic.backend.member.exception.AccessDeniedException;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -104,7 +106,7 @@ public class JwtTokenUtils {
      * @author suker80
      */
     public Optional<RefreshToken> findRefreshToken(String refreshToken) {
-        return refreshTokenRepository.findById(refreshToken);
+        return refreshTokenRepository.findByRefreshToken(refreshToken);
 
     }
 
@@ -117,8 +119,7 @@ public class JwtTokenUtils {
 
         try {
             getAllClaims(refreshToken.getAccessTokenValue());
-//            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
-            throw new RuntimeException(); // TODO 나중에 ACCESS_DENIED Exception으로 바꿔줘야 됨
+            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
         } catch (ExpiredJwtException e) {
             Claims claims = e.getClaims();
             String accessToken = Jwts.builder()
