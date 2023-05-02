@@ -78,24 +78,24 @@ public class CommentServiceImpl implements CommentService {
 
         Optional<RecentComment> optionalRecentComment = recentCommentRepository
                 .getRecentCommentByMusicIdAndPresentTime(musicId, commentRequest.getPresentTime());
-        if (optionalRecentComment.isEmpty()) {
-            RecentComment recentComment = RecentComment.builder()
-                    .memberId(memberId)
-                    .musicId(musicId)
-                    .content(commentRequest.getContent())
-                    .presentTime(commentRequest.getPresentTime())
-                    .build();
-            recentCommentRepository.save(recentComment);
-        } else {
-            RecentComment recentComment = RecentComment.builder()
-                    .recentCommentId(optionalRecentComment.get().getRecentCommentId())
-                    .memberId(memberId)
-                    .musicId(musicId)
-                    .content(commentRequest.getContent())
-                    .presentTime(commentRequest.getPresentTime())
-                    .build();
-            recentCommentRepository.save(recentComment);
-        }
+
+        // 해당 시각의 최신 댓글 부재시 생성 / 존재시 업데이트
+        RecentComment recentComment = optionalRecentComment.isEmpty() ?
+                RecentComment.builder()
+                        .memberId(memberId)
+                        .musicId(musicId)
+                        .content(commentRequest.getContent())
+                        .presentTime(commentRequest.getPresentTime())
+                        .build() :
+                RecentComment.builder()
+                        .recentCommentId(optionalRecentComment.get().getRecentCommentId())
+                        .memberId(memberId)
+                        .musicId(musicId)
+                        .content(commentRequest.getContent())
+                        .presentTime(commentRequest.getPresentTime())
+                        .build();
+
+        recentCommentRepository.save(recentComment);
 
         return comment.getCommentId();
     }
