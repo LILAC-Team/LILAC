@@ -9,6 +9,7 @@ import AlbumCard from "@/components/common/AlbumCard";
 import BasicImage from "@/components/common/BasicImage";
 import styled, { css } from "styled-components";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import MusicPlayerDrawer from "@/components/Player/MusicPlayerDrawer";
 
 type Anchor = "bottom";
 
@@ -56,7 +57,7 @@ const Test = () => {
             disableDiscovery={iOS}
             PaperProps={{ style: { backgroundColor: "transparent" } }}
           >
-            {list(anchor)}
+            <MusicPlayerDrawer />
           </SwipeableDrawer>
         </React.Fragment>
       ))}
@@ -108,8 +109,8 @@ export const MyDiv = styled.div`
   width: calc(var(--vw, 1vw) * 100);
   height: calc(var(--vh, 1vh) * 95);
   background-color: white;
-  border-top-left-radius: 5%;
-  border-top-right-radius: 5%;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
   justify-content: center;
   align-items: center;
   text-align: center;
