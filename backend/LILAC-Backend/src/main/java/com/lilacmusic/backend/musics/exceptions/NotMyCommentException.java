@@ -1,10 +1,10 @@
 package com.lilacmusic.backend.musics.exceptions;
 
-import com.lilacmusic.backend.common.exceptions.CommonException;
-import org.springframework.http.HttpStatus;
+import com.lilacmusic.backend.global.error.GlobalBaseException;
+import com.lilacmusic.backend.global.error.GlobalErrorCode;
 
-public class NotMyCommentException extends CommonException {
+public class NotMyCommentException extends GlobalBaseException {
     public NotMyCommentException() {
-        super(HttpStatus.FORBIDDEN, "NotMyCommentException", "다른 사람이 쓴 댓글입니다.");
+        super(GlobalErrorCode.COMMENT_NOT_MINE);
     }
 }

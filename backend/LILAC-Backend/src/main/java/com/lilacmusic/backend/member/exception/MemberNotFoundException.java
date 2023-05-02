@@ -5,7 +5,7 @@ import com.lilacmusic.backend.global.error.GlobalErrorCode;
 
 public class MemberNotFoundException extends GlobalBaseException {
 
-    public MemberNotFoundException(GlobalErrorCode errorCode) {
-        super(errorCode);
+    public MemberNotFoundException() {
+        super(GlobalErrorCode.MEMBER_NOT_FOUND);
     }
 }
