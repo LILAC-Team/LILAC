@@ -2,14 +2,12 @@ import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from "react-icons/tb";
 import { IoPlay, IoPause, IoPlayBack, IoPlayForward } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const MusicController = ({ handleRotateClick }) => {
   const [shuffleState, setShuffleState] = useState(false);
   const [playState, setPlayState] = useState(false);
   const [repeatState, setRepeatState] = useState(0);
-
-  handleRotateClick(playState);
 
   const handleClickShuffle = () => {
     if (shuffleState) {
@@ -51,6 +49,10 @@ const MusicController = ({ handleRotateClick }) => {
       console.log("No repeat");
     }
   };
+
+  useEffect(() => {
+    handleRotateClick(playState);
+  }, [playState]);
 
   return (
     <S.ControllerWrapper>
