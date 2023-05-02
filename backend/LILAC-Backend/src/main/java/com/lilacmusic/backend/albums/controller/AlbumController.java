@@ -10,6 +10,8 @@ import com.lilacmusic.backend.albums.exceptions.NoAlbumFoundException;
 import com.lilacmusic.backend.albums.service.AlbumService;
 import com.lilacmusic.backend.albums.service.StreamingService;
 import com.lilacmusic.backend.global.error.GlobalErrorCode;
+import com.lilacmusic.backend.global.error.common.InvalidPathVariableException;
+import com.lilacmusic.backend.global.validation.GlobalRequestValidator;
 import com.lilacmusic.backend.member.exception.AccessDeniedException;
 import com.lilacmusic.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -33,14 +35,12 @@ public class AlbumController {
 
     private final StreamingService streamingService;
 
+    private final GlobalRequestValidator validator;
+
     @GetMapping("/released/{pageNumber}")
     public ResponseEntity<ReleasedAlbumListResponse> getReleasedAlbums(@PathVariable("pageNumber") Integer pageNumber,
                                                                        HttpServletRequest request) {
-        String email = (String) request.getAttribute("email");
-        Long memberId = memberService.getMemberIdByEmail(email);
-        if (memberId.equals(-1L)) {
-            throw new AccessDeniedException();
-        }
+        Long memberId = validator.validatePageNumberAndEmail(pageNumber, request);
 
         ReleasedAlbumListResponse response = albumService.getReleasedAlbums(pageNumber, memberId);
         return ResponseEntity.ok().body(response);
@@ -49,11 +49,7 @@ public class AlbumController {
     @GetMapping("/collected/{pageNumber}")
     public ResponseEntity<CollectedAlbumListResponse> getCollectedAlbums(@PathVariable("pageNumber") Integer pageNumber,
                                                                          HttpServletRequest request) {
-        String email = (String) request.getAttribute("email");
-        Long memberId = memberService.getMemberIdByEmail(email);
-        if (memberId.equals(-1L)) {
-            throw new AccessDeniedException();
-        }
+        Long memberId = validator.validatePageNumberAndEmail(pageNumber, request);
 
         CollectedAlbumListResponse response = albumService.getCollectedAlbums(pageNumber, memberId);
         return ResponseEntity.ok().body(response);
@@ -78,23 +74,19 @@ public class AlbumController {
             HttpServletRequest request
     ) throws JsonProcessingException, NoAlbumFoundException {
         AlbumRequest albumRequest = new ObjectMapper().readValue(albumInfoJson, AlbumRequest.class);
-        String email = (String) request.getAttribute("email");
-        Long memberId = memberService.getMemberIdByEmail(email);
-        if (memberId.equals(-1L)) {
-            throw new AccessDeniedException();
-        }
+        Long memberId = validator.validateEmail(request);
         // file 개수 검증
         log.debug(albumRequest.toString());
         log.debug(imageFile.getOriginalFilename());
         for (MultipartFile m : musicFiles) {
             log.debug(m.getOriginalFilename());
         }
+
         Long albumId = streamingService.albumUpload(memberId, albumRequest.getName(), imageFile);
         Integer uploadCount = streamingService.musicUpload(albumId, albumRequest, musicFiles);
         log.debug("uploadCount : " + uploadCount.toString());
         // upload한 갯수 검증
         return ResponseEntity.status(HttpStatus.CREATED).body(albumService.getCodeByAlbumId(albumId));
     }
-
 
 }

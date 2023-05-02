@@ -4,6 +4,7 @@ import com.lilacmusic.backend.albums.dto.request.UserCollectAlbumRequest;
 import com.lilacmusic.backend.albums.exceptions.NoAlbumFoundException;
 import com.lilacmusic.backend.albums.service.UserCollectAlbumService;
 import com.lilacmusic.backend.global.error.GlobalErrorCode;
+import com.lilacmusic.backend.global.validation.GlobalRequestValidator;
 import com.lilacmusic.backend.member.exception.AccessDeniedException;
 import com.lilacmusic.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +24,13 @@ public class UserCollectAlbumController {
 
     private final UserCollectAlbumService userCollectAlbumService;
 
-    private final MemberService memberService;
+    private final GlobalRequestValidator validator;
+
 
     @PostMapping("")
     public ResponseEntity<?> collectAlbum(HttpServletRequest request,
                                           @RequestBody UserCollectAlbumRequest userCollectAlbumRequest) throws NoAlbumFoundException {
-        String email = (String) request.getAttribute("email");
-        Long memberId = memberService.getMemberIdByEmail(email);
-        if (memberId.equals(-1L)) {
-            throw new AccessDeniedException();
-        }
+        Long memberId = validator.validateEmail(request);
         Long id = userCollectAlbumService.collectAlbum(userCollectAlbumRequest.getCode(), memberId);
         log.debug("UCA id = " + id.toString());
         return ResponseEntity.status(HttpStatus.CREATED).build();
