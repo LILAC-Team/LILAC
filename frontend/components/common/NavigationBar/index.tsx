@@ -10,21 +10,21 @@ const NavigationBar = () => {
       <S.ButtonWrapper>
         <Link href={"/"}>
           <CustomIconButton>
-            <RiHome4Line size="1.125rem" color="#CCA4FC" />
+            <RiHome4Line size="1.25rem" color="#CCA4FC" />
           </CustomIconButton>
         </Link>
       </S.ButtonWrapper>
       <S.ButtonWrapper>
         <Link href={"/"}>
           <CustomIconButton>
-            <RiAddLine size="1.125rem" color="#CCA4FC" />
+            <RiAddLine size="1.25rem" color="#CCA4FC" />
           </CustomIconButton>
         </Link>
       </S.ButtonWrapper>
       <S.ButtonWrapper>
         <Link href={"/"}>
           <CustomIconButton>
-            <MdOutlineLibraryMusic size="1.125rem" color="#CCA4FC" />
+            <MdOutlineLibraryMusic size="1.25rem" color="#CCA4FC" />
           </CustomIconButton>
         </Link>
       </S.ButtonWrapper>
