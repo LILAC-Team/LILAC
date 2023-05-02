@@ -4,7 +4,6 @@ import com.lilacmusic.backend.global.error.common.InvalidPathVariableException;
 import com.lilacmusic.backend.member.exception.AccessDeniedException;
 import com.lilacmusic.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;

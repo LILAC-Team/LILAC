@@ -3,16 +3,15 @@ package com.lilacmusic.backend.albums.controller;
 import com.lilacmusic.backend.albums.dto.request.UserCollectAlbumRequest;
 import com.lilacmusic.backend.albums.exceptions.NoAlbumFoundException;
 import com.lilacmusic.backend.albums.service.UserCollectAlbumService;
-import com.lilacmusic.backend.global.error.GlobalErrorCode;
 import com.lilacmusic.backend.global.validation.GlobalRequestValidator;
-import com.lilacmusic.backend.member.exception.AccessDeniedException;
-import com.lilacmusic.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 

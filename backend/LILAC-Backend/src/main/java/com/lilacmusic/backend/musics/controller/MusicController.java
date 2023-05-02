@@ -1,9 +1,6 @@
 package com.lilacmusic.backend.musics.controller;
 
-import com.lilacmusic.backend.global.error.GlobalErrorCode;
 import com.lilacmusic.backend.global.validation.GlobalRequestValidator;
-import com.lilacmusic.backend.member.exception.AccessDeniedException;
-import com.lilacmusic.backend.member.service.MemberService;
 import com.lilacmusic.backend.musics.dto.request.CommentRequest;
 import com.lilacmusic.backend.musics.dto.response.CommentListResponse;
 import com.lilacmusic.backend.musics.dto.response.MusicDetailResponse;
@@ -14,7 +11,6 @@ import com.lilacmusic.backend.musics.service.CommentService;
 import com.lilacmusic.backend.musics.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
