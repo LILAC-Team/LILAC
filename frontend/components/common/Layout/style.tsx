@@ -4,7 +4,7 @@ export const ContainerWrap = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 6rem calc(var(--vh, 1vh) * 100 - 14.8rem) 4.5rem 4.5rem;
+  grid-template-rows: 4rem calc(var(--vh, 1vh) * 100 - 13rem) 4.5rem 4.5rem;
   ::-webkit-scrollbar {
     display: none;
   }
