@@ -12,9 +12,10 @@ interface MusicPlayerBarProps {
     albumImage: string;
     nickname: string;
   };
+  onClickEvent: (event: React.KeyboardEvent | React.MouseEvent) => void;
 }
 
-const MusicPlayerBar = ({ data }: MusicPlayerBarProps) => {
+const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const [playState, setPlayState] = useState(false);
 
   const handleClickPlay = () => {
@@ -37,16 +38,20 @@ const MusicPlayerBar = ({ data }: MusicPlayerBarProps) => {
 
   return (
     <S.BarWrapper>
-      <S.LeftWrapper>
+      <S.LeftWrapper onClick={onClickEvent}>
         <S.AlbumImg>
           <BasicImage src={data.albumImage} radius={0.15} />
         </S.AlbumImg>
         <S.TextWrapper>
           <S.Title>
-            <BasicText text={data.name} size="1.125rem" />
+            <BasicText text={data.name} size="1.125rem" font="NotoSansKR700" />
           </S.Title>
           <S.Artist>
-            <BasicText text={data.nickname} size="0.75rem" />
+            <BasicText
+              text={data.nickname}
+              size="0.75rem"
+              font="NotoSansKR400"
+            />
           </S.Artist>
         </S.TextWrapper>
       </S.LeftWrapper>

@@ -8,7 +8,7 @@ export const BarWrapper = styled.div`
   max-width: 900px;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.5rem;
+  padding: 0 0.75rem;
 `;
 
 export const LeftWrapper = styled.div`
@@ -28,7 +28,8 @@ export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 1rem;
+  margin-left: 0.75rem;
+  margin-bottom: 0.5rem;
 `;
 
 export const Title = styled.div`
