@@ -31,7 +31,7 @@ public class UserCollectAlbumController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
         Long id = userCollectAlbumService.collectAlbum(userCollectAlbumRequest.getCode(), memberId);
         log.debug("UCA id = " + id.toString());

@@ -39,7 +39,7 @@ public class AlbumController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
 
         ReleasedAlbumListResponse response = albumService.getReleasedAlbums(pageNumber, memberId);
@@ -52,7 +52,7 @@ public class AlbumController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
 
         CollectedAlbumListResponse response = albumService.getCollectedAlbums(pageNumber, memberId);
@@ -81,7 +81,7 @@ public class AlbumController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
         // file 개수 검증
         log.debug(albumRequest.toString());

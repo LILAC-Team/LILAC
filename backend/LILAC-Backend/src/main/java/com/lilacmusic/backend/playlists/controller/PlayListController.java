@@ -29,7 +29,7 @@ public class PlayListController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
         PlayListResponse response = playListService.getPlayList(memberId);
         return ResponseEntity.ok().body(response);
@@ -40,7 +40,7 @@ public class PlayListController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
         Long musicId = playListService.addMusicToPlayList(memberId, playListAddRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -51,7 +51,7 @@ public class PlayListController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
         Integer listSize = playListService.editPlayList(memberId, playListRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
