@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 export const TabWrapper = styled.div`
   display: flex;
+
   justify-content: flex-start;
   align-items: flex-end;
-  margin-top: 1.25rem;
-  margin-bottom: 2.5rem;
 `;
 
 export const Tabs = styled.ul`

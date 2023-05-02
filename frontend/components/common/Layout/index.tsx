@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Header";
-import styled from "styled-components";
+import * as S from "./style";
 import NavigationBar from "../NavigationBar";
 import MusicPlayerBar from "@/components/Player/MusicPlayerBar";
 import Drawer from "@/components/common/Drawer";
@@ -38,35 +38,24 @@ const Layout = ({ children }: LayoutProps) => {
     typeof navigator !== "undefined" &&
     /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
-    <ContainerWrap>
+    <S.ContainerWrap>
       <Header />
-      <ChildrenWrap>{children}</ChildrenWrap>
-      <MusicPlayerBar data={data} onClickEvent={toggleDrawer("bottom", true)} />
-      <Drawer
-        inner="player"
-        toggleDrawer={toggleDrawer}
-        state={{ ...state }}
-        anchor={"bottom"}
-      />
+      <S.ChildrenWrap>{children}</S.ChildrenWrap>
+      <>
+        <MusicPlayerBar
+          data={data}
+          onClickEvent={toggleDrawer("bottom", true)}
+        />
+        <Drawer
+          inner="player"
+          toggleDrawer={toggleDrawer}
+          state={{ ...state }}
+          anchor={"bottom"}
+        />
+      </>
       <NavigationBar />
-    </ContainerWrap>
+    </S.ContainerWrap>
   );
 };
 
 export default Layout;
-
-const ContainerWrap = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-rows: 5rem calc(var(--vh, 1vh) * 100 - 13.8rem) 4.3rem 4.5rem;
-`;
-
-const ChildrenWrap = styled.div`
-  height: calc(var(--vh, 1vh) * 100 - 12rem);
-  padding: 0 1rem 0 1rem;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  overflow-y: hidden;
-`;

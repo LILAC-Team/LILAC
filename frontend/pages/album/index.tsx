@@ -33,7 +33,7 @@ const AlbumPage = () => {
           ))}
         </S.Tabs>
       </S.TabWrapper>
-      {currentItem.component};
+      {currentItem.component}
     </Layout>
   );
 };
