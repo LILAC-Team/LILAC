@@ -18,8 +18,6 @@ const SignUp = () => {
     file: {},
   });
 
-  const { previewImgUrl } = profile;
-
   const handleNicknameChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
