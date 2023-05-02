@@ -1,5 +1,8 @@
 package com.lilacmusic.backend.member.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lilacmusic.backend.albums.dto.request.AlbumRequest;
 import com.lilacmusic.backend.global.common.BaseResponse;
 import com.lilacmusic.backend.member.request.DuplicateNicknameRequest;
 import com.lilacmusic.backend.member.request.MemberSignUpRequest;
@@ -14,10 +17,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -45,7 +46,15 @@ public class MemberController {
     @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = MemberSignUpResponse.class)))
     @Operation(description = "회원 가입 API", summary = "회원가입 API")
     @PostMapping("/api/member/signup")
-    public BaseResponse<MemberSignUpResponse> signup(@Valid @RequestBody MemberSignUpRequest request) {
+    public BaseResponse<MemberSignUpResponse> signup(@RequestPart("memberInfo") String memberInfoJson,  @RequestPart(value = "profileImage", required = false) MultipartFile profileImageFile) throws JsonProcessingException {
+        //TODO : 프로필사진이 multipartfile로 올 때랑 그냥 카톡 프사 string으로 올 때 두 가지가 있음
+        MemberSignUpRequest request = new ObjectMapper().readValue(memberInfoJson, MemberSignUpRequest.class);
+
+        if(profileImageFile!=null){
+            String profileImageUrl = memberService.uploadProfileImage(profileImageFile);
+            request.setProfileImage(profileImageUrl);
+        }
+
         MemberSignUpResponse signup = memberService.signup(request);
         return new BaseResponse<>(signup);
     }
