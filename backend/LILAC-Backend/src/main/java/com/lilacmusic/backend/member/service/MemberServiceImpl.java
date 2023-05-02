@@ -1,6 +1,8 @@
 package com.lilacmusic.backend.member.service;
 
+import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
 import com.lilacmusic.backend.global.error.GlobalErrorCode;
+import com.lilacmusic.backend.global.error.common.UploadFailException;
 import com.lilacmusic.backend.global.security.jwt.JwtTokenUtils;
 import com.lilacmusic.backend.global.security.jwt.RefreshToken;
 import com.lilacmusic.backend.member.entity.Member;
@@ -10,22 +12,32 @@ import com.lilacmusic.backend.member.repository.MemberRepository;
 import com.lilacmusic.backend.member.request.LoginInfo;
 import com.lilacmusic.backend.member.request.MemberSignUpRequest;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
+import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.lilacmusic.backend.global.security.jwt.JwtTokenUtils.BEARER_PREFIX;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
-
 public class MemberServiceImpl implements MemberService {
+    private final S3Client s3Client;
     private final JwtTokenUtils jwtTokenUtils;
     private final MemberRepository memberRepository;
     private Long memberId;
@@ -35,6 +47,14 @@ public class MemberServiceImpl implements MemberService {
 
     @Value("${spring.security.user.password}")
     private String adminPassword;
+
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+
+    @Value("${cloud.aws.mediaconvert.role}")
+    private String role;
+
 
     /**
      * 관리자 계정 로그인
@@ -131,5 +151,28 @@ public class MemberServiceImpl implements MemberService {
     public Integer updateCollectingByMemberId(Long memberId) {
         Integer i = memberRepository.updateCollectingByMemberId(memberId);
         return i;
+    }
+
+    @Override
+    public String uploadProfileImage(MultipartFile profileImageFile) {
+        String originalFilename = profileImageFile.getOriginalFilename();
+        String extension = FilenameUtils.getExtension(originalFilename); // Get file extension
+        String code = UUID.randomUUID().toString();
+        String inputKey = "images/profileImage-" + code + "." + extension;
+        uploadToS3(profileImageFile, inputKey);
+        return inputKey;
+    }
+
+    private void uploadToS3(MultipartFile imageFile, String inputKey) {
+        try (InputStream inputStream = imageFile.getInputStream()) {
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(inputKey)
+                    .build();
+            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(inputStream, imageFile.getSize()));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new UploadFailException();
+        }
     }
 }
