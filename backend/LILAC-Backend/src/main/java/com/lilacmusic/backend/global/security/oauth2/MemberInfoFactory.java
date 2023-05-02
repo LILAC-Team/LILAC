@@ -8,7 +8,6 @@ import com.lilacmusic.backend.global.error.GlobalErrorCode;
 import java.util.Map;
 
 /**
- * @author suker80
  * 요청에 따라 맞는 MemberInfo 클래스를 반환한다.
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,7 +27,7 @@ public class MemberInfoFactory {
         if (registrationId.equals("kakao")) {
             return new KakaoMemberInfo(attributes);
         }
-        throw new UnsupportedInfoException(GlobalErrorCode.UNSUPPORTED_INFO);
+        throw new UnsupportedInfoException();
     }
 
 }

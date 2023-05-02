@@ -57,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
      */
     public String regenerateAccessToken(String refreshToken) {
         Optional<RefreshToken> findToken = jwtTokenUtils.findRefreshToken(refreshToken);
-        RefreshToken findRefreshToken = findToken.orElseThrow(() -> new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED));
+        RefreshToken findRefreshToken = findToken.orElseThrow(() -> new AccessDeniedException());
         return jwtTokenUtils.reCreateTokens(findRefreshToken);
     }
 
@@ -90,7 +90,7 @@ public class MemberServiceImpl implements MemberService {
 //    public void initTestUser() {
 //        Member member = Member.builder()
 //                .registrationId(Member.RegistrationId.kakao)
-//                .email("suker80@naver.com")
+//                .email("skyland310@naver.com")
 //                .nickname("닉네임")
 //                .build();
 //

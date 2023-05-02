@@ -1,5 +1,5 @@
 import BasicText from "@/components/common/BasicText";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import test from "./test.json";
 import CustomTextButton from "@/components/common/CustomTextButton";
@@ -10,6 +10,8 @@ import BasicImage from "@/components/common/BasicImage";
 import styled, { css } from "styled-components";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import MusicPlayerDrawer from "@/components/Player/MusicPlayerDrawer";
+import Layout from "@/components/common/Layout";
+import Drawer from "@/components/common/Drawer";
 
 type Anchor = "bottom";
 
@@ -26,7 +28,7 @@ const Test = () => {
   };
   const [state, setState] = React.useState({ bottom: false });
   const toggleDrawer =
-    (anchor: Anchor, open: boolean) =>
+    (anchor: string, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
         event &&
@@ -39,13 +41,19 @@ const Test = () => {
 
       setState({ ...state, [anchor]: open });
     };
-  const list = (anchor: Anchor) => <MyDiv>hello</MyDiv>;
   const iOS =
     typeof navigator !== "undefined" &&
     /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
-    <>
-      {(["bottom"] as const).map((anchor) => (
+    <Layout>
+      <button onClick={toggleDrawer("bottom", true)}>test</button>
+      <Drawer
+        inner="player"
+        toggleDrawer={toggleDrawer}
+        state={{ ...state }}
+        anchor={"bottom"}
+      />
+      {/* {(["bottom"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
           <button onClick={toggleDrawer(anchor, true)}>{anchor}</button>
           <SwipeableDrawer
@@ -60,16 +68,16 @@ const Test = () => {
             <MusicPlayerDrawer />
           </SwipeableDrawer>
         </React.Fragment>
-      ))}
-      <BasicText text="테스트" size="2rem" />
-      <BasicImage
+      ))} */}
+      {/* <BasicText text="테스트" size="2rem" /> */}
+      {/* <BasicImage
         src="https://i.namu.wiki/i/m60BZ35BZRrbiqpurjIPB7GAs74I2LPNXe0MuHeEemha3ksZzGJo21PfgIdXn6JXZV0Wnps6xiAMPCVb_BYIwMeDwGEtL1R9Sxe5lmGUb4ZlPMyUO-vxTNG-6RMTR23h-myh5DqQk0h38DUi-wxiUA.jpg"
         size="15rem"
         radius={10}
         isRotate={true}
-      />
+      /> */}
 
-      <div style={tmpStyle}>
+      {/* <div style={tmpStyle}>
         {test.releasedAlbumList.map((item) => {
           return (
             <AlbumCard
@@ -80,8 +88,8 @@ const Test = () => {
             />
           );
         })}
-      </div>
-      <div style={btnStyle}>
+      </div> */}
+      {/* <div style={btnStyle}>
         <CustomTextButton
           text="생성"
           size="2rem"
@@ -89,8 +97,8 @@ const Test = () => {
           fontColor="#ffffff"
           handleOnClickButton={tmpFunction}
         />
-      </div>
-      <div style={btnStyle}>
+      </div> */}
+      {/* <div style={btnStyle}>
         <CustomIconButton
           color="#d47a7a"
           size="5rem"
@@ -98,8 +106,8 @@ const Test = () => {
         >
           <AiOutlinePlus color="#ffffff" size="5rem" />
         </CustomIconButton>
-      </div>
-    </>
+      </div> */}
+    </Layout>
   );
 };
 

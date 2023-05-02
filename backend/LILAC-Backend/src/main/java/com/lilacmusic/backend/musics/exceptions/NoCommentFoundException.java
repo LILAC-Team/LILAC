@@ -1,10 +1,10 @@
 package com.lilacmusic.backend.musics.exceptions;
 
-import com.lilacmusic.backend.common.exceptions.CommonException;
-import org.springframework.http.HttpStatus;
+import com.lilacmusic.backend.global.error.GlobalBaseException;
+import com.lilacmusic.backend.global.error.GlobalErrorCode;
 
-public class NoCommentFoundException extends CommonException {
+public class NoCommentFoundException extends GlobalBaseException {
     public NoCommentFoundException() {
-        super(HttpStatus.NOT_FOUND, "NoCommentFoundException", "해당하는 댓글이 없습니다.");
+        super(GlobalErrorCode.COMMENT_NOT_FOUND);
     }
 }

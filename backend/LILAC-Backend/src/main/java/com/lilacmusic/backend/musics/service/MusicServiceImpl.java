@@ -30,7 +30,6 @@ public class MusicServiceImpl implements MusicService {
             throw new NoMusicFoundException();
         }
 
-        // 유저의 음원 소유 확인 여부 로직 추가할건지???????????
         List<RecentCommentMapping> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc(music.get().getMusicId());
         List<RecentCommentResponse> recentCommentResponseList = recentComments.stream().map(c ->
                 RecentCommentResponse.builder()

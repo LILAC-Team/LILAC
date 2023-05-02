@@ -10,7 +10,7 @@ interface BasicSliderProps {
   fetchUrl?: string;
   handleSetShowModal?: Function;
 }
-// import required modules
+
 const BasicSlider = ({
   imageSize,
   imageText,
@@ -19,7 +19,7 @@ const BasicSlider = ({
 }: BasicSliderProps) => {
   return (
     <>
-      <Swiper slidesPerView={3} spaceBetween={0}>
+      <Swiper slidesPerView={4.5} spaceBetween={0}>
         {dummy.releasedAlbumList.map(
           (data: {
             name: string;
@@ -34,6 +34,8 @@ const BasicSlider = ({
                   onClickEvent={() => console.log("히히")}
                   data={data}
                   showAlbumDetail={false}
+                  albumSize="100%"
+                  titleSize="80%"
                 />
               </S.AlbumWrap>
             </SwiperSlide>
@@ -45,33 +47,3 @@ const BasicSlider = ({
 };
 
 export default BasicSlider;
-
-// const dummy: { title: string }[] = [
-//   {
-//     title: "slide 1",
-//   },
-//   {
-//     title: "slide 2",
-//   },
-//   {
-//     title: "slide 3",
-//   },
-//   {
-//     title: "slide 4",
-//   },
-//   {
-//     title: "slide 5",
-//   },
-//   {
-//     title: "slide 6",
-//   },
-//   {
-//     title: "slide 7",
-//   },
-//   {
-//     title: "slide 8",
-//   },
-//   {
-//     title: "slide 9",
-//   },
-// ];
