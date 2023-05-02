@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import BasicSlider from "@/components/Home/BasicSlider";
 import DragAndDropWithClientOnly from "@/components/Container/DragAndDrop";
-import LargeModal from "@/components/common/CommonModal/LargeModal";
 import CircularJSON from "circular-json";
 import { useRouter } from "next/router";
 import Layout from "@/components/common/Layout";
