@@ -21,7 +21,7 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   useEffect(() => {
     if (!isLogIn) {
       const timer = setTimeout(() => {
-        router.push("/login");
+        // router.push("/login");
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -46,14 +46,22 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
     setInputValue(e.target.value);
   };
 
-  return isLogIn ? (
+  // return isLogIn ? (
+  //   <Layout>
+  //     <button onClick={handleModal}>버튼</button>
+  //     <BasicSlider />
+  //     <DragAndDropWithClientOnly list={list} setList={setList} />
+  //   </Layout>
+  // ) : (
+  //   <div>잠시 후 로그인 페이지로 이동합니다.</div>
+  // );
+
+  return (
     <Layout>
       <button onClick={handleModal}>버튼</button>
       <BasicSlider />
       <DragAndDropWithClientOnly list={list} setList={setList} />
     </Layout>
-  ) : (
-    <div>잠시 후 로그인 페이지로 이동합니다.</div>
   );
 };
 
