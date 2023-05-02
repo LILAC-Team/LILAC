@@ -13,26 +13,28 @@ const Header = ({ isShown = true }: HeaderProps) => {
   };
 
   return (
-    <S.HeaderWrapper>
-      <Link href={"/"}>
-        <S.LogoWrapper>
-          <BasicText
-            text="LILAC"
-            size="2.3rem"
-            background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
-            color="transparent"
-            clipText={true}
-          />
-        </S.LogoWrapper>
-      </Link>
-      <S.ProfileWrapper>
-        {isShown && (
-          <Link href={"/"}>
-            <ProfileImg onClickEvent={handleProfileClick} />
-          </Link>
-        )}
-      </S.ProfileWrapper>
-    </S.HeaderWrapper>
+    <div>
+      <S.HeaderWrapper>
+        <Link href={"/"}>
+          <S.LogoWrapper>
+            <BasicText
+              text="LILAC"
+              size="2.3rem"
+              background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
+              color="transparent"
+              clipText={true}
+            />
+          </S.LogoWrapper>
+        </Link>
+        <S.ProfileWrapper>
+          {isShown && (
+            <Link href={"/"}>
+              <ProfileImg onClickEvent={handleProfileClick} />
+            </Link>
+          )}
+        </S.ProfileWrapper>
+      </S.HeaderWrapper>
+    </div>
   );
 };
 

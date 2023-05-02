@@ -4,7 +4,7 @@ import com.lilacmusic.backend.member.entity.AdminDetails;
 import com.lilacmusic.backend.member.entity.Member;
 import com.lilacmusic.backend.member.entity.MemberDetails;
 import com.lilacmusic.backend.member.repository.MemberRepository;
-import com.lilacmusic.backend.member.exception.UserNotFoundException;
+import com.lilacmusic.backend.member.exception.MemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +27,7 @@ public class MemberDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String input) throws UsernameNotFoundException {
 
         if (!input.equals(adminId)) {
-            Member member = Optional.ofNullable(memberRepository.findByEmail(input)).orElseThrow(UserNotFoundException::new);
+            Member member = Optional.ofNullable(memberRepository.findByEmail(input)).orElseThrow(MemberNotFoundException::new);
             return new MemberDetails(member);
         } else return new AdminDetails(input);
     }

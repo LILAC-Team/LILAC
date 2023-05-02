@@ -26,9 +26,7 @@ import java.util.Optional;
 import static com.lilacmusic.backend.global.security.jwt.JwtTokenUtils.BEARER_PREFIX;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-/**
- * @author suker80
- */
+
 @RequiredArgsConstructor
 @Component
 @Slf4j

@@ -6,6 +6,7 @@ interface TextProps {
   clipText?: boolean;
   size?: string;
   font?: string;
+  isOverflow?: boolean;
 }
 
 export const Text = styled.div<TextProps>`
@@ -23,4 +24,14 @@ export const Text = styled.div<TextProps>`
   height: 100%;
   display: flex;
   align-items: center;
+
+  ${(props) => {
+    if (props.isOverflow) {
+      return `
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      `;
+    }
+  }}
 `;

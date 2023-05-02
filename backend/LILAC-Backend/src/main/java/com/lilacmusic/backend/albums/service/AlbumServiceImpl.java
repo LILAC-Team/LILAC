@@ -2,13 +2,10 @@ package com.lilacmusic.backend.albums.service;
 
 import com.lilacmusic.backend.albums.dto.response.*;
 import com.lilacmusic.backend.albums.exceptions.NoAlbumFoundException;
-import com.lilacmusic.backend.albums.model.entitiy.Album;
 import com.lilacmusic.backend.albums.model.mapping.AlbumDetailMapping;
 import com.lilacmusic.backend.albums.model.mapping.AlbumMapping;
 import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
 import com.lilacmusic.backend.albums.model.repository.UserCollectAlbumRepository;
-import com.lilacmusic.backend.member.entity.Member;
-import com.lilacmusic.backend.member.repository.MemberRepository;
 import com.lilacmusic.backend.musics.dto.response.MusicResponse;
 import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
@@ -19,8 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

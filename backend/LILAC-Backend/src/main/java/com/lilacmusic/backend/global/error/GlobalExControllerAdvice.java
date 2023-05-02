@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 @RestControllerAdvice(annotations = RestController.class)
 @Slf4j
-@Profile("local")
+@Profile("dev")
 public class GlobalExControllerAdvice {
 
     /**

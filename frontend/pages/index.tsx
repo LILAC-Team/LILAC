@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import BasicSlider from "@/components/Home/BasicSlider";
 import DragAndDropWithClientOnly from "@/components/Container/DragAndDrop";
 import CircularJSON from "circular-json";
 import { useRouter } from "next/router";
 import Layout from "@/components/common/Layout";
+import MainAlbum from "@/components/Home/MainAlbum";
+import BasicText from "@/components/common/BasicText";
 
 interface HomeProps {
   initValues?: boolean;
@@ -58,9 +61,15 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
 
   return (
     <Layout>
-      <button onClick={handleModal}>버튼</button>
-      <BasicSlider />
-      <DragAndDropWithClientOnly list={list} setList={setList} />
+      <MainAlbum />
+      <SliderWrapper>
+        <BasicText text="나의 앨범" size="1.125rem" />
+        <BasicSlider />
+      </SliderWrapper>
+      <SliderWrapper>
+        <BasicText text="내가 소장한 앨범" size="1.125rem" />
+        <BasicSlider />
+      </SliderWrapper>
     </Layout>
   );
 };
@@ -73,5 +82,9 @@ export async function getServerSideProps({ req }) {
     },
   };
 }
+
+export const SliderWrapper = styled.div`
+  margin: 1.125rem 0;
+`;
 
 export default Home;
