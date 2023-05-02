@@ -1,41 +1,66 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
-  border: 2px solid white;
-
   display: flex;
   width: 100%;
   max-width: 900px;
   justify-content: space-between;
 `;
 
-export const ContentWrapper = styled.div`
-  border: 2px solid red;
-
+export const AlbumDataWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
 
   width: 48%;
-  height: 15rem;
+  height: 13rem;
+  background-color: #8e8ac2;
+`;
+
+export const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0.25rem 0;
+
+  width: 100%;
+`;
+
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+
+  width: 48%;
+  height: 13rem;
 `;
 
 export const AddAlbum = styled.div`
-  border: 2px solid yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   width: 100%;
   height: 47%;
-  margin-bottom: 5%;
+  background-color: #856fa4;
+  margin-bottom: 3%;
   border-radius: 10px;
 `;
 
 export const CatchPhrase = styled.div`
-  border: 2px solid yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   width: 100%;
   height: 47%;
-  margin-top: 5%;
+  background-color: #c28a97;
+  margin-top: 3%;
   border-radius: 10px;
 `;
 
@@ -45,18 +70,11 @@ export const ProfileWrapper = styled.div`
   margin: 0.5rem;
 `;
 
-export const TextWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin: 0.25rem 0;
-  justify-content: center;
-`;
-
 export const CdContainer = styled.div`
   border: 2px solid green;
 
   width: 90%;
-  height: 10rem;
+  height: 6rem;
 
   display: flex;
   flex-direction: row;
@@ -72,4 +90,6 @@ export const CdWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
