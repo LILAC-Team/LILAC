@@ -57,12 +57,9 @@ const MusicPlayerDrawer = () => {
       <S.Comment>
         {music.recentCommentList.map((item, index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               {item.present_time === nowTime && (
-                <S.CommentWrap
-                  key={index}
-                  onClick={toggleDrawer("bottom", true)}
-                >
+                <S.CommentWrap onClick={toggleDrawer("bottom", true)}>
                   <S.CommentImg>
                     <BasicImage
                       src={item.userInfo.profileImage}
@@ -79,7 +76,7 @@ const MusicPlayerDrawer = () => {
                   </S.CommentDiv>
                 </S.CommentWrap>
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </S.Comment>
@@ -90,12 +87,6 @@ const MusicPlayerDrawer = () => {
         <MusicController handleRotateClick={handleRotateClick} />
       </S.ControllBar>
       <MenuBar />
-      <Drawer
-        inner="comment"
-        toggleDrawer={toggleDrawer}
-        state={{ ...state }}
-        anchor={"bottom"}
-      />
     </S.Player>
   );
 };
