@@ -38,7 +38,7 @@ public class MusicController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
         MusicDetailResponse response = musicService.getMusicDetail(musicCode, memberId);
         return ResponseEntity.ok().body(response);
@@ -51,7 +51,7 @@ public class MusicController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
         CommentListResponse response = commentService.getCommentList(musicCode, pageNumber, memberId);
         return ResponseEntity.ok().body(response);
@@ -64,7 +64,7 @@ public class MusicController {
         String email = (String) request.getAttribute("email");
         Long memberId = memberService.getMemberIdByEmail(email);
         if (memberId.equals(-1L)) {
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            throw new AccessDeniedException();
         }
         Long commentId = commentService.createMusicComment(memberId, commentRequest, musicCode);
         log.info("Comment Created : ID = " + commentId.toString());
