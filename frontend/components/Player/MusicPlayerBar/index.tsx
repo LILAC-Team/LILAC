@@ -37,40 +37,46 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   };
 
   return (
-    <S.BarWrapper>
-      <S.LeftWrapper onClick={onClickEvent}>
-        <S.AlbumImg>
-          <BasicImage src={data.albumImage} radius={0.15} />
-        </S.AlbumImg>
-        <S.TextWrapper>
-          <S.Title>
-            <BasicText text={data.name} size="1.125rem" font="NotoSansKR700" />
-          </S.Title>
-          <S.Artist>
-            <BasicText
-              text={data.nickname}
-              size="0.75rem"
-              font="NotoSansKR400"
-            />
-          </S.Artist>
-        </S.TextWrapper>
-      </S.LeftWrapper>
-      <S.RightWrapper>
-        <CustomIconButton handleOnClickButton={handleClickPlay}>
-          {playState ? (
-            <IoPlay size="2.5rem" color="#FFFFFF" />
-          ) : (
-            <IoPause size="2.5rem" color="#FFFFFF" />
-          )}
-        </CustomIconButton>
-        <CustomIconButton handleOnClickButton={handleClickForward}>
-          <IoPlayForward size="1.5rem" color="#FFFFFF" />
-        </CustomIconButton>
-        <CustomIconButton handleOnClickButton={handleClickList}>
-          <RiPlayListFill size="1.5rem" color="#FFFFFF" />
-        </CustomIconButton>
-      </S.RightWrapper>
-    </S.BarWrapper>
+    <div>
+      <S.BarWrapper>
+        <S.LeftWrapper onClick={onClickEvent}>
+          <S.AlbumImg>
+            <BasicImage src={data.albumImage} radius={0.15} />
+          </S.AlbumImg>
+          <S.TextWrapper>
+            <S.Title>
+              <BasicText
+                text={data.name}
+                size="1.125rem"
+                font="NotoSansKR700"
+              />
+            </S.Title>
+            <S.Artist>
+              <BasicText
+                text={data.nickname}
+                size="0.75rem"
+                font="NotoSansKR400"
+              />
+            </S.Artist>
+          </S.TextWrapper>
+        </S.LeftWrapper>
+        <S.RightWrapper>
+          <CustomIconButton handleOnClickButton={handleClickPlay}>
+            {playState ? (
+              <IoPlay size="2.5rem" color="#FFFFFF" />
+            ) : (
+              <IoPause size="2.5rem" color="#FFFFFF" />
+            )}
+          </CustomIconButton>
+          <CustomIconButton handleOnClickButton={handleClickForward}>
+            <IoPlayForward size="1.5rem" color="#FFFFFF" />
+          </CustomIconButton>
+          <CustomIconButton handleOnClickButton={handleClickList}>
+            <RiPlayListFill size="1.5rem" color="#FFFFFF" />
+          </CustomIconButton>
+        </S.RightWrapper>
+      </S.BarWrapper>
+    </div>
   );
 };
 
