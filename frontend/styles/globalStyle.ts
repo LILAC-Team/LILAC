@@ -58,6 +58,14 @@ export const GlobalStyle = createGlobalStyle`
     src: url("/fonts/HSBombaram2.1.ttf") format("woff2");
   }
 
+  @font-face {
+    font-family: "RidiBatang";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/RIDIBatang.otf") format("opentype");
+  }
+
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;
   --tile-border: conic-gradient(
@@ -131,7 +139,7 @@ html {
 }
 
 body {
-  font-family: "HSBomBaram", "NotoSansKR700", "NotoSansKR400", "NotoSansKR500", 
+  font-family: "NotoSansKR400", "NotoSansKR500", "HSBomBaram", "NotoSansKR700",  
     sans-serif;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
