@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import CircularJSON from "circular-json";
-
+import * as S from "./style";
+import BasicText from "@/components/common/BasicText";
 interface OauthProps {
-  req: any;
+  query: object;
 }
 
-const Oauth = ({ req }) => {
+const Oauth = ({ query }) => {
   useEffect(() => {
     // const value = JSON.parse(req);
-    console.log("value: ", req);
+    console.log("typeof: ", typeof query);
   }, []);
   // const router = useRouter();
   // const [cookies, setCookie] = useCookies(["refreshToken"]);
@@ -33,18 +34,25 @@ const Oauth = ({ req }) => {
   //   }
   // }, []);
 
-  return <div>로그인 중입니다.</div>;
+  return (
+    <S.OauthContainer>
+      <BasicText
+        text="LILAC"
+        size="2.3rem"
+        background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
+        color="transparent"
+        clipText={true}
+      />
+    </S.OauthContainer>
+  );
 };
 
 export async function getServerSideProps(context) {
-  const url = context.query;
-  // email=이메일
-  // profileimg=카카오프사url
-  // registrationId=kakao
-  // nickname=닉네임
+  const query = context.query;
+
   return {
     props: {
-      req: url,
+      query,
     },
   };
 }
