@@ -23,4 +23,7 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 
     @Query(value = "SELECT a.albumId AS albumId, a.memberId AS memberId, a.code AS code, a.name AS name, a.albumImage AS albumImage, a.releasedDate AS releasedDate, u.nickname AS nickname, u.profileImage AS profileImage FROM Album a INNER JOIN Member u ON a.memberId = u.memberId WHERE a.code = ?1")
     Optional<AlbumDetailMapping> getAlbumByCodeWithDetail(String code);
+
+    @Query(value = "SELECT a.code FROM Album a WHERE a.albumId = ?1")
+    Optional<String> getCodeByAlbumId(Long albumId);
 }

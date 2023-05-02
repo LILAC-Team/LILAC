@@ -124,4 +124,13 @@ public class AlbumServiceImpl implements AlbumService {
 
         return response;
     }
+
+    @Override
+    public String getCodeByAlbumId(Long albumId) throws NoAlbumFoundException {
+        Optional<String> code = albumRepository.getCodeByAlbumId(albumId);
+        if (code.isEmpty()) {
+            throw new NoAlbumFoundException();
+        }
+        return code.get();
+    }
 }

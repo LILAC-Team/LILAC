@@ -13,7 +13,7 @@ const ProfileImg = ({
   src = "/defaultProfile.svg",
   size = "100%",
   onClickEvent,
-  isEditable = true,
+  isEditable = false,
 }: ProfileImgProps) => {
   console.log("src: ", src);
   return (

@@ -1,13 +1,15 @@
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from "react-icons/tb";
-import { FaPlay, FaPause, FaBackward, FaForward } from "react-icons/fa";
+import { IoPlay, IoPause, IoPlayBack, IoPlayForward } from "react-icons/io5";
 import { useState } from "react";
 
-const MusicController = () => {
+const MusicController = ({ handleRotateClick }) => {
   const [shuffleState, setShuffleState] = useState(false);
   const [playState, setPlayState] = useState(false);
   const [repeatState, setRepeatState] = useState(0);
+
+  handleRotateClick(playState);
 
   const handleClickShuffle = () => {
     if (shuffleState) {
@@ -60,17 +62,17 @@ const MusicController = () => {
         )}
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickBackward}>
-        <FaBackward size="2rem" color="#FFFFFF" />
+        <IoPlayBack size="2rem" color="#FFFFFF" />
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickPlay}>
         {playState ? (
-          <FaPlay size="2.5rem" color="#FFFFFF" />
+          <IoPlay size="3.5rem" color="#FFFFFF" />
         ) : (
-          <FaPause size="2.5rem" color="#FFFFFF" />
+          <IoPause size="3.5rem" color="#FFFFFF" />
         )}
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickForward}>
-        <FaForward size="2rem" color="#FFFFFF" />
+        <IoPlayForward size="2rem" color="#FFFFFF" />
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickRepeat}>
         {repeatState === 0 ? (
