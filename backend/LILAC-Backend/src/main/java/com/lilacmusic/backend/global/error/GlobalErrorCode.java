@@ -17,13 +17,13 @@ public enum GlobalErrorCode {
     OTHER(500, "G100", "서버에 오류가 발생했습니다."),
     METHOD_NOT_ALLOWED(405, "G200", "허용되지 않은 메서드입니다."),
     VALID_EXCEPTION(400, "G300", "올바르지 않은 형식입니다."),
-    ACCESS_DENIED(401, "G400", "허용되지 않은 사용자입니다"),
+    ACCESS_DENIED(401, "G400", "허용되지 않은 사용자입니다."),
     TOKEN_EXPIRED(401, "G500", "토큰이 만료되었습니다."),
     // 멤버와 관련된 Exception
-    DUPLICATE_EMAIL(400, "M100", "중복된 이메일 입니다"),
+    DUPLICATE_EMAIL(400, "M100", "중복된 이메일 입니다."),
     MEMBER_NOT_FOUND(400, "M200", "해당 id에 해당하는 사용자가 없습니다."),
     INCORRECT_ADMIN_INFO(400, "M300", "관리자 계정이 아닙니다."),
-    NOT_OWNED(403, "M300", "해당 사용자가 보유한 음원이 아닙니다."),
+    NOT_OWNED(403, "M400", "해당 사용자가 보유한 음원이 아닙니다."),
     // 댓글과 관련된 Exception
     COMMENT_NOT_FOUND(404, "C100", "해당하는 댓글을 찾을 수 없습니다."),
     COMMENT_NOT_MINE(403, "C200", "다른 유저가 쓴 댓글입니다."),
