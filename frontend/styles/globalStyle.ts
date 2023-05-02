@@ -139,7 +139,7 @@ html {
 }
 
 body {
-  font-family: "NotoSansKR400", "NotoSansKR500", "HSBomBaram", "NotoSansKR700",  
+  font-family: "RidiBatang", "NotoSansKR400", "NotoSansKR500", "HSBomBaram", "NotoSansKR700",  
     sans-serif;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
