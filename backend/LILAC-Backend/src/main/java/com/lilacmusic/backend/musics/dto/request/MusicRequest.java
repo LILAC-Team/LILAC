@@ -12,4 +12,5 @@ public class MusicRequest {
     private String artistName;
     private Integer musicIndex;
     private Boolean isTitle;
+    private Integer playtime;
 }

@@ -1,6 +1,9 @@
 package com.lilacmusic.backend.albums.service;
 
+import com.lilacmusic.backend.albums.dto.request.AlbumRequest;
+import com.lilacmusic.backend.albums.model.entitiy.Album;
 import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
+import com.lilacmusic.backend.musics.dto.request.MusicRequest;
 import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +17,10 @@ import software.amazon.awssdk.services.mediaconvert.model.*;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +28,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class StreamingServiceImpl {
+public class StreamingServiceImpl implements StreamingService {
     private final S3Client s3Client;
     private final MediaConvertClient mediaConvertClient;
     private final AlbumRepository albumRepository;
@@ -35,10 +40,42 @@ public class StreamingServiceImpl {
     @Value("${cloud.aws.mediaconvert.role}")
     private String role;
 
-    public List<Music> musicUpload(List<MultipartFile> files) {
+    @Override
+    public Long albumUpload(Long memberId, String name, MultipartFile imageFile) {
+        String originalFilename = imageFile.getOriginalFilename();
+        String extension = FilenameUtils.getExtension(originalFilename); // Get file extension
+        String code = UUID.randomUUID().toString();
+        String inputKey = "images/image-" + code + "." + extension;
+        try (InputStream inputStream = imageFile.getInputStream()) {
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(inputKey)
+                    .build();
+            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(inputStream, imageFile.getSize()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Album album = Album.builder()
+                .code(code)
+                .memberId(memberId)
+                .name(name)
+                .albumImage(inputKey)
+                .releasedDate(LocalDateTime.now())
+                .build();
+        albumRepository.save(album);
+
+        return album.getAlbumId();
+    }
+
+    @Override
+    public Integer musicUpload(Long albumId, AlbumRequest albumRequest, List<MultipartFile> musicFiles) {
+        List<MusicRequest> musicRequests = albumRequest.getMusicList();
         List<Music> musics = new ArrayList<>();
 
-        for (MultipartFile file : files) {
+        for (int i = 0; i < musicRequests.size(); i++) {
+            MultipartFile file = musicFiles.get(i);
+            MusicRequest request = musicRequests.get(i);
+
             String originalFilename = file.getOriginalFilename();
             String extension = FilenameUtils.getExtension(originalFilename); // Get file extension
             String uuid = UUID.randomUUID().toString();
@@ -65,17 +102,26 @@ public class StreamingServiceImpl {
                 String jobId = createJobResponse.job().id();
 
                 // Save to the database
-                Music music = new Music();
-//                musicRepository.save(music);
-
+                Music music = Music.builder()
+                        .albumId(albumId)
+                        .name(request.getName())
+                        .artistName(request.getArtistName())
+                        .playtime(request.getPlaytime())
+                        .storagePath(outputKey + ".m3u8")
+                        .code(uuid)
+                        .musicIndex(request.getMusicIndex())
+                        .isTitle(request.getIsTitle())
+                        .build();
+                musicRepository.save(music);
                 musics.add(music);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
 
-        return musics;
+        return musics.size();
     }
+
 
     private CreateJobRequest createJobRequest(String inputKey, String outputKey) {
         String inputFileS3Url = String.format("s3://%s/%s", bucket, inputKey);
