@@ -22,7 +22,7 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   useEffect(() => {
     if (!isLogIn) {
       const timer = setTimeout(() => {
-        router.push("/login");
+        // router.push("/login");
       }, 2000);
       return () => clearTimeout(timer);
     }
