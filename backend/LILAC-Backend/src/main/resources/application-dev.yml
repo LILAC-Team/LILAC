@@ -88,13 +88,19 @@ logging:
     root: info
     com.lilacmusic: debug
 
-#cloud:
-#  aws:
-#    s3:
-#      bucket:
-#    region:
-#      static: ap-northeast-2
-#    stack:
-#      auto: false
-#    cloudfront:
+
+
+cloud:
+  aws:
+    access_key: ${AWS_ACCESS_KEY_ID}
+    secret_key: ${AWS_SECRET_KEY}
+    s3:
+      bucket: ${S3_BUCKET}
+    region:
+      static: ${AWS_REGION}
+    stack:
+      auto: false
+    mediaconvert:
+      endpoint: ${MEDIACONVERT_ENDPOINT}
+      role: ${IAM_ROLE}
 
