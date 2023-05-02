@@ -11,4 +11,6 @@ public interface AlbumService {
     CollectedAlbumListResponse getCollectedAlbums(Integer pageNumber, Long memberId);
 
     AlbumDetailResponse getAlbumDetail(String albumCode, Long memberId) throws NoAlbumFoundException;
+
+    String getCodeByAlbumId(Long albumId) throws NoAlbumFoundException;
 }

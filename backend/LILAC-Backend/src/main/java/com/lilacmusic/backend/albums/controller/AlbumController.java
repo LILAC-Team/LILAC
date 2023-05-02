@@ -8,14 +8,13 @@ import com.lilacmusic.backend.albums.dto.response.CollectedAlbumListResponse;
 import com.lilacmusic.backend.albums.dto.response.ReleasedAlbumListResponse;
 import com.lilacmusic.backend.albums.exceptions.NoAlbumFoundException;
 import com.lilacmusic.backend.albums.service.AlbumService;
-import com.lilacmusic.backend.albums.service.StreamingServiceImpl;
+import com.lilacmusic.backend.albums.service.StreamingService;
 import com.lilacmusic.backend.global.error.GlobalErrorCode;
 import com.lilacmusic.backend.member.exception.AccessDeniedException;
 import com.lilacmusic.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +31,7 @@ public class AlbumController {
 
     private final MemberService memberService;
 
-    private final StreamingServiceImpl streamingService;
+    private final StreamingService streamingService;
 
     @GetMapping("/released/{pageNumber}")
     public ResponseEntity<ReleasedAlbumListResponse> getReleasedAlbums(@PathVariable("pageNumber") Integer pageNumber,
@@ -75,16 +74,26 @@ public class AlbumController {
     public ResponseEntity<String> uploadAlbum(
             @RequestPart("imageFile") MultipartFile imageFile,
             @RequestPart("musicFiles") List<MultipartFile> musicFiles,
-            @RequestPart("metadata") String metadata) throws JsonProcessingException {
-        AlbumRequest albumRequest = new ObjectMapper().readValue(metadata, AlbumRequest.class);
+            @RequestPart("albumInfo") String albumInfoJson,
+            HttpServletRequest request
+    ) throws JsonProcessingException, NoAlbumFoundException {
+        AlbumRequest albumRequest = new ObjectMapper().readValue(albumInfoJson, AlbumRequest.class);
+        String email = (String) request.getAttribute("email");
+        Long memberId = memberService.getMemberIdByEmail(email);
+        if (memberId.equals(-1L)) {
+            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+        }
+        // file 개수 검증
         log.debug(albumRequest.toString());
         log.debug(imageFile.getOriginalFilename());
         for (MultipartFile m : musicFiles) {
             log.debug(m.getOriginalFilename());
         }
-
-        streamingService.musicUpload(musicFiles);
-        return ResponseEntity.ok("Success");
+        Long albumId = streamingService.albumUpload(memberId, albumRequest.getName(), imageFile);
+        Integer uploadCount = streamingService.musicUpload(albumId, albumRequest, musicFiles);
+        log.debug("uploadCount : " + uploadCount.toString());
+        // upload한 갯수 검증
+        return ResponseEntity.status(HttpStatus.CREATED).body(albumService.getCodeByAlbumId(albumId));
     }
 
 
