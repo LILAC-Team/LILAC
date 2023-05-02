@@ -32,7 +32,9 @@ public enum GlobalErrorCode {
     MALFORMED_EXTENTION(400, "MU200", "잘못된 확장자입니다."),
     // 지원하지 않는 로그인 방식
     UNSUPPORTED_INFO(400, "O100", "지원하지 않는 로그인 방식입니다."),
-    ALBUM_NOT_FOUND(404, "A100", "해당하는 앨범을 찾을 수 없습니다.");
+    ALBUM_NOT_FOUND(404, "A100", "해당하는 앨범을 찾을 수 없습니다."),
+    UPLOAD_FAIL(500, "A200", "업로드 과정에서 문제가 발생하였습니다."),
+    MEDIA_CONVERT_FAIL(500, "A300", "미디어 변환 과정에서 문제가 발생하였습니다.");
 
     private final String code;
     private final String message;
