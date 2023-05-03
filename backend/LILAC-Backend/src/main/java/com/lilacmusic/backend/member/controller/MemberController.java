@@ -27,13 +27,14 @@ import javax.validation.Valid;
 public class MemberController {
     private final MemberService memberService;
 
+
     @GetMapping("/test")
     @Operation(description = "임시 테스트용 API", summary = "임시 테스트용 API")
     public String test() {
         return "ok";
     }
 
-    @PostMapping("/api/refresh")
+    @PostMapping("/api/v1/refresh")
     @Operation(description = "액세스 재발급 API", summary = "액세스 토큰 재발급 API")
     @ApiResponse(responseCode = "200", description = "재발급 성공", content = @Content(schema = @Schema(implementation = ReGenerateAccessTokenResponse.class)))
     public BaseResponse<ReGenerateAccessTokenResponse> reGenerateAccessToken(@Valid @RequestBody ReGenerateAccessTokenRequest request) {
@@ -44,9 +45,8 @@ public class MemberController {
 
     @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = MemberSignUpResponse.class)))
     @Operation(description = "회원 가입 API", summary = "회원가입 API")
-    @PostMapping("/api/member/signup")
-    public BaseResponse<MemberSignUpResponse> signup(@RequestPart("memberInfo") String memberInfoJson, @RequestPart(value = "profileImage", required = false) MultipartFile profileImageFile) throws JsonProcessingException {
-        //TODO : 프로필사진이 multipartfile로 올 때랑 그냥 카톡 프사 string으로 올 때 두 가지가 있음
+    @PostMapping("/api/v1/members")
+    public BaseResponse<MemberSignUpResponse> signup(@RequestPart("memberInfo") String memberInfoJson,  @RequestPart(value = "profileImage", required = false) MultipartFile profileImageFile) throws JsonProcessingException {
         MemberSignUpRequest request = new ObjectMapper().readValue(memberInfoJson, MemberSignUpRequest.class);
 
         if (profileImageFile != null) {
@@ -58,7 +58,7 @@ public class MemberController {
         return new BaseResponse<>(signup);
     }
 
-    @PostMapping("/api/duplicateNickname")
+    @PostMapping("/api/v1/duplicateNickname")
     @Operation(description = "닉네임 중복 확인 API", summary = "닉네임 중복확인 API")
     @ApiResponse(responseCode = "200", description = "닉네임 중복 검사 통과", content = @Content(schema = @Schema(implementation = Boolean.class)))
     @ApiResponse(responseCode = "400", description = "닉네임 중복 검사 실패")
