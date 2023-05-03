@@ -18,4 +18,6 @@ public interface AlbumDetailMapping {
     String getNickname();
 
     String getProfileImage();
+
+    String getEmail();
 }
