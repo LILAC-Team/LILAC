@@ -27,10 +27,10 @@ const MusicCard = ({
         </S.CoverImg>
         <S.TextWrapper>
           <S.Title>
-            <BasicText text={data.name} size="125%" />
+            <BasicText text={data.name} size="125%" font="NotoSansKR700" />
           </S.Title>
           <S.Singer>
-            <BasicText text={data.artistName} />
+            <BasicText text={data.artistName} font="NotoSansKR400" />
           </S.Singer>
         </S.TextWrapper>
       </S.LeftWrapper>

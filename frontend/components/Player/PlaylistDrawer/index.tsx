@@ -21,27 +21,26 @@ const PlaylistDrawer = () => {
         <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
-        <BasicText text={list.length + "곡"} />
+        <BasicText text={list.length + "곡"} size="0.85rem" />
+        <div />
         {isEdit ? (
-          <S.ButtonWrapper>
-            <CustomTextButton
-              text="완료"
-              handleOnClickButton={handleEditClick}
-              fontColor="#FFFFFF"
-              font="Ridibatang"
-              isBackground={false}
-            />
-          </S.ButtonWrapper>
+          <CustomTextButton
+            text="완료"
+            handleOnClickButton={handleEditClick}
+            fontColor="#FFFFFF"
+            font="Ridibatang"
+            isBackground={false}
+            size="0.85rem"
+          />
         ) : (
-          <S.ButtonWrapper>
-            <CustomTextButton
-              text="편집"
-              handleOnClickButton={handleEditClick}
-              fontColor="#FFFFFF"
-              font="Ridibatang"
-              isBackground={true}
-            />
-          </S.ButtonWrapper>
+          <CustomTextButton
+            text="편집"
+            handleOnClickButton={handleEditClick}
+            fontColor="#FFFFFF"
+            font="Ridibatang"
+            isBackground={false}
+            size="0.85rem"
+          />
         )}
       </S.TextWrapper>
       {isEdit ? (
