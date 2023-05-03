@@ -95,7 +95,7 @@ public class MemberServiceImpl implements MemberService {
         Member save = memberRepository.save(member);
         String token = BEARER_PREFIX + jwtTokenUtils.createTokens(save, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
         RefreshToken refreshToken = jwtTokenUtils.generateRefreshToken(token);
-        return new MemberSignUpResponse(save.getProfileImage(), save.getNickname(), refreshToken.getAccessTokenValue(), refreshToken.getRefreshTokenKey());
+        return new MemberSignUpResponse(save.getEmail(), save.getProfileImage(), save.getNickname(), refreshToken.getAccessTokenValue(), refreshToken.getRefreshTokenKey());
     }
 
     /**
