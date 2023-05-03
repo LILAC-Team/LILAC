@@ -1,14 +1,15 @@
+import * as S from "./style";
 import BasicImage from "../../common/BasicImage";
 import BasicText from "../../common/BasicText";
-import * as S from "./style";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 interface MusicCardProps {
-  onClickEvent: () => void;
+  onClickEvent?: () => void;
   data: {
+    code: string;
     name: string;
     albumImage: string;
-    nickname: string;
+    artistName: string;
   };
   isEditable: boolean;
 }
@@ -29,7 +30,7 @@ const MusicCard = ({
             <BasicText text={data.name} size="125%" />
           </S.Title>
           <S.Singer>
-            <BasicText text={data.nickname} />
+            <BasicText text={data.artistName} />
           </S.Singer>
         </S.TextWrapper>
       </S.LeftWrapper>

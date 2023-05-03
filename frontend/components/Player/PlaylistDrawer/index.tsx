@@ -1,10 +1,15 @@
 import * as S from "./style";
+import { useState } from "react";
 import BasicText from "@/components/common/BasicText";
 import CustomTextButton from "@/components/common/CustomTextButton";
-import { useState } from "react";
+import DragAndDrop from "@/components/Container/DragAndDrop";
+import MusicList from "../../../pages/musicList.json";
+import MusicCard from "../MusicCard";
 
 const PlaylistDrawer = () => {
   const [isEdit, setIsEdit] = useState(false);
+  const [list, setList] = useState(MusicList.musicList);
+
   const handleEditClick = () => {
     setIsEdit((props) => !props);
   };
@@ -12,24 +17,46 @@ const PlaylistDrawer = () => {
   return (
     <S.Playlist>
       <S.Top>
+        <S.Bar />
         <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
-        <BasicText text="13곡" />
+        <BasicText text={list.length + "곡"} />
         {isEdit ? (
-          <CustomTextButton
-            text="완료"
-            handleOnClickButton={handleEditClick}
-            fontColor="#FFFFFF"
-          />
+          <S.ButtonWrapper>
+            <CustomTextButton
+              text="완료"
+              handleOnClickButton={handleEditClick}
+              fontColor="#FFFFFF"
+              font="Ridibatang"
+              isBackground={false}
+            />
+          </S.ButtonWrapper>
         ) : (
-          <CustomTextButton
-            text="편집"
-            handleOnClickButton={handleEditClick}
-            fontColor="#FFFFFF"
-          />
+          <S.ButtonWrapper>
+            <CustomTextButton
+              text="편집"
+              handleOnClickButton={handleEditClick}
+              fontColor="#FFFFFF"
+              font="Ridibatang"
+              isBackground={true}
+            />
+          </S.ButtonWrapper>
         )}
       </S.TextWrapper>
+      {isEdit ? (
+        <DragAndDrop list={list} setList={setList} />
+      ) : (
+        <S.CardsWrapper>
+          {list.map(({ code, name, albumImage, artistName }) => (
+            <MusicCard
+              key={code}
+              data={{ code, name, albumImage, artistName }}
+              isEditable={false}
+            />
+          ))}
+        </S.CardsWrapper>
+      )}
     </S.Playlist>
   );
 };
