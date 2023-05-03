@@ -28,8 +28,6 @@ export const Bar = styled.div`
 `;
 
 export const TextWrapper = styled.div`
-  /* border: 2px solid red; */
-
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   margin-bottom: 0.5rem;
@@ -37,10 +35,6 @@ export const TextWrapper = styled.div`
   align-items: center;
   justify-items: center;
 `;
-
-// export const ButtonWrapper = styled.div`
-//   width: calc((var(--vw, 1vw) * 12));
-// `;
 
 export const CardsWrapper = styled.div`
   display: flex;
