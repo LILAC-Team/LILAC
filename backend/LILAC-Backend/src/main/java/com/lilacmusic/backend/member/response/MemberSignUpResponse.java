@@ -10,17 +10,10 @@ import lombok.Getter;
 @Schema(description = "가입 요청 응답")
 public class MemberSignUpResponse {
 
-    @Schema(description = "멤버 Id")
-    private Long id;
-
-    @Schema(description = "이메일")
-    private String email;
-
-    @Schema(description = "가입 경로")
-    private RegistrationId registrationId;
+    @Schema(description = "프로필 사진")
+    private String profileImage;
     @Schema(description = "닉네임")
     private String nickname;
-
     @Schema(description = "액세스 토큰")
     private String accessToken;
     @Schema(description = "리프레시 토큰")

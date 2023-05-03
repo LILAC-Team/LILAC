@@ -115,7 +115,7 @@ public class JwtTokenUtils {
     public String reCreateTokens(RefreshToken refreshToken) {
 
         try {
-            getAllClaims(refreshToken.getAccessTokenValue());
+            getAllClaims(refreshToken.getAccessTokenValue().substring(7));
             throw new AccessDeniedException();
         } catch (ExpiredJwtException e) {
             Claims claims = e.getClaims();
