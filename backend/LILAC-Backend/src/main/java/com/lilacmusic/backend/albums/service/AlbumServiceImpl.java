@@ -113,7 +113,7 @@ public class AlbumServiceImpl implements AlbumService {
                 .name(optionalAlbum.get().getName())
                 .albumImage(optionalAlbum.get().getAlbumImage())
                 .releasedDate(optionalAlbum.get().getReleasedDate())
-                .memberInfo(new MemberInfoResponse(optionalAlbum.get().getNickname(), optionalAlbum.get().getProfileImage()))
+                .memberInfo(new MemberInfoResponse(optionalAlbum.get().getNickname(), optionalAlbum.get().getProfileImage(), optionalAlbum.get().getEmail()))
                 .build();
 
 

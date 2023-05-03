@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-export const Input = styled.input`
+interface InputProps {
+  color: string;
+}
+
+export const Input = styled.input<InputProps>`
   width: 100%;
-  color: white;
+  color: ${(props) => props.color};
   height: 2.75rem;
   font-size: 2rem;
   border: none;
@@ -10,9 +14,9 @@ export const Input = styled.input`
   margin-bottom: 0.75rem;
   padding-bottom: 0.875rem;
   text-align: center;
-  border-bottom: 2px solid white;
+  border-bottom: ${(props) => `2px solid ${props.color}`};
   &:focus {
-    border-bottom: 3px solid white;
+    border-bottom: ${(props) => `3px solid ${props.color}`};
     outline: none;
   }
 `;

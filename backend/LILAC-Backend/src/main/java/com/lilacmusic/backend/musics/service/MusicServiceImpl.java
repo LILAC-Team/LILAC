@@ -36,7 +36,7 @@ public class MusicServiceImpl implements MusicService {
                 RecentCommentResponse.builder()
                         .content(c.getContent())
                         .presentTime(c.getPresentTime())
-                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage()))
+                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage(), c.getEmail()))
                         .build()
         ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()

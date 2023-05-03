@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
-const BASE_URL = "https://colortherock.com/api";
+const BASE_URL = "";
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -47,9 +47,8 @@ instance.interceptors.response.use(
       if (refreshToken) {
         const token = sessionStorage.getItem("accessToken");
         const data = await axios.post(
-          `https://colortherock.com/refresh`,
+          `${BASE_URL}/refresh`,
           {
-            accessToken: `${token}`,
             refreshToken: `${refreshToken}`,
           },
           {
@@ -60,14 +59,13 @@ instance.interceptors.response.use(
         );
 
         const accessToken = data;
-        await sessionStorage.setItem(["accessToken", accessToken]);
+        // await sessionStorage.setItem("accessToken", accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return axios(originalRequest);
       }
     }
 
-    console.log("[api] refreshToken 발급 : ", error);
     return Promise.reject(error);
   }
 );

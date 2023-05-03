@@ -1,14 +1,29 @@
+import { useState } from "react";
 import * as S from "./style";
 
-const ImageInput = () => {
+interface ImageInputProps {
+  src: string | ArrayBuffer;
+  onChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const ImageInput = ({ src, onChangeEvent }: ImageInputProps) => {
   return (
     <>
-      <S.ImageWrap>
+      <S.ImageWrap src={src} onChange={onChangeEvent}>
         <label htmlFor="imageInput">
-          <S.IconWrap>+</S.IconWrap>
+          {(src === undefined || src === "") && (
+            <>
+              <S.IconWrap>+</S.IconWrap>
+              <S.textWrap>앨범 커버를 등록하세요.</S.textWrap>
+            </>
+          )}
         </label>
-        <S.textWrap>앨범 커버를 등록하세요.</S.textWrap>
-        <S.InputWrap id="imageInput" name="imageInput" type="image" />
+        <S.InputWrap
+          id="imageInput"
+          type="file"
+          accept="image/*"
+          defaultValue=""
+        />
       </S.ImageWrap>
     </>
   );

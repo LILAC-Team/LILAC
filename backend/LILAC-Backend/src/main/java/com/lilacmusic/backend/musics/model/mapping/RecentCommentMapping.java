@@ -10,4 +10,6 @@ public interface RecentCommentMapping {
     String getNickname();
 
     String getProfileImage();
+
+    String getEmail();
 }
