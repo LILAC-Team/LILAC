@@ -2,7 +2,6 @@ package com.lilacmusic.backend.member.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lilacmusic.backend.albums.dto.request.AlbumRequest;
 import com.lilacmusic.backend.global.common.BaseResponse;
 import com.lilacmusic.backend.member.request.DuplicateNicknameRequest;
 import com.lilacmusic.backend.member.request.MemberSignUpRequest;
@@ -10,7 +9,7 @@ import com.lilacmusic.backend.member.request.ReGenerateAccessTokenRequest;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
 import com.lilacmusic.backend.member.response.ReGenerateAccessTokenResponse;
 import com.lilacmusic.backend.member.service.MemberService;
-import com.lilacmusic.backend.member.service.MemberServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
-@Tag(name = "member", description = "Member API")
+@Api(tags = "Member")
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
@@ -46,11 +45,11 @@ public class MemberController {
     @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = MemberSignUpResponse.class)))
     @Operation(description = "회원 가입 API", summary = "회원가입 API")
     @PostMapping("/api/member/signup")
-    public BaseResponse<MemberSignUpResponse> signup(@RequestPart("memberInfo") String memberInfoJson,  @RequestPart(value = "profileImage", required = false) MultipartFile profileImageFile) throws JsonProcessingException {
+    public BaseResponse<MemberSignUpResponse> signup(@RequestPart("memberInfo") String memberInfoJson, @RequestPart(value = "profileImage", required = false) MultipartFile profileImageFile) throws JsonProcessingException {
         //TODO : 프로필사진이 multipartfile로 올 때랑 그냥 카톡 프사 string으로 올 때 두 가지가 있음
         MemberSignUpRequest request = new ObjectMapper().readValue(memberInfoJson, MemberSignUpRequest.class);
 
-        if(profileImageFile!=null){
+        if (profileImageFile != null) {
             String profileImageUrl = memberService.uploadProfileImage(profileImageFile);
             request.setProfileImage(profileImageUrl);
         }

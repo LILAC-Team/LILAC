@@ -25,6 +25,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public MusicDetailResponse getMusicDetail(String musicCode, Long memberId) throws NoMusicFoundException {
+        // TODO 검증?
         Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(musicCode);
         if (music.isEmpty()) {
             throw new NoMusicFoundException();

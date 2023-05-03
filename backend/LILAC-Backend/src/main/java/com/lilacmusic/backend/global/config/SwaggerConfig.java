@@ -2,11 +2,10 @@ package com.lilacmusic.backend.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -27,7 +26,19 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.lilacmusic"))
                 .paths(PathSelectors.any())
                 .build()
-                ;
+                .useDefaultResponseMessages(false)
+                .apiInfo(new ApiInfoBuilder()
+                        .title("Lilac-Music API Server Swagger")
+                        .description("Lilac-Music API Server Swagger")
+                        .version("0.9")
+                        .build())
+                .tags(
+                        new Tag("Album", "앨범 API"),
+                        new Tag("PlayList", "재생목록 API"),
+                        new Tag("Member", "회원 API"),
+                        new Tag("Admin", "관리자 API"),
+                        new Tag("Music", "음원 API")
+                );
     }
 
     private SecurityContext securityContext() {
