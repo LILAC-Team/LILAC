@@ -6,7 +6,7 @@ export const Container = styled.div`
   width: 100vw;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: transparent;
 `;
 
 export const BackgroundBlur = styled.div`
@@ -43,7 +43,7 @@ interface ModalProps {
 
 export const Modal = styled.div<ModalProps>`
   min-width: ${(props) => props.width || "17.5"}rem;
-  background-color: red;
+  background-color: var(--color-light);
   border-radius: 1.25rem;
   box-sizing: border-box;
   padding: 1rem 1.5rem 2.5rem 1.5rem;

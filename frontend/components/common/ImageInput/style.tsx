@@ -1,6 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const ImageWrap = styled.div`
+interface ImageWrapProps {
+  src?: string | ArrayBuffer;
+}
+
+export const ImageWrap = styled.div<ImageWrapProps>`
+  margin-top: 1rem;
   width: 100%;
   height: 100%;
   aspect-ratio: 1/1;
@@ -10,13 +15,38 @@ export const ImageWrap = styled.div`
   border-radius: 1rem;
   min-width: 13rem;
   max-width: 15rem;
+  background-image: ${(props) => `url(${props.src})`};
+
+  ${(props) =>
+    props.src !== undefined &&
+    props.src !== "" &&
+    css`
+      border: 3px solid white;
+    `}
+
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+  label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 export const InputWrap = styled.input`
   display: none;
 `;
 
-export const IconWrap = styled.span`
+interface IconWrap {
+  src?: string | ArrayBuffer;
+}
+
+export const IconWrap = styled.div`
   position: absolute;
+  text-align: center;
+  font-size: 50px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
