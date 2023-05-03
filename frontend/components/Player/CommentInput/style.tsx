@@ -43,5 +43,4 @@ export const InputTime = styled.div`
 
 export const CommentBtn = styled.div`
   width: 3rem;
-  /* margin-right: 1rem; */
 `;

@@ -1,7 +1,6 @@
 import * as S from "./style";
 import { useEffect, useState } from "react";
 import BasicText from "@/components/common/BasicText";
-import BasicImage from "@/components/common/BasicImage";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import { BsFillSendFill } from "react-icons/bs";
 import ProfileImg from "@/components/common/ProfileImg";
