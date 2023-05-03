@@ -29,7 +29,7 @@ export const Title = styled.div`
 `;
 
 export const Artist = styled.div`
-  padding: 0.5rem;
+  padding: 0.75rem;
   display: flex;
   justify-content: center;
 `;
