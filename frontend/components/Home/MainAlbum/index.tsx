@@ -32,7 +32,7 @@ const MainAlbum = () => {
           <S.TextWrapper>
             <BasicText text="LILAC에서" size="80%" color="#000000" />
             <BasicText text="나만의 앨범을" size="80%" color="#000000" />
-            <BasicText text="만들어보세요😉" size="80%" color="#000000" />
+            <BasicText text="만들어보세요" size="80%" color="#000000" />
           </S.TextWrapper>
         </S.CatchPhrase>
       </S.ContentWrapper>

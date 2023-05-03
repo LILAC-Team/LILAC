@@ -10,21 +10,25 @@ interface AlbumCardProps {
     releasedDate: string;
     nickname: string;
   };
+  albumSize?: string;
+  titleSize?: string;
   showAlbumDetail: boolean;
 }
 
 const AlbumCard = ({
   onClickEvent,
   data,
+  albumSize = "150%",
+  titleSize = "100%",
   showAlbumDetail = false,
 }: AlbumCardProps) => {
   return (
     <S.AlbumCard showAlbumDetail={showAlbumDetail} onClick={onClickEvent}>
       <S.AlbumCardImg>
-        <BasicImage src={data.albumImage} size="100%" />
+        <BasicImage src={data.albumImage} size={albumSize} />
       </S.AlbumCardImg>
       <S.AlbumCardTitle>
-        <BasicText text={data.name} size="150%"></BasicText>
+        <BasicText text={data.name} size={titleSize} isOverflow={true} />
       </S.AlbumCardTitle>
       {showAlbumDetail && (
         <S.AlbumCardDetail>
@@ -36,7 +40,7 @@ const AlbumCard = ({
               "." +
               data.releasedDate.split("-")[1]
             }
-          ></BasicText>
+          />
         </S.AlbumCardDetail>
       )}
     </S.AlbumCard>

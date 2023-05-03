@@ -20,3 +20,11 @@ export const MenuWrapper = styled.div`
 
   padding-bottom: 1rem;
 `;
+
+export const Comment = styled.div`
+  width: 100%;
+`;
+
+export const PlayList = styled.div`
+  width: 100%;
+`;

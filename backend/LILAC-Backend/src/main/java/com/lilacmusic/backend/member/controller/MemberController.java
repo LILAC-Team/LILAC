@@ -9,6 +9,7 @@ import com.lilacmusic.backend.member.request.ReGenerateAccessTokenRequest;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
 import com.lilacmusic.backend.member.response.ReGenerateAccessTokenResponse;
 import com.lilacmusic.backend.member.service.MemberService;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
-@Tag(name = "member", description = "Member API")
+@Api(tags = "Member")
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
@@ -48,7 +49,7 @@ public class MemberController {
     public BaseResponse<MemberSignUpResponse> signup(@RequestPart("memberInfo") String memberInfoJson,  @RequestPart(value = "profileImage", required = false) MultipartFile profileImageFile) throws JsonProcessingException {
         MemberSignUpRequest request = new ObjectMapper().readValue(memberInfoJson, MemberSignUpRequest.class);
 
-        if(profileImageFile!=null){
+        if (profileImageFile != null) {
             String profileImageUrl = memberService.uploadProfileImage(profileImageFile);
             request.setProfileImage(profileImageUrl);
         }

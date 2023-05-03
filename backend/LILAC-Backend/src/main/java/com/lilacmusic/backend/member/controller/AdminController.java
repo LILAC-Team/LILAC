@@ -3,6 +3,7 @@ package com.lilacmusic.backend.member.controller;
 import com.lilacmusic.backend.global.common.BaseResponse;
 import com.lilacmusic.backend.member.request.LoginInfo;
 import com.lilacmusic.backend.member.service.MemberServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Tag(name = "admin", description = "Admin API")
+@Api(tags = "Admin")
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class AdminController {
