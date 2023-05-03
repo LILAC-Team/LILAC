@@ -2,9 +2,7 @@ package com.lilacmusic.backend.member.request;
 
 import com.lilacmusic.backend.member.entity.Member;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -14,10 +12,10 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "멤버 회원가입 API 요청")
-@Getter
+@Data
 public class MemberSignUpRequest {
 
-    @Email(message = "이메일을 필수 값입니다.")
+    @Email(message = "이메일은 필수 값입니다.")
     @Schema(description = "이메일")
     private String email;
     @NotNull(message = "가입경로는 필수 값입니다.")
@@ -30,10 +28,15 @@ public class MemberSignUpRequest {
     @Schema(description = "닉네임")
     private String nickname;
 
+    @Schema(description = "프로필이미지")
+    private String profileImage;
+
     public Member toEntity() {
         return Member.builder()
                 .nickname(this.nickname)
                 .registrationId(this.registrationId)
-                .email(this.email).build();
+                .email(this.email)
+                .profileImage(this.profileImage)
+                .build();
     }
 }

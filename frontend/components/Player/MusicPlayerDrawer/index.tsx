@@ -38,6 +38,7 @@ const MusicPlayerDrawer = () => {
   return (
     <S.Player>
       <S.Top>
+        <S.Bar />
         <BasicText text="Now Playing" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.AlbumCover>
@@ -52,17 +53,14 @@ const MusicPlayerDrawer = () => {
         <BasicText text={music.name} size="2rem" font="NotoSansKR700" />
       </S.Title>
       <S.Artist>
-        <BasicText text={music.artistName} size="1rem" font="NotoSansKR400" />
+        <BasicText text={music.artistName} size="1rem" />
       </S.Artist>
       <S.Comment>
         {music.recentCommentList.map((item, index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               {item.present_time === nowTime && (
-                <S.CommentWrap
-                  key={index}
-                  onClick={toggleDrawer("bottom", true)}
-                >
+                <S.CommentWrap onClick={toggleDrawer("bottom", true)}>
                   <S.CommentImg>
                     <BasicImage
                       src={item.userInfo.profileImage}
@@ -71,15 +69,11 @@ const MusicPlayerDrawer = () => {
                     />
                   </S.CommentImg>
                   <S.CommentDiv>
-                    <BasicText
-                      text={item.content}
-                      size="0.75rem"
-                      font="NotoSansKR400"
-                    />
+                    <BasicText text={item.content} size="0.75rem" />
                   </S.CommentDiv>
                 </S.CommentWrap>
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </S.Comment>
@@ -90,12 +84,6 @@ const MusicPlayerDrawer = () => {
         <MusicController handleRotateClick={handleRotateClick} />
       </S.ControllBar>
       <MenuBar />
-      <Drawer
-        inner="comment"
-        toggleDrawer={toggleDrawer}
-        state={{ ...state }}
-        anchor={"bottom"}
-      />
     </S.Player>
   );
 };

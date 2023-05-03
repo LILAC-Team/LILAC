@@ -11,12 +11,21 @@ export const Player = styled.div`
 `;
 
 export const Top = styled.div`
-  padding-top: calc((var(--vh, 1vh) * 2));
+  padding-top: calc((var(--vh, 1vh) * 1.5));
   padding-bottom: calc((var(--vh, 1vh) * 2));
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
+export const Bar = styled.div`
+  background-color: #9c9c9c;
+  width: calc((var(--vw, 1vw) * 10));
+  border-radius: 5rem;
+  height: 0.25rem;
+  margin: 0rem 0.5rem 1rem 0.5rem;
+`;
 export const AlbumCover = styled.div`
   padding: calc((var(--vh, 1vh) * 2.5)) calc((var(--vw, 1vw) * 2.5))
     calc((var(--vh, 1vh) * 2.5)) calc((var(--vw, 1vw) * 2.5));
@@ -29,7 +38,7 @@ export const Title = styled.div`
 `;
 
 export const Artist = styled.div`
-  padding: 0.5rem;
+  padding: 0.75rem;
   display: flex;
   justify-content: center;
 `;
