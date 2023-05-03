@@ -9,3 +9,19 @@ export const Playlist = styled.div`
   align-items: center;
   text-align: center;
 `;
+
+export const Top = styled.div`
+  padding: calc((var(--vh, 1vh) * 2)) 0;
+  display: flex;
+  justify-content: center;
+`;
+
+export const TextWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CardsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
