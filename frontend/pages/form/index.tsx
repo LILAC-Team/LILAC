@@ -1,12 +1,15 @@
+import * as S from "./style";
 import { useState } from "react";
 import CircularJSON from "circular-json";
+import Layout from "@/components/common/Layout";
+import MusicCard from "@/components/Player/MusicCard";
+import BasicText from "@/components/common/BasicText";
+import BasicInput from "@/components/common/BasicInput";
 import ImageInput from "@/components/common/ImageInput";
 import AudioFileInput from "@/components/common/AudioFileInput";
-import BasicInput from "@/components/common/BasicInput";
-import Layout from "@/components/common/Layout";
-import * as S from "./style";
-import BasicText from "@/components/common/BasicText";
-
+import SmallModal from "@/components/common/CommonModal/SmallModal";
+import { RxDividerHorizontal } from "react-icons/rx";
+import CustomTextButton from "@/components/common/CustomTextButton";
 interface ProfileState {
   previewImgUrl: string | ArrayBuffer;
   file: File | {};
@@ -19,6 +22,12 @@ const Form = () => {
     file: {},
   });
 
+  const [currTrackInfo, setCurrTrackInfo] = useState({
+    title: "",
+    artist: "",
+    file: {},
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [albumTrackList, setAlbumTrackList] = useState([]);
 
   const handleAlbumImageChange = async (e) => {
@@ -37,24 +46,100 @@ const Form = () => {
     }
   };
 
+  const handleAddAlbumTrack = async (e) => {
+    const {
+      target: { files, value },
+    } = e;
+    if (e.target.value === "") {
+      setCurrTrackInfo({ title: "", artist: "", file: {} });
+    } else {
+      // const reader = new FileReader();
+      // reader.onload = () => {
+      //   const audioContext = new AudioContext();
+      //   audioContext.decodeAudioData(files[0]).then(function (audioBuffer) {
+      //     console.log(`Duration: ${audioBuffer.duration} seconds`);
+      //   });
+      // };
+      setCurrTrackInfo({ ...currTrackInfo, file: files[0] });
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleAlbumTitleOnChange = (e) => {
+    setAlbumTitle(e.target.value);
+  };
+
+  const handleCurrTrackInfoOnChange = (e) => {
+    const { id, value } = e.target;
+    setCurrTrackInfo({ ...currTrackInfo, [id]: value });
+  };
+
   return (
-    <Layout>
-      <S.ContentWrap>
-        <ImageInput />
-        <S.AlbumTitleWrap>
-          <BasicInput
-            id="nickname"
-            type="text"
-            value={albumTitle}
-            handleOnChangeValue={() => console.log("흠")}
+    <>
+      <Layout>
+        <S.ContentWrap>
+          <ImageInput
+            src={albumImage.previewImgUrl}
+            onChangeEvent={handleAlbumImageChange}
           />
-        </S.AlbumTitleWrap>
-        <S.ContentTitleWrap>
-          <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
-        </S.ContentTitleWrap>
-        <AudioFileInput />
-      </S.ContentWrap>
-    </Layout>
+          <S.AlbumTitleWrap>
+            <BasicInput
+              id="nickname"
+              type="text"
+              value={albumTitle}
+              handleOnChangeValue={handleAlbumTitleOnChange}
+            />
+          </S.AlbumTitleWrap>
+          <S.ContentTitleWrap>
+            <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
+          </S.ContentTitleWrap>
+          <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
+          {albumTrackList.length > 0 &&
+            albumTrackList.map((val, index) => <div key={index}>하하하</div>)}
+        </S.ContentWrap>
+      </Layout>
+      {isModalOpen && (
+        <SmallModal
+          handleSetShowModal={() => {
+            setIsModalOpen(false);
+          }}
+        >
+          <S.ModalContainer>
+            <BasicText
+              text="제목"
+              size="1.25rem"
+              color="var(--color-background)"
+            />
+            <BasicInput
+              id="title"
+              type="text"
+              color="var(--color-background)"
+              value={currTrackInfo.title}
+              handleOnChangeValue={handleCurrTrackInfoOnChange}
+            />
+
+            <BasicText
+              text="아티스트"
+              size="1.25rem"
+              color="var(--color-background)"
+            />
+            <BasicInput
+              id="artist"
+              type="text"
+              color="var(--color-background)"
+              value={currTrackInfo.artist}
+              handleOnChangeValue={handleCurrTrackInfoOnChange}
+            />
+            <div></div>
+            <CustomTextButton
+              text="등록"
+              fontColor="var(--color-background)"
+              handleOnClickButton={() => console.log("등록성공!")}
+            />
+          </S.ModalContainer>
+        </SmallModal>
+      )}
+    </>
   );
 };
 

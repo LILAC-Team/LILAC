@@ -1,13 +1,20 @@
 import * as S from "./style";
 
-const AudioFileInput = () => {
+interface AudioFileInputProps {
+  onChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const AudioFileInput = ({ onChangeEvent }: AudioFileInputProps) => {
   return (
     <>
-      <S.AudioInput>
-        <label htmlFor="audioInput" id="audioLabel">
-          업로드할 음원을 선택하세요.
-        </label>
-        <S.InputWrap id="audioInput" />
+      <S.AudioInput onChange={onChangeEvent}>
+        <label htmlFor="audioInput">업로드할 음원을 선택하세요.</label>
+        <S.InputWrap
+          id="audioInput"
+          type="file"
+          accept="audio/*"
+          defaultValue=""
+        />
       </S.AudioInput>
     </>
   );
