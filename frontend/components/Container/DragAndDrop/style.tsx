@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-export const DragDropWrap = styled.ul`
+export const DragDropWrap = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  height: calc(var(--vh, 1vh) * 80);
+  overflow-y: scroll;
 `;

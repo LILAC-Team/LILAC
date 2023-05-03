@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import * as S from "./style";
+import MusicCard from "@/components/Player/MusicCard";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 const DragAndDrop = ({ list, setList }) => {
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
@@ -17,16 +18,19 @@ const DragAndDrop = ({ list, setList }) => {
       <Droppable droppableId="list">
         {(provided) => (
           <S.DragDropWrap {...provided.droppableProps} ref={provided.innerRef}>
-            {list.map(({ id, content }, index) => (
-              <Draggable key={id} draggableId={id} index={index}>
+            {list.map(({ code, name, albumImage, artistName }, index) => (
+              <Draggable key={code} draggableId={code} index={index}>
                 {(provided) => (
-                  <li
+                  <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
-                    {content}
-                  </li>
+                    <MusicCard
+                      data={{ code, name, albumImage, artistName }}
+                      isEditable={true}
+                    />
+                  </div>
                 )}
               </Draggable>
             ))}
@@ -38,22 +42,4 @@ const DragAndDrop = ({ list, setList }) => {
   );
 };
 
-const DragAndDropWithClientOnly = ({ list, setList }) => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  return isClient ? (
-    <DragAndDrop list={list} setList={setList} />
-  ) : (
-    <S.DragDropWrap>
-      {list.map(({ id, content }) => (
-        <li key={id}>{content}</li>
-      ))}
-    </S.DragDropWrap>
-  );
-};
-
-export default DragAndDropWithClientOnly;
+export default DragAndDrop;
