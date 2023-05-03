@@ -14,4 +14,6 @@ public class MemberInfoResponse {
     private String nickname;
 
     private String profileImage;
+
+    private String email;
 }

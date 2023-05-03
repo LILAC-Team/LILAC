@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface RecentCommentRepository extends JpaRepository<RecentComment, Long> {
 
-    @Query("SELECT r.content AS content, r.presentTime AS presentTime, u.nickname AS nickname, u.profileImage AS profileImage FROM RecentComment r INNER JOIN Member u ON r.memberId = u.memberId WHERE r.musicId = ?1 ORDER BY r.presentTime ASC")
+    @Query("SELECT r.content AS content, r.presentTime AS presentTime, u.nickname AS nickname, u.profileImage AS profileImage, u.email AS email FROM RecentComment r INNER JOIN Member u ON r.memberId = u.memberId WHERE r.musicId = ?1 ORDER BY r.presentTime ASC")
     List<RecentCommentMapping> findAllByMusicIdOrderByPresentTimeAsc(Long musicId);
 
     Optional<RecentComment> getRecentCommentByMusicIdAndPresentTime(Long musicId, Integer presentTime);
