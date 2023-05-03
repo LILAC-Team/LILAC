@@ -55,6 +55,8 @@ public class MemberServiceImpl implements MemberService {
     @Value("${cloud.aws.mediaconvert.role}")
     private String role;
 
+    @Value("${cloud.aws.cloudfront.url_prefix}")
+    private String cloudfrontUrlPrefix;
 
     /**
      * 관리자 계정 로그인
@@ -93,7 +95,7 @@ public class MemberServiceImpl implements MemberService {
         Member save = memberRepository.save(member);
         String token = BEARER_PREFIX + jwtTokenUtils.createTokens(save, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
         RefreshToken refreshToken = jwtTokenUtils.generateRefreshToken(token);
-        return new MemberSignUpResponse(save.getMemberId(), save.getEmail(), save.getRegistrationId(), save.getNickname(), refreshToken.getAccessTokenValue(), refreshToken.getRefreshTokenKey());
+        return new MemberSignUpResponse(save.getProfileImage(), save.getNickname(), refreshToken.getAccessTokenValue(), refreshToken.getRefreshTokenKey());
     }
 
     /**
@@ -160,7 +162,7 @@ public class MemberServiceImpl implements MemberService {
         String code = UUID.randomUUID().toString();
         String inputKey = "images/profileImage-" + code + "." + extension;
         uploadToS3(profileImageFile, inputKey);
-        return inputKey;
+        return cloudfrontUrlPrefix + inputKey;
     }
 
     private void uploadToS3(MultipartFile imageFile, String inputKey) {
