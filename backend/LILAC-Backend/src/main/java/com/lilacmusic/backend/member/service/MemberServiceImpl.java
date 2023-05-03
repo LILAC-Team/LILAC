@@ -12,6 +12,7 @@ import com.lilacmusic.backend.member.repository.MemberRepository;
 import com.lilacmusic.backend.member.request.LoginInfo;
 import com.lilacmusic.backend.member.request.MemberSignUpRequest;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
+import com.lilacmusic.backend.member.response.ReGenerateAccessTokenResponse;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,8 @@ public class MemberServiceImpl implements MemberService {
     @Value("${cloud.aws.cloudfront.url_prefix}")
     private String cloudfrontUrlPrefix;
 
+    public static final String BEARER_PREFIX = "Bearer ";
+
     /**
      * 관리자 계정 로그인
      *
@@ -77,10 +80,12 @@ public class MemberServiceImpl implements MemberService {
      * @param refreshToken 리프레시 토큰
      * @return 다시 만든 액세스 토큰
      */
-    public String regenerateAccessToken(String refreshToken) {
+    public ReGenerateAccessTokenResponse regenerateAccessToken(String refreshToken) {
         Optional<RefreshToken> findToken = jwtTokenUtils.findRefreshToken(refreshToken);
         RefreshToken findRefreshToken = findToken.orElseThrow(() -> new AccessDeniedException());
-        return jwtTokenUtils.reCreateTokens(findRefreshToken);
+        String reCreateAccessToken = BEARER_PREFIX + jwtTokenUtils.reCreateTokens(findRefreshToken);
+        RefreshToken reCreateRefreshToken = jwtTokenUtils.generateRefreshToken(reCreateAccessToken);
+        return new ReGenerateAccessTokenResponse(reCreateAccessToken, reCreateRefreshToken.getRefreshTokenKey());
     }
 
     /**
