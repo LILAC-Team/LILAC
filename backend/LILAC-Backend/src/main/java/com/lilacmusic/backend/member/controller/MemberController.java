@@ -39,8 +39,8 @@ public class MemberController {
     @ApiResponse(responseCode = "200", description = "재발급 성공", content = @Content(schema = @Schema(implementation = ReGenerateAccessTokenResponse.class)))
     public BaseResponse<ReGenerateAccessTokenResponse> reGenerateAccessToken(@Valid @RequestBody ReGenerateAccessTokenRequest request) {
 
-        String regenerateAccessToken = memberService.regenerateAccessToken(request.getRefreshToken());
-        return new BaseResponse<>(new ReGenerateAccessTokenResponse(regenerateAccessToken));
+        ReGenerateAccessTokenResponse regenerateAccessTokenResponse = memberService.regenerateAccessToken(request.getRefreshToken());
+        return new BaseResponse<>(regenerateAccessTokenResponse);
     }
 
     @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = MemberSignUpResponse.class)))
