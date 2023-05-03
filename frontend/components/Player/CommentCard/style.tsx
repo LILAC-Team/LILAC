@@ -31,7 +31,6 @@ export const CommentDiv = styled.div`
 export const CommentInfoTop = styled.div`
   width: 100%;
   display: flex;
-  /* margin-bottom: 0.5rem; */
 `;
 
 export const CommentNick = styled.div`
@@ -49,9 +48,6 @@ export const CommentContent = styled.div`
 `;
 
 export const CommentDelete = styled.div`
-  /* display: flex; */
-  /* position: absolute; */
-  /* right:  */
   width: 3rem;
   max-width: calc((var(--vw, 1vw) * 10));
 `;
