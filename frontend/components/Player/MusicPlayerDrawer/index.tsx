@@ -38,6 +38,7 @@ const MusicPlayerDrawer = () => {
   return (
     <S.Player>
       <S.Top>
+        <S.Bar />
         <BasicText text="Now Playing" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.AlbumCover>
@@ -52,7 +53,7 @@ const MusicPlayerDrawer = () => {
         <BasicText text={music.name} size="2rem" font="NotoSansKR700" />
       </S.Title>
       <S.Artist>
-        <BasicText text={music.artistName} size="1rem" font="NotoSansKR400" />
+        <BasicText text={music.artistName} size="1rem" />
       </S.Artist>
       <S.Comment>
         {music.recentCommentList.map((item, index) => {
@@ -68,11 +69,7 @@ const MusicPlayerDrawer = () => {
                     />
                   </S.CommentImg>
                   <S.CommentDiv>
-                    <BasicText
-                      text={item.content}
-                      size="0.75rem"
-                      font="NotoSansKR400"
-                    />
+                    <BasicText text={item.content} size="0.75rem" />
                   </S.CommentDiv>
                 </S.CommentWrap>
               )}
