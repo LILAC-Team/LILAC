@@ -18,20 +18,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -236,7 +242,7 @@ public class AlbumControllerTests {
                 .build();
 
         AlbumRequest albumRequest = AlbumRequest.builder()
-                .musicList(Collections.singletonList(musicRequest))
+                .musicList(List.of(musicRequest, musicRequest))
                 .name(albumName)
                 .build();
 
@@ -247,20 +253,21 @@ public class AlbumControllerTests {
 
 
         when(validator.validateEmail(argThat((HttpServletRequest r) -> r.getAttribute("email") != null))).thenReturn(memberId);
-        when(streamingService.albumUpload(memberId, albumName, imageFile)).thenReturn(albumId);
-        when(streamingService.musicUpload(albumId, albumRequest, Collections.singletonList(musicFile))).thenReturn(1);
+        when(streamingService.albumUpload(eq(memberId), anyString(), any(MultipartFile.class))).thenReturn(albumId);
+        when(streamingService.musicUpload(eq(albumId), any(AlbumRequest.class), anyList())).thenReturn(2);
         when(albumService.getCodeByAlbumId(albumId)).thenReturn(albumCode);
 
-        HttpServletResponse a = mockMvc.perform(multipart("/api/v1/albums")
+
+        mockMvc.perform(multipart("/api/v1/albums")
                         .file(imageFile)
                         .file(musicFile)
                         .file(musicFile)
-                        .param("albumInfo", albumInfoJson))
-                .andReturn().getResponse();
-//                .andExpect(status().isCreated())
-//                .andExpect(content().string(albumCode));
-//
-        System.out.println("String a = " + a.toString() + " " + a.getStatus());
+                        .file("albumInfo", albumInfoJson.getBytes(StandardCharsets.UTF_8))
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .with(csrf())
+                )
+                .andExpect(status().isCreated())
+                .andExpect(content().string(albumCode));
     }
 
 
