@@ -3,7 +3,7 @@ import * as S from "./style";
 import { MdModeEdit } from "@react-icons/all-files/md/MdModeEdit";
 
 interface ProfileImgProps {
-  src?: string | ArrayBuffer;
+  src?: string;
   size?: string;
   onClickEvent?: (e: any) => void;
   isEditable?: boolean;
