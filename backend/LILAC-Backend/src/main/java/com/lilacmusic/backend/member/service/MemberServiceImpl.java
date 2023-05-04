@@ -1,6 +1,8 @@
 package com.lilacmusic.backend.member.service;
 
+import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
 import com.lilacmusic.backend.global.error.GlobalErrorCode;
+import com.lilacmusic.backend.global.error.common.UploadFailException;
 import com.lilacmusic.backend.global.security.jwt.JwtTokenUtils;
 import com.lilacmusic.backend.global.security.jwt.RefreshToken;
 import com.lilacmusic.backend.member.entity.Member;
@@ -10,22 +12,33 @@ import com.lilacmusic.backend.member.repository.MemberRepository;
 import com.lilacmusic.backend.member.request.LoginInfo;
 import com.lilacmusic.backend.member.request.MemberSignUpRequest;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
+import com.lilacmusic.backend.member.response.ReGenerateAccessTokenResponse;
+import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.lilacmusic.backend.global.security.jwt.JwtTokenUtils.BEARER_PREFIX;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
-
 public class MemberServiceImpl implements MemberService {
+    private final S3Client s3Client;
     private final JwtTokenUtils jwtTokenUtils;
     private final MemberRepository memberRepository;
     private Long memberId;
@@ -35,6 +48,18 @@ public class MemberServiceImpl implements MemberService {
 
     @Value("${spring.security.user.password}")
     private String adminPassword;
+
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+
+    @Value("${cloud.aws.mediaconvert.role}")
+    private String role;
+
+    @Value("${cloud.aws.cloudfront.url_prefix}")
+    private String cloudfrontUrlPrefix;
+
+    public static final String BEARER_PREFIX = "Bearer ";
 
     /**
      * 관리자 계정 로그인
@@ -55,10 +80,12 @@ public class MemberServiceImpl implements MemberService {
      * @param refreshToken 리프레시 토큰
      * @return 다시 만든 액세스 토큰
      */
-    public String regenerateAccessToken(String refreshToken) {
+    public ReGenerateAccessTokenResponse regenerateAccessToken(String refreshToken) {
         Optional<RefreshToken> findToken = jwtTokenUtils.findRefreshToken(refreshToken);
         RefreshToken findRefreshToken = findToken.orElseThrow(() -> new AccessDeniedException());
-        return jwtTokenUtils.reCreateTokens(findRefreshToken);
+        String reCreateAccessToken = BEARER_PREFIX + jwtTokenUtils.reCreateTokens(findRefreshToken);
+        RefreshToken reCreateRefreshToken = jwtTokenUtils.generateRefreshToken(reCreateAccessToken);
+        return new ReGenerateAccessTokenResponse(reCreateAccessToken, reCreateRefreshToken.getRefreshTokenKey());
     }
 
     /**
@@ -73,7 +100,7 @@ public class MemberServiceImpl implements MemberService {
         Member save = memberRepository.save(member);
         String token = BEARER_PREFIX + jwtTokenUtils.createTokens(save, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
         RefreshToken refreshToken = jwtTokenUtils.generateRefreshToken(token);
-        return new MemberSignUpResponse(save.getMemberId(), save.getEmail(), save.getRegistrationId(), save.getNickname(), refreshToken.getAccessTokenValue(), refreshToken.getRefreshTokenKey());
+        return new MemberSignUpResponse(save.getEmail(), save.getProfileImage(), save.getNickname(), refreshToken.getAccessTokenValue(), refreshToken.getRefreshTokenKey());
     }
 
     /**
@@ -131,5 +158,28 @@ public class MemberServiceImpl implements MemberService {
     public Integer updateCollectingByMemberId(Long memberId) {
         Integer i = memberRepository.updateCollectingByMemberId(memberId);
         return i;
+    }
+
+    @Override
+    public String uploadProfileImage(MultipartFile profileImageFile) {
+        String originalFilename = profileImageFile.getOriginalFilename();
+        String extension = FilenameUtils.getExtension(originalFilename); // Get file extension
+        String code = UUID.randomUUID().toString();
+        String inputKey = "images/profileImage-" + code + "." + extension;
+        uploadToS3(profileImageFile, inputKey);
+        return cloudfrontUrlPrefix + inputKey;
+    }
+
+    private void uploadToS3(MultipartFile imageFile, String inputKey) {
+        try (InputStream inputStream = imageFile.getInputStream()) {
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(inputKey)
+                    .build();
+            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(inputStream, imageFile.getSize()));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new UploadFailException();
+        }
     }
 }

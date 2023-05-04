@@ -103,4 +103,6 @@ cloud:
     mediaconvert:
       endpoint: ${MEDIACONVERT_ENDPOINT}
       role: ${IAM_ROLE}
+    cloudfront:
+      url_prefix: ${CLOUDFRONT_PREFIX}
 

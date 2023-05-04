@@ -1,5 +1,6 @@
 package com.lilacmusic.backend.member.entity;
 
+import com.lilacmusic.backend.global.common.BaseTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "member")
-public class Member {
+public class Member extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,19 +36,19 @@ public class Member {
     @Column(name = "collect_album_count", nullable = false, columnDefinition = "integer default 0")
     private Integer collectAlbumCount;
 
-    @CreatedDate
-    @Column(name = "created_time", nullable = false)
-    private LocalDateTime createdTime;
+//    @CreatedDate
+//    @Column(name = "created_time", nullable = false)
+//    private LocalDateTime createdTime;
+//
+//    @LastModifiedDate
+//    @Column(name = "modified_time", nullable = false)
+//    private LocalDateTime modifiedTime;
 
-    @LastModifiedDate
-    @Column(name = "modified_time", nullable = false)
-    private LocalDateTime modifiedTime;
-
-    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")
     private Boolean isActive;
 
     @Builder
-    public Member(Long memberId,String email, String nickname, RegistrationId registrationId, String profileImage) {
+    public Member(Long memberId, String email, String nickname, RegistrationId registrationId, String profileImage) {
         this.memberId = memberId;
         this.email = email;
         this.nickname = nickname;
@@ -55,7 +56,7 @@ public class Member {
         this.profileImage = profileImage;
         this.releaseAlbumCount = 0;
         this.collectAlbumCount = 0;
-        this.isActive = false;
+        this.isActive = true;
     }
 
     @Enumerated(EnumType.STRING)
@@ -69,11 +70,11 @@ public class Member {
         this.profileImage = profileImage;
         this.releaseAlbumCount = 0;
         this.collectAlbumCount = 0;
-        this.isActive = false;
+        this.isActive = true;
     }
 
     public enum RegistrationId {
-        kakao, google
+        kakao
 
     }
 

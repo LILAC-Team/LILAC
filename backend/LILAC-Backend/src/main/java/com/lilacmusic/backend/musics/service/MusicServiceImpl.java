@@ -25,6 +25,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public MusicDetailResponse getMusicDetail(String musicCode, Long memberId) throws NoMusicFoundException {
+        // TODO 검증?
         Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(musicCode);
         if (music.isEmpty()) {
             throw new NoMusicFoundException();
@@ -35,7 +36,7 @@ public class MusicServiceImpl implements MusicService {
                 RecentCommentResponse.builder()
                         .content(c.getContent())
                         .presentTime(c.getPresentTime())
-                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage()))
+                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage(), c.getEmail()))
                         .build()
         ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()
