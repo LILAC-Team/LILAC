@@ -6,9 +6,7 @@ const SelectBox = ({ children, list, funcArr }) => {
 
   return (
     <S.SelectBox>
-      <S.Label>
-        <div>{children}</div>
-      </S.Label>
+      <S.Label>{children}</S.Label>
       {isDropdown &&
         list.map((data, index) => {
           <S.SelectOptions>

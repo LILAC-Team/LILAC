@@ -21,11 +21,15 @@ public class GlobalRequestValidator {
     }
 
     public Long validateEmail(HttpServletRequest request) {
-        String email = (String) request.getAttribute("email");
-        Long memberId = memberService.getMemberIdByEmail(email);
+        Long memberId = getMemberIdOrMinusOne(request);
         if (memberId.equals(-1L)) {
             throw new AccessDeniedException();
         }
         return memberId;
+    }
+
+    public Long getMemberIdOrMinusOne(HttpServletRequest request) {
+        String email = (String) request.getAttribute("email");
+        return memberService.getMemberIdByEmail(email);
     }
 }

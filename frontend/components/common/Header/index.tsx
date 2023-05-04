@@ -32,12 +32,12 @@ const Header = ({ isShown = true }: HeaderProps) => {
         </Link>
         <S.ProfileWrapper>
           {isShown && (
-            // <SelectBox list={list} funcArr={funcArr}>
-            //   <ProfileImg />
-            // </SelectBox>
-            <Link href={"/"}>
-              <ProfileImg onClickEvent={handleProfileClick} />
-            </Link>
+            <SelectBox list={list} funcArr={funcArr}>
+              <ProfileImg size="4rem" />
+            </SelectBox>
+            // <Link href={"/"}>
+            //   <ProfileImg onClickEvent={handleProfileClick} />
+            // </Link>
           )}
         </S.ProfileWrapper>
       </S.HeaderWrapper>
