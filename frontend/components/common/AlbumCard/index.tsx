@@ -12,6 +12,7 @@ interface AlbumCardProps {
   };
   albumSize?: string;
   titleSize?: string;
+  font?: string;
   showAlbumDetail: boolean;
 }
 
@@ -20,6 +21,7 @@ const AlbumCard = ({
   data,
   albumSize = "150%",
   titleSize = "100%",
+  font,
   showAlbumDetail = false,
 }: AlbumCardProps) => {
   return (
@@ -28,7 +30,12 @@ const AlbumCard = ({
         <BasicImage src={data.albumImage} size={albumSize} />
       </S.AlbumCardImg>
       <S.AlbumCardTitle>
-        <BasicText text={data.name} size={titleSize} isOverflow={true} />
+        <BasicText
+          text={data.name}
+          size={titleSize}
+          isOverflow={true}
+          font={font}
+        />
       </S.AlbumCardTitle>
       {showAlbumDetail && (
         <S.AlbumCardDetail>

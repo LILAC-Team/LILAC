@@ -17,6 +17,10 @@ const BasicSlider = ({
   fetchUrl,
   handleSetShowModal,
 }: BasicSliderProps) => {
+  const handleAlbumClick = () => {
+    console.log("Show Album Detail");
+  };
+
   return (
     <>
       <Swiper slidesPerView={4.5} spaceBetween={0}>
@@ -31,11 +35,10 @@ const BasicSlider = ({
             <SwiperSlide key={data.code}>
               <S.AlbumWrap>
                 <AlbumCard
-                  onClickEvent={() => console.log("히히")}
+                  onClickEvent={handleAlbumClick}
                   data={data}
                   showAlbumDetail={false}
                   albumSize="100%"
-                  titleSize="80%"
                 />
               </S.AlbumWrap>
             </SwiperSlide>
