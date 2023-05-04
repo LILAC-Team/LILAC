@@ -3,7 +3,7 @@ import BasicImage from "../BasicImage";
 import BasicText from "../BasicText";
 
 interface AlbumCardProps {
-  onClickEvent: () => void;
+  onClickEvent?: () => void;
   data: {
     name: string;
     albumImage: string;
