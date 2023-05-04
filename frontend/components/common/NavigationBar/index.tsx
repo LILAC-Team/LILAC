@@ -16,14 +16,14 @@ const NavigationBar = () => {
           </Link>
         </S.ButtonWrapper>
         <S.ButtonWrapper>
-          <Link href={"/"}>
+          <Link href={"/form"}>
             <CustomIconButton>
               <RiAddLine size="1.25rem" color="#CCA4FC" />
             </CustomIconButton>
           </Link>
         </S.ButtonWrapper>
         <S.ButtonWrapper>
-          <Link href={"/"}>
+          <Link href={"/album"}>
             <CustomIconButton>
               <MdOutlineLibraryMusic size="1.25rem" color="#CCA4FC" />
             </CustomIconButton>
