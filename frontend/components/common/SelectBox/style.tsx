@@ -6,8 +6,8 @@ export const SelectBox = styled.div`
   justify-content: center;
   position: relative;
   font-size: 1rem;
-  width: 100px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   border-radius: 1.25rem;
   /* font-family: "RobotoMedium"; */
   background-color: var(--color-primary);
@@ -16,6 +16,8 @@ export const SelectBox = styled.div`
 `;
 
 export const Label = styled.label`
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   /* font-family: "RobotoMedium"; */
