@@ -8,7 +8,7 @@ interface MusicCardProps {
   data: {
     code: string;
     name: string;
-    albumImage: string | ArrayBuffer;
+    albumImage: string;
     artistName: string;
   };
   isEditable: boolean;
