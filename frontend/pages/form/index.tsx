@@ -8,7 +8,6 @@ import BasicInput from "@/components/common/BasicInput";
 import ImageInput from "@/components/common/ImageInput";
 import AudioFileInput from "@/components/common/AudioFileInput";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
-import { RxDividerHorizontal } from "react-icons/rx";
 import CustomTextButton from "@/components/common/CustomTextButton";
 interface ProfileState {
   previewImgUrl: string | ArrayBuffer;
@@ -74,6 +73,11 @@ const Form = () => {
     setCurrTrackInfo({ ...currTrackInfo, [id]: value });
   };
 
+  const addTrackToAlbum = () => {
+    setAlbumTrackList([currTrackInfo, ...albumTrackList]);
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <Layout>
@@ -94,8 +98,14 @@ const Form = () => {
             <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
           </S.ContentTitleWrap>
           <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
-          {albumTrackList.length > 0 &&
-            albumTrackList.map((val, index) => <div key={index}>하하하</div>)}
+          <MusicCard
+            onClickEvent={() => console.log("ClickClick")}
+            data={{ name: "name", albumImage: "", nickname: "nickname" }}
+            isEditable={true}
+          />
+
+          {/* {albumTrackList.length > 0 &&
+            albumTrackList.map((val, index) => <MusicCard key={index}>하하하</MusicCard>)} */}
         </S.ContentWrap>
       </Layout>
       {isModalOpen && (
