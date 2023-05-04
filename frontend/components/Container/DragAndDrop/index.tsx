@@ -18,22 +18,24 @@ const DragAndDrop = ({ list, setList }) => {
       <Droppable droppableId="list">
         {(provided) => (
           <S.DragDropWrap {...provided.droppableProps} ref={provided.innerRef}>
-            {list.map(({ code, name, albumImage, artistName }, index) => (
-              <Draggable key={code} draggableId={code} index={index}>
-                {(provided) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                  >
-                    <MusicCard
-                      data={{ code, name, albumImage, artistName }}
-                      isEditable={true}
-                    />
-                  </div>
-                )}
-              </Draggable>
-            ))}
+            {list.map(
+              ({ code, name, albumImage, artistName, playtime }, index) => (
+                <Draggable key={code} draggableId={code} index={index}>
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <MusicCard
+                        data={{ code, name, albumImage, artistName, playtime }}
+                        isEditable={true}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              )
+            )}
             {provided.placeholder}
           </S.DragDropWrap>
         )}
