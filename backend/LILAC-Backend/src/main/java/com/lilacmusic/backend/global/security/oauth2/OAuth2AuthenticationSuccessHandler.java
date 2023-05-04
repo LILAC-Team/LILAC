@@ -61,9 +61,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             RefreshToken token = jwtTokenUtils.generateRefreshToken(tokens);
             response.setHeader(AUTHORIZATION, tokens);
             targetUrl = UriComponentsBuilder.newInstance()
-//                    .scheme("http")
-//                    .host("localhost")
-//                    .port(3000)
+                    .scheme("http")
+                    .host("localhost")
+                    .port(3000)
                     .path("/oauth")
                     .queryParam("email",member.getEmail())
                     .queryParam("profileImage", URLEncoder.encode(member.getProfileImage(), StandardCharsets.UTF_8))
@@ -75,9 +75,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         } else {
             // 가입이 안 되어 있으니 추가 입력폼으로 넘기기
             targetUrl = UriComponentsBuilder.newInstance()
-//                    .scheme("http")
-//                    .host("localhost")
-//                    .port(3000)
+                    .scheme("http")
+                    .host("localhost")
+                    .port(3000)
                     .path("/oauth")
                     .queryParam("nickname", URLEncoder.encode(memberInfo.getNickname(), StandardCharsets.UTF_8))
                     .queryParam("email", memberInfo.getEmail())
