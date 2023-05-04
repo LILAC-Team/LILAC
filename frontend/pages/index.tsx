@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import BasicSlider from "@/components/Home/BasicSlider";
-import DragAndDropWithClientOnly from "@/components/Container/DragAndDrop";
 import CircularJSON from "circular-json";
 import { useRouter } from "next/router";
 import Layout from "@/components/common/Layout";
@@ -29,17 +28,6 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
       return () => clearTimeout(timer);
     }
   }, []);
-  const [list, setList] = useState([
-    { id: "1", content: "The Call Of Ktulu" },
-    { id: "2", content: "For Whom The Bell Tolls" },
-    { id: "3", content: "The Day That Never Comes" },
-    { id: "4", content: "The Memory Remains" },
-    { id: "5", content: "Confusion" },
-    { id: "6", content: "Moth Into Flame" },
-    { id: "7", content: "The Outlaw Torn" },
-    { id: "8", content: "No Leaf Clover" },
-    { id: "9", content: "Halo on Fire" },
-  ]);
 
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -63,11 +51,15 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
     <Layout>
       <MainAlbum />
       <SliderWrapper>
-        <BasicText text="나의 앨범" size="1.125rem" />
+        <BasicText text="나의 앨범" size="1.125rem" font="NotoSansKR700" />
         <BasicSlider />
       </SliderWrapper>
       <SliderWrapper>
-        <BasicText text="내가 소장한 앨범" size="1.125rem" />
+        <BasicText
+          text="내가 소장한 앨범"
+          size="1.125rem"
+          font="NotoSansKR700"
+        />
         <BasicSlider />
       </SliderWrapper>
     </Layout>
