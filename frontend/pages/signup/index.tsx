@@ -7,7 +7,7 @@ import BasicInput from "@/components/common/BasicInput";
 import CustomTextButton from "@/components/common/CustomTextButton";
 
 interface ProfileState {
-  previewImgUrl: string | ArrayBuffer;
+  previewImgUrl: any;
   file: File | {};
 }
 
