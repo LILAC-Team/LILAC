@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  pageExtensions: ["tsx", "jsx"],
   reactStrictMode: false,
   webpack: (config) => {
     config.module.rules.push({
