@@ -35,4 +35,5 @@ const wrapper = createWrapper(makeStore, {
   debug: process.env.NODE_ENV === "development",
 });
 
+// export type RootState = ReturnType<typeof rootReducer>;
 export default wrapper;
