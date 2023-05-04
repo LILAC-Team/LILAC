@@ -45,7 +45,9 @@ const Form = () => {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onload = () => {
-        setAlbumImage({ previewImgUrl: reader.result, file: files[0] });
+        console.log("typeof reader.result: ", typeof reader.result);
+        const str = reader.result;
+        setAlbumImage({ previewImgUrl: str, file: files[0] });
       };
     }
   };

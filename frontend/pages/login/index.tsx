@@ -14,7 +14,7 @@ const LogIn = () => {
         />
       </S.LogoWrapper>
 
-      {/* <S.LogInButton href="http://localhost:8080/oauth2/authorization/kakao"> */}
+      {/* <S.LogInButton href="https://lilac-music.net/api/oauth/kakao"> */}
       <S.LogInButton href="/">
         <Image
           src="/logIn/kakao-login.png"
