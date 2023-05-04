@@ -2,10 +2,14 @@ import Link from "next/link";
 import BasicText from "../BasicText";
 import ProfileImg from "../ProfileImg";
 import * as S from "./style";
+import SelectBox from "../SelectBox";
 
 interface HeaderProps {
   isShown?: boolean;
 }
+
+const list = ["수정", "로그아웃"];
+const funcArr = [() => console.log("수정"), () => console.log("로그아웃")];
 
 const Header = ({ isShown = true }: HeaderProps) => {
   const handleProfileClick = () => {
@@ -28,6 +32,9 @@ const Header = ({ isShown = true }: HeaderProps) => {
         </Link>
         <S.ProfileWrapper>
           {isShown && (
+            // <SelectBox list={list} funcArr={funcArr}>
+            //   <ProfileImg />
+            // </SelectBox>
             <Link href={"/"}>
               <ProfileImg onClickEvent={handleProfileClick} />
             </Link>

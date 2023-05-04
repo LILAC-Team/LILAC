@@ -90,8 +90,7 @@ public class AlbumController {
     })
     public ResponseEntity<AlbumDetailResponse> getAlbumDetail(@PathVariable("albumCode") @ApiParam("앨범의 코드") String albumCode,
                                                               HttpServletRequest request) throws NoAlbumFoundException {
-        String email = (String) request.getAttribute("email");
-        Long memberId = memberService.getMemberIdByEmail(email);
+        Long memberId = validator.getMemberIdOrMinusOne(request);
 
         AlbumDetailResponse response = albumService.getAlbumDetail(albumCode, memberId);
         return ResponseEntity.ok().body(response);
