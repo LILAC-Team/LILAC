@@ -1,34 +1,29 @@
 import * as S from "./style";
 import AlbumCard from "@/components/common/AlbumCard";
-import { Fragment } from "react";
-import dummy from "@/pages/test.json";
+import { Fragment, useState } from "react";
+import MyAlbum from "@/pages/MyAlbum.json";
+import OwnAlbum from "@/pages/OwnAlbum.json";
+import Link from "next/link";
 
 interface MyAlbumBoxProps {
-  text: string;
+  content: string;
 }
-const AlbumBox = ({ text }: MyAlbumBoxProps) => {
+
+const AlbumBox = ({ content }: MyAlbumBoxProps) => {
   return (
     <S.AlbumContainer>
-      {dummy.releasedAlbumList.map(
-        (
-          data: {
-            name: string;
-            albumImage: string;
-            code: string;
-            releasedDate: string;
-            nickname: string;
-          },
-          index
-        ) => (
-          <Fragment key={index}>
-            <AlbumCard
-              onClickEvent={() => console.log("히히")}
-              data={data}
-              showAlbumDetail={false}
-            />
-          </Fragment>
-        )
-      )}
+      {content === "My" &&
+        MyAlbum.releasedAlbumList.map((data, index) => (
+          <Link key={data.code} href={`/album/${data.code}`}>
+            <AlbumCard data={data} showAlbumDetail={true} />
+          </Link>
+        ))}
+      {content === "Own" &&
+        OwnAlbum.collectedAlbumList.map((data, index) => (
+          <Link key={data.code} href={`/album/${data.code}`}>
+            <AlbumCard data={data} showAlbumDetail={true} />
+          </Link>
+        ))}
     </S.AlbumContainer>
   );
 };

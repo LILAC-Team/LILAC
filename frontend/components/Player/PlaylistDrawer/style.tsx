@@ -42,4 +42,8 @@ export const CardsWrapper = styled.div`
   width: 100%;
   height: calc(var(--vh, 1vh) * 80);
   overflow-y: scroll;
+  padding: 0rem 1.5rem 0rem 1.5rem;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

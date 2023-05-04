@@ -47,10 +47,10 @@ const PlaylistDrawer = () => {
         <DragAndDrop list={list} setList={setList} />
       ) : (
         <S.CardsWrapper>
-          {list.map(({ code, name, albumImage, artistName }) => (
+          {list.map(({ code, name, albumImage, artistName, playtime }) => (
             <MusicCard
               key={code}
-              data={{ code, name, albumImage, artistName }}
+              data={{ code, name, albumImage, artistName, playtime }}
               isEditable={false}
             />
           ))}
