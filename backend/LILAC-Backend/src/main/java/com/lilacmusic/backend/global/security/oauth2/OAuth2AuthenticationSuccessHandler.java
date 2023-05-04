@@ -65,6 +65,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 //                    .host("localhost")
 //                    .port(3000)
                     .path("/oauth")
+                    .queryParam("email",member.getEmail())
                     .queryParam("profileImage", URLEncoder.encode(member.getProfileImage(), StandardCharsets.UTF_8))
                     .queryParam("nickname", URLEncoder.encode(member.getNickname(), StandardCharsets.UTF_8))
                     .queryParam("refreshToken", token.getRefreshTokenKey())

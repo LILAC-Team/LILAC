@@ -46,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
                         .content(c.getContent())
                         .presentTime(c.getPresentTime())
                         .createdTime(c.getCreatedTime())
-                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage()))
+                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage(), c.getEmail()))
                         .build()
         );
         CommentListResponse response = CommentListResponse.builder()

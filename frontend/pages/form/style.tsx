@@ -34,3 +34,9 @@ export const ContentTitleWrap = styled.div`
   padding-top: 20px;
   padding-bottom: 28px;
 `;
+
+export const ModalContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 0rem 2rem 0rem 2rem;
+`;

@@ -15,4 +15,6 @@ public interface CommentMapping {
 
     String getProfileImage();
 
+    String getEmail();
+
 }

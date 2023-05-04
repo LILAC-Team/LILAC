@@ -10,6 +10,8 @@ import lombok.Getter;
 @Schema(description = "가입 요청 응답")
 public class MemberSignUpResponse {
 
+    @Schema(description = "이메일")
+    private String email;
     @Schema(description = "프로필 사진")
     private String profileImage;
     @Schema(description = "닉네임")
