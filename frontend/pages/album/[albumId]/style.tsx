@@ -37,7 +37,6 @@ export const AlbumCoverDiv = styled.div`
 
 export const HaveBtn = styled.div`
   width: 100%;
-  /* height: 20%; */
   padding: 1rem;
 `;
 
@@ -71,8 +70,6 @@ export const AlbumTitleLink = styled.div`
 export const ContentTitleWrap = styled.div`
   display: flex;
   width: 100%;
-  min-width: 15.5rem;
-  max-width: 25rem;
   padding-top: 10px;
   padding-bottom: 10px;
 `;
@@ -80,4 +77,10 @@ export const ContentTitleWrap = styled.div`
 export const MusicList = styled.div`
   width: 100%;
   padding: 0rem 1rem 1rem 1rem;
+`;
+
+export const OneMusicCard = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 0rem 0.5rem 0rem;
 `;

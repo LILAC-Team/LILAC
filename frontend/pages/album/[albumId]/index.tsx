@@ -71,7 +71,7 @@ const AlbumDetail = () => {
         <S.MusicList>
           {AlbumDetailData.musicList.map(
             ({ code, name, artistName, playtime, isTitle }) => (
-              <Fragment key={code}>
+              <S.OneMusicCard key={code}>
                 <MusicCard
                   data={{
                     code: code,
@@ -83,7 +83,7 @@ const AlbumDetail = () => {
                   isEditable={false}
                   isTitle={isTitle}
                 />
-              </Fragment>
+              </S.OneMusicCard>
             )
           )}
         </S.MusicList>
