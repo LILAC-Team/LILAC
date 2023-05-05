@@ -38,16 +38,12 @@ const MusicCard = ({
     <S.MusicCard onClick={onClickEvent}>
       <S.LeftWrapper>
         <S.CoverImg>
-          <BasicImage
-            src={data.albumImage}
-            radius={0.75}
-            size="calc(var(--vw, 1vw) * 14)"
-          />
+          <BasicImage src={data.albumImage} radius={0.75} size="4rem" />
         </S.CoverImg>
         <S.TextWrapper>
           <S.TopWrapper>
             <S.Title>
-              <BasicText text={data.name} size="125%" font="NotoSansKR700" />
+              <BasicText text={data.name} size="110%" font="NotoSansKR700" />
             </S.Title>
             {isTitle && (
               <S.isTitle>
@@ -62,10 +58,14 @@ const MusicCard = ({
           </S.TopWrapper>
           <S.BottomWrapper>
             <S.Singer>
-              <BasicText text={data.artistName} font="NotoSansKR400" />
+              <BasicText
+                text={data.artistName}
+                size="80%"
+                font="NotoSansKR400"
+              />
             </S.Singer>
             <S.Time>
-              <BasicText text={convertTime} size="75%" font="NotoSansKR400" />
+              <BasicText text={convertTime} size="65%" font="NotoSansKR400" />
             </S.Time>
           </S.BottomWrapper>
         </S.TextWrapper>
