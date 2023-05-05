@@ -48,11 +48,13 @@ const PlaylistDrawer = () => {
       ) : (
         <S.CardsWrapper>
           {list.map(({ code, name, albumImage, artistName, playtime }) => (
-            <MusicCard
-              key={code}
-              data={{ code, name, albumImage, artistName, playtime }}
-              isEditable={false}
-            />
+            <S.OneMusicCard>
+              <MusicCard
+                key={code}
+                data={{ code, name, albumImage, artistName, playtime }}
+                isEditable={false}
+              />
+            </S.OneMusicCard>
           ))}
         </S.CardsWrapper>
       )}
