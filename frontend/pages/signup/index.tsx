@@ -7,6 +7,7 @@ import BasicInput from "@/components/common/BasicInput";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import { useSelector } from "react-redux";
 import { memberApi } from "@/api/utils/member";
+import { useCookies } from "react-cookie";
 
 interface ProfileState {
   previewImgUrl: any;
@@ -14,6 +15,7 @@ interface ProfileState {
 }
 
 const SignUp = () => {
+  const [cookies, setCookies] = useCookies(["refreshToken", "accessToken"]);
   const [nickName, setNickName] = useState("");
   const [profile, setProfile] = useState<ProfileState>({
     previewImgUrl: "",
@@ -56,8 +58,20 @@ const SignUp = () => {
     memberApi
       .checkDuplicateNickName(nickName)
       .then((res) => {
-        console.log("첫번째 res: ", res);
-        return res;
+        if (res.status === 200) {
+          const formData = new FormData();
+          // formData.append();
+          // formData.append();
+          return memberApi.signUp(formData);
+        } else {
+          console.log("첫번째 res: ", res);
+          alert("닉네임 중복");
+        }
+      })
+      .then((res) => {
+        alert("회원가입 성공");
+        setCookies("refreshToken", res.refreshToken, { path: "/" });
+        setCookies("accessToken", res.accessToken, { path: "/" });
       })
       .catch((error) => {
         console.log("흠");
