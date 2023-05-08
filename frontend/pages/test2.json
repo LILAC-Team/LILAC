@@ -1,0 +1,44 @@
+{
+  "releasedAlbumList": [
+    {
+      "name": "Cookie",
+      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "code": "aaaa1",
+      "releasedDate": "2023-04-24T00:00:00",
+      "nickname": "뉴현수"
+    },
+    {
+      "name": "Cookie",
+      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "code": "aaaa2",
+      "releasedDate": "2023-04-24T00:00:00",
+      "nickname": "뉴현수"
+    },
+    {
+      "name": "Cookie",
+      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "code": "aaaa3",
+      "releasedDate": "2023-04-24T00:00:00",
+      "nickname": "뉴현수"
+    },
+    {
+      "name": "Cookie",
+      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "code": "aaaa4",
+      "releasedDate": "2023-04-24T00:00:00",
+      "nickname": "뉴현수"
+    },
+    {
+      "name": "Cookie",
+      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "code": "aaaa5",
+      "releasedDate": "2023-04-24T00:00:00",
+      "nickname": "뉴현수"
+    }
+  ],
+  "totalPages": 1,
+  "totalElements": 2,
+  "number": 1,
+  "first": true,
+  "last": true
+}
