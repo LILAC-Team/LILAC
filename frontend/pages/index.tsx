@@ -15,14 +15,6 @@ interface HomeProps {
   req?: any;
 }
 
-export interface AlbumDataProps {
-  name: string;
-  albumImage: string;
-  code: string;
-  releasedDate: string;
-  nickname: string;
-}
-
 const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   const [isModalOpen, setIsModalOpen] = useState(initValues);
   const [inputValue, setInputValue] = useState(initInput);

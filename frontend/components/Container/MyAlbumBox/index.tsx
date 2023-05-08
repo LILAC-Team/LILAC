@@ -1,8 +1,8 @@
 import * as S from "./style";
 import AlbumCard from "@/components/common/AlbumCard";
 import { Fragment, useState } from "react";
-import MyAlbum from "@/pages/MyAlbum.json";
-import OwnAlbum from "@/pages/OwnAlbum.json";
+import MyAlbum from "@/pages/test.json";
+import OwnAlbum from "@/pages/test2.json";
 import Link from "next/link";
 
 interface MyAlbumBoxProps {

@@ -1,39 +1,39 @@
 {
-  "releasedAlbumList": [
+  "collectedAlbumList": [
     {
-      "name": "Cookie",
-      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "name": "Magic",
+      "albumImage": "https://i.namu.wiki/i/uyh1IaMZP7-hvG-Iob4C4knImln_l1ZDuy8TONwl-SqW_FLhtwDo-L7gqNbIAK1N8jXj-RWnGH5YuK4Id6L4-9zZ6RanbkIT0c5s5q56M5dcoqbGIC_kxeGnGGZoF4s4kLmcsYtreqvi4VKWAAHh4Q.webp",
       "code": "aaaa1",
       "releasedDate": "2023-04-24T00:00:00",
-      "nickname": "뉴현수"
+      "nickname": "TbyT"
     },
     {
-      "name": "Cookie",
-      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "name": "Unforgiven",
+      "albumImage": "https://i.namu.wiki/i/0w8Kc90A18P0ehNaotwsI3uQjC7sJl9_B_TlCt2H4yfZ7zypnXivsjZtfdWV0zYaztuTu8nwtVqdHpPE7epRjVbawffq4-VUO8xME1CKP886sb3lgabGF_xomqbTGoIWidQrF9H77zPOnEFKhlnNrQ.webp",
       "code": "aaaa2",
       "releasedDate": "2023-04-24T00:00:00",
-      "nickname": "뉴현수"
+      "nickname": "윤세라핌"
     },
     {
-      "name": "Cookie",
-      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "name": "I AM",
+      "albumImage": "https://i.namu.wiki/i/L6Y-QqTWowymyK0viDOcCwP6GSp7qzi89bEaPHTgzMW9oIx5Sf-f960MhJUYRDKyw2q2d61B4dgSWz6-LRS-UkwMD5Y3Mr8qg8q-gDz9_9jKjHWtb2KHBL0UkQz0GMW9vSBw0lvRwCMfVeZXwe0rlg.webp",
       "code": "aaaa3",
       "releasedDate": "2023-04-24T00:00:00",
-      "nickname": "뉴현수"
+      "nickname": "아이부"
     },
     {
-      "name": "Cookie",
-      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "name": "Dynamite",
+      "albumImage": "https://i.namu.wiki/i/ehWRKOR_KMGvsX5uCSeGCSq97b7rPNs4YCQi4IuXocJtf7gHUAKAgt7zUpwbD9YEWC1oF-d5S02wl4WeNpJbDgOCUoek64xZGhwEtYAkZLthkxj6i5YKOjYHJTQxJII6TajfLvPv4PwTBvPOXhtFuA.webp",
       "code": "aaaa4",
       "releasedDate": "2023-04-24T00:00:00",
-      "nickname": "뉴현수"
+      "nickname": "검은모자단"
     },
     {
-      "name": "Cookie",
-      "albumImage": "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
+      "name": "Cupid",
+      "albumImage": "https://i.namu.wiki/i/ogL2fmfSMNNdrU9HOsaMMY__P22zmmDEk0vjBNpzlRFHg9Toe4f6DUCuBpZP9uNaiZW7mrCIqIv_WoYlfLFckik_wiwtta5oeldhoQ21qkExUhdNUDnTRdQ3lxUmuqtcCphz9dL3UBMjVTjzVRCRAQ.webp",
       "code": "aaaa5",
       "releasedDate": "2023-04-24T00:00:00",
-      "nickname": "뉴현수"
+      "nickname": "검은모자단"
     }
   ],
   "totalPages": 1,

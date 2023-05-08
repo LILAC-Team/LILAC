@@ -2,7 +2,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import * as S from "./style";
 import AlbumCard from "../../common/AlbumCard";
-import { AlbumDataProps } from "@/pages";
+
+interface AlbumDataProps {
+  name: string;
+  albumImage: string;
+  code: string;
+  releasedDate: string;
+  nickname: string;
+}
 
 interface BasicSliderProps {
   data: AlbumDataProps[];
