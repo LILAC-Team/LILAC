@@ -62,7 +62,7 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
           size="1.125rem"
           font="NotoSansKR700"
         />
-        <BasicSlider data={dummy2.releasedAlbumList} />
+        <BasicSlider data={dummy2.collectedAlbumList} />
       </SliderWrapper>
     </Layout>
   );
