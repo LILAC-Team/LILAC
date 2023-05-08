@@ -17,8 +17,7 @@ const Oauth = ({ query }) => {
   const router = useRouter();
   const [cookies, setCookie] = useCookies();
   useEffect(() => {
-    console.log("query: ", query);
-    console.log("cookies:", cookies);
+    console.log("저를 복사해주세요: ", window.location.href);
     if (cookies.refreshToken) {
       router.push("/");
     } else {
@@ -34,6 +33,7 @@ const Oauth = ({ query }) => {
         background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
         color="transparent"
         clipText={true}
+        font="HSBomBaram"
       />
     </S.OauthContainer>
   );
@@ -57,7 +57,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         setLogIn({
           email: email,
           isLogIn: true,
-          nickName: decodeURI(nickname),
+          nickName:
+            typeof nickname === "string" ? decodeURI(nickname) : nickname,
           profileImagePath: profileImage,
         })
       );

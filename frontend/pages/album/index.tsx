@@ -3,6 +3,7 @@ import MyAlbumBox from "../../components/Container/MyAlbumBox";
 import { useTabs } from "@/hooks/useTabs";
 import * as S from "./style";
 import Layout from "@/components/common/Layout";
+import React from "react";
 const allTab = [
   {
     idx: 0,
