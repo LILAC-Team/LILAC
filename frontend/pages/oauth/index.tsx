@@ -17,8 +17,7 @@ const Oauth = ({ query }) => {
   const router = useRouter();
   const [cookies, setCookie] = useCookies();
   useEffect(() => {
-    console.log("query: ", query);
-    console.log("cookies:", cookies);
+    console.log("저를 복사해주세요: ", window.location.href);
     if (cookies.refreshToken) {
       router.push("/");
     } else {
