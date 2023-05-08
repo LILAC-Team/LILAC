@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
 import CircularJSON from "circular-json";
+
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 interface OauthProps {
@@ -8,9 +10,19 @@ interface OauthProps {
 }
 
 const Oauth = ({ query }) => {
+  const router = useRouter();
+
   useEffect(() => {
     // const value = JSON.parse(req);
     console.log("typeof: ", typeof query);
+    console.log("query: ", query);
+
+    // accessToken이 존재 경우 로직
+    if (query.accessToken) {
+      // accessToken이 존재하지 않을 경우의 로직
+    } else {
+      router.push("/signup");
+    }
   }, []);
   // const router = useRouter();
   // const [cookies, setCookie] = useCookies(["refreshToken"]);
