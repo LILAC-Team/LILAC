@@ -49,5 +49,5 @@ export const CommentContent = styled.div`
 
 export const CommentDelete = styled.div`
   width: 3rem;
-  max-width: calc((var(--vw, 1vw) * 10));
+  /* max-width: calc((var(--vw, 1vw) * 10)); */
 `;
