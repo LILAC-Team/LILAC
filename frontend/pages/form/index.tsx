@@ -105,7 +105,7 @@ const Form = () => {
       arr.push(obj);
     });
 
-    formData.append("musicList", JSON.stringify(arr));
+    formData.append("albumInfo", JSON.stringify(arr));
 
     // 앨범 이미지 정보
     await reader.readAsArrayBuffer(albumImage.file);
@@ -114,17 +114,36 @@ const Form = () => {
     });
     formData.append("imageFile", blob);
 
-    await albumTrackList.map(async (data, index) => {
-      await reader.readAsArrayBuffer(data.file);
-      const blob = new Blob([reader.result], {
-        type: albumImage.file.type,
-      });
-      formData.append("musicFiles", blob);
-    });
-    console.log("헤헤헤헤");
+    // await albumTrackList.map(async (data, index) => {
+    //   const reader2 = new FileReader();
+    //   await reader2.readAsArrayBuffer(data.file);
+    //   const blob = new Blob([reader2.result], {
+    //     type: albumImage.file.type,
+    //   });
+    //   formData.append("musicFiles", blob);
+    // });
+
+    // await Promise.all(
+    //   albumTrackList.map(async (data, index) => {
+    //     const reader2 = new FileReader();
+    //     reader2.readAsArrayBuffer(data.file);
+    //     await new Promise((resolve) => {
+    //       reader2.onload = () => {
+    //         const blob = new Blob([reader2.result], {
+    //           type: data.file.type,
+    //         });
+    //         formData.append("musicFiles", blob);
+    //         resolve();
+    //       };
+    //     });
+    //   })
+    // );
+
+    // console.log("헤헤헤헤");
     // albumApi
     //   .uploadAlbum(formData)
     //   .then((res) => {
+    //     alert("성공");
     //     console.log("res: ", res);
     //   })
     //   .catch((err) => {

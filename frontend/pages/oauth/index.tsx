@@ -58,7 +58,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         setLogIn({
           email: email,
           isLogIn: true,
-          nickName: decodeURI(nickname),
+          nickName:
+            typeof nickname === "string" ? decodeURI(nickname) : nickname,
           profileImagePath: profileImage,
         })
       );

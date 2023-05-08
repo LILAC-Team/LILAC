@@ -15,6 +15,11 @@ interface ProfileState {
   file: any;
 }
 
+interface AppState {
+  user: any; // 사용자 상태에 대한 타입을 정의합니다.
+  // ...
+}
+
 const SignUp = () => {
   const [cookies, setCookies] = useCookies(["refreshToken", "accessToken"]);
   const [nickName, setNickName] = useState("");
@@ -22,7 +27,7 @@ const SignUp = () => {
     previewImgUrl: "",
     file: {},
   });
-  const userInfo = useSelector((state) => state.user);
+  const userInfo = useSelector((state: AppState) => state.user);
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
