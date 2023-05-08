@@ -13,7 +13,7 @@ export const AlbumDataWrapper = styled.div`
   border-radius: 10px;
 
   width: 48%;
-  height: 11rem;
+  height: 13rem;
   background-color: #8e8ac2;
 `;
 
@@ -34,7 +34,7 @@ export const ContentWrapper = styled.div`
   border-radius: 10px;
 
   width: 48%;
-  height: 11rem;
+  height: 13rem;
 `;
 
 export const AddAlbum = styled.div`
@@ -70,25 +70,47 @@ export const ProfileWrapper = styled.div`
 `;
 
 export const CdContainer = styled.div`
-  border: 2px solid green;
-
   width: 90%;
-  height: 4.5rem;
+  height: 6rem;
 
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
   justify-content: space-evenly;
+  margin-top: 0.25rem;
+`;
+
+export const CdBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 export const CdWrapper = styled.div`
-  border: 2px solid blue;
-
-  width: 45%;
   height: 4rem;
+  aspect-ratio: 1 / 1;
 
-  display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+`;
+
+export const InnerCd = styled.div`
+  position: relative;
+  left: 1.15rem;
+  bottom: 3rem;
+
+  border: 2px solid darkgray;
+  background-color: gray;
+  width: 1.65rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+`;
+
+export const InnerText = styled.div`
+  height: 1.5rem;
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
