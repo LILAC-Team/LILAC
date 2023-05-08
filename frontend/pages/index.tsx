@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import Layout from "@/components/common/Layout";
 import MainAlbum from "@/components/Home/MainAlbum";
 import BasicText from "@/components/common/BasicText";
+import dummy1 from "../pages/test.json";
+import dummy2 from "../pages/test2.json";
 
 interface HomeProps {
   initValues?: boolean;
@@ -53,7 +55,7 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
       <MainAlbum />
       <SliderWrapper>
         <BasicText text="나의 앨범" size="1.125rem" font="NotoSansKR700" />
-        <BasicSlider />
+        <BasicSlider data={dummy1.releasedAlbumList} />
       </SliderWrapper>
       <SliderWrapper>
         <BasicText
@@ -61,7 +63,7 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
           size="1.125rem"
           font="NotoSansKR700"
         />
-        <BasicSlider />
+        <BasicSlider data={dummy2.collectedAlbumList} />
       </SliderWrapper>
     </Layout>
   );
