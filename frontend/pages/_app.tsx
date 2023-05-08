@@ -25,4 +25,25 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   );
 };
 
+MyApp.getInitialProps = async ({ ctx, Component }) => {
+  console.info("req: ", ctx.req.url);
+  const pathname = ctx.req.url;
+  const confirmUrl = ["/", "/album", "/form"];
+  console.log("pathname: ", pathname);
+  const isLogin = ctx.req.cookies.isLogIn;
+  console.info("타입: ", typeof isLogin);
+  console.info("쿠키에는 어떤값이 들어있나요?: ", ctx.req.cookies);
+  if (isLogin !== "true" && confirmUrl.includes(pathname)) {
+    ctx.res.setHeader("Location", "/login");
+    ctx.res.statusCode = 302;
+    ctx.res.end();
+    return {};
+  }
+  let pageProps = {};
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { pageProps };
+};
 export default MyApp;
