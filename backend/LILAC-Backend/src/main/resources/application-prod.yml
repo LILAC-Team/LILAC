@@ -1,16 +1,16 @@
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: prod
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lilac_mysql?serverTimezone=Asia/Seoul
-    username: ssafy
-    password: ssafy
+    url: jdbc:mysql://lilac-music.net:3306/lilac_db?serverTimezone=Asia/Seoul
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
 
   jpa:
     database: mysql
@@ -20,18 +20,17 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        show_sql: true
         format_sql: true
       open-in-view: true
 
   data:
     mongodb:
-      host: localhost
+      host: lilac-music.net
       port: 27017
       authentication-database: admin
       database: lilac_mongodb
-      username: ssafy
-      password: ssafy
+      username: ${MONGO_USER}
+      password: ${MONGO_PASSWORD}
 
   redis:
     lettuce:
@@ -39,9 +38,10 @@ spring:
         max-active: 5
         max-idle: 5
         min-idle: 2
-    host: localhost
+    host: lilac-music.net
     port: 6379
-    password: ssafy
+    username: ${REDIS_USER}
+    password: ${REDIS_PASSWORD}
 
   servlet:
     multipart:
@@ -58,7 +58,7 @@ spring:
         registration:
           kakao:
             client-id: ${KAKAO_ID}
-            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            redirect-uri: "https://lilac-music.net/api/oauth2/kakao"
             client-authentication-method: POST
             client-secret: ${KAKAO_SECRET}
             authorization-grant-type: authorization_code
@@ -90,7 +90,6 @@ logging:
     com.lilacmusic: debug
 
 
-
 cloud:
   aws:
     access_key: ${AWS_ACCESS_KEY_ID}
@@ -106,4 +105,3 @@ cloud:
       role: ${IAM_ROLE}
     cloudfront:
       url_prefix: ${CLOUDFRONT_PREFIX}
-
