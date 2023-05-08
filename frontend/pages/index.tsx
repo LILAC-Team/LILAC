@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import BasicSlider from "@/components/Home/BasicSlider";
 import CircularJSON from "circular-json";
