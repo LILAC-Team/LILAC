@@ -123,32 +123,32 @@ const Form = () => {
     //   formData.append("musicFiles", blob);
     // });
 
-    await Promise.all(
-      albumTrackList.map(async (data, index) => {
-        const reader2 = new FileReader();
-        reader2.readAsArrayBuffer(data.file);
-        await new Promise((resolve) => {
-          reader2.onload = () => {
-            const blob = new Blob([reader2.result], {
-              type: data.file.type,
-            });
-            formData.append("musicFiles", blob);
-            resolve();
-          };
-        });
-      })
-    );
+    // await Promise.all(
+    //   albumTrackList.map(async (data, index) => {
+    //     const reader2 = new FileReader();
+    //     reader2.readAsArrayBuffer(data.file);
+    //     await new Promise((resolve) => {
+    //       reader2.onload = () => {
+    //         const blob = new Blob([reader2.result], {
+    //           type: data.file.type,
+    //         });
+    //         formData.append("musicFiles", blob);
+    //         resolve();
+    //       };
+    //     });
+    //   })
+    // );
 
-    console.log("헤헤헤헤");
-    albumApi
-      .uploadAlbum(formData)
-      .then((res) => {
-        alert("성공");
-        console.log("res: ", res);
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-      });
+    // console.log("헤헤헤헤");
+    // albumApi
+    //   .uploadAlbum(formData)
+    //   .then((res) => {
+    //     alert("성공");
+    //     console.log("res: ", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err: ", err);
+    //   });
   };
 
   return (
