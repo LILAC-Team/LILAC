@@ -23,7 +23,7 @@ const BasicSlider = ({
 
   return (
     <>
-      <Swiper slidesPerView={4.5} spaceBetween={0}>
+      <Swiper slidesPerView={4.5} spaceBetween={5}>
         {dummy.releasedAlbumList.map(
           (data: {
             name: string;
@@ -38,7 +38,7 @@ const BasicSlider = ({
                   onClickEvent={handleAlbumClick}
                   data={data}
                   showAlbumDetail={false}
-                  albumSize="100%"
+                  albumSize="125%"
                 />
               </S.AlbumWrap>
             </SwiperSlide>
