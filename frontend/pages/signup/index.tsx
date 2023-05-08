@@ -5,13 +5,14 @@ import BasicText from "@/components/common/BasicText";
 import ProfileImg from "@/components/common/ProfileImg";
 import BasicInput from "@/components/common/BasicInput";
 import CustomTextButton from "@/components/common/CustomTextButton";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { memberApi } from "@/api/utils/member";
 import { useCookies } from "react-cookie";
-
+import { setLogIn } from "@/store/modules/user";
+import { useRouter } from "next/router";
 interface ProfileState {
   previewImgUrl: any;
-  file: File | {};
+  file: any;
 }
 
 const SignUp = () => {
@@ -22,7 +23,8 @@ const SignUp = () => {
     file: {},
   });
   const userInfo = useSelector((state) => state.user);
-
+  const router = useRouter();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (userInfo) {
       setProfile({ previewImgUrl: userInfo.profileImagePath, file: {} });
@@ -54,24 +56,44 @@ const SignUp = () => {
     }
   };
 
-  const signUp = () => {
+  const signUp = async () => {
+    const formData = new FormData();
+    const reader = new FileReader();
+    const data = {
+      email: userInfo.email,
+      registrationId: "kakao",
+      nickname: nickName,
+    };
+
+    if (profile.previewImgUrl === userInfo.profileImagePath) {
+      data["profileImage"] = userInfo.profileImagePath;
+    } else {
+      await reader.readAsArrayBuffer(profile.file);
+      const blob = new Blob([reader.result], {
+        type: profile.file.type,
+      });
+      formData.append("profileImage", blob);
+    }
+    formData.append("memberInfo", JSON.stringify(data));
+    console.log("data: ", data);
     memberApi
-      .checkDuplicateNickName(nickName)
+      .signUp(formData)
       .then((res) => {
-        if (res.status === 200) {
-          const formData = new FormData();
-          // formData.append();
-          // formData.append();
-          return memberApi.signUp(formData);
-        } else {
-          console.log("첫번째 res: ", res);
-          alert("닉네임 중복");
-        }
-      })
-      .then((res) => {
+        console.log("res: ", res);
         alert("회원가입 성공");
-        setCookies("refreshToken", res.refreshToken, { path: "/" });
-        setCookies("accessToken", res.accessToken, { path: "/" });
+        const { email, nickname, profileImage, accessToken, refreshToken } =
+          res.data;
+        dispatch(
+          setLogIn({
+            isLogIn: true,
+            email,
+            nickName: nickname,
+            profileImagePath: profileImage,
+          })
+        );
+        setCookies("refreshToken", refreshToken, { path: "/" });
+        setCookies("accessToken", accessToken, { path: "/" });
+        router.push("/");
       })
       .catch((error) => {
         console.log("흠");
@@ -83,10 +105,10 @@ const SignUp = () => {
     <S.SignUpContainer>
       <S.LogoWrap>
         <BasicText
-          text='LILAC'
-          size='3rem'
-          background='linear-gradient(180deg, #BC8AC2 0%, rgba(188, 138, 194, 0) 100%)'
-          color='transparent'
+          text="LILAC"
+          size="3rem"
+          background="linear-gradient(180deg, #BC8AC2 0%, rgba(188, 138, 194, 0) 100%)"
+          color="transparent"
           clipText={true}
         />
       </S.LogoWrap>
@@ -99,8 +121,8 @@ const SignUp = () => {
       </S.ImageWrap>
       <S.UserNameInputWrap>
         <BasicInput
-          id='nickname'
-          type='text'
+          id="nickname"
+          type="text"
           value={nickName}
           handleOnChangeValue={handleNicknameChange}
         />
