@@ -13,8 +13,6 @@ public interface MemberService {
 
     MemberSignUpResponse signup(MemberSignUpRequest request);
 
-    boolean duplicateNickname(String nickname);
-
     Long getMemberIdByEmail(String email);
 
     Integer updateReleasingByMemberId(Long memberId);
