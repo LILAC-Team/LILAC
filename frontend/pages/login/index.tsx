@@ -11,6 +11,7 @@ const LogIn = () => {
           background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
           color="transparent"
           clipText={true}
+          font="HSBomBaram"
         />
       </S.LogoWrapper>
 
