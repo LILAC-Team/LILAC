@@ -22,7 +22,7 @@ const DragAndDrop = ({ list, setList }) => {
               ({ code, name, albumImage, artistName, playtime }, index) => (
                 <Draggable key={code} draggableId={code} index={index}>
                   {(provided) => (
-                    <div
+                    <S.OneMusicCard
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
@@ -31,7 +31,7 @@ const DragAndDrop = ({ list, setList }) => {
                         data={{ code, name, albumImage, artistName, playtime }}
                         isEditable={true}
                       />
-                    </div>
+                    </S.OneMusicCard>
                   )}
                 </Draggable>
               )

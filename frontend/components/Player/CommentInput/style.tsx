@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CommentInput = styled.div`
-  width: calc((var(--vw, 1vw) * 100));
+  width: 100%;
   height: calc((var(--vh, 1vh) * 10));
   padding: calc((var(--vh, 1vh) * 2)) calc((var(--vw, 1vw) * 7.5))
     calc((var(--vh, 1vh) * 2)) calc((var(--vw, 1vw) * 7.5));

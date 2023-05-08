@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Playlist = styled.div`
   background-color: #4e4e4e;
   height: calc(var(--vh, 1vh) * 95);
+  width: calc(var(--vw, 1vw) * 100);
+  max-width: 900px;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
   justify-content: center;
@@ -46,4 +48,10 @@ export const CardsWrapper = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+export const OneMusicCard = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
 `;

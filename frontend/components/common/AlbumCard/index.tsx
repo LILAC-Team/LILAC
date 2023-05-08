@@ -29,27 +29,30 @@ const AlbumCard = ({
       <S.AlbumCardImg>
         <BasicImage src={data.albumImage} size={albumSize} />
       </S.AlbumCardImg>
-      <S.AlbumCardTitle>
-        <BasicText
-          text={data.name}
-          size={titleSize}
-          isOverflow={true}
-          font={font}
-        />
-      </S.AlbumCardTitle>
-      {showAlbumDetail && (
-        <S.AlbumCardDetail>
+      <S.AlbumCardDiv>
+        <S.AlbumCardTitle>
           <BasicText
-            text={
-              data.nickname +
-              " · " +
-              data.releasedDate.split("-")[0] +
-              "." +
-              data.releasedDate.split("-")[1]
-            }
+            text={data.name}
+            size={titleSize}
+            isOverflow={true}
+            font={font}
           />
-        </S.AlbumCardDetail>
-      )}
+        </S.AlbumCardTitle>
+        {showAlbumDetail && (
+          <S.AlbumCardDetail>
+            <BasicText
+              text={
+                data.nickname +
+                " · " +
+                data.releasedDate.split("-")[0] +
+                "." +
+                data.releasedDate.split("-")[1]
+              }
+              size="75%"
+            />
+          </S.AlbumCardDetail>
+        )}
+      </S.AlbumCardDiv>
     </S.AlbumCard>
   );
 };

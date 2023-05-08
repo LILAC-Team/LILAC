@@ -15,13 +15,27 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
       {content === "My" &&
         MyAlbum.releasedAlbumList.map((data, index) => (
           <Link key={data.code} href={`/album/${data.code}`}>
-            <AlbumCard data={data} showAlbumDetail={true} />
+            <S.OneAlbumCard>
+              <AlbumCard
+                data={data}
+                showAlbumDetail={true}
+                albumSize="85%"
+                titleSize="125%"
+              />
+            </S.OneAlbumCard>
           </Link>
         ))}
       {content === "Own" &&
         OwnAlbum.collectedAlbumList.map((data, index) => (
           <Link key={data.code} href={`/album/${data.code}`}>
-            <AlbumCard data={data} showAlbumDetail={true} />
+            <S.OneAlbumCard>
+              <AlbumCard
+                data={data}
+                showAlbumDetail={true}
+                albumSize="85%"
+                titleSize="125%"
+              />
+            </S.OneAlbumCard>
           </Link>
         ))}
     </S.AlbumContainer>

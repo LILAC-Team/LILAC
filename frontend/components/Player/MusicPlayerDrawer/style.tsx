@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Player = styled.div`
   background-color: #4e4e4e;
   height: calc(var(--vh, 1vh) * 95);
+  width: calc(var(--vw, 1vw) * 100);
+  max-width: 900px;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
   justify-content: center;
@@ -85,5 +87,7 @@ export const ControllBar = styled.div`
   width: 100%;
   padding: 1rem;
   position: absolute;
+  align-items: center;
+  justify-content: center;
   bottom: calc((var(--vh, 1vh) * 12.5));
 `;
