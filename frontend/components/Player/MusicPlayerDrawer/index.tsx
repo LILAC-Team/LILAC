@@ -17,6 +17,7 @@ const MusicPlayerDrawer = () => {
   };
 
   const [state, setState] = React.useState({ bottom: false });
+  const [nowOpen, setNowOpen] = useState("");
   const toggleDrawer =
     (anchor: string, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -60,7 +61,12 @@ const MusicPlayerDrawer = () => {
           return (
             <React.Fragment key={index}>
               {item.present_time === nowTime && (
-                <S.CommentWrap onClick={toggleDrawer("bottom", true)}>
+                <S.CommentWrap
+                  onClick={(e) => {
+                    toggleDrawer("bottom", true)(e);
+                    setNowOpen("comment");
+                  }}
+                >
                   <S.CommentImg>
                     <BasicImage
                       src={item.userInfo.profileImage}
@@ -84,6 +90,12 @@ const MusicPlayerDrawer = () => {
         <MusicController handleRotateClick={handleRotateClick} />
       </S.ControllBar>
       <MenuBar />
+      <Drawer
+        inner={nowOpen}
+        toggleDrawer={toggleDrawer}
+        state={{ ...state }}
+        anchor={"bottom"}
+      />
     </S.Player>
   );
 };

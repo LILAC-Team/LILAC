@@ -110,6 +110,7 @@ const SignUp = () => {
           background="linear-gradient(180deg, #BC8AC2 0%, rgba(188, 138, 194, 0) 100%)"
           color="transparent"
           clipText={true}
+          font="HSBomBaram"
         />
       </S.LogoWrap>
       <S.ImageWrap>

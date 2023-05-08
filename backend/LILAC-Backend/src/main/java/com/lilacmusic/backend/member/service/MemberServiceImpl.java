@@ -8,9 +8,11 @@ import com.lilacmusic.backend.global.security.jwt.RefreshToken;
 import com.lilacmusic.backend.member.entity.Member;
 import com.lilacmusic.backend.member.exception.AccessDeniedException;
 import com.lilacmusic.backend.member.exception.IncorrectAdminInfoException;
+import com.lilacmusic.backend.member.exception.MemberNotFoundException;
 import com.lilacmusic.backend.member.repository.MemberRepository;
 import com.lilacmusic.backend.member.request.LoginInfo;
 import com.lilacmusic.backend.member.request.MemberSignUpRequest;
+import com.lilacmusic.backend.member.response.MemberDetailResponse;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
 import com.lilacmusic.backend.member.response.ReGenerateAccessTokenResponse;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
@@ -103,15 +105,6 @@ public class MemberServiceImpl implements MemberService {
         return new MemberSignUpResponse(save.getEmail(), save.getProfileImage(), save.getNickname(), refreshToken.getAccessTokenValue(), refreshToken.getRefreshTokenKey());
     }
 
-    /**
-     * 닉네임 중복체크 검사
-     *
-     * @param nickname 검사할 닉네임
-     * @return true 면 중복이 아님
-     */
-    public boolean duplicateNickname(String nickname) {
-        return !memberRepository.existsByNickname(nickname);
-    }
 
 //    @PostConstruct
 //    public void initTestUser() {
@@ -168,6 +161,16 @@ public class MemberServiceImpl implements MemberService {
         String inputKey = "images/profileImage-" + code + "." + extension;
         uploadToS3(profileImageFile, inputKey);
         return cloudfrontUrlPrefix + inputKey;
+    }
+
+    @Override
+    public MemberDetailResponse memberDetail(Long memberId) {
+        Optional<Member> oMember = memberRepository.findByMemberId(memberId);
+        if(oMember.isEmpty()){
+            throw new MemberNotFoundException();
+        }
+        Member member = oMember.get();
+        return new MemberDetailResponse(member.getEmail(),member.getProfileImage(),member.getNickname(),member.getReleaseAlbumCount(),member.getCollectAlbumCount());
     }
 
     private void uploadToS3(MultipartFile imageFile, String inputKey) {

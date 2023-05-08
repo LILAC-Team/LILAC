@@ -1,10 +1,13 @@
 {
-  "short_name": "LILAC",
   "name": "LILAC",
+  "short_name": "LILAC",
+  "scope": ".",
+  "lang": "ko-KR",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#cca4fc",
-  "background_color": "#BB82FF",
+  "background_color": "#3d3a4b",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/icons/apple-touch-icon-57x57.png",

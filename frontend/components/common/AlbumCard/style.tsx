@@ -20,7 +20,7 @@ export const AlbumCard = styled.div<AlbumCardProps>`
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 1rem;
+  /* padding: 1rem; */
   cursor: pointer;
   &:active {
     color: white;

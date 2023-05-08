@@ -3,9 +3,11 @@ package com.lilacmusic.backend.member.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lilacmusic.backend.global.common.BaseResponse;
+import com.lilacmusic.backend.global.validation.GlobalRequestValidator;
 import com.lilacmusic.backend.member.request.DuplicateNicknameRequest;
 import com.lilacmusic.backend.member.request.MemberSignUpRequest;
 import com.lilacmusic.backend.member.request.ReGenerateAccessTokenRequest;
+import com.lilacmusic.backend.member.response.MemberDetailResponse;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
 import com.lilacmusic.backend.member.response.ReGenerateAccessTokenResponse;
 import com.lilacmusic.backend.member.service.MemberService;
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -27,6 +30,7 @@ import javax.validation.Valid;
 public class MemberController {
     private final MemberService memberService;
 
+    private final GlobalRequestValidator validator;
 
     @GetMapping("/test")
     @Operation(description = "임시 테스트용 API", summary = "임시 테스트용 API")
@@ -58,13 +62,15 @@ public class MemberController {
         return new BaseResponse<>(signup);
     }
 
-    @PostMapping("/api/v1/duplicateNickname")
-    @Operation(description = "닉네임 중복 확인 API", summary = "닉네임 중복확인 API")
-    @ApiResponse(responseCode = "200", description = "닉네임 중복 검사 통과", content = @Content(schema = @Schema(implementation = Boolean.class)))
-    @ApiResponse(responseCode = "400", description = "닉네임 중복 검사 실패")
-    public BaseResponse<Object> duplicateNickname(@Valid @RequestBody DuplicateNicknameRequest request) {
-        Boolean isDuplicate = memberService.duplicateNickname(request.getNickname());
-        return new BaseResponse<>(isDuplicate);
+    @ApiResponse(responseCode = "200", description = "회원정보 조회 성공", content = @Content(schema = @Schema(implementation = MemberDetailResponse.class)))
+    @Operation(description = "회원정보 조회 API", summary = "회원정보 조회 API")
+    @GetMapping("/api/v1/members")
+    public BaseResponse<MemberDetailResponse> memberInfo(HttpServletRequest request) throws JsonProcessingException {
+
+        Long memberId = validator.getMemberIdOrMinusOne(request);
+
+        MemberDetailResponse memberDetail = memberService.memberDetail(memberId);
+        return new BaseResponse<>(memberDetail);
     }
 
 }
