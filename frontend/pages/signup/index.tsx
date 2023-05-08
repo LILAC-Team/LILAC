@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import CircularJSON from "circular-json";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
