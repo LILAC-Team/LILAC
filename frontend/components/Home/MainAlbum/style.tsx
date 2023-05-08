@@ -99,7 +99,7 @@ export const CdWrapper = styled.div`
 export const InnerCd = styled.div`
   position: relative;
   left: 1.15rem;
-  bottom: 3rem;
+  bottom: 3.05rem;
 
   border: 2px solid darkgray;
   background-color: gray;
