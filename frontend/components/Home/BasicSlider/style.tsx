@@ -12,5 +12,6 @@ export const AlbumWrap = styled.div`
   display: flex;
   aspect-ratio: 1/1.5;
   height: auto;
+  padding: 0.75rem;
 `;
 export const ContentWrap = styled.div``;
