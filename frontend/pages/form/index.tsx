@@ -47,6 +47,7 @@ const Form = () => {
       reader.onload = () => {
         console.log("typeof reader.result: ", typeof reader.result);
         const str = reader.result;
+        console.log("str: ", str);
         setAlbumImage({ previewImgUrl: str, file: files[0] });
       };
     }
