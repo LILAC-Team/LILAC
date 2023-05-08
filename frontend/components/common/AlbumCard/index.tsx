@@ -3,7 +3,7 @@ import BasicImage from "../BasicImage";
 import BasicText from "../BasicText";
 
 interface AlbumCardProps {
-  onClickEvent: () => void;
+  onClickEvent?: () => void;
   data: {
     name: string;
     albumImage: string;
@@ -12,6 +12,7 @@ interface AlbumCardProps {
   };
   albumSize?: string;
   titleSize?: string;
+  font?: string;
   showAlbumDetail: boolean;
 }
 
@@ -20,6 +21,7 @@ const AlbumCard = ({
   data,
   albumSize = "150%",
   titleSize = "100%",
+  font,
   showAlbumDetail = false,
 }: AlbumCardProps) => {
   return (
@@ -27,22 +29,30 @@ const AlbumCard = ({
       <S.AlbumCardImg>
         <BasicImage src={data.albumImage} size={albumSize} />
       </S.AlbumCardImg>
-      <S.AlbumCardTitle>
-        <BasicText text={data.name} size={titleSize} isOverflow={true} />
-      </S.AlbumCardTitle>
-      {showAlbumDetail && (
-        <S.AlbumCardDetail>
+      <S.AlbumCardDiv>
+        <S.AlbumCardTitle>
           <BasicText
-            text={
-              data.nickname +
-              " · " +
-              data.releasedDate.split("-")[0] +
-              "." +
-              data.releasedDate.split("-")[1]
-            }
+            text={data.name}
+            size={titleSize}
+            isOverflow={true}
+            font={font}
           />
-        </S.AlbumCardDetail>
-      )}
+        </S.AlbumCardTitle>
+        {showAlbumDetail && (
+          <S.AlbumCardDetail>
+            <BasicText
+              text={
+                data.nickname +
+                " · " +
+                data.releasedDate.split("-")[0] +
+                "." +
+                data.releasedDate.split("-")[1]
+              }
+              size="75%"
+            />
+          </S.AlbumCardDetail>
+        )}
+      </S.AlbumCardDiv>
     </S.AlbumCard>
   );
 };

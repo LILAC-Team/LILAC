@@ -12,7 +12,7 @@ const MainAlbum = () => {
           <ProfileImg isEditable={false} />
         </S.ProfileWrapper>
         <S.TextWrapper>
-          <BasicText text="봄윤식스" color="#000000" />
+          <BasicText text="봄윤식스" color="#000000" font="NotoSansKR700" />
         </S.TextWrapper>
         <S.CdContainer>
           <S.CdWrapper>My</S.CdWrapper>
@@ -23,8 +23,8 @@ const MainAlbum = () => {
         <S.AddAlbum>
           <Link href={"/form"}>
             <S.TextWrapper>
-              <RiAddLine size="1.5rem" color="#000000" />
-              <BasicText text="앨범등록" color="#000000" />
+              <RiAddLine size="1.25rem" color="#000000" />
+              <BasicText text="앨범등록" size="80%" color="#000000" />
             </S.TextWrapper>
           </Link>
         </S.AddAlbum>

@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Comment = styled.div`
   background-color: #4e4e4e;
   height: calc(var(--vh, 1vh) * 95);
+  width: calc(var(--vw, 1vw) * 100);
+  max-width: 900px;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
   justify-content: center;
@@ -35,5 +37,8 @@ export const CommentAllWrap = styled.div`
   height: calc((var(--vh, 1vh) * 72.5));
   padding: 0 calc((var(--vw, 1vw) * 5)) 0 calc((var(--vw, 1vw) * 5));
   margin: calc((var(--vh, 1vh) * 1)) 0 calc((var(--vh, 1vh) * 2.5)) 0;
-  overflow: auto;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

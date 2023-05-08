@@ -30,5 +30,6 @@ export const TabItem = styled.li<TabItemProps>`
   margin: 0 1.25rem;
   border: none;
   cursor: pointer;
+  color: white;
   border-bottom: ${(props) => (props.isCurrent ? "2px solid white" : "")};
 `;

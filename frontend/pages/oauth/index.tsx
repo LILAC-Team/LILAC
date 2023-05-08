@@ -1,31 +1,39 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import wrapper from "@/store/configStore";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import CircularJSON from "circular-json";
 
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
+import { setLogIn } from "@/store/modules/user";
+import { useCookies } from "react-cookie";
+
 interface OauthProps {
   query: object;
 }
 
 const Oauth = ({ query }) => {
   const router = useRouter();
-
+  const [cookies, setCookie] = useCookies();
   useEffect(() => {
-    // const value = JSON.parse(req);
-    console.log("typeof: ", typeof query);
     console.log("query: ", query);
-
-    // accessToken이 존재 경우 로직
-    if (query.accessToken) {
-      // accessToken이 존재하지 않을 경우의 로직
+    console.log("cookies:", cookies);
+    if (cookies.refreshToken) {
+      router.push("/");
     } else {
       router.push("/signup");
     }
+    // const value = JSON.parse(req);
+    // console.log("typeof: ", typeof query);
+    // const val = {
+    //   nickname: query.nickname,
+    //   profileImage: query.profileImage,
+    //   registrationId: query.registrationId,
+    // };
   }, []);
   // const router = useRouter();
-  // const [cookies, setCookie] = useCookies(["refreshToken"]);
 
   // useEffect(() => {
   //   const params = new URL(window.location.href).searchParams;
@@ -59,14 +67,37 @@ const Oauth = ({ query }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const query = context.query;
-
-  return {
-    props: {
-      query,
-    },
-  };
-}
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ query, req, res }) => {
+      const {
+        nickname,
+        profileImage,
+        registrationId,
+        accessToken,
+        refreshToken,
+      } = query;
+      if (accessToken) {
+        res.setHeader("Set-Cookie", "isLogIn=true");
+        res.setHeader("Set-Cookie", `accessToken=${accessToken}`);
+        res.setHeader("Set-Cookie", `refreshToken=${refreshToken}`);
+      } else {
+        res.setHeader("Set-Cookie", "isLogIn=false");
+      }
+      store.dispatch(
+        setLogIn({
+          isLogIn: true,
+          nickName: decodeURI(nickname),
+          profileImagePath: profileImage,
+        })
+      );
+      return {
+        props: {
+          initialReduxState: store.getState(),
+          query,
+        },
+      };
+    }
+);
 
 export default Oauth;

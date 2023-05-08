@@ -7,12 +7,12 @@ const allTab = [
   {
     idx: 0,
     name: "나의 앨범",
-    component: <MyAlbumBox text="하하" />,
+    component: <MyAlbumBox content="My" />,
   },
   {
     idx: 1,
     name: "내가 소장한 앨범",
-    component: <MyAlbumBox text="호호" />,
+    component: <MyAlbumBox content="Own" />,
   },
 ];
 
