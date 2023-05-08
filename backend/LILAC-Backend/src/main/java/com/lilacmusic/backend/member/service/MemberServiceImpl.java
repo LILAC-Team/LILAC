@@ -103,15 +103,6 @@ public class MemberServiceImpl implements MemberService {
         return new MemberSignUpResponse(save.getEmail(), save.getProfileImage(), save.getNickname(), refreshToken.getAccessTokenValue(), refreshToken.getRefreshTokenKey());
     }
 
-    /**
-     * 닉네임 중복체크 검사
-     *
-     * @param nickname 검사할 닉네임
-     * @return true 면 중복이 아님
-     */
-    public boolean duplicateNickname(String nickname) {
-        return !memberRepository.existsByNickname(nickname);
-    }
 
 //    @PostConstruct
 //    public void initTestUser() {

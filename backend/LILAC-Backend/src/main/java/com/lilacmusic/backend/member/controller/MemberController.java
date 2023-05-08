@@ -58,13 +58,4 @@ public class MemberController {
         return new BaseResponse<>(signup);
     }
 
-    @PostMapping("/api/v1/duplicateNickname")
-    @Operation(description = "닉네임 중복 확인 API", summary = "닉네임 중복확인 API")
-    @ApiResponse(responseCode = "200", description = "닉네임 중복 검사 통과", content = @Content(schema = @Schema(implementation = Boolean.class)))
-    @ApiResponse(responseCode = "400", description = "닉네임 중복 검사 실패")
-    public BaseResponse<Object> duplicateNickname(@Valid @RequestBody DuplicateNicknameRequest request) {
-        Boolean isDuplicate = memberService.duplicateNickname(request.getNickname());
-        return new BaseResponse<>(isDuplicate);
-    }
-
 }
