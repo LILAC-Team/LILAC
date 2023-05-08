@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 const LogIn = () => {

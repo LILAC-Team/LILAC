@@ -1,4 +1,5 @@
 import * as S from "./style";
+import React from "react";
 import { useState } from "react";
 import CircularJSON from "circular-json";
 import Layout from "@/components/common/Layout";
