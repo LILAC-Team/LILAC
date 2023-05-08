@@ -4,7 +4,7 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#cca4fc",
-  "background_color": "#3d3a4b",
+  "background_color": "#BB82FF",
   "icons": [
     {
       "src": "/icons/apple-touch-icon-57x57.png",
