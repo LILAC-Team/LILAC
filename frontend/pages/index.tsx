@@ -26,9 +26,9 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   const [myListNum, setMyListNum] = useState(0);
   const [ownListNum, setOwnListNum] = useState(0);
 
-  const [isModalOpen, setIsModalOpen] = useState(initValues);
-  const [inputValue, setInputValue] = useState(initInput);
-  const router = useRouter();
+  // const [isModalOpen, setIsModalOpen] = useState(initValues);
+  // const [inputValue, setInputValue] = useState(initInput);
+  // const router = useRouter();
 
   const isLogIn = JSON.parse(req).cookies.isLogIn === undefined ? false : true;
 
@@ -77,13 +77,13 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
     ownAlbumList();
   }, []);
 
-  const handleModal = () => {
-    setIsModalOpen((prev) => !prev);
-  };
+  // const handleModal = () => {
+  //   setIsModalOpen((prev) => !prev);
+  // };
 
-  const handleOnChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
+  // const handleOnChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setInputValue(e.target.value);
+  // };
 
   return (
     <Layout>
