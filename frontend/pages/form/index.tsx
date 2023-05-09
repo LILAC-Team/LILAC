@@ -1,6 +1,5 @@
 import * as S from "./style";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import CircularJSON from "circular-json";
 import Layout from "@/components/common/Layout";
 import MusicCard from "@/components/Player/MusicCard";
@@ -11,7 +10,7 @@ import AudioFileInput from "@/components/common/AudioFileInput";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import { albumApi } from "@/api/utils/album";
-
+import { useRouter } from "next/router";
 interface ProfileState {
   // previewImgUrl: string | ArrayBuffer;
   // file: File | {};
@@ -20,6 +19,7 @@ interface ProfileState {
 }
 
 const Form = () => {
+  const router = useRouter();
   const [albumTitle, setAlbumTitle] = useState("NewHyunsus");
   const [albumImage, setAlbumImage] = useState<ProfileState>({
     previewImgUrl: "",
@@ -164,6 +164,7 @@ const Form = () => {
       })
       .then((res) => {
         console.log("res: ", res);
+        router.push(`/album/${res.thisStringIsAlbumCode}`);
       })
       .catch((err) => {
         console.log("err: ", err);
@@ -180,14 +181,14 @@ const Form = () => {
           />
           <S.AlbumTitleWrap>
             <BasicInput
-              id='nickname'
-              type='text'
+              id="nickname"
+              type="text"
               value={albumTitle}
               handleOnChangeValue={handleAlbumTitleOnChange}
             />
           </S.AlbumTitleWrap>
           <S.ContentTitleWrap>
-            <BasicText text='음원목록' size='1.5rem' font='NotoSansKR700' />
+            <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
           </S.ContentTitleWrap>
           <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
           {albumTrackList.length > 0 &&
@@ -206,8 +207,8 @@ const Form = () => {
               ></MusicCard>
             ))}
           <CustomTextButton
-            text='등록'
-            fontColor='var(--color-background)'
+            text="등록"
+            fontColor="var(--color-background)"
             handleOnClickButton={registerAlbum}
             // border="2px soild white"
           />
@@ -221,34 +222,34 @@ const Form = () => {
         >
           <S.ModalContainer>
             <BasicText
-              text='제목'
-              size='1.25rem'
-              color='var(--color-background)'
+              text="제목"
+              size="1.25rem"
+              color="var(--color-background)"
             />
             <BasicInput
-              id='title'
-              type='text'
-              color='var(--color-background)'
+              id="title"
+              type="text"
+              color="var(--color-background)"
               value={currTrackInfo.title}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
 
             <BasicText
-              text='아티스트'
-              size='1.25rem'
-              color='var(--color-background)'
+              text="아티스트"
+              size="1.25rem"
+              color="var(--color-background)"
             />
             <BasicInput
-              id='artist'
-              type='text'
-              color='var(--color-background)'
+              id="artist"
+              type="text"
+              color="var(--color-background)"
               value={currTrackInfo.artist}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
             <div></div>
             <CustomTextButton
-              text='등록'
-              fontColor='var(--color-background)'
+              text="등록"
+              fontColor="var(--color-background)"
               handleOnClickButton={handleAddTrackToAlbum}
               // border="2px soild white"
             />

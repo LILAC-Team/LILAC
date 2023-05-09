@@ -4,7 +4,7 @@ import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import storage from "redux-persist/lib/storage";
 
 import user from "./modules/user/index";
-
+import playList from "./modules/playList";
 const persistConfig = {
   key: "root",
   storage,
@@ -13,6 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user,
+  playList,
 });
 
 const reducers = persistReducer(persistConfig, rootReducer);
