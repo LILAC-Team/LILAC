@@ -33,7 +33,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (userInfo) {
-      setProfile({ previewImgUrl: userInfo.profileImagePath, file: {} });
+      setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
     }
     console.log("userInfo: ", userInfo);
   }, []);
@@ -71,8 +71,8 @@ const SignUp = () => {
       nickname: nickName,
     };
 
-    if (profile.previewImgUrl === userInfo.profileImagePath) {
-      data["profileImage"] = userInfo.profileImagePath;
+    if (profile.previewImgUrl === userInfo.profileImage) {
+      data["profileImage"] = userInfo.profileImage;
     } else {
       await reader.readAsArrayBuffer(profile.file);
       const blob = new Blob([reader.result], {
@@ -94,7 +94,7 @@ const SignUp = () => {
             isLogIn: true,
             email,
             nickName: nickname,
-            profileImagePath: profileImage,
+            profileImage: profileImage,
           })
         );
         setCookies("refreshToken", refreshToken, { path: "/" });

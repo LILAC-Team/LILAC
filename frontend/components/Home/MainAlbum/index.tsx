@@ -4,8 +4,17 @@ import BasicText from "@/components/common/BasicText";
 import { RiAddLine } from "react-icons/ri";
 import Link from "next/link";
 import BasicImage from "@/components/common/BasicImage";
+import { useAppSelector } from "@/store/configStore.hooks";
 
 const MainAlbum = () => {
+  // const userInfo = useSelector((state: RootState) => {
+  //   return state.user;
+  // });
+
+  const userInfo = useAppSelector((state) => state.user);
+
+  console.log("사용자 데이터: ", userInfo);
+
   return (
     <S.MainContainer>
       <S.AlbumDataWrapper>
@@ -13,7 +22,11 @@ const MainAlbum = () => {
           <ProfileImg isEditable={false} />
         </S.ProfileWrapper>
         <S.TextWrapper>
-          <BasicText text="봄윤식스" color="#000000" font="NotoSansKR700" />
+          <BasicText
+            text={userInfo.nickName}
+            color="#000000"
+            font="NotoSansKR700"
+          />
         </S.TextWrapper>
         <S.CdContainer>
           <S.CdBox>
