@@ -1,12 +1,20 @@
 package com.lilacmusic.backend.albums.service;
 
+import com.lilacmusic.backend.albums.dto.request.AlbumRequest;
+import com.lilacmusic.backend.albums.exceptions.MediaConvertFailException;
+import com.lilacmusic.backend.albums.model.entitiy.Album;
 import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
+import com.lilacmusic.backend.global.error.common.UploadFailException;
+import com.lilacmusic.backend.member.repository.MemberRepository;
+import com.lilacmusic.backend.musics.dto.request.MusicRequest;
 import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
@@ -14,20 +22,22 @@ import software.amazon.awssdk.services.mediaconvert.model.*;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class StreamingServiceImpl {
+public class StreamingServiceImpl implements StreamingService {
     private final S3Client s3Client;
     private final MediaConvertClient mediaConvertClient;
     private final AlbumRepository albumRepository;
     private final MusicRepository musicRepository;
+    private final MemberRepository memberRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -35,10 +45,37 @@ public class StreamingServiceImpl {
     @Value("${cloud.aws.mediaconvert.role}")
     private String role;
 
-    public List<Music> musicUpload(List<MultipartFile> files) {
+    @Override
+    @Transactional
+    public Long albumUpload(Long memberId, String name, MultipartFile imageFile) {
+        String originalFilename = imageFile.getOriginalFilename();
+        String extension = FilenameUtils.getExtension(originalFilename); // Get file extension
+        String code = UUID.randomUUID().toString();
+        String inputKey = "images/image-" + code + "." + extension;
+        uploadToS3(imageFile, inputKey);
+        Album album = Album.builder()
+                .code(code)
+                .memberId(memberId)
+                .name(name)
+                .albumImage(inputKey)
+                .releasedDate(LocalDateTime.now())
+                .build();
+        albumRepository.save(album);
+        memberRepository.updateReleasingByMemberId(memberId);
+
+        return album.getAlbumId();
+    }
+
+    @Override
+    @Transactional
+    public Integer musicUpload(Long albumId, AlbumRequest albumRequest, List<MultipartFile> musicFiles) {
+        List<MusicRequest> musicRequests = albumRequest.getMusicList();
         List<Music> musics = new ArrayList<>();
 
-        for (MultipartFile file : files) {
+        for (int i = 0; i < musicRequests.size(); i++) {
+            MultipartFile file = musicFiles.get(i);
+            MusicRequest request = musicRequests.get(i);
+
             String originalFilename = file.getOriginalFilename();
             String extension = FilenameUtils.getExtension(originalFilename); // Get file extension
             String uuid = UUID.randomUUID().toString();
@@ -46,17 +83,7 @@ public class StreamingServiceImpl {
             String outputKey = "musics/music-" + uuid;
 
             // Upload file to S3
-            try (InputStream inputStream = file.getInputStream()) {
-                PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                        .bucket(bucket)
-                        .key(inputKey)
-                        .build();
-
-                s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(inputStream, file.getSize()));
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            uploadToS3(file, inputKey);
 
             // Start MediaConvert job
             try {
@@ -65,16 +92,38 @@ public class StreamingServiceImpl {
                 String jobId = createJobResponse.job().id();
 
                 // Save to the database
-                Music music = new Music();
-//                musicRepository.save(music);
-
+                Music music = Music.builder()
+                        .albumId(albumId)
+                        .name(request.getName())
+                        .artistName(request.getArtistName())
+                        .playtime(request.getPlaytime())
+                        .storagePath(outputKey + ".m3u8")
+                        .code(uuid)
+                        .musicIndex(request.getMusicIndex())
+                        .isTitle(request.getIsTitle())
+                        .build();
+                musicRepository.save(music);
                 musics.add(music);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error(e.getMessage());
+                throw new MediaConvertFailException();
             }
         }
 
-        return musics;
+        return musics.size();
+    }
+
+    private void uploadToS3(MultipartFile imageFile, String inputKey) {
+        try (InputStream inputStream = imageFile.getInputStream()) {
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(inputKey)
+                    .build();
+            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(inputStream, imageFile.getSize()));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new UploadFailException();
+        }
     }
 
     private CreateJobRequest createJobRequest(String inputKey, String outputKey) {

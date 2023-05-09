@@ -25,18 +25,18 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public MusicDetailResponse getMusicDetail(String musicCode, Long memberId) throws NoMusicFoundException {
+        // TODO 검증?
         Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(musicCode);
         if (music.isEmpty()) {
             throw new NoMusicFoundException();
         }
 
-        // 유저의 음원 소유 확인 여부 로직 추가할건지???????????
         List<RecentCommentMapping> recentComments = recentCommentRepository.findAllByMusicIdOrderByPresentTimeAsc(music.get().getMusicId());
         List<RecentCommentResponse> recentCommentResponseList = recentComments.stream().map(c ->
                 RecentCommentResponse.builder()
                         .content(c.getContent())
                         .presentTime(c.getPresentTime())
-                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage()))
+                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage(), c.getEmail()))
                         .build()
         ).collect(Collectors.toList());
         MusicDetailResponse response = MusicDetailResponse.builder()

@@ -7,6 +7,7 @@ interface BasicTextProps {
   background?: string;
   clipText?: boolean;
   font?: string;
+  isOverflow?: boolean;
 }
 
 const BasicText = ({
@@ -16,6 +17,7 @@ const BasicText = ({
   background = "transparent",
   clipText,
   font,
+  isOverflow,
 }: BasicTextProps) => {
   return (
     <S.Text
@@ -24,6 +26,7 @@ const BasicText = ({
       background={background}
       clipText={clipText}
       font={font}
+      isOverflow={isOverflow}
     >
       {text}
     </S.Text>

@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useCookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 
-const BASE_URL = "https://colortherock.com/api";
+const cookies = new Cookies();
 
+const BASE_URL = "https://lilac-music.net/api/v1";
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -11,9 +12,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(function (config) {
-  console.log("interceptor request");
-  const accessToken = sessionStorage.getItem("accessToken");
-
+  const accessToken = cookies.get("accessToken");
   if (!accessToken) {
     config.headers.Authorization = null;
     return config;
@@ -39,17 +38,16 @@ instance.interceptors.response.use(
 
     // statusCode 401 : 만료된 토큰
     if (status === 401) {
-      const [cookies, setCookie] = useCookies(["refreshToken"]);
+      const accessToken = cookies.get("accessToken");
+      const refreshToken = cookies.get("refreshToken");
       const originalRequest = config;
-      const refreshToken = cookies;
 
       // 토큰 재발급을 위한 요청
       if (refreshToken) {
         const token = sessionStorage.getItem("accessToken");
         const data = await axios.post(
-          `https://colortherock.com/refresh`,
+          `${BASE_URL}/refresh`,
           {
-            accessToken: `${token}`,
             refreshToken: `${refreshToken}`,
           },
           {
@@ -60,14 +58,12 @@ instance.interceptors.response.use(
         );
 
         const accessToken = data;
-        await sessionStorage.setItem(["accessToken", accessToken]);
-
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        cookies.set("accessToken", accessToken, { path: "/" });
+        originalRequest.headers.Authorization = `${accessToken}`;
         return axios(originalRequest);
       }
     }
 
-    console.log("[api] refreshToken 발급 : ", error);
     return Promise.reject(error);
   }
 );

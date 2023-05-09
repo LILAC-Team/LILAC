@@ -41,6 +41,7 @@ spring:
         min-idle: 2
     host: localhost
     port: 6379
+    password: ssafy
 
   servlet:
     multipart:
@@ -103,4 +104,6 @@ cloud:
     mediaconvert:
       endpoint: ${MEDIACONVERT_ENDPOINT}
       role: ${IAM_ROLE}
+    cloudfront:
+      url_prefix: ${CLOUDFRONT_PREFIX}
 

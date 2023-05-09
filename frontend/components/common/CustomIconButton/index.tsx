@@ -6,7 +6,9 @@ interface CustomIconButtonProps {
   children: React.ReactNode;
   border?: string;
   isDisabled?: boolean;
-  handleOnClickButton?: () => void;
+  handleOnClickButton?:
+    | (() => void)
+    | React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const CustomIconButton = ({

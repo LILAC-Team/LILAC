@@ -1,7 +1,6 @@
 package com.lilacmusic.backend.playlists.service;
 
 import com.lilacmusic.backend.musics.exceptions.NoMusicFoundException;
-import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.mapping.MusicImgMapping;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import com.lilacmusic.backend.playlists.dto.request.PlayListAddRequest;
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +45,7 @@ public class PlayListServiceImpl implements PlayListService {
     @Override
     @Transactional
     public Long addMusicToPlayList(Long memberId, PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
+
         Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(playListAddRequest.getCode());
         if (music.isEmpty()) {
             throw new NoMusicFoundException();
@@ -63,16 +62,18 @@ public class PlayListServiceImpl implements PlayListService {
         if (playList.isEmpty()) {
             PlayList newPlayList = new PlayList(memberId, List.of(newMusic));
             playListRepository.save(newPlayList);
+        } else {
+            List<PlayListMusic> list = playList.get().getMusicList();
+            list.add(newMusic);
+            playListRepository.save(new PlayList(memberId, list));
         }
-        List<PlayListMusic> list = playList.get().getMusicList();
-        list.add(newMusic);
-        playListRepository.save(new PlayList(memberId, list));
         return music.get().getMusicId();
     }
 
     @Override
     @Transactional
     public Integer editPlayList(Long memberId, PlayListRequest playListRequest) {
+
         PlayList playList = new PlayList(memberId, playListRequest.getMusicList());
         playListRepository.save(playList);
         return playListRequest.getMusicList().size();

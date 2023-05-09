@@ -14,9 +14,6 @@ import javax.validation.constraints.NotBlank;
 public class ReGenerateAccessTokenRequest {
 
     @NotBlank
-    @Schema(description = "액세스 토큰")
-    private String accessToken;
-    @NotBlank
     @Schema(description = "리프레시 토큰")
     private String refreshToken;
 

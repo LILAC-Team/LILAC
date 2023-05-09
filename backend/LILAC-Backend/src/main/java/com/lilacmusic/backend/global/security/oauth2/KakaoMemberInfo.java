@@ -5,7 +5,6 @@ import com.lilacmusic.backend.member.entity.Member.RegistrationId;
 
 import java.util.Map;
 /**
- * @author skyland310
  * 카카오 로그인 정보를 담을 클래스
  */
 public class KakaoMemberInfo implements MemberInfo {

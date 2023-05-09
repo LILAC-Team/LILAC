@@ -26,7 +26,6 @@ public class JwtTokenUtils {
      * @param member 토큰을 만들 Member 객체
      * @param authorities member 객체의 유저 권한
      * @return 만들어진 액세스 토큰 반환
-     * @author suker80
      */
     public String createTokens(Member member, Collection<? extends GrantedAuthority> authorities) {
         Map<String, Object> map = new HashMap<>();
@@ -89,7 +88,6 @@ public class JwtTokenUtils {
      * 액세스 토큰을 기반으로 모든 클레임을 가져온다.
      * @param token 해독할 토큰
      * @return jwt 토큰을 해독한 claim
-     * @author suker80
      * @exception ExpiredJwtException jwt 만료시 발생되는 exception
      * @exception InvalidClaimException 유효하지 않은 클레임 exception
      * @see JwtException JwtException 클래스 참조
@@ -103,7 +101,6 @@ public class JwtTokenUtils {
      * redis에서 refresh 토큰을 찾는다.
      * @param refreshToken redis에서 refresh 토큰을 찾을 key
      * @return redis에서 찾은 refresh 토큰 객체, Optional로 감싼다.\
-     * @author suker80
      */
     public Optional<RefreshToken> findRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken);
@@ -118,8 +115,8 @@ public class JwtTokenUtils {
     public String reCreateTokens(RefreshToken refreshToken) {
 
         try {
-            getAllClaims(refreshToken.getAccessTokenValue());
-            throw new AccessDeniedException(GlobalErrorCode.ACCESS_DENIED);
+            getAllClaims(refreshToken.getAccessTokenValue().substring(7));
+            throw new AccessDeniedException();
         } catch (ExpiredJwtException e) {
             Claims claims = e.getClaims();
             String accessToken = Jwts.builder()
