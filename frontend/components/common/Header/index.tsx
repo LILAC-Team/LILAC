@@ -21,15 +21,12 @@ const Header = ({ isShown = true }: HeaderProps) => {
   };
 
   const getProfileImage = async () => {
-    await memberApi
-      .getUserInfo()
-      .then((res) => {
-        console.log("회원정보: ", res.data.result);
-        setProfileImage(res.data.result.profileImage);
-      })
-      .catch((error) => {
-        console.log("error: ", error);
-      });
+    try {
+      const res = await memberApi.getUserInfo();
+      setProfileImage(res.data.result.profileImage);
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 
   useEffect(() => {

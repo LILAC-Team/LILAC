@@ -33,42 +33,33 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   const isLogIn = JSON.parse(req).cookies.isLogIn === undefined ? false : true;
 
   const getUserInfo = async () => {
-    await memberApi
-      .getUserInfo()
-      .then((res) => {
-        console.log("회원정보: ", res.data.result);
-        setNickName(res.data.result.nickname);
-        setProfileImage(res.data.result.profileImage);
-      })
-      .catch((error) => {
-        console.log("error: ", error);
-      });
+    try {
+      const res = await memberApi.getUserInfo();
+      setNickName(res.data.result.nickname);
+      setProfileImage(res.data.result.profileImage);
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 
   const myAlbumList = async () => {
-    await albumApi
-      .getReleasedAlbum(1)
-      .then((res) => {
-        console.log("내앨범정보: ", res.data);
-        setMyList(res.data.releasedAlbumList);
-        setMyListNum(res.data.totalElements);
-      })
-      .catch((error) => {
-        console.log("error: ", error);
-      });
+    try {
+      const res = await albumApi.getReleasedAlbum(1);
+      setMyList(res.data.releasedAlbumList);
+      setMyListNum(res.data.totalElements);
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 
   const ownAlbumList = async () => {
-    await albumApi
-      .getCollectedAlbum(1)
-      .then((res) => {
-        console.log("소장앨범정보: ", res.data);
-        setOwnList(res.data.collectedAlbumList);
-        setOwnListNum(res.data.totalElements);
-      })
-      .catch((error) => {
-        console.log("error: ", error);
-      });
+    try {
+      const res = await albumApi.getCollectedAlbum(1);
+      setOwnList(res.data.collectedAlbumList);
+      setOwnListNum(res.data.totalElements);
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 
   useEffect(() => {
