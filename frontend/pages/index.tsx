@@ -9,6 +9,8 @@ import MainAlbum from "@/components/Home/MainAlbum";
 import BasicText from "@/components/common/BasicText";
 import dummy1 from "../pages/test.json";
 import dummy2 from "../pages/test2.json";
+import { memberApi } from "@/api/utils/member";
+import { albumApi } from "@/api/utils/album";
 
 interface HomeProps {
   initValues?: boolean;
@@ -17,11 +19,63 @@ interface HomeProps {
 }
 
 const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
+  const [nickname, setNickName] = useState("");
+  const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
+  const [myList, setMyList] = useState([]);
+  const [ownList, setOwnList] = useState([]);
+  const [myListNum, setMyListNum] = useState(0);
+  const [ownListNum, setOwnListNum] = useState(0);
+
   const [isModalOpen, setIsModalOpen] = useState(initValues);
   const [inputValue, setInputValue] = useState(initInput);
   const router = useRouter();
 
   const isLogIn = JSON.parse(req).cookies.isLogIn === undefined ? false : true;
+
+  const getUserInfo = async () => {
+    await memberApi
+      .getUserInfo()
+      .then((res) => {
+        console.log("회원정보: ", res.data.result);
+        setNickName(res.data.result.nickname);
+        setProfileImage(res.data.result.profileImage);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
+
+  const myAlbumList = async () => {
+    await albumApi
+      .getReleasedAlbum(1)
+      .then((res) => {
+        console.log("내앨범정보: ", res.data);
+        setMyList(res.data.releasedAlbumList);
+        setMyListNum(res.data.totalElements);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
+
+  const ownAlbumList = async () => {
+    await albumApi
+      .getCollectedAlbum(1)
+      .then((res) => {
+        console.log("소장앨범정보: ", res.data);
+        setOwnList(res.data.collectedAlbumList);
+        setOwnListNum(res.data.totalElements);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    myAlbumList();
+    ownAlbumList();
+  }, []);
 
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -33,10 +87,22 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
 
   return (
     <Layout>
-      <MainAlbum />
+      <MainAlbum
+        nickname={nickname}
+        profileImage={profileImage}
+        myAlbum={myListNum.toString()}
+        ownAlbum={ownListNum.toString()}
+      />
       <SliderWrapper>
         <BasicText text="나의 앨범" size="1.125rem" font="NotoSansKR700" />
-        <BasicSlider data={dummy1.releasedAlbumList} />
+        {myListNum === 0 ? (
+          <EmptyWrapper>
+            <BasicText text="나만의 앨범을 발매해보세요" />
+          </EmptyWrapper>
+        ) : (
+          // <BasicSlider data={dummy1.releasedAlbumList} />
+          <BasicSlider data={myList} />
+        )}
       </SliderWrapper>
       <SliderWrapper>
         <BasicText
@@ -44,7 +110,14 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
           size="1.125rem"
           font="NotoSansKR700"
         />
-        <BasicSlider data={dummy2.collectedAlbumList} />
+        {ownListNum === 0 ? (
+          <EmptyWrapper>
+            <BasicText text="친구의 앨범을 등록해보세요" />
+          </EmptyWrapper>
+        ) : (
+          // <BasicSlider data={dummy2.collectedAlbumList} />
+          <BasicSlider data={ownList} />
+        )}
       </SliderWrapper>
     </Layout>
   );
@@ -59,8 +132,14 @@ export async function getServerSideProps({ req }) {
   };
 }
 
-export const SliderWrapper = styled.div`
+const SliderWrapper = styled.div`
   margin: 1.125rem 0;
+`;
+
+const EmptyWrapper = styled.div`
+  display: flex;
+  height: 8rem;
+  justify-content: center;
 `;
 
 export default Home;

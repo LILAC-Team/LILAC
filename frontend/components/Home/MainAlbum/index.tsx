@@ -4,24 +4,28 @@ import BasicText from "@/components/common/BasicText";
 import { RiAddLine } from "react-icons/ri";
 import Link from "next/link";
 import BasicImage from "@/components/common/BasicImage";
-import { useAppSelector } from "@/store/configStore.hooks";
 
-const MainAlbum = () => {
-  const userInfo = useAppSelector((state) => state.user);
-  console.log("사용자 데이터: ", userInfo);
+interface MainAlbumProps {
+  nickname: string;
+  profileImage: string;
+  myAlbum: string;
+  ownAlbum: string;
+}
 
+const MainAlbum = ({
+  nickname,
+  profileImage,
+  myAlbum,
+  ownAlbum,
+}: MainAlbumProps) => {
   return (
     <S.MainContainer>
       <S.AlbumDataWrapper>
         <S.ProfileWrapper>
-          <ProfileImg isEditable={false} />
+          <ProfileImg isEditable={false} src={profileImage} />
         </S.ProfileWrapper>
         <S.TextWrapper>
-          <BasicText
-            text={userInfo.nickName}
-            color="#000000"
-            font="NotoSansKR700"
-          />
+          <BasicText text={nickname} color="#000000" font="NotoSansKR700" />
         </S.TextWrapper>
         <S.CdContainer>
           <S.CdBox>
@@ -34,7 +38,7 @@ const MainAlbum = () => {
               />
               <S.InnerCd>
                 <S.InnerText>
-                  <BasicText text="2" size="80%" />
+                  <BasicText text={myAlbum} size="80%" />
                 </S.InnerText>
               </S.InnerCd>
             </S.CdWrapper>
@@ -52,7 +56,7 @@ const MainAlbum = () => {
               />
               <S.InnerCd>
                 <S.InnerText>
-                  <BasicText text="8" size="80%" />
+                  <BasicText text={ownAlbum} size="80%" />
                 </S.InnerText>
               </S.InnerCd>
             </S.CdWrapper>
