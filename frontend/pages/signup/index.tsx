@@ -111,12 +111,12 @@ const SignUp = () => {
     <S.SignUpContainer>
       <S.LogoWrap>
         <BasicText
-          text="LILAC"
-          size="3rem"
-          background="linear-gradient(180deg, #BC8AC2 0%, rgba(188, 138, 194, 0) 100%)"
-          color="transparent"
+          text='LILAC'
+          size='3rem'
+          background='linear-gradient(180deg, #BC8AC2 0%, rgba(188, 138, 194, 0) 100%)'
+          color='transparent'
           clipText={true}
-          font="HSBomBaram"
+          font='HSBomBaram'
         />
       </S.LogoWrap>
       <S.ImageWrap>
@@ -128,8 +128,8 @@ const SignUp = () => {
       </S.ImageWrap>
       <S.UserNameInputWrap>
         <BasicInput
-          id="nickname"
-          type="text"
+          id='nickname'
+          type='text'
           value={nickName}
           handleOnChangeValue={handleNicknameChange}
         />
