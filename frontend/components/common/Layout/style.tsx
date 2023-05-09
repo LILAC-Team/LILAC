@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContainerWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(var(--vh, 1vh) * 100);
   display: grid;
   grid-template-rows: 4rem calc(var(--vh, 1vh) * 100 - 12.8rem) 4.3rem 4.5rem;
   ::-webkit-scrollbar {

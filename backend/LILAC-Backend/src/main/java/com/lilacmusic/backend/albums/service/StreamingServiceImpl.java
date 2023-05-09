@@ -5,6 +5,7 @@ import com.lilacmusic.backend.albums.exceptions.MediaConvertFailException;
 import com.lilacmusic.backend.albums.model.entitiy.Album;
 import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
 import com.lilacmusic.backend.global.error.common.UploadFailException;
+import com.lilacmusic.backend.member.repository.MemberRepository;
 import com.lilacmusic.backend.musics.dto.request.MusicRequest;
 import com.lilacmusic.backend.musics.model.entity.Music;
 import com.lilacmusic.backend.musics.model.repository.MusicRepository;
@@ -36,6 +37,7 @@ public class StreamingServiceImpl implements StreamingService {
     private final MediaConvertClient mediaConvertClient;
     private final AlbumRepository albumRepository;
     private final MusicRepository musicRepository;
+    private final MemberRepository memberRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -59,6 +61,7 @@ public class StreamingServiceImpl implements StreamingService {
                 .releasedDate(LocalDateTime.now())
                 .build();
         albumRepository.save(album);
+        memberRepository.updateReleasingByMemberId(memberId);
 
         return album.getAlbumId();
     }

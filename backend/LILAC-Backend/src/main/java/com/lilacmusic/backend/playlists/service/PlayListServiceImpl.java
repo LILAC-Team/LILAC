@@ -45,7 +45,7 @@ public class PlayListServiceImpl implements PlayListService {
     @Override
     @Transactional
     public Long addMusicToPlayList(Long memberId, PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
-        // TODO 유저가 소유한 앨범의 음악인지 검증 필요?
+
         Optional<MusicImgMapping> music = musicRepository.findByCodeWithAlbumImage(playListAddRequest.getCode());
         if (music.isEmpty()) {
             throw new NoMusicFoundException();
@@ -62,17 +62,18 @@ public class PlayListServiceImpl implements PlayListService {
         if (playList.isEmpty()) {
             PlayList newPlayList = new PlayList(memberId, List.of(newMusic));
             playListRepository.save(newPlayList);
+        } else {
+            List<PlayListMusic> list = playList.get().getMusicList();
+            list.add(newMusic);
+            playListRepository.save(new PlayList(memberId, list));
         }
-        List<PlayListMusic> list = playList.get().getMusicList();
-        list.add(newMusic);
-        playListRepository.save(new PlayList(memberId, list));
         return music.get().getMusicId();
     }
 
     @Override
     @Transactional
     public Integer editPlayList(Long memberId, PlayListRequest playListRequest) {
-        // TODO 유저가 소유한 앨범의 음악인지 검증 필요?
+
         PlayList playList = new PlayList(memberId, playListRequest.getMusicList());
         playListRepository.save(playList);
         return playListRequest.getMusicList().size();
