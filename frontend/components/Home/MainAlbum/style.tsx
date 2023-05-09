@@ -67,6 +67,7 @@ export const ProfileWrapper = styled.div`
   width: 4rem;
   height: 4rem;
   margin: 0.3rem;
+  margin-top: 0.5rem;
 `;
 
 export const CdContainer = styled.div`

@@ -1,12 +1,14 @@
 import type { AppProps } from "next/app";
 import { GlobalStyle } from "@/styles/globalStyle";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
-import React from "react";
 import wrapper from "@/store/configStore";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(pageProps);
+  const persistor = persistStore(store);
 
   useEffect(() => {
     let vh = window.innerHeight * 0.01;
@@ -20,8 +22,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <Provider store={store}>
-      <GlobalStyle />
-      <Component {...props} />
+      <PersistGate loading={null} persistor={persistor}>
+        <GlobalStyle />
+        <Component {...props} />
+      </PersistGate>
     </Provider>
   );
 };
@@ -47,4 +51,5 @@ MyApp.getInitialProps = async ({ ctx, Component }) => {
 
   return { pageProps };
 };
-export default MyApp;
+
+export default wrapper.withRedux(MyApp);
