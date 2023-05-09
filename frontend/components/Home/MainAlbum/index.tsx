@@ -7,12 +7,7 @@ import BasicImage from "@/components/common/BasicImage";
 import { useAppSelector } from "@/store/configStore.hooks";
 
 const MainAlbum = () => {
-  // const userInfo = useSelector((state: RootState) => {
-  //   return state.user;
-  // });
-
   const userInfo = useAppSelector((state) => state.user);
-
   console.log("사용자 데이터: ", userInfo);
 
   return (
