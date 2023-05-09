@@ -5,7 +5,6 @@ export const AlbumContainer = styled.div`
   height: calc(var(--vh, 1vh) * 100 - 14.5rem);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* grid-gap: 1rem; */
   @media (min-width: 43.75rem) {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -19,4 +18,5 @@ export const AlbumContainer = styled.div`
 
 export const OneAlbumCard = styled.div`
   width: 100%;
+  padding: 1rem;
 `;

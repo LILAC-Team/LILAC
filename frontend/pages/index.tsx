@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import BasicSlider from "@/components/Home/BasicSlider";
 import CircularJSON from "circular-json";
@@ -6,6 +7,8 @@ import { useRouter } from "next/router";
 import Layout from "@/components/common/Layout";
 import MainAlbum from "@/components/Home/MainAlbum";
 import BasicText from "@/components/common/BasicText";
+import dummy1 from "../pages/test.json";
+import dummy2 from "../pages/test2.json";
 
 interface HomeProps {
   initValues?: boolean;
@@ -20,15 +23,6 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
 
   const isLogIn = JSON.parse(req).cookies.isLogIn === undefined ? false : true;
 
-  useEffect(() => {
-    if (!isLogIn) {
-      const timer = setTimeout(() => {
-        // router.push("/login");
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -37,22 +31,12 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
     setInputValue(e.target.value);
   };
 
-  // return isLogIn ? (
-  //   <Layout>
-  //     <button onClick={handleModal}>버튼</button>
-  //     <BasicSlider />
-  //     <DragAndDropWithClientOnly list={list} setList={setList} />
-  //   </Layout>
-  // ) : (
-  //   <div>잠시 후 로그인 페이지로 이동합니다.</div>
-  // );
-
   return (
     <Layout>
       <MainAlbum />
       <SliderWrapper>
         <BasicText text="나의 앨범" size="1.125rem" font="NotoSansKR700" />
-        <BasicSlider />
+        <BasicSlider data={dummy1.releasedAlbumList} />
       </SliderWrapper>
       <SliderWrapper>
         <BasicText
@@ -60,7 +44,7 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
           size="1.125rem"
           font="NotoSansKR700"
         />
-        <BasicSlider />
+        <BasicSlider data={dummy2.collectedAlbumList} />
       </SliderWrapper>
     </Layout>
   );

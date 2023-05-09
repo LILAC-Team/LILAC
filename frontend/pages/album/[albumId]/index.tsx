@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import React from "react";
 import * as S from "./style";
 import AlbumDetailData from "@/pages/AlbumDetail.json";
 import User from "@/pages/user.json";
