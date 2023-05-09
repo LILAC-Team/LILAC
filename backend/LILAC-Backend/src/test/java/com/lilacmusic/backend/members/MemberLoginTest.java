@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lilacmusic.backend.global.common.BaseResponse;
 import com.lilacmusic.backend.global.redis.RefreshTokenRepository;
 import com.lilacmusic.backend.global.security.jwt.JwtTokenUtils;
+import com.lilacmusic.backend.global.security.jwt.RefreshToken;
 import com.lilacmusic.backend.member.entity.Member;
 import com.lilacmusic.backend.member.repository.MemberRepository;
+import com.lilacmusic.backend.member.request.ReGenerateAccessTokenRequest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,16 +18,26 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Optional;
 
 import static com.lilacmusic.backend.global.security.jwt.JwtTokenUtils.BEARER_PREFIX;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
@@ -75,5 +88,59 @@ public class MemberLoginTest {
                 get(url + "test")
         ).andExpect(status().is(401));
     }
+
+    @Test
+    @DisplayName("정상적인 로그인 요청")
+    void 정상적인_로그인_요청() throws Exception {
+
+        String tokens = jwtTokenUtils.createTokens(member, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
+
+        mockMvc.perform(
+                        get(url + "test")
+                                .header("Authorization", AUTHORIZATION_HEADER + tokens
+                                ))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("RefreshToken 발급")
+    void RefreshToken_발급() {
+        String tokens = jwtTokenUtils.createTokens(member, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
+        RefreshToken refreshToken = jwtTokenUtils.generateRefreshToken(tokens);
+        System.out.println("refreshToken.getRefreshToken() = " + refreshToken.getRefreshTokenKey());
+        System.out.println("refreshToken.getAccessToken() = " + refreshToken.getAccessTokenValue());
+        Assertions.assertNotNull(refreshToken.getRefreshTokenKey());
+        Assertions.assertNotNull(refreshToken.getAccessTokenValue());
+    }
+
+    @Test
+    @DisplayName("비정상 토큰으로 요청하는 경우")
+    void 비정상_토큰() throws Exception {
+        url += "test";
+        mockMvc.perform(get(url)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer anim"))
+                .andDo(print())
+                .andExpect(status().is(401));
+    }
+
+//    @Test
+//    @DisplayName("Refresh로 다시 토큰 재발급 했는데 아직 만료안되서 실패")
+//    void 토큰재발급실패() throws Exception {
+//
+//        String newAccessToken = jwtTokenUtils.createTokens(member, List.of(new SimpleGrantedAuthority("ROLE_MEMBER")));
+//        RefreshToken refreshToken = jwtTokenUtils.generateRefreshToken(newAccessToken);
+//        Optional<RefreshToken> validRefreshToken = jwtTokenUtils.findRefreshToken(refreshToken.getRefreshTokenKey());
+//        Assertions.assertDoesNotThrow(() -> {
+//            validRefreshToken.orElseThrow();
+//        });
+////        refreshToken = validRefreshToken.orElseThrow();
+////        ReGenerateAccessTokenRequest request = new ReGenerateAccessTokenRequest(newAccessToken);
+//
+//        mockMvc.perform(
+//                post("/api/v1/refresh")
+//                        .content(this.objectMapper.writeValueAsBytes(newAccessToken))
+//                        .contentType(MediaType.APPLICATION_JSON)
+//        ).andExpect(jsonPath("$.status", is(HttpStatus.UNAUTHORIZED.value())));
+//    }
 
 }
