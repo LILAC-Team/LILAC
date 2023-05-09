@@ -30,6 +30,7 @@ const Form = () => {
     title: "",
     artist: "",
     isTitle: false,
+    playtime: 0,
     file: {},
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,17 +59,30 @@ const Form = () => {
     const {
       target: { files, value },
     } = e;
-    if (e.target.value === "") {
-      setCurrTrackInfo({ title: "", artist: "", isTitle: false, file: {} });
+    if (value === "") {
+      setCurrTrackInfo({
+        title: "",
+        artist: "",
+        isTitle: false,
+        playtime: 0,
+        file: {},
+      });
     } else {
-      // const reader = new FileReader();
-      // reader.onload = () => {
-      //   const audioContext = new AudioContext();
-      //   audioContext.decodeAudioData(files[0]).then(function (audioBuffer) {
-      //     console.log(`Duration: ${audioBuffer.duration} seconds`);
-      //   });
-      // };
-      setCurrTrackInfo({ ...currTrackInfo, file: files[0] });
+      const fileReader = new FileReader();
+      const audioContext = new AudioContext();
+
+      fileReader.onload = () => {
+        const arrayBuffer = fileReader.result as ArrayBuffer;
+        audioContext.decodeAudioData(arrayBuffer, (audioBuffer) => {
+          setCurrTrackInfo({
+            ...currTrackInfo,
+            playtime: Math.ceil(audioBuffer.duration),
+            file: files[0],
+          });
+          console.log(`Duration: ${Math.ceil(audioBuffer.duration)} seconds`);
+        });
+      };
+      fileReader.readAsArrayBuffer(files[0]);
       setIsModalOpen(true);
     }
   };
@@ -84,17 +98,23 @@ const Form = () => {
 
   const handleAddTrackToAlbum = () => {
     setAlbumTrackList([currTrackInfo, ...albumTrackList]);
-    setCurrTrackInfo({ title: "", artist: "", isTitle: false, file: {} });
+    setCurrTrackInfo({
+      title: "",
+      artist: "",
+      isTitle: false,
+      playtime: 0,
+      file: {},
+    });
     setIsModalOpen(false);
   };
 
+  // 앨범 등록
   const registerAlbum = async () => {
     const formData = new FormData();
     const arr: Object[] = new Array();
-    const reader = new FileReader();
-
+    const albumInfo = {};
+    albumInfo["name"] = albumTitle;
     // 앨범 정보
-    arr.push({ name: albumTitle });
     albumTrackList.map((data, index) => {
       const obj = {
         artistName: data.artist,
@@ -105,51 +125,84 @@ const Form = () => {
       };
       arr.push(obj);
     });
+    albumInfo["musicList"] = arr;
 
-    formData.append("albumInfo", JSON.stringify(arr));
+    formData.append("albumInfo", JSON.stringify(albumInfo));
 
-    // 앨범 이미지 정보
-    await reader.readAsArrayBuffer(albumImage.file);
-    const blob = new Blob([reader.result], {
-      type: albumImage.file.type,
-    });
-    formData.append("imageFile", blob);
+    // // 앨범 이미지 정보
 
-    // await albumTrackList.map(async (data, index) => {
-    //   const reader2 = new FileReader();
-    //   await reader2.readAsArrayBuffer(data.file);
-    //   const blob = new Blob([reader2.result], {
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   const blob = new Blob([reader.result], {
     //     type: albumImage.file.type,
     //   });
-    //   formData.append("musicFiles", blob);
+    //   formData.append("imageFile", blob);
+    //   console.log("하하");
+    // };
+    // await reader.readAsArrayBuffer(albumImage.file);
+    // // const blob = new Blob([reader.result], {
+    // //   type: albumImage.file.type,
+    // // });
+    // // formData.append("imageFile", blob);
+
+    // // 음원 파일 Blob 처리
+    // await albumTrackList.forEach((file) => {
+    //   const reader = new FileReader();
+    //   reader.onload = () => {
+    //     const blob = new Blob([reader.result], { type: file.type });
+    //     formData.append("musicFiles", blob);
+    //   };
     // });
 
-    // await Promise.all(
-    //   albumTrackList.map(async (data, index) => {
-    //     const reader2 = new FileReader();
-    //     reader2.readAsArrayBuffer(data.file);
-    //     await new Promise((resolve) => {
-    //       reader2.onload = () => {
-    //         const blob = new Blob([reader2.result], {
-    //           type: data.file.type,
-    //         });
-    //         formData.append("musicFiles", blob);
-    //         resolve();
-    //       };
-    //     });
-    //   })
-    // );
-
-    // console.log("헤헤헤헤");
+    // console.log("formData: ", formData);
     // albumApi
     //   .uploadAlbum(formData)
     //   .then((res) => {
-    //     alert("성공");
     //     console.log("res: ", res);
     //   })
     //   .catch((err) => {
     //     console.log("err: ", err);
     //   });
+
+    // 앨범 이미지 정보
+    const reader = new FileReader();
+    const imageFilePromise = new Promise<void>((resolve, reject) => {
+      reader.onload = () => {
+        const blob = new Blob([reader.result], {
+          type: albumImage.file.type,
+        });
+        formData.append("imageFile", blob);
+        resolve();
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(albumImage.file);
+    });
+
+    // 음원 파일 Blob 처리
+    const musicFilePromises = albumTrackList.map((file) => {
+      return new Promise<void>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const blob = new Blob([reader.result], { type: file.file.type });
+          formData.append("musicFiles", blob);
+          resolve();
+        };
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file.file);
+      });
+    });
+
+    Promise.all([imageFilePromise, ...musicFilePromises])
+      .then(() => {
+        console.log("formData: ", formData);
+        return albumApi.uploadAlbum(formData);
+      })
+      .then((res) => {
+        console.log("res: ", res);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
   };
 
   return (
@@ -162,14 +215,14 @@ const Form = () => {
           />
           <S.AlbumTitleWrap>
             <BasicInput
-              id="nickname"
-              type="text"
+              id='nickname'
+              type='text'
               value={albumTitle}
               handleOnChangeValue={handleAlbumTitleOnChange}
             />
           </S.AlbumTitleWrap>
           <S.ContentTitleWrap>
-            <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
+            <BasicText text='음원목록' size='1.5rem' font='NotoSansKR700' />
           </S.ContentTitleWrap>
           <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
           {/* <MusicCard
@@ -186,6 +239,7 @@ const Form = () => {
                 data={{
                   code: "index",
                   name: val.title,
+                  playtime: val.playtime,
                   albumImage: albumImage.previewImgUrl,
                   artistName: val.artist,
                 }}
@@ -193,8 +247,8 @@ const Form = () => {
               ></MusicCard>
             ))}
           <CustomTextButton
-            text="등록"
-            fontColor="var(--color-background)"
+            text='등록'
+            fontColor='var(--color-background)'
             handleOnClickButton={registerAlbum}
             // border="2px soild white"
           />
@@ -208,34 +262,34 @@ const Form = () => {
         >
           <S.ModalContainer>
             <BasicText
-              text="제목"
-              size="1.25rem"
-              color="var(--color-background)"
+              text='제목'
+              size='1.25rem'
+              color='var(--color-background)'
             />
             <BasicInput
-              id="title"
-              type="text"
-              color="var(--color-background)"
+              id='title'
+              type='text'
+              color='var(--color-background)'
               value={currTrackInfo.title}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
 
             <BasicText
-              text="아티스트"
-              size="1.25rem"
-              color="var(--color-background)"
+              text='아티스트'
+              size='1.25rem'
+              color='var(--color-background)'
             />
             <BasicInput
-              id="artist"
-              type="text"
-              color="var(--color-background)"
+              id='artist'
+              type='text'
+              color='var(--color-background)'
               value={currTrackInfo.artist}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
             <div></div>
             <CustomTextButton
-              text="등록"
-              fontColor="var(--color-background)"
+              text='등록'
+              fontColor='var(--color-background)'
               handleOnClickButton={handleAddTrackToAlbum}
               // border="2px soild white"
             />
