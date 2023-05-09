@@ -129,41 +129,6 @@ const Form = () => {
 
     formData.append("albumInfo", JSON.stringify(albumInfo));
 
-    // // 앨범 이미지 정보
-
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   const blob = new Blob([reader.result], {
-    //     type: albumImage.file.type,
-    //   });
-    //   formData.append("imageFile", blob);
-    //   console.log("하하");
-    // };
-    // await reader.readAsArrayBuffer(albumImage.file);
-    // // const blob = new Blob([reader.result], {
-    // //   type: albumImage.file.type,
-    // // });
-    // // formData.append("imageFile", blob);
-
-    // // 음원 파일 Blob 처리
-    // await albumTrackList.forEach((file) => {
-    //   const reader = new FileReader();
-    //   reader.onload = () => {
-    //     const blob = new Blob([reader.result], { type: file.type });
-    //     formData.append("musicFiles", blob);
-    //   };
-    // });
-
-    // console.log("formData: ", formData);
-    // albumApi
-    //   .uploadAlbum(formData)
-    //   .then((res) => {
-    //     console.log("res: ", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("err: ", err);
-    //   });
-
     // 앨범 이미지 정보
     const reader = new FileReader();
     const imageFilePromise = new Promise<void>((resolve, reject) => {
@@ -179,16 +144,16 @@ const Form = () => {
     });
 
     // 음원 파일 Blob 처리
-    const musicFilePromises = albumTrackList.map((file) => {
+    const musicFilePromises = albumTrackList.map((data) => {
       return new Promise<void>((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => {
-          const blob = new Blob([reader.result], { type: file.file.type });
+          const blob = new Blob([reader.result], { type: data.file.type });
           formData.append("musicFiles", blob);
           resolve();
         };
         reader.onerror = reject;
-        reader.readAsArrayBuffer(file.file);
+        reader.readAsArrayBuffer(data.file);
       });
     });
 
@@ -225,12 +190,6 @@ const Form = () => {
             <BasicText text='음원목록' size='1.5rem' font='NotoSansKR700' />
           </S.ContentTitleWrap>
           <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
-          {/* <MusicCard
-            onClickEvent={() => console.log("ClickClick")}
-            data={{ name: "name", albumImage: "", nickname: "nickname" }}
-            isEditable={true}
-          /> */}
-
           {albumTrackList.length > 0 &&
             albumTrackList.map((val, index) => (
               <MusicCard
