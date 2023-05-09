@@ -11,4 +11,7 @@ export const memberApi = {
 
   // 엑세스 재발그 API
   refresh: (refreshToken) => api.post("/refresh", refreshToken),
+
+  // 회원정보 가져오기
+  getUserInfo: () => api.get("/members"),
 };

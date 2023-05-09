@@ -4,6 +4,7 @@ import com.lilacmusic.backend.global.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -70,10 +71,9 @@ public class GlobalExControllerAdvice {
      * @return 예외를 처리해서 반환한다.
      */
     @ExceptionHandler(GlobalBaseException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    protected BaseResponse<Object> handleGlobalBaseException(final GlobalBaseException e) {
+    protected ResponseEntity<BaseResponse<Object>> handleGlobalBaseException(final GlobalBaseException e) {
         log.error("{} Exception {}: {}", e.getErrorCode(), e.getErrorCode().getCode(), e.getErrorCode().getMessage());
-        return new BaseResponse<>(e.getErrorCode());
+        return ResponseEntity.status(e.getErrorCode().getStatus()).body(new BaseResponse<>(e.getErrorCode()));
     }
 
 
@@ -85,6 +85,7 @@ public class GlobalExControllerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected BaseResponse<Object> handleException(Exception e) {
+        log.info("여기오죠?");
         log.error("Exception : {}", GlobalErrorCode.OTHER.getMessage(), e);
         return new BaseResponse<>(GlobalErrorCode.OTHER);
     }
