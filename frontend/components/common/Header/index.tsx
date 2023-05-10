@@ -4,7 +4,7 @@ import ProfileImg from "../ProfileImg";
 import * as S from "./style";
 import SelectBox from "../SelectBox";
 import { memberApi } from "@/api/utils/member";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 interface HeaderProps {
   isShown?: boolean;
@@ -53,9 +53,6 @@ const Header = ({ isShown = true }: HeaderProps) => {
             <SelectBox list={list} funcArr={funcArr}>
               <ProfileImg size="4rem" src={profileImage} />
             </SelectBox>
-            // <Link href={"/"}>
-            //   <ProfileImg onClickEvent={handleProfileClick} />
-            // </Link>
           )}
         </S.ProfileWrapper>
       </S.HeaderWrapper>
