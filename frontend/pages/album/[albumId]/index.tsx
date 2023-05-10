@@ -13,6 +13,8 @@ import { playlistApi } from "@/api/utils/playlist";
 import { CLOUD_FRONT } from "@/api/index";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
+import { useSelector, useDispatch } from "react-redux";
+import { setPlayList } from "@/store/modules/playList";
 
 interface Music {
   name: string;
@@ -42,6 +44,10 @@ interface Album {
 interface PlayList {
   musicList: Music[];
   listSize: number;
+}
+
+interface AppState {
+  playList: PlayList;
 }
 
 const initialAlbumDetailData: Album = {
@@ -74,7 +80,7 @@ const AlbumDetail = () => {
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      alert("클립보드에 링크가 복사되었어요.");
+      setIsCopyModalOpen(true);
     } catch (err) {
       console.log(err);
     }
@@ -105,7 +111,7 @@ const AlbumDetail = () => {
       const response = await albumApi.addAlbumToCollectedAlbum(albumId);
       albumDetailHandler();
       setChangeNext(true);
-      setTimeout(() => setIsModalOpen(false), 1000);
+      setTimeout(() => setIsCollectModalOpen(false), 1000);
     } catch (error) {
       console.log(error);
     }
@@ -116,34 +122,55 @@ const AlbumDetail = () => {
   //     albumApi.addAlbumToCollectedAlbum(albumId)
   //     .then(() => {albumDetailHandler()})
   //     .then(() => {setChangeNext(true)});
-  //     setTimeout(() => setIsModalOpen(false), 1000);
+  //     setTimeout(() => setIsCollectModalOpen(false), 1000);
   //   } catch (error) {
   //     console.log(error);
   //   }
   // };
 
   // ADD PlayList
-  // 리덕스 반영한 수정필요. 추가 확인용 임시 코드.
   const [addMusic, setAddMusic] = useState("");
-  const [tmpPlayList, setTmpPlayList] = useState<PlayList>(null);
+  const nowPlayList = useSelector((state: AppState) => state.playList);
+  const dispatch = useDispatch();
 
-  console.log("nowMusicCode", addMusic);
+  // console.log("nowMusicCode", addMusic);
   const addPlayListHandler = async () => {
     try {
-      await playlistApi.addMusicToPlayList(addMusic);
-      const response = await playlistApi.getPlayList();
-      setTmpPlayList(response.data);
-      await console.log("playlist", tmpPlayList);
+      console.log("add", addMusic);
+      const req = {};
+      req["code"] = addMusic;
+      await playlistApi.addMusicToPlayList(req);
+      await playlistApi.getPlayList().then(({ data }) => {
+        try {
+          dispatch(setPlayList(data));
+        } catch (error) {
+          console.log(error);
+        }
+      });
+      await console.log("playlist", nowPlayList);
     } catch (error) {
       console.log(error);
     }
   };
 
   // isRealCollect Modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCollectModalOpen, setIsCollectModalOpen] = useState(false);
+
+  // CopyAddress Modal
+  const [isCopyModalOpen, setIsCopyModalOpen] = useState(false);
 
   // After AddAlbum
   const [changeNext, setChangeNext] = useState(false);
+
+  // Change MusicCode
+  const changeHandler = (code) => {
+    setAddMusic(code);
+    addPlayListHandler();
+  };
+
+  // useEffect(() => {
+  //   addPlayListHandler();
+  // }, [addMusic]);
 
   return (
     <Layout>
@@ -151,7 +178,7 @@ const AlbumDetail = () => {
         <S.AlbumCover>
           <BasicImage src={CLOUD_FRONT + albumDetailData.albumImage} />
           {albumDetailData.albumStatus === "NOT_COLLECTED" && (
-            <S.AlbumCoverDiv onClick={() => setIsModalOpen(true)}>
+            <S.AlbumCoverDiv onClick={() => setIsCollectModalOpen(true)}>
               <S.HaveBtn>
                 <CustomIconButton>
                   <BiDownload size="3rem" />
@@ -162,10 +189,10 @@ const AlbumDetail = () => {
               </S.HaveDiv>
             </S.AlbumCoverDiv>
           )}
-          {isModalOpen && (
+          {isCollectModalOpen && (
             <SmallModal
               handleSetShowModal={() => {
-                setIsModalOpen(false);
+                setIsCollectModalOpen(false);
               }}
             >
               <S.ModalContainer>
@@ -214,17 +241,48 @@ const AlbumDetail = () => {
             />
           </S.AlbumTitleDiv>
           {albumDetailData.albumStatus === "RELEASED" && (
-            <S.AlbumTitleLink
-              onClick={
-                () =>
-                  handleCopyClipBoard(`https://localhost3000/album/${albumId}`)
-                // handleCopyClipBoard(`https://lilac-music.net/album/${albumId}`)
-              }
-            >
-              <CustomIconButton>
-                <BiLink color="#e3dfff" size="2rem" />
-              </CustomIconButton>
-            </S.AlbumTitleLink>
+            <>
+              <S.AlbumTitleLink
+                onClick={() =>
+                  // handleCopyClipBoard(`https://localhost3000/album/${albumId}`)
+                  handleCopyClipBoard(
+                    `https://lilac-music.net/album/${albumId}`
+                  )
+                }
+              >
+                <CustomIconButton>
+                  <BiLink color="#e3dfff" size="2rem" />
+                </CustomIconButton>
+              </S.AlbumTitleLink>
+              {isCopyModalOpen && (
+                <SmallModal
+                  handleSetShowModal={() => {
+                    setIsCopyModalOpen(false);
+                  }}
+                >
+                  <S.ModalContainer>
+                    <S.ModalLine>
+                      <S.ModalText>
+                        <BasicText
+                          text="링크가 복사되었습니다"
+                          size="1.5rem"
+                          color="black"
+                        />
+                      </S.ModalText>
+                    </S.ModalLine>
+                    <S.ModalBtn>
+                      <CustomTextButton
+                        text="닫기"
+                        handleOnClickButton={() => {
+                          setIsCopyModalOpen(false);
+                        }}
+                        font="Ridibatang"
+                      />
+                    </S.ModalBtn>
+                  </S.ModalContainer>
+                </SmallModal>
+              )}
+            </>
           )}
         </S.AlbumTitle>
         <S.ContentTitleWrap>
@@ -232,8 +290,8 @@ const AlbumDetail = () => {
         </S.ContentTitleWrap>
         <S.MusicList>
           {albumDetailData.musicList.map(
-            ({ code, name, artistName, playtime, isTitle }) => (
-              <S.OneMusicCard key={code}>
+            ({ code, name, artistName, playtime, isTitle }, index) => (
+              <S.OneMusicCard key={index}>
                 <MusicCard
                   data={{
                     code: code,
@@ -249,8 +307,8 @@ const AlbumDetail = () => {
                       albumDetailData.albumStatus === "RELEASED" ||
                       albumDetailData.albumStatus === "COLLECTED"
                     ) {
-                      setAddMusic(code);
-                      await addPlayListHandler();
+                      changeHandler(code);
+                      // addPlayListHandler();
                     }
                   }}
                 />
