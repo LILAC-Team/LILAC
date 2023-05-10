@@ -1,9 +1,8 @@
 import * as S from "./style";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import BasicText from "@/components/common/BasicText";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import DragAndDrop from "@/components/Container/DragAndDrop";
-import MusicList from "../../../pages/musicList.json";
 import { useSelector, useDispatch } from "react-redux";
 import MusicCard from "../MusicCard";
 import { CLOUD_FRONT } from "@/api/index";
@@ -27,52 +26,52 @@ interface AppState {
   playList: PlayList;
 }
 
-const initialMusicListData: Music[] = [];
-
 const PlaylistDrawer = () => {
+  // Edit 여부
   const [isEdit, setIsEdit] = useState(false);
-
-  const handleEditClick = () => {
-    setIsEdit((props) => !props);
-    setList(nowPlayList.musicList);
-  };
-
+  // OnClick 여부
+  const [isOnClick, setIsOnClick] = useState(false);
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
+  const dispatch = useDispatch();
+  // UPDATE PlayList 담는 list
   const [list, setList] = useState(nowPlayList.musicList);
 
-  // SET NewPlayList
-  const dispatch = useDispatch();
-
+  // UPDATE PlayList with api
   const setNewPlayListHandler = async () => {
     try {
       const musicList = [...list];
       const req = {};
       req["musicList"] = musicList;
-      console.log("list", list);
-      console.log("this?", req);
-      console.log("!!!!!!", musicList);
-      setList(musicList);
       await playlistApi.putPlayList(req);
-      // setList(list);
     } catch (error) {
       console.log(error);
     }
   };
 
   // RELOAD PlayList
-  const reloadPlayListHandler = async () => {
+  const reloadPlayListHandler = useCallback(async () => {
     try {
       const response = await playlistApi.getPlayList();
       dispatch(setPlayList(response.data));
     } catch (error) {
       console.log(error);
     }
+  }, [dispatch]);
+
+  // EDIT Click
+  const handleEditClick = async () => {
+    setIsEdit((props) => !props);
+    await setNewPlayListHandler();
+    setIsOnClick(!isOnClick);
+    reloadPlayListHandler();
+    setList(nowPlayList.musicList);
   };
 
+  // BUTTON Click -> RELOAD PlayList
   useEffect(() => {
     reloadPlayListHandler();
-  }, [isEdit, list]);
+  }, [isOnClick, reloadPlayListHandler]);
 
   return (
     <S.Playlist>
@@ -88,7 +87,6 @@ const PlaylistDrawer = () => {
             text="완료"
             handleOnClickButton={() => {
               handleEditClick();
-              setNewPlayListHandler();
             }}
             fontColor="#FFFFFF"
             font="Ridibatang"
@@ -100,7 +98,6 @@ const PlaylistDrawer = () => {
             text="편집"
             handleOnClickButton={() => {
               handleEditClick();
-              setList(list);
             }}
             fontColor="#FFFFFF"
             font="Ridibatang"
