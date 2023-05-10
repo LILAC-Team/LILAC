@@ -5,7 +5,7 @@ interface CustomTextButtonProps {
   text: string;
   size?: string;
   font?: string;
-  fontColor: string;
+  fontColor?: string;
   border?: string;
   isBackground?: boolean;
   isDisabled?: boolean;

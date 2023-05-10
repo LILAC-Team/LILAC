@@ -10,11 +10,7 @@ const MyDocument = (props) => {
         <meta name="theme-color" content="#3d3a4b" />
         <link rel="favicon" sizes="192x192" href="/icons/favicon-192x192.png" />
         <link rel="favicon" sizes="512x512" href="/icons/favicon-512x512.png" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
-        />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <link
           rel="apple-touch-icon"
           sizes="57x57"

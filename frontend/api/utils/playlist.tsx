@@ -6,7 +6,7 @@ export const playlistApi = {
 
   // 재생목록 수정 API
   // 수정된 재생목록 통째로 넘겨야함
-  putPlayList: () => api.put("/playlists"),
+  putPlayList: (data) => api.put("/playlists", data),
 
   // 재생목록 곡 추가 API
   // 추가할 음원 코드 보내야함.
