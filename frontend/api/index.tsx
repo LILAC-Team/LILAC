@@ -69,3 +69,5 @@ instance.interceptors.response.use(
 );
 
 export const api = instance;
+
+export const CLOUD_FRONT = "https://d1nj0um6xv6zar.cloudfront.net/";

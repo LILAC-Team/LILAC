@@ -160,7 +160,12 @@ const Form = () => {
         return albumApi.uploadAlbum(formData);
       })
       .then((res) => {
+<<<<<<< HEAD
         router.push(`/album/${res.data.thisStringIsAlbumCode}`);
+=======
+        console.log("res: ", res);
+        router.push(`/album/${res.data}`);
+>>>>>>> e927a48b02fe6eaeecd7f3d957224acb0fa1b3e6
       })
       .catch((err) => {
         console.log("err: ", err);

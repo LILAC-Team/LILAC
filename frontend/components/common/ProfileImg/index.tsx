@@ -15,7 +15,6 @@ const ProfileImg = ({
   onClickEvent,
   isEditable = false,
 }: ProfileImgProps) => {
-  console.log("src: ", src);
   return (
     <Fragment>
       {isEditable ? (
