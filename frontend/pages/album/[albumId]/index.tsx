@@ -74,9 +74,28 @@ const initialAlbumDetailData: Album = {
 };
 
 const AlbumDetail = () => {
+  // SET Router
   const router = useRouter();
   const { albumId } = router.query;
+  // GET albumDetailData
+  const [albumDetailData, setAlbumDetailData] = useState<Album>(
+    initialAlbumDetailData
+  );
+  // ADD PlayList
+  const [addMusic, setAddMusic] = useState("");
+  // isRealCollect Modal
+  const [isCollectModalOpen, setIsCollectModalOpen] = useState(false);
+  // CopyAddress Modal
+  const [isCopyModalOpen, setIsCopyModalOpen] = useState(false);
+  // After AddAlbum
+  const [changeNext, setChangeNext] = useState(false);
+  // OnClick 여부
+  const [isOnClick, setIsOnClick] = useState(false);
+  // GET PlayList from Redux
+  const nowPlayList = useSelector((state: AppState) => state.playList);
+  const dispatch = useDispatch();
 
+  // COPY ClipBoard
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -86,11 +105,7 @@ const AlbumDetail = () => {
     }
   };
 
-  // GET albumDetailData
-  const [albumDetailData, setAlbumDetailData] = useState<Album>(
-    initialAlbumDetailData
-  );
-
+  // SET albumDetailData
   const albumDetailHandler = useCallback(async () => {
     try {
       const response = await albumApi.getAlbumInfo(albumId);
@@ -101,6 +116,7 @@ const AlbumDetail = () => {
     }
   }, [albumId]);
 
+  // CHANGE albumId or albumDetailHandler -> SET albumDetailData
   useEffect(() => {
     albumDetailHandler();
   }, [albumId, albumDetailHandler]);
@@ -108,7 +124,7 @@ const AlbumDetail = () => {
   // ADD albumToCollectAlbum
   const addOwnAlbumHandler = async () => {
     try {
-      const response = await albumApi.addAlbumToCollectedAlbum(albumId);
+      await albumApi.addAlbumToCollectedAlbum(albumId);
       albumDetailHandler();
       setChangeNext(true);
       setTimeout(() => setIsCollectModalOpen(false), 1000);
@@ -117,26 +133,15 @@ const AlbumDetail = () => {
     }
   };
 
-  // const addOwnAlbumHandler = async () => {
-  //   try {
-  //     albumApi.addAlbumToCollectedAlbum(albumId)
-  //     .then(() => {albumDetailHandler()})
-  //     .then(() => {setChangeNext(true)});
-  //     setTimeout(() => setIsCollectModalOpen(false), 1000);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  // Change MusicCode
+  const changeHandler = (code) => {
+    setAddMusic(code);
+  };
 
-  // ADD PlayList
-  const [addMusic, setAddMusic] = useState("");
-  const nowPlayList = useSelector((state: AppState) => state.playList);
-  const dispatch = useDispatch();
-
-  // console.log("nowMusicCode", addMusic);
-  const addPlayListHandler = async () => {
+  // ADD to PlayList
+  const addPlayListHandler = useCallback(async () => {
     try {
-      console.log("add", addMusic);
+      console.log(addMusic);
       const req = {};
       req["code"] = addMusic;
       await playlistApi.addMusicToPlayList(req);
@@ -147,30 +152,17 @@ const AlbumDetail = () => {
           console.log(error);
         }
       });
-      await console.log("playlist", nowPlayList);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [addMusic, dispatch]);
 
-  // isRealCollect Modal
-  const [isCollectModalOpen, setIsCollectModalOpen] = useState(false);
-
-  // CopyAddress Modal
-  const [isCopyModalOpen, setIsCopyModalOpen] = useState(false);
-
-  // After AddAlbum
-  const [changeNext, setChangeNext] = useState(false);
-
-  // Change MusicCode
-  const changeHandler = (code) => {
-    setAddMusic(code);
-    addPlayListHandler();
-  };
-
-  // useEffect(() => {
-  //   addPlayListHandler();
-  // }, [addMusic]);
+  // BUTTON Click -> ADD to PlayList
+  useEffect(() => {
+    if (addMusic !== "") {
+      addPlayListHandler();
+    }
+  }, [isOnClick, addPlayListHandler, addMusic]);
 
   return (
     <Layout>
@@ -244,7 +236,6 @@ const AlbumDetail = () => {
             <>
               <S.AlbumTitleLink
                 onClick={() =>
-                  // handleCopyClipBoard(`https://localhost3000/album/${albumId}`)
                   handleCopyClipBoard(
                     `https://lilac-music.net/album/${albumId}`
                   )
@@ -302,13 +293,13 @@ const AlbumDetail = () => {
                   }}
                   isEditable={false}
                   isTitle={isTitle}
-                  onClickEvent={async () => {
+                  onClickEvent={() => {
                     if (
                       albumDetailData.albumStatus === "RELEASED" ||
                       albumDetailData.albumStatus === "COLLECTED"
                     ) {
                       changeHandler(code);
-                      // addPlayListHandler();
+                      setIsOnClick(!isOnClick);
                     }
                   }}
                 />
