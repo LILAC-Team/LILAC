@@ -1,4 +1,8 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  combineReducers,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import storage from "redux-persist/lib/storage";
@@ -16,25 +20,31 @@ const rootReducer = combineReducers({
   playList,
 });
 
-const reducers = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const makeStore = () => {
   const store = configureStore({
     reducer: (state, action) => {
       switch (action.type) {
         case HYDRATE:
-          return action.payload;
+          // return action.payload;
+          return { ...state, ...action.payload };
         default:
-          return reducers(state, action);
+          return persistedReducer(state, action);
       }
     },
+    middleware: getDefaultMiddleware({
+      serializableCheck: false,
+    }),
   });
   return store;
 };
 
 const wrapper = createWrapper(makeStore, {
-  debug: process.env.NODE_ENV === "development",
+  // debug: process.env.NODE_ENV === "development",
+  debug: true,
 });
 
-// export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof persistedReducer>;
+export type AppDispatch = any;
 export default wrapper;

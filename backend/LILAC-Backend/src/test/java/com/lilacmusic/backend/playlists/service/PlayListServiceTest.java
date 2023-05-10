@@ -13,6 +13,9 @@ import com.lilacmusic.backend.playlists.model.repository.PlayListRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,19 +30,16 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@ExtendWith(SpringExtension.class)
-@ActiveProfiles("test")
-@Transactional
+@ExtendWith(MockitoExtension.class)
 public class PlayListServiceTest {
 
-    @Autowired
+    @InjectMocks
     private PlayListServiceImpl playListService;
 
-    @MockBean
+    @Mock
     private PlayListRepository playListRepository;
 
-    @MockBean
+    @Mock
     private MusicRepository musicRepository;
 
     @Test

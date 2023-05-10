@@ -164,7 +164,7 @@ const Form = () => {
       })
       .then((res) => {
         console.log("res: ", res);
-        router.push(`/album/${res.thisStringIsAlbumCode}`);
+        router.push(`/album/${res.data}`);
       })
       .catch((err) => {
         console.log("err: ", err);
