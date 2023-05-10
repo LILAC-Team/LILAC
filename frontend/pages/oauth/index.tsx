@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import wrapper from "@/store/configStore";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
-import CircularJSON from "circular-json";
 import { setPlayList } from "@/store/modules/playList";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
@@ -14,7 +13,7 @@ interface OauthProps {
   query: object;
 }
 
-const Oauth = ({ query }) => {
+const Oauth = ({ query }: OauthProps) => {
   const router = useRouter();
   const [cookies, setCookie] = useCookies();
   useEffect(() => {
@@ -77,7 +76,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
           profileImage: profileImage,
         })
       );
-      console.info("store: ", store);
       return {
         props: {
           initialReduxState: store.getState(),

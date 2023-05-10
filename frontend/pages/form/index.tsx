@@ -12,8 +12,6 @@ import CustomTextButton from "@/components/common/CustomTextButton";
 import { albumApi } from "@/api/utils/album";
 import { useRouter } from "next/router";
 interface ProfileState {
-  // previewImgUrl: string | ArrayBuffer;
-  // file: File | {};
   previewImgUrl: any;
   file: any;
 }
@@ -159,12 +157,10 @@ const Form = () => {
 
     Promise.all([imageFilePromise, ...musicFilePromises])
       .then(() => {
-        console.log("formData: ", formData);
         return albumApi.uploadAlbum(formData);
       })
       .then((res) => {
-        console.log("res: ", res);
-        router.push(`/album/${res.thisStringIsAlbumCode}`);
+        router.push(`/album/${res.data.thisStringIsAlbumCode}`);
       })
       .catch((err) => {
         console.log("err: ", err);
