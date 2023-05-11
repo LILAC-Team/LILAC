@@ -3,8 +3,12 @@ import * as S from "./style";
 import React, { useState } from "react";
 import CommentInput from "../CommentInput";
 import CommentCard from "../CommentCard";
-import user from "../../../pages/user.json";
 import comment from "../../../pages/comment.json";
+import { useSelector } from "react-redux";
+
+interface userState {
+  user: any;
+}
 
 const CommentDrawer = () => {
   const [inputData, setInputData] = useState("");
@@ -24,6 +28,7 @@ const CommentDrawer = () => {
     console.log(inputData);
     setInputData("");
   };
+  const userInfo = useSelector((state: userState) => state.user);
   return (
     <S.Comment>
       <S.Top>
@@ -32,7 +37,7 @@ const CommentDrawer = () => {
       </S.Top>
       <S.InputAllWrap>
         <CommentInput
-          src={user.profileImage}
+          src={userInfo.profileImage}
           value={inputData}
           handleOnChangeValue={changeInputData}
           handleOnKeyDownValue={handleKeyPress}
@@ -48,7 +53,7 @@ const CommentDrawer = () => {
                 nickname={item.userInfo.nickname}
                 time={item.presentTime}
                 content={item.content}
-                isMine={item.userInfo.email === user.email ? true : false}
+                isMine={item.userInfo.email === userInfo.email ? true : false}
               />
             </React.Fragment>
           );
