@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
@@ -49,6 +49,25 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const handleClickList = () => {
     console.log("Show Music List Modal");
   };
+  const [state, setState] = React.useState({ bottom: false });
+  const [nowOpen, setNowOpen] = useState("");
+  const toggleDrawer =
+    (anchor: string, open: boolean) =>
+    (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+
+      setState({ ...state, [anchor]: open });
+    };
+  const iOS =
+    typeof navigator !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   return (
     <div>
@@ -97,11 +116,22 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
           <CustomIconButton handleOnClickButton={handleClickForward}>
             <IoPlayForward size="1.5rem" color="#FFFFFF" />
           </CustomIconButton>
-          <CustomIconButton handleOnClickButton={handleClickList}>
+          <CustomIconButton
+            handleOnClickButton={(e) => {
+              toggleDrawer("bottom", true)(e);
+              setNowOpen("playlist");
+            }}
+          >
             <RiPlayListFill size="1.5rem" color="#FFFFFF" />
           </CustomIconButton>
         </S.RightWrapper>
       </S.BarWrapper>
+      <Drawer
+        inner={nowOpen}
+        toggleDrawer={toggleDrawer}
+        state={{ ...state }}
+        anchor={"bottom"}
+      />
     </div>
   );
 };

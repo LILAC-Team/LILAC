@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import LILAC_Icon_src from "/LILAC_Icon.png";
 
 export const AlbumDetail = styled.div`
   width: 100%;
@@ -14,8 +13,6 @@ export const AlbumCover = styled.div`
   width: 100%;
   height: 100%;
   aspect-ratio: 1/1;
-  /* background-color: #d9d9d9; */
-  /* border: 2px solid #e3dfff; */
   position: relative;
   border-radius: 1rem;
   min-width: 13rem;
@@ -95,7 +92,6 @@ export const ModalContainer = styled.div`
 `;
 
 export const ModalText = styled.div`
-  /* width: 100%; */
   align-items: center;
   justify-content: center;
   display: flex;
