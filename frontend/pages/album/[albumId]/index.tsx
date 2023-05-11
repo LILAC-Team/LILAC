@@ -113,7 +113,7 @@ const AlbumDetail = () => {
       setAlbumDetailData(response.data);
       console.log(response.data);
     } catch (error) {
-      console.log(error);
+      console.log("error: ", error);
     }
   }, [albumId]);
 
