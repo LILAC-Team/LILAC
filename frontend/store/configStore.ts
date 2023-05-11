@@ -40,7 +40,8 @@ export const makeStore = () => {
 };
 
 const wrapper = createWrapper(makeStore, {
-  debug: process.env.NODE_ENV === "development",
+  // debug: process.env.NODE_ENV === "development",
+  debug: true,
 });
 
 export type RootState = ReturnType<typeof persistedReducer>;
