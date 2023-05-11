@@ -20,7 +20,7 @@ interface AlbumCardProps {
 const AlbumCard = ({
   onClickEvent,
   data,
-  albumSize = "150%",
+  albumSize = "100%",
   titleSize = "100%",
   font,
   showAlbumDetail = false,
