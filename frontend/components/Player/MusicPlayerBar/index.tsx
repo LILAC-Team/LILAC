@@ -7,11 +7,7 @@ import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
 import { RiPlayListFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import ReactPlayer from "react-player";
-import {
-  togglePlay,
-  nextTrack,
-  setTrack,
-} from "@/store/modules/playerController";
+import { togglePlay, nextTrack, setTrack } from "@/store/modules/playList";
 
 interface MusicPlayerBarProps {
   data: {
@@ -23,10 +19,12 @@ interface MusicPlayerBarProps {
 }
 
 interface MusicControllerState {
-  playerController: {
+  playList: {
     playing: boolean;
     currentTrackingIndex: number;
     currSrc: string;
+    musicList: Array<Object>;
+    listSize: number;
   };
 }
 
@@ -34,7 +32,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const [playState, setPlayState] = useState(false);
   const dispatch = useDispatch();
   const { playing, currentTrackingIndex, currSrc } = useSelector(
-    (state: MusicControllerState) => state.playerController
+    (state: MusicControllerState) => state.playList
   );
 
   const handleClickPlay = () => {
@@ -44,6 +42,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   };
 
   const handleClickForward = () => {
+    dispatch(nextTrack());
     console.log("Play next music");
   };
 
