@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const AlbumContainer = styled.div`
   width: 100%;
+  padding-top: 0.5rem;
   height: calc(var(--vh, 1vh) * 100 - 14.5rem);
   display: grid;
   grid-template-columns: 1fr 1fr;
