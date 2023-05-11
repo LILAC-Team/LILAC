@@ -8,7 +8,7 @@ import { RiPlayListFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import ReactPlayer from "react-player";
 import { togglePlay, nextTrack, setTrack } from "@/store/modules/playList";
-
+import Drawer from "@/components/common/Drawer";
 interface MusicPlayerBarProps {
   data: {
     name: string;
