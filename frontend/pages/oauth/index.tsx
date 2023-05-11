@@ -4,11 +4,12 @@ import wrapper from "@/store/configStore";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import CircularJSON from "circular-json";
-
+import { setPlayList } from "@/store/modules/playList";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 import { setLogIn } from "@/store/modules/user";
-
+import { playlistApi } from "@/api/utils/playlist";
+import axios from "axios";
 interface OauthProps {
   query: object;
 }
@@ -50,8 +51,22 @@ export const getServerSideProps = wrapper.getServerSideProps(
           `accessToken=${accessToken}`,
           `refreshToken=${refreshToken}`,
         ]);
+        try {
+          const { data } = await axios.get(
+            "https://lilac-music.net/api/v1/playlists",
+            {
+              headers: {
+                Authorization: `${accessToken}`,
+              },
+            }
+          );
+          store.dispatch(setPlayList(data));
+        } catch (error) {
+          console.info("error: ", error);
+        }
       } else {
         res.setHeader("Set-Cookie", "isLogIn=false");
+        store.dispatch(setPlayList({ musicList: [], listSize: 0 }));
       }
       store.dispatch(
         setLogIn({
@@ -59,9 +74,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
           isLogIn: true,
           nickName:
             typeof nickname === "string" ? decodeURI(nickname) : nickname,
-          profileImagePath: profileImage,
+          profileImage: profileImage,
         })
       );
+      console.info("store: ", store);
       return {
         props: {
           initialReduxState: store.getState(),

@@ -1,6 +1,7 @@
 import * as S from "./style";
 import MusicCard from "@/components/Player/MusicCard";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { CLOUD_FRONT } from "@/api/index";
 
 const DragAndDrop = ({ list, setList }) => {
   const handleOnDragEnd = (result) => {
@@ -9,7 +10,6 @@ const DragAndDrop = ({ list, setList }) => {
     const items = Array.from(list);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
     setList(items);
   };
 
@@ -20,7 +20,11 @@ const DragAndDrop = ({ list, setList }) => {
           <S.DragDropWrap {...provided.droppableProps} ref={provided.innerRef}>
             {list.map(
               ({ code, name, albumImage, artistName, playtime }, index) => (
-                <Draggable key={code} draggableId={code} index={index}>
+                <Draggable
+                  key={index + ""}
+                  draggableId={index + ""}
+                  index={index}
+                >
                   {(provided) => (
                     <S.OneMusicCard
                       ref={provided.innerRef}
@@ -28,7 +32,13 @@ const DragAndDrop = ({ list, setList }) => {
                       {...provided.dragHandleProps}
                     >
                       <MusicCard
-                        data={{ code, name, albumImage, artistName, playtime }}
+                        data={{
+                          code,
+                          name,
+                          albumImage: CLOUD_FRONT + albumImage,
+                          artistName,
+                          playtime,
+                        }}
                         isEditable={true}
                       />
                     </S.OneMusicCard>

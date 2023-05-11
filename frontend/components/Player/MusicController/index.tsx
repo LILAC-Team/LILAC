@@ -52,7 +52,7 @@ const MusicController = ({ handleRotateClick }) => {
 
   useEffect(() => {
     handleRotateClick(playState);
-  }, [playState]);
+  }, [playState, handleRotateClick]);
 
   return (
     <S.ControllerWrapper>

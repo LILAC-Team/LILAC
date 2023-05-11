@@ -3,6 +3,8 @@ import BasicText from "../BasicText";
 import ProfileImg from "../ProfileImg";
 import * as S from "./style";
 import SelectBox from "../SelectBox";
+import { memberApi } from "@/api/utils/member";
+import { useEffect, useState, useMemo } from "react";
 
 interface HeaderProps {
   isShown?: boolean;
@@ -12,9 +14,24 @@ const list = ["수정", "로그아웃"];
 const funcArr = [() => console.log("수정"), () => console.log("로그아웃")];
 
 const Header = ({ isShown = true }: HeaderProps) => {
+  const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
+
   const handleProfileClick = () => {
     console.log("Navigate to User Profile Page");
   };
+
+  const getProfileImage = async () => {
+    try {
+      const res = await memberApi.getUserInfo();
+      setProfileImage(res.data.result.profileImage);
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    getProfileImage();
+  }, []);
 
   return (
     <div>
@@ -34,11 +51,8 @@ const Header = ({ isShown = true }: HeaderProps) => {
         <S.ProfileWrapper>
           {isShown && (
             <SelectBox list={list} funcArr={funcArr}>
-              <ProfileImg size="4rem" />
+              <ProfileImg size="4rem" src={profileImage} />
             </SelectBox>
-            // <Link href={"/"}>
-            //   <ProfileImg onClickEvent={handleProfileClick} />
-            // </Link>
           )}
         </S.ProfileWrapper>
       </S.HeaderWrapper>

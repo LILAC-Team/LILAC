@@ -50,11 +50,12 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(new JwtAuthenticationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), jwtTokenUtils), BasicAuthenticationFilter.class);
         http.authorizeRequests()
-                .antMatchers("/test")
+                .antMatchers(HttpMethod.POST, "/api/v1/members", "/api/v1/refresh")
+                .permitAll()
+                .antMatchers("/api/v1/error/**")
+                .permitAll()
+                .anyRequest()
                 .authenticated();
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/login/test").authenticated()
-                .anyRequest().permitAll();
         http.oauth2Login()
                 .loginPage("/login")
                 .authorizationEndpoint()

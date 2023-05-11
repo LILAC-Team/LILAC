@@ -16,6 +16,13 @@ export const AlbumContainer = styled.div`
   }
 `;
 
+export const EmptyContainer = styled.div`
+  display: flex;
+  width: 22.5rem;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const OneAlbumCard = styled.div`
   width: 100%;
   padding: 1rem;

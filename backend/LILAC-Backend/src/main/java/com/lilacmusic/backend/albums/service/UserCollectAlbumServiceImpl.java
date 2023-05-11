@@ -34,9 +34,9 @@ public class UserCollectAlbumServiceImpl implements UserCollectAlbumService {
                 .memberId(memberId)
                 .createdTime(LocalDateTime.now())
                 .build();
-        userCollectAlbumRepository.save(userCollectAlbum);
+        userCollectAlbum = userCollectAlbumRepository.save(userCollectAlbum);
         memberRepository.updateCollectingByMemberId(memberId);
-        
+
         return userCollectAlbum.getUserCollectAlbumId();
     }
 }

@@ -1,6 +1,5 @@
 import * as S from "./style";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import CircularJSON from "circular-json";
 import Layout from "@/components/common/Layout";
 import MusicCard from "@/components/Player/MusicCard";
@@ -11,7 +10,7 @@ import AudioFileInput from "@/components/common/AudioFileInput";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import { albumApi } from "@/api/utils/album";
-
+import { useRouter } from "next/router";
 interface ProfileState {
   // previewImgUrl: string | ArrayBuffer;
   // file: File | {};
@@ -20,6 +19,7 @@ interface ProfileState {
 }
 
 const Form = () => {
+  const router = useRouter();
   const [albumTitle, setAlbumTitle] = useState("NewHyunsus");
   const [albumImage, setAlbumImage] = useState<ProfileState>({
     previewImgUrl: "",
@@ -30,6 +30,7 @@ const Form = () => {
     title: "",
     artist: "",
     isTitle: false,
+    playtime: 0,
     file: {},
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,17 +59,30 @@ const Form = () => {
     const {
       target: { files, value },
     } = e;
-    if (e.target.value === "") {
-      setCurrTrackInfo({ title: "", artist: "", isTitle: false, file: {} });
+    if (value === "") {
+      setCurrTrackInfo({
+        title: "",
+        artist: "",
+        isTitle: false,
+        playtime: 0,
+        file: {},
+      });
     } else {
-      // const reader = new FileReader();
-      // reader.onload = () => {
-      //   const audioContext = new AudioContext();
-      //   audioContext.decodeAudioData(files[0]).then(function (audioBuffer) {
-      //     console.log(`Duration: ${audioBuffer.duration} seconds`);
-      //   });
-      // };
-      setCurrTrackInfo({ ...currTrackInfo, file: files[0] });
+      const fileReader = new FileReader();
+      const audioContext = new AudioContext();
+
+      fileReader.onload = () => {
+        const arrayBuffer = fileReader.result as ArrayBuffer;
+        audioContext.decodeAudioData(arrayBuffer, (audioBuffer) => {
+          setCurrTrackInfo({
+            ...currTrackInfo,
+            playtime: Math.ceil(audioBuffer.duration),
+            file: files[0],
+          });
+          console.log(`Duration: ${Math.ceil(audioBuffer.duration)} seconds`);
+        });
+      };
+      fileReader.readAsArrayBuffer(files[0]);
       setIsModalOpen(true);
     }
   };
@@ -84,17 +98,23 @@ const Form = () => {
 
   const handleAddTrackToAlbum = () => {
     setAlbumTrackList([currTrackInfo, ...albumTrackList]);
-    setCurrTrackInfo({ title: "", artist: "", isTitle: false, file: {} });
+    setCurrTrackInfo({
+      title: "",
+      artist: "",
+      isTitle: false,
+      playtime: 0,
+      file: {},
+    });
     setIsModalOpen(false);
   };
 
+  // 앨범 등록
   const registerAlbum = async () => {
     const formData = new FormData();
     const arr: Object[] = new Array();
-    const reader = new FileReader();
-
+    const albumInfo = {};
+    albumInfo["name"] = albumTitle;
     // 앨범 정보
-    arr.push({ name: albumTitle });
     albumTrackList.map((data, index) => {
       const obj = {
         artistName: data.artist,
@@ -105,51 +125,50 @@ const Form = () => {
       };
       arr.push(obj);
     });
+    albumInfo["musicList"] = arr;
 
-    formData.append("albumInfo", JSON.stringify(arr));
+    formData.append("albumInfo", JSON.stringify(albumInfo));
 
     // 앨범 이미지 정보
-    await reader.readAsArrayBuffer(albumImage.file);
-    const blob = new Blob([reader.result], {
-      type: albumImage.file.type,
+    const reader = new FileReader();
+    const imageFilePromise = new Promise<void>((resolve, reject) => {
+      reader.onload = () => {
+        const blob = new Blob([reader.result], {
+          type: albumImage.file.type,
+        });
+        formData.append("imageFile", blob);
+        resolve();
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(albumImage.file);
     });
-    formData.append("imageFile", blob);
 
-    // await albumTrackList.map(async (data, index) => {
-    //   const reader2 = new FileReader();
-    //   await reader2.readAsArrayBuffer(data.file);
-    //   const blob = new Blob([reader2.result], {
-    //     type: albumImage.file.type,
-    //   });
-    //   formData.append("musicFiles", blob);
-    // });
+    // 음원 파일 Blob 처리
+    const musicFilePromises = albumTrackList.map((data) => {
+      return new Promise<void>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const blob = new Blob([reader.result], { type: data.file.type });
+          formData.append("musicFiles", blob);
+          resolve();
+        };
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(data.file);
+      });
+    });
 
-    // await Promise.all(
-    //   albumTrackList.map(async (data, index) => {
-    //     const reader2 = new FileReader();
-    //     reader2.readAsArrayBuffer(data.file);
-    //     await new Promise((resolve) => {
-    //       reader2.onload = () => {
-    //         const blob = new Blob([reader2.result], {
-    //           type: data.file.type,
-    //         });
-    //         formData.append("musicFiles", blob);
-    //         resolve();
-    //       };
-    //     });
-    //   })
-    // );
-
-    // console.log("헤헤헤헤");
-    // albumApi
-    //   .uploadAlbum(formData)
-    //   .then((res) => {
-    //     alert("성공");
-    //     console.log("res: ", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("err: ", err);
-    //   });
+    Promise.all([imageFilePromise, ...musicFilePromises])
+      .then(() => {
+        console.log("formData: ", formData);
+        return albumApi.uploadAlbum(formData);
+      })
+      .then((res) => {
+        console.log("res: ", res);
+        router.push(`/album/${res.data}`);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
   };
 
   return (
@@ -172,12 +191,6 @@ const Form = () => {
             <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
           </S.ContentTitleWrap>
           <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
-          {/* <MusicCard
-            onClickEvent={() => console.log("ClickClick")}
-            data={{ name: "name", albumImage: "", nickname: "nickname" }}
-            isEditable={true}
-          /> */}
-
           {albumTrackList.length > 0 &&
             albumTrackList.map((val, index) => (
               <MusicCard
@@ -186,6 +199,7 @@ const Form = () => {
                 data={{
                   code: "index",
                   name: val.title,
+                  playtime: val.playtime,
                   albumImage: albumImage.previewImgUrl,
                   artistName: val.artist,
                 }}

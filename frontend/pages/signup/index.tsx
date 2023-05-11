@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
-import React from "react";
-import CircularJSON from "circular-json";
 import * as S from "./style";
+import CircularJSON from "circular-json";
+import React, { useState, useEffect } from "react";
 import BasicText from "@/components/common/BasicText";
 import ProfileImg from "@/components/common/ProfileImg";
 import BasicInput from "@/components/common/BasicInput";
@@ -11,6 +10,8 @@ import { memberApi } from "@/api/utils/member";
 import { useCookies } from "react-cookie";
 import { setLogIn } from "@/store/modules/user";
 import { useRouter } from "next/router";
+import { playlistApi } from "@/api/utils/playlist";
+import { setPlayList } from "@/store/modules/playList";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
@@ -33,7 +34,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (userInfo) {
-      setProfile({ previewImgUrl: userInfo.profileImagePath, file: {} });
+      setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
     }
     console.log("userInfo: ", userInfo);
   }, []);
@@ -71,8 +72,8 @@ const SignUp = () => {
       nickname: nickName,
     };
 
-    if (profile.previewImgUrl === userInfo.profileImagePath) {
-      data["profileImage"] = userInfo.profileImagePath;
+    if (profile.previewImgUrl === userInfo.profileImage) {
+      data["profileImage"] = userInfo.profileImage;
     } else {
       await reader.readAsArrayBuffer(profile.file);
       const blob = new Blob([reader.result], {
@@ -94,11 +95,19 @@ const SignUp = () => {
             isLogIn: true,
             email,
             nickName: nickname,
-            profileImagePath: profileImage,
+            profileImage: profileImage,
           })
         );
         setCookies("refreshToken", refreshToken, { path: "/" });
         setCookies("accessToken", accessToken, { path: "/" });
+        return playlistApi.getPlayList();
+      })
+      .then(({ data }) => {
+        try {
+          dispatch(setPlayList(data));
+        } catch (error) {
+          console.log("error: ", error);
+        }
         router.push("/");
       })
       .catch((error) => {
