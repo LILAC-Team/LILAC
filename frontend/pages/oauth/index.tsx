@@ -7,7 +7,6 @@ import { setPlayList } from "@/store/modules/playList";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 import { setLogIn } from "@/store/modules/user";
-import { playlistApi } from "@/api/utils/playlist";
 import axios from "axios";
 interface OauthProps {
   query: object;
@@ -44,6 +43,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ query, req, res }) => {
       const { email, nickname, profileImage, accessToken, refreshToken } =
         query;
+      console.info("-----------------------------");
+      console.info("query: ", query);
+      // console.info(decodeURI(query.profileImage));
       if (accessToken) {
         res.setHeader("Set-Cookie", [
           "isLogIn=true",
@@ -51,7 +53,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
           `refreshToken=${refreshToken}`,
         ]);
         try {
-          const { data } = await axios.get(
+          const response = await axios.get(
             "https://lilac-music.net/api/v1/playlists",
             {
               headers: {
@@ -59,13 +61,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
               },
             }
           );
-          store.dispatch(setPlayList(data));
+          console.info("------------data-------------- : ", response.data);
+          store.dispatch(setPlayList(response.data));
         } catch (error) {
           console.info("error: ", error);
         }
       } else {
         res.setHeader("Set-Cookie", "isLogIn=false");
-        store.dispatch(setPlayList({ musicList: [], listSize: 0 }));
+        // store.dispatch(setPlayList({ musicList: [], listSize: 0 }));
       }
       store.dispatch(
         setLogIn({

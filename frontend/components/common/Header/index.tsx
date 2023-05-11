@@ -5,6 +5,11 @@ import * as S from "./style";
 import SelectBox from "../SelectBox";
 import { memberApi } from "@/api/utils/member";
 import { useEffect, useState, useMemo } from "react";
+import { useSelector } from "react-redux";
+
+interface userState {
+  user: any;
+}
 
 interface HeaderProps {
   isShown?: boolean;
@@ -16,21 +21,26 @@ const funcArr = [() => console.log("수정"), () => console.log("로그아웃")]
 const Header = ({ isShown = true }: HeaderProps) => {
   const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
 
+  const userInfo = useSelector((state: userState) => state.user);
+
   const handleProfileClick = () => {
     console.log("Navigate to User Profile Page");
   };
 
   const getProfileImage = async () => {
     try {
-      const res = await memberApi.getUserInfo();
-      setProfileImage(res.data.result.profileImage);
+      // const res = await memberApi.getUserInfo();
+      setProfileImage(userInfo.profileImage);
     } catch (error) {
       console.log("error: ", error);
     }
   };
 
   useEffect(() => {
-    getProfileImage();
+    if (userInfo) {
+      setProfileImage(userInfo.profileImage);
+    }
+    // getProfileImage();
   }, []);
 
   return (
