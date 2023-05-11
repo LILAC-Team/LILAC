@@ -25,6 +25,15 @@ export const playList = createSlice({
     togglePlay: (state) => {
       state.playing = !state.playing;
     },
+    prevTrack: (state) => {
+      state.currentTrackIndex =
+        (state.currentTrackIndex + state.listSize + 1) % state.listSize;
+      const url =
+        process.env.CLOUDFRONT_URL +
+        state.musicList[state.currentTrackIndex].code;
+      state.currSrc = url;
+      state.playing = true;
+    },
     nextTrack: (state) => {
       state.currentTrackIndex = (state.currentTrackIndex + 1) % state.listSize;
       const url =
@@ -42,7 +51,7 @@ export const playList = createSlice({
   },
 });
 
-export const { setPlayList, togglePlay, nextTrack, setTrack } =
+export const { setPlayList, togglePlay, prevTrack, nextTrack, setTrack } =
   playList.actions;
 
 export default playList.reducer;

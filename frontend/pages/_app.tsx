@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import wrapper from "@/store/configStore";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import { memberApi } from "@/api/utils/member";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(pageProps);
@@ -36,12 +37,18 @@ MyApp.getInitialProps = async ({ ctx, Component }) => {
   const confirmUrl = ["/", "/album", "/form"];
   console.log("pathname: ", pathname);
   const isLogin = ctx.req.cookies.isLogIn;
-  if (isLogin !== "true" && confirmUrl.includes(pathname)) {
-    ctx.res.setHeader("Location", "/login");
-    ctx.res.statusCode = 302;
-    ctx.res.end();
-    return {};
+  if (confirmUrl.includes(pathname)) {
+    try {
+      const data = await memberApi.getUserInfo();
+    } catch (error) {
+      console.info("---error----", error);
+      ctx.res.setHeader("Location", "/login");
+      ctx.res.statusCode = 302;
+      ctx.res.end();
+      return {};
+    }
   }
+
   let pageProps = {};
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);

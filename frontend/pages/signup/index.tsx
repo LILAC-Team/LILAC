@@ -30,15 +30,16 @@ const SignUp = () => {
     previewImgUrl: "",
     file: {},
   });
-  const userInfo = useSelector((state: AppState) => state.user);
+  let userInfo = useSelector((state: AppState) => state.user);
   const router = useRouter();
   const dispatch = useDispatch();
+  console.log("userInfo!!!!: ", userInfo);
   useEffect(() => {
     if (userInfo) {
       setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
     }
     console.log("userInfo: ", userInfo);
-  }, []);
+  }, [userInfo]);
 
   const handleNicknameChange = async (
     e: React.ChangeEvent<HTMLInputElement>

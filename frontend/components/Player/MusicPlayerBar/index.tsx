@@ -74,7 +74,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
       <S.ReactPlayerWrap>
         <ReactPlayer
           playing={playing}
-          url="https://d1nj0um6xv6zar.cloudfront.net/musics/music-ad7d8dc1-4dbc-4933-9a19-04d54a019063.m3u8"
+          url="https://d1nj0um6xv6zar.cloudfront.net/musics/music-b08846fb-87be-4acf-a842-4df6a2e12464.m3u8"
           config={{
             file: {
               forceAudio: true,
