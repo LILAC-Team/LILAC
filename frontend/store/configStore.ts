@@ -19,7 +19,6 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user,
   playList,
-  playerController,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,7 +28,6 @@ export const makeStore = () => {
     reducer: (state, action) => {
       switch (action.type) {
         case HYDRATE:
-          // return action.payload;
           return { ...state, ...action.payload };
         default:
           return persistedReducer(state, action);
@@ -44,7 +42,6 @@ export const makeStore = () => {
 
 const wrapper = createWrapper(makeStore, {
   debug: process.env.NODE_ENV === "development",
-  // debug: true,
 });
 
 export type RootState = ReturnType<typeof persistedReducer>;
