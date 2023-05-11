@@ -67,7 +67,7 @@ public class MemberController {
     @GetMapping("/api/v1/members")
     public BaseResponse<MemberDetailResponse> memberInfo(HttpServletRequest request) throws JsonProcessingException {
 
-        Long memberId = validator.getMemberIdOrMinusOne(request);
+        Long memberId = validator.validateEmail(request);
 
         MemberDetailResponse memberDetail = memberService.memberDetail(memberId);
         return new BaseResponse<>(memberDetail);
