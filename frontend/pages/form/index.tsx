@@ -130,15 +130,18 @@ const Form = () => {
     // 앨범 이미지 정보
     const reader = new FileReader();
     const imageFilePromise = new Promise<void>((resolve, reject) => {
-      reader.onload = () => {
-        const blob = new Blob([reader.result], {
-          type: albumImage.file.type,
-        });
-        formData.append("imageFile", blob);
-        resolve();
-      };
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(albumImage.file);
+      // reader.onload = () => {
+      //   const blob = new Blob([reader.result], {
+      //     type: albumImage.file.type,
+      //   });
+      //   formData.append("imageFile", blob);
+      //   resolve();
+      // };
+
+      formData.append("imageFile", albumImage.file);
+      resolve();
+      // reader.onerror = reject;
+      // reader.readAsArrayBuffer(albumImage.file);
     });
 
     // 음원 파일 Blob 처리
@@ -178,14 +181,14 @@ const Form = () => {
           />
           <S.AlbumTitleWrap>
             <BasicInput
-              id="nickname"
-              type="text"
+              id='nickname'
+              type='text'
               value={albumTitle}
               handleOnChangeValue={handleAlbumTitleOnChange}
             />
           </S.AlbumTitleWrap>
           <S.ContentTitleWrap>
-            <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
+            <BasicText text='음원목록' size='1.5rem' font='NotoSansKR700' />
           </S.ContentTitleWrap>
           <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
           {albumTrackList.length > 0 &&
@@ -204,8 +207,8 @@ const Form = () => {
               ></MusicCard>
             ))}
           <CustomTextButton
-            text="등록"
-            fontColor="var(--color-background)"
+            text='등록'
+            fontColor='var(--color-background)'
             handleOnClickButton={registerAlbum}
             // border="2px soild white"
           />
@@ -219,37 +222,37 @@ const Form = () => {
         >
           <S.ModalContainer>
             <BasicText
-              text="제목"
-              size="1.25rem"
-              color="var(--color-background)"
+              text='제목'
+              size='1.25rem'
+              color='var(--color-background)'
             />
             <BasicInput
-              id="title"
-              type="text"
-              color="var(--color-background)"
+              id='title'
+              type='text'
+              color='var(--color-background)'
               value={currTrackInfo.title}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
 
             <BasicText
-              text="아티스트"
-              size="1.25rem"
-              color="var(--color-background)"
+              text='아티스트'
+              size='1.25rem'
+              color='var(--color-background)'
             />
             <BasicInput
-              id="artist"
-              type="text"
-              color="var(--color-background)"
+              id='artist'
+              type='text'
+              color='var(--color-background)'
               value={currTrackInfo.artist}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
             <div>
-              <input type="checkbox" />
+              <input type='checkbox' />
               title 여부
             </div>
             <CustomTextButton
-              text="등록"
-              fontColor="var(--color-background)"
+              text='등록'
+              fontColor='var(--color-background)'
               handleOnClickButton={handleAddTrackToAlbum}
               // border="2px soild white"
             />

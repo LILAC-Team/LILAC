@@ -3,14 +3,12 @@ import React from "react";
 import styled from "styled-components";
 import BasicSlider from "@/components/Home/BasicSlider";
 import CircularJSON from "circular-json";
+import { useRouter } from "next/router";
 import Layout from "@/components/common/Layout";
 import MainAlbum from "@/components/Home/MainAlbum";
 import BasicText from "@/components/common/BasicText";
 import { memberApi } from "@/api/utils/member";
 import { albumApi } from "@/api/utils/album";
-import { useRouter } from "next/router";
-import dummy1 from "../pages/test.json";
-import dummy2 from "../pages/test2.json";
 
 interface HomeProps {
   initValues?: boolean;
@@ -19,26 +17,20 @@ interface HomeProps {
 }
 
 const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
-  const [userData, setUserData] = useState({
-    nickname: "",
-    profileImage: "/defaultProfile.svg",
-  });
-  const [myAlbum, setMyAlbum] = useState({ myList: [], myCount: 0 });
-  const [ownAlbum, setOwnAlbum] = useState({ ownList: [], ownCount: 0 });
-
-  // const [isModalOpen, setIsModalOpen] = useState(initValues);
-  // const [inputValue, setInputValue] = useState(initInput);
-  // const router = useRouter();
+  const [nickname, setNickName] = useState("");
+  const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
+  const [myList, setMyList] = useState([]);
+  const [ownList, setOwnList] = useState([]);
+  const [myListNum, setMyListNum] = useState(0);
+  const [ownListNum, setOwnListNum] = useState(0);
 
   const isLogIn = JSON.parse(req).cookies.isLogIn === undefined ? false : true;
 
   const getUserInfo = async () => {
     try {
       const res = await memberApi.getUserInfo();
-      setUserData({
-        nickname: res.data.result.nickname,
-        profileImage: res.data.result.profileImage,
-      });
+      setNickName(res.data.result.nickname);
+      setProfileImage(res.data.result.profileImage);
     } catch (error) {
       console.log("error: ", error);
     }
@@ -47,10 +39,9 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   const myAlbumList = async () => {
     try {
       const res = await albumApi.getReleasedAlbum(1);
-      setMyAlbum({
-        myList: res.data.releasedAlbumList,
-        myCount: res.data.totalElements,
-      });
+      console.log("res: ", res);
+      setMyList(res.data.releasedAlbumList);
+      setMyListNum(res.data.totalElements);
     } catch (error) {
       console.log("error: ", error);
     }
@@ -59,19 +50,18 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   const ownAlbumList = async () => {
     try {
       const res = await albumApi.getCollectedAlbum(1);
-      setOwnAlbum({
-        ownList: res.data.collectedAlbumList,
-        ownCount: res.data.totalElements,
-      });
+      setOwnList(res.data.collectedAlbumList);
+      setOwnListNum(res.data.totalElements);
     } catch (error) {
       console.log("error: ", error);
     }
   };
 
   useEffect(() => {
-    // getUserInfo();
+    console.log("하하");
     myAlbumList();
     ownAlbumList();
+    getUserInfo();
   }, []);
 
   // const handleModal = () => {
@@ -85,35 +75,35 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   return (
     <Layout>
       <MainAlbum
-        nickname={userData.nickname}
-        profileImage={userData.profileImage}
-        myAlbum={myAlbum.myCount.toString()}
-        ownAlbum={ownAlbum.ownCount.toString()}
+        nickname={nickname}
+        profileImage={profileImage}
+        myAlbum={myListNum.toString()}
+        ownAlbum={ownListNum.toString()}
       />
       <SliderWrapper>
-        <BasicText text="나의 앨범" size="1.125rem" font="NotoSansKR700" />
-        {myAlbum.myCount === 0 ? (
+        <BasicText text='나의 앨범' size='1.125rem' font='NotoSansKR700' />
+        {myListNum === 0 ? (
           <EmptyWrapper>
-            <BasicText text="나만의 앨범을 발매해보세요" />
+            <BasicText text='나만의 앨범을 발매해보세요' />
           </EmptyWrapper>
         ) : (
           // <BasicSlider data={dummy1.releasedAlbumList} />
-          <BasicSlider data={myAlbum.myList} />
+          <BasicSlider data={myList} />
         )}
       </SliderWrapper>
       <SliderWrapper>
         <BasicText
-          text="내가 소장한 앨범"
-          size="1.125rem"
-          font="NotoSansKR700"
+          text='내가 소장한 앨범'
+          size='1.125rem'
+          font='NotoSansKR700'
         />
-        {ownAlbum.ownCount === 0 ? (
+        {ownListNum === 0 ? (
           <EmptyWrapper>
-            <BasicText text="친구의 앨범을 등록해보세요" />
+            <BasicText text='친구의 앨범을 등록해보세요' />
           </EmptyWrapper>
         ) : (
           // <BasicSlider data={dummy2.collectedAlbumList} />
-          <BasicSlider data={ownAlbum.ownList} />
+          <BasicSlider data={ownList} />
         )}
       </SliderWrapper>
     </Layout>
