@@ -70,7 +70,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
             }
           );
           console.info("------------data-------------- : ", response.data);
-          // store.dispatch(setPlayList(response.data));
+
           playListData["musicList"] = response.data.musicList;
           playListData["listSize"] = response.data.listSize;
         } catch (error) {
@@ -78,7 +78,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         }
       } else {
         res.setHeader("Set-Cookie", "isLogIn=false");
-        // store.dispatch(setPlayList({ musicList: [], listSize: 0 }));
       }
       const userData = {
         email: email,
@@ -86,15 +85,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         nickName: typeof nickname === "string" ? decodeURI(nickname) : nickname,
         profileImage: profileImage,
       };
-      // store.dispatch(
-      //   setLogIn({
-      //     email: email,
-      //     isLogIn: true,
-      //     nickName:
-      //       typeof nickname === "string" ? decodeURI(nickname) : nickname,
-      //     profileImage: profileImage,
-      //   })
-      // );
       return {
         props: {
           initialReduxState: store.getState(),

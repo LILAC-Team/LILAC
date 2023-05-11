@@ -28,6 +28,9 @@ interface MusicControllerState {
   };
 }
 
+const url =
+  "https://d1nj0um6xv6zar.cloudfront.net/musics/music-b75a4e1a-7e3c-4b97-bb00-b3a5eec74884.m3u8";
+
 const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const [playState, setPlayState] = useState(false);
   const dispatch = useDispatch();
@@ -74,7 +77,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
       <S.ReactPlayerWrap>
         <ReactPlayer
           playing={playing}
-          url="https://d1nj0um6xv6zar.cloudfront.net/musics/music-b08846fb-87be-4acf-a842-4df6a2e12464.m3u8"
+          url={url}
           config={{
             file: {
               forceAudio: true,
@@ -92,15 +95,15 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
             <S.Title>
               <BasicText
                 text={data.name}
-                size="1.125rem"
-                font="NotoSansKR700"
+                size='1.125rem'
+                font='NotoSansKR700'
               />
             </S.Title>
             <S.Artist>
               <BasicText
                 text={data.nickname}
-                size="0.75rem"
-                font="NotoSansKR400"
+                size='0.75rem'
+                font='NotoSansKR400'
               />
             </S.Artist>
           </S.TextWrapper>
@@ -108,13 +111,13 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
         <S.RightWrapper>
           <CustomIconButton handleOnClickButton={handleClickPlay}>
             {playing ? (
-              <IoPlay size="2.5rem" color="#FFFFFF" />
+              <IoPlay size='2.5rem' color='#FFFFFF' />
             ) : (
-              <IoPause size="2.5rem" color="#FFFFFF" />
+              <IoPause size='2.5rem' color='#FFFFFF' />
             )}
           </CustomIconButton>
           <CustomIconButton handleOnClickButton={handleClickForward}>
-            <IoPlayForward size="1.5rem" color="#FFFFFF" />
+            <IoPlayForward size='1.5rem' color='#FFFFFF' />
           </CustomIconButton>
           <CustomIconButton
             handleOnClickButton={(e) => {
@@ -122,7 +125,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
               setNowOpen("playlist");
             }}
           >
-            <RiPlayListFill size="1.5rem" color="#FFFFFF" />
+            <RiPlayListFill size='1.5rem' color='#FFFFFF' />
           </CustomIconButton>
         </S.RightWrapper>
       </S.BarWrapper>
