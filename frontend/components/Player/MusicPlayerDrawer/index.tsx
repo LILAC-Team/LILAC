@@ -32,9 +32,6 @@ const MusicPlayerDrawer = () => {
 
       setState({ ...state, [anchor]: open });
     };
-  const iOS =
-    typeof navigator !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   return (
     <S.Player>
