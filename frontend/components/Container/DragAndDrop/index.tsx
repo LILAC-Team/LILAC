@@ -2,6 +2,8 @@ import * as S from "./style";
 import MusicCard from "@/components/Player/MusicCard";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { CLOUD_FRONT } from "@/api/index";
+import CustomIconButton from "@/components/common/CustomIconButton";
+import { FaTimes } from "react-icons/fa";
 
 const DragAndDrop = ({ list, setList }) => {
   const handleOnDragEnd = (result) => {
@@ -11,6 +13,11 @@ const DragAndDrop = ({ list, setList }) => {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setList(items);
+  };
+
+  const handleDelete = (index) => {
+    const newList = list.filter((_, idx) => idx !== index);
+    setList(newList);
   };
 
   return (
@@ -31,6 +38,13 @@ const DragAndDrop = ({ list, setList }) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
+                      <S.DeleteBtn>
+                        <CustomIconButton
+                          handleOnClickButton={() => handleDelete(index)}
+                        >
+                          <FaTimes color="#F68888" size={20} />
+                        </CustomIconButton>
+                      </S.DeleteBtn>
                       <MusicCard
                         data={{
                           code,
