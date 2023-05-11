@@ -5,7 +5,9 @@ import BasicImage from "@/components/common/BasicImage";
 import BasicText from "@/components/common/BasicText";
 import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
 import { RiPlayListFill } from "react-icons/ri";
-import Drawer from "@/components/common/Drawer";
+import { useSelector, useDispatch } from "react-redux";
+import ReactPlayer from "react-player";
+import { togglePlay, nextTrack, setTrack } from "@/store/modules/playList";
 
 interface MusicPlayerBarProps {
   data: {
@@ -16,20 +18,31 @@ interface MusicPlayerBarProps {
   onClickEvent: (event: React.KeyboardEvent | React.MouseEvent) => void;
 }
 
+interface MusicControllerState {
+  playList: {
+    playing: boolean;
+    currentTrackingIndex: number;
+    currSrc: string;
+    musicList: Array<Object>;
+    listSize: number;
+  };
+}
+
 const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const [playState, setPlayState] = useState(false);
+  const dispatch = useDispatch();
+  const { playing, currentTrackingIndex, currSrc } = useSelector(
+    (state: MusicControllerState) => state.playList
+  );
 
   const handleClickPlay = () => {
-    if (playState) {
-      setPlayState((props) => !props);
-      console.log("Play");
-    } else {
-      setPlayState((props) => !props);
-      console.log("Pause");
-    }
+    console.log("playing Change");
+    dispatch(togglePlay());
+    console.log("playing: ", playing);
   };
 
   const handleClickForward = () => {
+    dispatch(nextTrack());
     console.log("Play next music");
   };
 
@@ -58,6 +71,18 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
 
   return (
     <div>
+      <S.ReactPlayerWrap>
+        <ReactPlayer
+          playing={playing}
+          url="https://d1nj0um6xv6zar.cloudfront.net/musics/music-ad7d8dc1-4dbc-4933-9a19-04d54a019063.m3u8"
+          config={{
+            file: {
+              forceAudio: true,
+              forceHLS: true,
+            },
+          }}
+        />
+      </S.ReactPlayerWrap>
       <S.BarWrapper>
         <S.LeftWrapper onClick={onClickEvent}>
           <S.AlbumImg>
@@ -82,7 +107,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
         </S.LeftWrapper>
         <S.RightWrapper>
           <CustomIconButton handleOnClickButton={handleClickPlay}>
-            {playState ? (
+            {playing ? (
               <IoPlay size="2.5rem" color="#FFFFFF" />
             ) : (
               <IoPause size="2.5rem" color="#FFFFFF" />

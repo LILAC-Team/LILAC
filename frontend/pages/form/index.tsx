@@ -12,8 +12,6 @@ import CustomTextButton from "@/components/common/CustomTextButton";
 import { albumApi } from "@/api/utils/album";
 import { useRouter } from "next/router";
 interface ProfileState {
-  // previewImgUrl: string | ArrayBuffer;
-  // file: File | {};
   previewImgUrl: any;
   file: any;
 }
@@ -159,7 +157,6 @@ const Form = () => {
 
     Promise.all([imageFilePromise, ...musicFilePromises])
       .then(() => {
-        console.log("formData: ", formData);
         return albumApi.uploadAlbum(formData);
       })
       .then((res) => {
@@ -246,7 +243,10 @@ const Form = () => {
               value={currTrackInfo.artist}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
-            <div></div>
+            <div>
+              <input type="checkbox" />
+              title 여부
+            </div>
             <CustomTextButton
               text="등록"
               fontColor="var(--color-background)"

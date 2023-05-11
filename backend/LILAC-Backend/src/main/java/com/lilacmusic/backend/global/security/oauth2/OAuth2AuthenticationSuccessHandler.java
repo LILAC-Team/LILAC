@@ -66,8 +66,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     .port(443)
                     .path("/oauth")
                     .queryParam("email",member.getEmail())
-                    .queryParam("profileImage", URLEncoder.encode(member.getProfileImage(), StandardCharsets.UTF_8))
-                    .queryParam("nickname", URLEncoder.encode(member.getNickname(), StandardCharsets.UTF_8))
+                    .queryParam("profileImage", member.getProfileImage())
+                    .queryParam("nickname", member.getNickname())
                     .queryParam("refreshToken", token.getRefreshTokenKey())
                     .queryParam("accessToken", token.getAccessTokenValue()).toUriString();
 //                    .queryParam("email", member.getEmail())
@@ -79,7 +79,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     .host("lilac-music.net")
                     .port(443)
                     .path("/oauth")
-                    .queryParam("nickname", URLEncoder.encode(memberInfo.getNickname(), StandardCharsets.UTF_8))
+                    .queryParam("nickname",memberInfo.getNickname())
                     .queryParam("email", memberInfo.getEmail())
                     .queryParam("profileImage", memberInfo.getImageUrl())
                     .queryParam("registrationId", memberInfo.getRegistrationId()).toUriString();
