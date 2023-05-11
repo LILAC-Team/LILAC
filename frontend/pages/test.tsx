@@ -41,9 +41,6 @@ const Test = () => {
 
       setState({ ...state, [anchor]: open });
     };
-  const iOS =
-    typeof navigator !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
     <Layout>
       <button onClick={toggleDrawer("bottom", true)}>test</button>
