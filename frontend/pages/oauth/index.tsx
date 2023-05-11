@@ -9,13 +9,21 @@ import { setLogIn } from "@/store/modules/user";
 import axios from "axios";
 interface OauthProps {
   query: object;
+  userData: object;
+  playListData: object;
 }
+import { useDispatch } from "react-redux";
 
-const Oauth = ({ query }: OauthProps) => {
+const Oauth = ({ query, userData, playListData }: OauthProps) => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [cookies, setCookie] = useCookies();
   useEffect(() => {
     console.log("저를 복사해주세요: ", window.location.href);
+
+    dispatch(setPlayList(playListData));
+    dispatch(setLogIn(userData));
+
     if (cookies.refreshToken) {
       router.push("/");
     } else {
@@ -45,6 +53,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       console.info("-----------------------------");
       console.info("query: ", query);
       // console.info(decodeURI(query.profileImage));
+      let playListData = { musicList: [], listSize: 0 };
       if (accessToken) {
         res.setHeader("Set-Cookie", [
           "isLogIn=true",
@@ -61,7 +70,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
             }
           );
           console.info("------------data-------------- : ", response.data);
-          store.dispatch(setPlayList(response.data));
+          // store.dispatch(setPlayList(response.data));
+          playListData["musicList"] = response.data.musicList;
+          playListData["listSize"] = response.data.listSize;
         } catch (error) {
           console.info("error: ", error);
         }
@@ -69,19 +80,27 @@ export const getServerSideProps = wrapper.getServerSideProps(
         res.setHeader("Set-Cookie", "isLogIn=false");
         // store.dispatch(setPlayList({ musicList: [], listSize: 0 }));
       }
-      store.dispatch(
-        setLogIn({
-          email: email,
-          isLogIn: true,
-          nickName:
-            typeof nickname === "string" ? decodeURI(nickname) : nickname,
-          profileImage: profileImage,
-        })
-      );
+      const userData = {
+        email: email,
+        isLogIn: true,
+        nickName: typeof nickname === "string" ? decodeURI(nickname) : nickname,
+        profileImage: profileImage,
+      };
+      // store.dispatch(
+      //   setLogIn({
+      //     email: email,
+      //     isLogIn: true,
+      //     nickName:
+      //       typeof nickname === "string" ? decodeURI(nickname) : nickname,
+      //     profileImage: profileImage,
+      //   })
+      // );
       return {
         props: {
           initialReduxState: store.getState(),
           query,
+          userData,
+          playListData,
         },
       };
     }
