@@ -151,11 +151,13 @@ const SignUp = () => {
   );
 };
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req, res }) {
   const serializedReq = CircularJSON.stringify(req);
+  const serializedReq2 = CircularJSON.stringify(res);
   return {
     props: {
       req: serializedReq,
+      res: serializedReq2,
     },
   };
 }
