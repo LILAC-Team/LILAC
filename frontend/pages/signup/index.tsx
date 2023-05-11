@@ -12,6 +12,7 @@ import { setLogIn } from "@/store/modules/user";
 import { useRouter } from "next/router";
 import { playlistApi } from "@/api/utils/playlist";
 import { setPlayList } from "@/store/modules/playList";
+import axios from "axios";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
@@ -86,10 +87,9 @@ const SignUp = () => {
     memberApi
       .signUp(formData)
       .then((res) => {
-        console.log("res: ", res);
         alert("회원가입 성공");
         const { email, nickname, profileImage, accessToken, refreshToken } =
-          res.data;
+          res.data.result;
         dispatch(
           setLogIn({
             isLogIn: true,
@@ -100,14 +100,16 @@ const SignUp = () => {
         );
         setCookies("refreshToken", refreshToken, { path: "/" });
         setCookies("accessToken", accessToken, { path: "/" });
-        return playlistApi.getPlayList();
+        // return playlistApi.getPlayList();
+        return axios.get("https://lilac-music.net/api/v1/playlists", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${accessToken}`,
+          },
+        });
       })
-      .then(({ data }) => {
-        try {
-          dispatch(setPlayList(data));
-        } catch (error) {
-          console.log("error: ", error);
-        }
+      .then((res) => {
+        dispatch(setPlayList(res.data));
         router.push("/");
       })
       .catch((error) => {

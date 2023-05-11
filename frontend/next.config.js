@@ -9,6 +9,9 @@ module.exports = withPWA({
   //   dest: "public",
   //   // 추가적인 PWA 구성 옵션을 여기에 설정할 수 있습니다.
   // },
+  env: {
+    CLOUDFRONT_URL: "https://d1nj0um6xv6zar.cloudfront.net/",
+  },
   pageExtensions: ["tsx"],
   reactStrictMode: false,
   webpack: (config) => {

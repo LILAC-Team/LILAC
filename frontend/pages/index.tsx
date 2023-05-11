@@ -69,7 +69,7 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   };
 
   useEffect(() => {
-    getUserInfo();
+    // getUserInfo();
     myAlbumList();
     ownAlbumList();
   }, []);

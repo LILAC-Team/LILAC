@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const ReactPlayerWrap = styled.div`
+  width: 0;
+  height: 0;
+`;
+
 export const BarWrapper = styled.div`
   display: flex;
   background-color: var(--color-primary);
