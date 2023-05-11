@@ -6,9 +6,10 @@ import {
 import { persistReducer } from "redux-persist";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import storage from "redux-persist/lib/storage";
-
 import user from "./modules/user/index";
 import playList from "./modules/playList";
+import playerController from "./modules/playerController";
+
 const persistConfig = {
   key: "root",
   storage,
@@ -18,6 +19,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user,
   playList,
+  playerController,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -41,8 +43,8 @@ export const makeStore = () => {
 };
 
 const wrapper = createWrapper(makeStore, {
-  // debug: process.env.NODE_ENV === "development",
-  debug: true,
+  debug: process.env.NODE_ENV === "development",
+  // debug: true,
 });
 
 export type RootState = ReturnType<typeof persistedReducer>;
