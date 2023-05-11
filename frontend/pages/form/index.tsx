@@ -18,7 +18,7 @@ interface ProfileState {
 
 const Form = () => {
   const router = useRouter();
-  const [albumTitle, setAlbumTitle] = useState("NewHyunsus");
+  const [albumTitle, setAlbumTitle] = useState("");
   const [albumImage, setAlbumImage] = useState<ProfileState>({
     previewImgUrl: "",
     file: {},

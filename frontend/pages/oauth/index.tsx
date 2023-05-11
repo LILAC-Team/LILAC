@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import wrapper from "@/store/configStore";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";

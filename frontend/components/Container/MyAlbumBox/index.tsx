@@ -67,7 +67,7 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
         ))}
       {content === "Own" &&
         (ownAlbum.ownCount !== 0 ? (
-          OwnAlbum.collectedAlbumList.map((data, index) => (
+          ownAlbum.ownList.map((data, index) => (
             <Link key={data.code} href={`/album/${data.code}`}>
               <S.OneAlbumCard>
                 <AlbumCard
