@@ -29,31 +29,19 @@ interface AppState {
 const PlaylistDrawer = () => {
   // Edit 여부
   const [isEdit, setIsEdit] = useState(false);
-  // OnClick 여부
-  const [isOnClick, setIsOnClick] = useState(false);
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
   const dispatch = useDispatch();
   // UPDATE PlayList 담는 list
   const [list, setList] = useState(nowPlayList.musicList);
-
-  // UPDATE PlayList with api
-  const setNewPlayListHandler = async () => {
-    try {
-      const musicList = [...list];
-      const req = {};
-      req["musicList"] = musicList;
-      await playlistApi.putPlayList(req);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // UPDATE list Size
+  const [listSize, setListSize] = useState(nowPlayList.listSize);
 
   // RELOAD PlayList
   const reloadPlayListHandler = useCallback(async () => {
     try {
-      const response = await playlistApi.getPlayList();
-      dispatch(setPlayList(response.data));
+      const { data } = await playlistApi.getPlayList();
+      dispatch(setPlayList(data));
     } catch (error) {
       console.log(error);
     }
@@ -61,17 +49,30 @@ const PlaylistDrawer = () => {
 
   // EDIT Click
   const handleEditClick = async () => {
-    setIsEdit((props) => !props);
-    await setNewPlayListHandler();
-    setIsOnClick(!isOnClick);
-    reloadPlayListHandler();
-    setList(nowPlayList.musicList);
+    try {
+      const req = { musicList: list };
+      await playlistApi.putPlayList(req);
+      dispatch(
+        setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
+      );
+      setIsEdit((prevIsEdit) => !prevIsEdit);
+      setListSize(list.length);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // BUTTON Click -> RELOAD PlayList
+  useEffect(() => {
+    setList(nowPlayList.musicList);
+  }, [nowPlayList.musicList]);
+
   useEffect(() => {
     reloadPlayListHandler();
-  }, [isOnClick, reloadPlayListHandler]);
+  }, [reloadPlayListHandler]);
+
+  useEffect(() => {
+    setListSize(nowPlayList.listSize);
+  }, [nowPlayList.listSize]);
 
   return (
     <S.Playlist>
@@ -80,7 +81,14 @@ const PlaylistDrawer = () => {
         <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
-        <BasicText text={nowPlayList.listSize + "곡"} size="0.85rem" />
+        <BasicText
+          text={
+            (list.length === 0 && nowPlayList.listSize === 0
+              ? listSize
+              : list.length) + "곡"
+          }
+          size="0.85rem"
+        />
         <div />
         {isEdit ? (
           <CustomTextButton
