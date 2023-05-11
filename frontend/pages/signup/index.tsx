@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { playlistApi } from "@/api/utils/playlist";
 import { setPlayList } from "@/store/modules/playList";
 import axios from "axios";
+import { persistCombineReducers } from "redux-persist";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
@@ -73,20 +74,24 @@ const SignUp = () => {
       registrationId: "kakao",
       nickname: nickName,
     };
-
-    if (profile.previewImgUrl === userInfo.profileImage) {
-      data["profileImage"] = userInfo.profileImage;
-    } else {
-      await reader.readAsArrayBuffer(profile.file);
-      const blob = new Blob([reader.result], {
-        type: profile.file.type,
-      });
-      formData.append("profileImage", blob);
-    }
     formData.append("memberInfo", JSON.stringify(data));
-    console.log("data: ", data);
-    memberApi
-      .signUp(formData)
+
+    const promise = new Promise<void>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const blob = new Blob([reader.result], { type: profile.file.type });
+        formData.append("profileImage", blob);
+        resolve();
+      };
+      reader.onerror = reject;
+      profile;
+      reader.readAsArrayBuffer(profile.file);
+    });
+
+    promise
+      .then(() => {
+        return memberApi.signUp(formData);
+      })
       .then((res) => {
         alert("회원가입 성공");
         const { email, nickname, profileImage, accessToken, refreshToken } =
@@ -101,7 +106,7 @@ const SignUp = () => {
         );
         setCookies("refreshToken", refreshToken, { path: "/" });
         setCookies("accessToken", accessToken, { path: "/" });
-        // return playlistApi.getPlayList();
+
         return axios.get("https://lilac-music.net/api/v1/playlists", {
           headers: {
             "Content-Type": "application/json",
@@ -123,12 +128,12 @@ const SignUp = () => {
     <S.SignUpContainer>
       <S.LogoWrap>
         <BasicText
-          text="LILAC"
-          size="3rem"
-          background="linear-gradient(180deg, #BC8AC2 0%, rgba(188, 138, 194, 0) 100%)"
-          color="transparent"
+          text='LILAC'
+          size='3rem'
+          background='linear-gradient(180deg, #BC8AC2 0%, rgba(188, 138, 194, 0) 100%)'
+          color='transparent'
           clipText={true}
-          font="HSBomBaram"
+          font='HSBomBaram'
         />
       </S.LogoWrap>
       <S.ImageWrap>
@@ -140,8 +145,8 @@ const SignUp = () => {
       </S.ImageWrap>
       <S.UserNameInputWrap>
         <BasicInput
-          id="nickname"
-          type="text"
+          id='nickname'
+          type='text'
           value={nickName}
           handleOnChangeValue={handleNicknameChange}
         />
