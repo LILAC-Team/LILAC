@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useCallback } from "react";
-import CircularJSON from "circular-json";
 import * as S from "./style";
 import Layout from "@/components/common/Layout";
 import BasicImage from "@/components/common/BasicImage";

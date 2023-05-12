@@ -1,6 +1,5 @@
 import * as S from "./style";
 import React, { useState } from "react";
-import CircularJSON from "circular-json";
 import Layout from "@/components/common/Layout";
 import MusicCard from "@/components/Player/MusicCard";
 import BasicText from "@/components/common/BasicText";

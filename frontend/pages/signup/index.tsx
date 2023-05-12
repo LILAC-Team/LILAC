@@ -1,5 +1,4 @@
 import * as S from "./style";
-import CircularJSON from "circular-json";
 import React, { useState, useEffect } from "react";
 import BasicText from "@/components/common/BasicText";
 import ProfileImg from "@/components/common/ProfileImg";
@@ -158,16 +157,5 @@ const SignUp = () => {
     </S.SignUpContainer>
   );
 };
-
-export async function getServerSideProps({ req, res }) {
-  const serializedReq = CircularJSON.stringify(req);
-  const serializedReq2 = CircularJSON.stringify(res);
-  return {
-    props: {
-      req: serializedReq,
-      res: serializedReq2,
-    },
-  };
-}
 
 export default SignUp;
