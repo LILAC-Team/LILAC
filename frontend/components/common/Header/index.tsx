@@ -27,21 +27,21 @@ const Header = ({ isShown = true }: HeaderProps) => {
     console.log("Navigate to User Profile Page");
   };
 
-  const getProfileImage = async () => {
-    try {
-      // const res = await memberApi.getUserInfo();
-      setProfileImage(userInfo.profileImage);
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
+  // const getProfileImage = async () => {
+  //   try {
+  //     // const res = await memberApi.getUserInfo();
+  //     setProfileImage(userInfo.profileImage);
+  //   } catch (error) {
+  //     console.log("error: ", error);
+  //   }
+  // };
 
   useEffect(() => {
     if (userInfo) {
       setProfileImage(userInfo.profileImage);
     }
     // getProfileImage();
-  }, []);
+  }, [userInfo]);
 
   return (
     <div>
@@ -49,19 +49,19 @@ const Header = ({ isShown = true }: HeaderProps) => {
         <Link href={"/"}>
           <S.LogoWrapper>
             <BasicText
-              text="LILAC"
-              size="2.3rem"
-              background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
-              color="transparent"
+              text='LILAC'
+              size='2.3rem'
+              background='linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)'
+              color='transparent'
               clipText={true}
-              font="HSBomBaram"
+              font='HSBomBaram'
             />
           </S.LogoWrapper>
         </Link>
         <S.ProfileWrapper>
           {isShown && (
             <SelectBox list={list} funcArr={funcArr}>
-              <ProfileImg size="4rem" src={profileImage} />
+              <ProfileImg size='4rem' src={profileImage} />
             </SelectBox>
           )}
         </S.ProfileWrapper>

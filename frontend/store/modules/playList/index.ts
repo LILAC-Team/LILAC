@@ -43,6 +43,7 @@ export const playList = createSlice({
       state.playing = true;
     },
     setTrack: (state, action) => {
+      // 수정 필요...
       const url = action.payload
         ? process.env.CLOUDFRONT_URL + action.payload
         : "";
