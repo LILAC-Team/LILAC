@@ -22,16 +22,16 @@ const Drawer = ({ inner, anchor, state, toggleDrawer }: DrawerProps) => {
   const [mytext, setMytext] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setInnerWidth(window.innerWidth);
-      const resizeListener = () => {
-        setInnerWidth(window.innerWidth);
-      };
-      window.addEventListener("resize", resizeListener);
-      return () => {
-        window.removeEventListener("resize", resizeListener);
-      };
-    }
+    // if (typeof window !== "undefined") {
+    //   setInnerWidth(window.innerWidth);
+    //   const resizeListener = () => {
+    //     setInnerWidth(window.innerWidth);
+    //   };
+    //   window.addEventListener("resize", resizeListener);
+    //   return () => {
+    //     window.removeEventListener("resize", resizeListener);
+    //   };
+    // }
   }, []);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Drawer = ({ inner, anchor, state, toggleDrawer }: DrawerProps) => {
             marginLeft: `${mytext}`,
           },
         }}
-        anchor="bottom"
+        anchor='bottom'
         open={state["bottom"]}
         onClose={toggleDrawer("bottom", false)}
         onOpen={toggleDrawer("bottom", true)}

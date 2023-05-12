@@ -1,30 +1,19 @@
-import { useEffect, useState } from "react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BasicSlider from "@/components/Home/BasicSlider";
-import CircularJSON from "circular-json";
-import { useRouter } from "next/router";
 import Layout from "@/components/common/Layout";
 import MainAlbum from "@/components/Home/MainAlbum";
 import BasicText from "@/components/common/BasicText";
 import { memberApi } from "@/api/utils/member";
 import { albumApi } from "@/api/utils/album";
 
-interface HomeProps {
-  initValues?: boolean;
-  initInput?: string;
-  req?: any;
-}
-
-const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
+const Home = () => {
   const [nickname, setNickName] = useState("");
   const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
   const [myList, setMyList] = useState([]);
   const [ownList, setOwnList] = useState([]);
   const [myListNum, setMyListNum] = useState(0);
   const [ownListNum, setOwnListNum] = useState(0);
-
-  const isLogIn = JSON.parse(req).cookies.isLogIn === undefined ? false : true;
 
   const getUserInfo = async () => {
     try {
@@ -58,19 +47,10 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   };
 
   useEffect(() => {
-    console.log("하하");
     myAlbumList();
     ownAlbumList();
     getUserInfo();
   }, []);
-
-  // const handleModal = () => {
-  //   setIsModalOpen((prev) => !prev);
-  // };
-
-  // const handleOnChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(e.target.value);
-  // };
 
   return (
     <Layout>
@@ -87,7 +67,6 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
             <BasicText text='나만의 앨범을 발매해보세요' />
           </EmptyWrapper>
         ) : (
-          // <BasicSlider data={dummy1.releasedAlbumList} />
           <BasicSlider data={myList} />
         )}
       </SliderWrapper>
@@ -102,22 +81,12 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
             <BasicText text='친구의 앨범을 등록해보세요' />
           </EmptyWrapper>
         ) : (
-          // <BasicSlider data={dummy2.collectedAlbumList} />
           <BasicSlider data={ownList} />
         )}
       </SliderWrapper>
     </Layout>
   );
 };
-
-export async function getServerSideProps({ req }) {
-  const serializedReq = CircularJSON.stringify(req);
-  return {
-    props: {
-      req: serializedReq,
-    },
-  };
-}
 
 const SliderWrapper = styled.div`
   margin: 1.125rem 0;

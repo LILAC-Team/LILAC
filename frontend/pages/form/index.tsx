@@ -130,18 +130,15 @@ const Form = () => {
     // 앨범 이미지 정보
     const reader = new FileReader();
     const imageFilePromise = new Promise<void>((resolve, reject) => {
-      // reader.onload = () => {
-      //   const blob = new Blob([reader.result], {
-      //     type: albumImage.file.type,
-      //   });
-      //   formData.append("imageFile", blob);
-      //   resolve();
-      // };
-
-      formData.append("imageFile", albumImage.file);
-      resolve();
-      // reader.onerror = reject;
-      // reader.readAsArrayBuffer(albumImage.file);
+      reader.onload = () => {
+        const blob = new Blob([reader.result], {
+          type: albumImage.file.type,
+        });
+        formData.append("imageFile", blob);
+        resolve();
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(albumImage.file);
     });
 
     // 음원 파일 Blob 처리
@@ -263,13 +260,13 @@ const Form = () => {
   );
 };
 
-export async function getServerSideProps({ req }) {
-  const serializedReq = CircularJSON.stringify(req);
-  return {
-    props: {
-      req: serializedReq,
-    },
-  };
-}
+// export async function getServerSideProps({ req }) {
+//   const serializedReq = CircularJSON.stringify(req);
+//   return {
+//     props: {
+//       req: serializedReq,
+//     },
+//   };
+// }
 
 export default Form;
