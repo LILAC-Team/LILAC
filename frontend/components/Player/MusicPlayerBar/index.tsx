@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ReactPlayer from "react-player";
 import { togglePlay, nextTrack, setTrack } from "@/store/modules/playList";
 import Drawer from "@/components/common/Drawer";
+import { useRouter } from "next/router";
 interface MusicPlayerBarProps {
   data: {
     name: string;
@@ -33,7 +34,7 @@ const url = "";
 
 const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const [playState, setPlayState] = useState(false);
-
+  const router = useRouter();
   const dispatch = useDispatch();
   // const { playing, currentTrackingIndex, currSrc } = useSelector(
   //   (state: MusicControllerState) => state.playList
@@ -55,12 +56,9 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
     console.log("Play next music");
   };
 
-  const handleClickList = () => {
-    console.log("Show Music List Modal");
-  };
-
   const [state, setState] = React.useState({ bottom: false });
   const [nowOpen, setNowOpen] = useState("");
+  console.log("nowOpen", nowOpen);
   const toggleDrawer =
     (anchor: string, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -75,9 +73,24 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
 
       setState({ ...state, [anchor]: open });
     };
-  const iOS =
-    typeof navigator !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  useEffect(() => {
+    const handlePopstate = () => {
+      if (nowOpen) {
+        setNowOpen(""); // nowOpen 상태 초기화
+        console.log("RESET");
+      } else {
+        router.back(); // 이전 페이지로 이동
+        console.log("BACK");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopstate);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
+  }, [nowOpen]);
 
   return (
     <div>

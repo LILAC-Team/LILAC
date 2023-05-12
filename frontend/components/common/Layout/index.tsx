@@ -34,9 +34,6 @@ const Layout = ({ children }: LayoutProps) => {
 
       setState({ ...state, [anchor]: open });
     };
-  // const iOS =
-  //   typeof navigator !== "undefined" &&
-  //   /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
     <S.ContainerWrap>
       <Header />
