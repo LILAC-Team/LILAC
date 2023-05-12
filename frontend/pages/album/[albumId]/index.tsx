@@ -109,9 +109,9 @@ const AlbumDetail = () => {
   // SET albumDetailData
   const albumDetailHandler = useCallback(async () => {
     try {
-      const response = await albumApi.getAlbumInfo(albumId);
-      setAlbumDetailData(response.data);
-      console.log(response.data);
+      const { data } = await albumApi.getAlbumInfo(albumId);
+      setAlbumDetailData(data);
+      console.log(data);
     } catch (error) {
       console.log("error: ", error);
     }

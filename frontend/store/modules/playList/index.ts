@@ -43,11 +43,10 @@ export const playList = createSlice({
       state.playing = true;
     },
     setTrack: (state, action) => {
-      // 수정 필요...
-      const url = action.payload
-        ? process.env.CLOUDFRONT_URL + action.payload
-        : "";
-      state.currSrc = url;
+      state.currentTrackIndex = action.payload.currentTrackIndex;
+      state.currSrc =
+        process.env.CLOUDFRONT_URL +
+        state.musicList[state.currentTrackIndex].code;
     },
   },
 });

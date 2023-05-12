@@ -46,4 +46,13 @@ module.exports = withPWA({
     config.resolve.modules.push(__dirname);
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: "/404",
+        destination: "/404/index",
+        permanent: true,
+      },
+    ];
+  },
 });

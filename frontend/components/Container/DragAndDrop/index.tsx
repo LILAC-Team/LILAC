@@ -22,48 +22,53 @@ const DragAndDrop = ({ list, setList }) => {
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="list">
-        {(provided) => (
-          <S.DragDropWrap {...provided.droppableProps} ref={provided.innerRef}>
-            {list.map(
-              ({ code, name, albumImage, artistName, playtime }, index) => (
-                <Draggable
-                  key={index + ""}
-                  draggableId={index + ""}
-                  index={index}
-                >
-                  {(provided) => (
-                    <S.OneMusicCard
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <S.DeleteBtn>
-                        <CustomIconButton
-                          handleOnClickButton={() => handleDelete(index)}
-                        >
-                          <FaTimes color="#F68888" size={20} />
-                        </CustomIconButton>
-                      </S.DeleteBtn>
-                      <MusicCard
-                        data={{
-                          code,
-                          name,
-                          albumImage: CLOUD_FRONT + albumImage,
-                          artistName,
-                          playtime,
-                        }}
-                        isEditable={true}
-                      />
-                    </S.OneMusicCard>
-                  )}
-                </Draggable>
-              )
-            )}
-            {provided.placeholder}
-          </S.DragDropWrap>
-        )}
-      </Droppable>
+      <S.DragDropWrap>
+        <Droppable droppableId="list">
+          {(provided) => (
+            <S.DragDropWrap
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {list.map(
+                ({ code, name, albumImage, artistName, playtime }, index) => (
+                  <Draggable
+                    key={index + ""}
+                    draggableId={index + ""}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <S.OneMusicCard
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <S.DeleteBtn>
+                          <CustomIconButton
+                            handleOnClickButton={() => handleDelete(index)}
+                          >
+                            <FaTimes color="#F68888" size={20} />
+                          </CustomIconButton>
+                        </S.DeleteBtn>
+                        <MusicCard
+                          data={{
+                            code,
+                            name,
+                            albumImage: CLOUD_FRONT + albumImage,
+                            artistName,
+                            playtime,
+                          }}
+                          isEditable={true}
+                        />
+                      </S.OneMusicCard>
+                    )}
+                  </Draggable>
+                )
+              )}
+              {provided.placeholder}
+            </S.DragDropWrap>
+          )}
+        </Droppable>
+      </S.DragDropWrap>
     </DragDropContext>
   );
 };

@@ -126,6 +126,7 @@ html {
   --color-background: #3d3a4b;
   --color-primary: #cca4fc;
   --color-light: #e3dfff;
+  width:  calc(var(--vw, 1vw) * 100);
   height: calc(var(--vh, 1vh) * 100);
   height: 100%;
   background-color: white;
