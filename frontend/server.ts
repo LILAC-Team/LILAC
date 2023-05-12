@@ -40,6 +40,10 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
+  server.all("./_next/webpack-hmr", (req, res) => {
+    return handle(req, res);
+  });
+
   server.all("*", (req, res) => {
     return handle(req, res);
   });
