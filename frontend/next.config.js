@@ -14,8 +14,13 @@ module.exports = withPWA({
   },
   pageExtensions: ["tsx"],
   reactStrictMode: false,
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     // 웹팩 설정을 수정합니다.
+    if (!isServer) {
+      config.plugins = config.plugins.filter(
+        (plugin) => plugin.constructor.name !== "HotModuleReplacementPlugin"
+      );
+    }
     config.module.rules.push({
       test: /\.svg$/,
       use: [
