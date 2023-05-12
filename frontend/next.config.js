@@ -5,7 +5,6 @@ const withPWA = require("next-pwa")({
 });
 
 module.exports = withPWA({
-  dev: false,
   env: {
     CLOUDFRONT_URL: "https://d1nj0um6xv6zar.cloudfront.net/",
   },
