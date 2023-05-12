@@ -22,7 +22,7 @@ interface MusicPlayerBarProps {
 interface MusicControllerState {
   playList: {
     playing: boolean;
-    currentTrackingIndex: number;
+    currentTrackIndex: number;
     currSrc: string;
     musicList: Array<Object>;
     listSize: number;
@@ -117,15 +117,15 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
             <S.Title>
               <BasicText
                 text={data.name}
-                size='1.125rem'
-                font='NotoSansKR700'
+                size="1.125rem"
+                font="NotoSansKR700"
               />
             </S.Title>
             <S.Artist>
               <BasicText
                 text={data.nickname}
-                size='0.75rem'
-                font='NotoSansKR400'
+                size="0.75rem"
+                font="NotoSansKR400"
               />
             </S.Artist>
           </S.TextWrapper>
@@ -133,13 +133,13 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
         <S.RightWrapper>
           <CustomIconButton handleOnClickButton={handleClickPlay}>
             {playing ? (
-              <IoPlay size='2.5rem' color='#FFFFFF' />
+              <IoPlay size="2.5rem" color="#FFFFFF" />
             ) : (
-              <IoPause size='2.5rem' color='#FFFFFF' />
+              <IoPause size="2.5rem" color="#FFFFFF" />
             )}
           </CustomIconButton>
           <CustomIconButton handleOnClickButton={handleClickForward}>
-            <IoPlayForward size='1.5rem' color='#FFFFFF' />
+            <IoPlayForward size="1.5rem" color="#FFFFFF" />
           </CustomIconButton>
           <CustomIconButton
             handleOnClickButton={(e) => {
@@ -147,7 +147,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
               setNowOpen("playlist");
             }}
           >
-            <RiPlayListFill size='1.5rem' color='#FFFFFF' />
+            <RiPlayListFill size="1.5rem" color="#FFFFFF" />
           </CustomIconButton>
         </S.RightWrapper>
       </S.BarWrapper>

@@ -14,9 +14,9 @@ module.exports = withPWA({
   },
   pageExtensions: ["tsx"],
   reactStrictMode: false,
-  webpack: (config, { isServer }) => {
+  webpack: (config, { dev, isServer }) => {
     // 웹팩 설정을 수정합니다.
-    if (!isServer) {
+    if (!dev && !isServer) {
       config.plugins = config.plugins.filter(
         (plugin) => plugin.constructor.name !== "HotModuleReplacementPlugin"
       );
@@ -45,5 +45,14 @@ module.exports = withPWA({
     });
     config.resolve.modules.push(__dirname);
     return config;
+  },
+  async redirects() {
+    return [
+      {
+        source: "/404",
+        destination: "/404/index",
+        permanent: true,
+      },
+    ];
   },
 });

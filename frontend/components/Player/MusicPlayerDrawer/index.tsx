@@ -1,7 +1,6 @@
 import BasicImage from "@/components/common/BasicImage";
 import * as S from "./style";
 import React, { useState, useRef } from "react";
-import music from "../../../pages/music.json";
 import MenuBar from "@/components/common/MenuBar";
 import BasicText from "@/components/common/BasicText";
 import MusicController from "../MusicController";
@@ -39,7 +38,7 @@ const MusicPlayerDrawer = () => {
         <S.Bar />
         <BasicText text="Now Playing" size="125%" font="NotoSansKR500" />
       </S.Top>
-      <S.AlbumCover>
+      {/* <S.AlbumCover>
         <BasicImage
           src={music.albumImage}
           size="calc((var(--vh, 1vh) * 30))"
@@ -79,7 +78,7 @@ const MusicPlayerDrawer = () => {
             </React.Fragment>
           );
         })}
-      </S.Comment>
+      </S.Comment> */}
       <S.MusicBar>
         <div>tmp</div>
       </S.MusicBar>
