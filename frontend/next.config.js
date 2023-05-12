@@ -5,22 +5,14 @@ const withPWA = require("next-pwa")({
 });
 
 module.exports = withPWA({
-  // pwa: {
-  //   dest: "public",
-  //   // 추가적인 PWA 구성 옵션을 여기에 설정할 수 있습니다.
-  // },
+  dev: false,
   env: {
     CLOUDFRONT_URL: "https://d1nj0um6xv6zar.cloudfront.net/",
   },
   pageExtensions: ["tsx"],
   reactStrictMode: false,
-  webpack: (config, { dev, isServer }) => {
+  webpack: (config) => {
     // 웹팩 설정을 수정합니다.
-    if (!dev && !isServer) {
-      config.plugins = config.plugins.filter(
-        (plugin) => plugin.constructor.name !== "HotModuleReplacementPlugin"
-      );
-    }
     config.module.rules.push({
       test: /\.svg$/,
       use: [
