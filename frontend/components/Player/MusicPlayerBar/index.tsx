@@ -29,7 +29,7 @@ interface MusicControllerState {
 }
 
 const url = "";
-// "https://d1nj0um6xv6zar.cloudfront.net/musics/music-b75a4e1a-7e3c-4b97-bb00-b3a5eec74884.m3u8";
+// https://d1nj0um6xv6zar.cloudfront.net/musics/music-b75a4e1a-7e3c-4b97-bb00-b3a5eec74884.m3u8";
 
 const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const [playState, setPlayState] = useState(false);
