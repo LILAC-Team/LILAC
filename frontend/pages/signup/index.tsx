@@ -87,7 +87,10 @@ const SignUp = () => {
       profile;
       reader.readAsArrayBuffer(profile.file);
     });
-
+    // 사진이 없을 수도 있으니까 수정필요!!!!
+    /////////////////////////////////////
+    ///////////////////////////////
+    ////////////////
     promise
       .then(() => {
         return memberApi.signUp(formData);
