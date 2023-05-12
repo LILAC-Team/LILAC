@@ -3,11 +3,30 @@ import * as S from "./style";
 import React, { useState } from "react";
 import CommentInput from "../CommentInput";
 import CommentCard from "../CommentCard";
-import comment from "../../../pages/comment.json";
 import { useSelector } from "react-redux";
+import { setPlayList } from "@/store/modules/playList";
+import { musicApi } from "@/api/utils/music";
 
 interface userState {
   user: any;
+}
+
+interface MusicControllerState {
+  playList: {
+    playing: boolean;
+    currentTrackIndex: number;
+    currSrc: string;
+    musicList: MusicTrack[];
+    listSize: number;
+  };
+}
+
+interface MusicTrack {
+  name: string;
+  artistName: string;
+  playtime: number;
+  code: string;
+  albumImage: string;
 }
 
 const CommentDrawer = () => {
@@ -28,7 +47,28 @@ const CommentDrawer = () => {
     console.log(inputData);
     setInputData("");
   };
+
   const userInfo = useSelector((state: userState) => state.user);
+  const currentTrackIndex = useSelector(
+    (state: MusicControllerState) => state.playList.currentTrackIndex
+  );
+  const musicList = useSelector(
+    (state: MusicControllerState) => state.playList.musicList
+  );
+  const currentTrack = musicList[currentTrackIndex];
+  console.log(currentTrack);
+  // const currSrc = useSelector((state) => state.playList);
+
+  // GET All Comments
+  const commentHandler = async () => {
+    try {
+      const { data } = await musicApi.getCommentList(currentTrack.code, 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log("userInfo", userInfo);
   return (
     <S.Comment>
       <S.Top>
@@ -45,7 +85,7 @@ const CommentDrawer = () => {
         />
       </S.InputAllWrap>
       <S.CommentAllWrap>
-        {comment.commentList.map((item, code) => {
+        {/* {comment.commentList.map((item, code) => {
           return (
             <React.Fragment key={code}>
               <CommentCard
@@ -57,7 +97,7 @@ const CommentDrawer = () => {
               />
             </React.Fragment>
           );
-        })}
+        })} */}
       </S.CommentAllWrap>
     </S.Comment>
   );
