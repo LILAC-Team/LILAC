@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
@@ -28,15 +28,21 @@ interface MusicControllerState {
   };
 }
 
-const url =
-  "https://d1nj0um6xv6zar.cloudfront.net/musics/music-b75a4e1a-7e3c-4b97-bb00-b3a5eec74884.m3u8";
+const url = "";
+// "https://d1nj0um6xv6zar.cloudfront.net/musics/music-b75a4e1a-7e3c-4b97-bb00-b3a5eec74884.m3u8";
 
 const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const [playState, setPlayState] = useState(false);
+
   const dispatch = useDispatch();
-  const { playing, currentTrackingIndex, currSrc } = useSelector(
-    (state: MusicControllerState) => state.playList
-  );
+  // const { playing, currentTrackingIndex, currSrc } = useSelector(
+  //   (state: MusicControllerState) => state.playList
+  // );
+  const playing = true;
+  const value = useSelector((state: MusicControllerState) => state.playList);
+  useEffect(() => {
+    console.log("value: ", value);
+  }, []);
 
   const handleClickPlay = () => {
     console.log("playing Change");
@@ -52,6 +58,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   const handleClickList = () => {
     console.log("Show Music List Modal");
   };
+
   const [state, setState] = React.useState({ bottom: false });
   const [nowOpen, setNowOpen] = useState("");
   const toggleDrawer =
@@ -76,7 +83,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
     <div>
       <S.ReactPlayerWrap>
         <ReactPlayer
-          playing={playing}
+          playing={true}
           url={url}
           config={{
             file: {
@@ -84,6 +91,8 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
               forceHLS: true,
             },
           }}
+          // width={0}
+          // height={0}
         />
       </S.ReactPlayerWrap>
       <S.BarWrapper>
@@ -138,5 +147,4 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
     </div>
   );
 };
-
 export default MusicPlayerBar;
