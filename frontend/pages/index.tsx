@@ -24,7 +24,7 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   const [myListNum, setMyListNum] = useState(0);
   const [ownListNum, setOwnListNum] = useState(0);
 
-  const isLogIn = JSON.parse(req).cookies.isLogIn === undefined ? false : true;
+  // const isLogIn = JSON.parse(req).cookies.isLogIn === undefined ? false : true;
 
   const getUserInfo = async () => {
     try {
@@ -58,7 +58,6 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   };
 
   useEffect(() => {
-    console.log("하하");
     myAlbumList();
     ownAlbumList();
     getUserInfo();
@@ -110,14 +109,14 @@ const Home = ({ initValues = false, initInput = "", req }: HomeProps) => {
   );
 };
 
-export async function getServerSideProps({ req }) {
-  const serializedReq = CircularJSON.stringify(req);
-  return {
-    props: {
-      req: serializedReq,
-    },
-  };
-}
+// export async function getServerSideProps({ req }) {
+//   const serializedReq = CircularJSON.stringify(req);
+//   return {
+//     props: {
+//       req: serializedReq,
+//     },
+//   };
+// }
 
 const SliderWrapper = styled.div`
   margin: 1.125rem 0;
