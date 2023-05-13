@@ -2,7 +2,7 @@ const express = require("express");
 const next = require("next");
 const axios = require("axios");
 // const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev: false });
+const app = next({ dev: true });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -13,7 +13,8 @@ app.prepare().then(() => {
     // 로그인 여부를 확인하는 로직을 구현
     // console.log("-------------req-------------: ", req.headers.cookie);
     try {
-      axios.get("https://lilac-music.net/api/v1/members", {
+      await fetch("https://lilac-music.net/api/v1/members", {
+        method: "GET",
         headers: {
           Authorization: req.headers.cookie.Authorization,
         },
