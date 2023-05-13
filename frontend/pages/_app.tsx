@@ -2,14 +2,15 @@ import type { AppProps } from "next/app";
 import { GlobalStyle } from "@/styles/globalStyle";
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
-import wrapper from "@/store/configStore";
+import wrapper, { RootState, makeStore } from "@/store/configStore";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import { memberApi } from "@/api/utils/member";
-
+import { Context, createWrapper } from "next-redux-wrapper";
+import { Store, AnyAction } from "redux";
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const { store, props } = wrapper.useWrappedStore(pageProps);
-  const persistor = persistStore(store);
+  // const { store, props } = wrapper.useWrappedStore(pageProps);
+  // const { store, props } = wrappe
+  // const persistor = persistStore(store);
 
   useEffect(() => {
     let vh = window.innerHeight * 0.01;
@@ -22,12 +23,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }, []);
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <GlobalStyle />
-        <Component {...props} />
-      </PersistGate>
-    </Provider>
+    <>
+      {/* // <Provider store={wrapper.store}> */}
+      {/* // <PersistGate loading={null} persistor={wrapper.persistor}> */}
+      <GlobalStyle />
+      <Component {...pageProps} />
+      {/* // </PersistGate> */}
+      {/* // </Provider> */}
+    </>
   );
 };
 
