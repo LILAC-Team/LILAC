@@ -5,6 +5,9 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+// HMR 비활성화
+app.hotMiddleware = () => {};
+
 app.prepare().then(() => {
   const server = express();
 
