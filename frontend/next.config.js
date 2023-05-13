@@ -10,7 +10,7 @@ module.exports = withPWA({
   },
   pageExtensions: ["tsx"],
   reactStrictMode: false,
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     // 웹팩 설정을 수정합니다.
     config.module.rules.push({
       test: /\.svg$/,
@@ -34,10 +34,6 @@ module.exports = withPWA({
         },
       ],
     });
-
-    if (!isServer) {
-      config.watch = false;
-    }
     config.resolve.modules.push(__dirname);
     return config;
   },
