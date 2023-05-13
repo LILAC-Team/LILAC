@@ -6,9 +6,9 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 // HMR 비활성화
-app.hotMiddleware = () => {};
 
 app.prepare().then(() => {
+  app.hotMiddleware = () => {};
   const server = express();
 
   // 로그인 여부를 확인하는 미들웨어
