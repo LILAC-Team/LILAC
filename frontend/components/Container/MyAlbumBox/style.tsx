@@ -28,3 +28,11 @@ export const OneAlbumCard = styled.div`
   width: 100%;
   padding: 1rem;
 `;
+
+export const TempBox = styled.div`
+  border: 2px solid green;
+
+  display: flex;
+  width: 22.5rem;
+  height: 1rem;
+`;
