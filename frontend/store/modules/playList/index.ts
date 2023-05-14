@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   playing: false,
   currentTrackIndex: -1,
-  currSrc: "",
+  currPlayingMusicInfo: {},
   musicList: new Map(),
   shuffleArr: [],
   musicListSize: -1,
@@ -22,11 +22,18 @@ export const playList = createSlice({
       });
       if (action.payload.listSize !== 0) {
         state.currentTrackIndex = 0;
-        state.currSrc =
+        state.currPlayingMusicInfo = action.payload.musicList[0];
+        state.currPlayingMusicInfo["src"] =
           process.env.CLOUDFRONT_URL +
-          state.musicList.get(state.currentTrackIndex).code;
+          "musics/" +
+          state.musicList.get(state.currentTrackIndex).code +
+          ".m3u8";
+        for (let i = 0; i < state.listSize; i++) {
+          state.shuffleArr.push(i);
+        }
       }
     },
+    setShuffle: (state) => {},
     togglePlay: (state) => {
       state.playing = !state.playing;
     },
@@ -36,7 +43,6 @@ export const playList = createSlice({
       const url =
         process.env.CLOUDFRONT_URL +
         state.musicList[state.currentTrackIndex].code;
-      state.currSrc = url;
       state.playing = true;
     },
     nextTrack: (state) => {
@@ -44,14 +50,14 @@ export const playList = createSlice({
       const url =
         process.env.CLOUDFRONT_URL +
         state.musicList[state.currentTrackIndex].code;
-      state.currSrc = url;
+      // state.currSrc = url;
       state.playing = true;
     },
     setTrack: (state, action) => {
       state.currentTrackIndex = action.payload.currentTrackIndex;
-      state.currSrc =
-        process.env.CLOUDFRONT_URL +
-        state.musicList[state.currentTrackIndex].code;
+      // state.currSrc =
+      // process.env.CLOUDFRONT_URL +
+      // state.musicList[state.currentTrackIndex].code;
     },
   },
 });
