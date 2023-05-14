@@ -41,10 +41,6 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  // server.get("/_next/webpack-hmr", (req, res) => {
-  //   return app.nextjsRequestHandler(req, res);
-  // });
-
   server.get("*", (req, res) => {
     return handle(req, res);
   });
