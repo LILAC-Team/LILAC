@@ -5,8 +5,6 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-// HMR 비활성화
-
 app.prepare().then(() => {
   const server = express();
 
@@ -42,6 +40,10 @@ app.prepare().then(() => {
   server.get("/album/:id", checkAuthMiddleware, (req, res) => {
     return handle(req, res);
   });
+
+  // server.get("/_next/webpack-hmr", (req, res) => {
+  //   return app.nextjsRequestHandler(req, res);
+  // });
 
   server.get("*", (req, res) => {
     return handle(req, res);

@@ -4,7 +4,9 @@ const initialState = {
   playing: false,
   currentTrackIndex: -1,
   currSrc: "",
-  musicList: [],
+  musicList: new Map(),
+  shuffleArr: [],
+  musicListSize: -1,
   listSize: 0,
 };
 
@@ -14,12 +16,15 @@ export const playList = createSlice({
   reducers: {
     setPlayList(state, action) {
       state.listSize = action.payload.listSize;
-      state.musicList = action.payload.musicList;
+      action.payload.musicList.map((data, index) => {
+        const key = state.musicListSize + index + 1;
+        state.musicList.set(key, data);
+      });
       if (action.payload.listSize !== 0) {
         state.currentTrackIndex = 0;
         state.currSrc =
           process.env.CLOUDFRONT_URL +
-          state.musicList[state.currentTrackIndex].code;
+          state.musicList.get(state.currentTrackIndex).code;
       }
     },
     togglePlay: (state) => {
