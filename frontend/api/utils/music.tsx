@@ -18,5 +18,5 @@ export const musicApi = {
   // 음원 댓글 API
   // 댓글 리스트 페이지로 반환, 페이지 번호는 1부터 시작
   getCommentList: (musicCode, pageNumber) =>
-    api.get(`/music/${musicCode}/comments/${pageNumber}`),
+    api.get(`/musics/${musicCode}/comments/${pageNumber}`),
 };
