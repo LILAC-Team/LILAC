@@ -16,6 +16,9 @@ interface ProfileState {
 }
 
 const Form = () => {
+  const [isMusic, setIsMusic] = useState(false);
+  const [isAlbum, setIsAlbum] = useState(false);
+
   const router = useRouter();
   const [albumTitle, setAlbumTitle] = useState("");
   const [albumImage, setAlbumImage] = useState<ProfileState>({
@@ -86,11 +89,16 @@ const Form = () => {
 
   const handleAlbumTitleOnChange = (e) => {
     setAlbumTitle(e.target.value);
+    if (albumTitle !== "") setIsAlbum(true);
+    else setIsAlbum(false);
   };
 
   const handleCurrTrackInfoOnChange = (e) => {
     const { id, value } = e.target;
     setCurrTrackInfo({ ...currTrackInfo, [id]: value });
+    if (currTrackInfo.artist !== "" && currTrackInfo.title !== "")
+      setIsMusic(true);
+    else setIsMusic(false);
   };
 
   const handleAddTrackToAlbum = () => {
@@ -177,16 +185,18 @@ const Form = () => {
           />
           <S.AlbumTitleWrap>
             <BasicInput
-              id='nickname'
-              type='text'
+              id="nickname"
+              type="text"
               value={albumTitle}
               handleOnChangeValue={handleAlbumTitleOnChange}
             />
           </S.AlbumTitleWrap>
           <S.ContentTitleWrap>
-            <BasicText text='음원목록' size='1.5rem' font='NotoSansKR700' />
+            <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
           </S.ContentTitleWrap>
-          <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
+          <S.AddMusicWrap>
+            <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
+          </S.AddMusicWrap>
           {albumTrackList.length > 0 &&
             albumTrackList.map((val, index) => (
               <MusicCard
@@ -200,14 +210,26 @@ const Form = () => {
                   artistName: val.artist,
                 }}
                 isEditable={false}
-              ></MusicCard>
+              />
             ))}
-          <CustomTextButton
-            text='등록'
-            fontColor='var(--color-background)'
-            handleOnClickButton={registerAlbum}
-            // border="2px soild white"
-          />
+          <S.UploadButtonWrap>
+            {isAlbum ? (
+              <CustomTextButton
+                text="등록"
+                font="NotoSansKR700"
+                fontColor="var(--color-background)"
+                handleOnClickButton={registerAlbum}
+              />
+            ) : (
+              <CustomTextButton
+                text="등록"
+                font="NotoSansKR700"
+                fontColor="var(--color-background)"
+                handleOnClickButton={registerAlbum}
+                isDisabled={true}
+              />
+            )}
+          </S.UploadButtonWrap>
         </S.ContentWrap>
       </Layout>
       {isModalOpen && (
@@ -218,54 +240,53 @@ const Form = () => {
         >
           <S.ModalContainer>
             <BasicText
-              text='제목'
-              size='1.25rem'
-              color='var(--color-background)'
+              text="제목"
+              size="1.25rem"
+              color="var(--color-background)"
             />
             <BasicInput
-              id='title'
-              type='text'
-              color='var(--color-background)'
+              id="title"
+              type="text"
+              color="var(--color-background)"
               value={currTrackInfo.title}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
 
             <BasicText
-              text='아티스트'
-              size='1.25rem'
-              color='var(--color-background)'
+              text="아티스트"
+              size="1.25rem"
+              color="var(--color-background)"
             />
             <BasicInput
-              id='artist'
-              type='text'
-              color='var(--color-background)'
+              id="artist"
+              type="text"
+              color="var(--color-background)"
               value={currTrackInfo.artist}
               handleOnChangeValue={handleCurrTrackInfoOnChange}
             />
             <div>
-              <input type='checkbox' />
+              <input type="checkbox" />
               title 여부
             </div>
-            <CustomTextButton
-              text='등록'
-              fontColor='var(--color-background)'
-              handleOnClickButton={handleAddTrackToAlbum}
-              // border="2px soild white"
-            />
+            {isMusic ? (
+              <CustomTextButton
+                text="등록"
+                fontColor="var(--color-background)"
+                handleOnClickButton={handleAddTrackToAlbum}
+              />
+            ) : (
+              <CustomTextButton
+                text="등록"
+                fontColor="var(--color-background)"
+                handleOnClickButton={handleAddTrackToAlbum}
+                isDisabled={true}
+              />
+            )}
           </S.ModalContainer>
         </SmallModal>
       )}
     </>
   );
 };
-
-// export async function getServerSideProps({ req }) {
-//   const serializedReq = CircularJSON.stringify(req);
-//   return {
-//     props: {
-//       req: serializedReq,
-//     },
-//   };
-// }
 
 export default Form;
