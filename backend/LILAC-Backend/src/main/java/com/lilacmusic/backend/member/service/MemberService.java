@@ -24,4 +24,6 @@ public interface MemberService {
 
     MemberDetailResponse memberDetail(Long memberId);
 
+    MemberDetailResponse updateMember(Long memberId, MultipartFile profileImageFile, String nickname);
+
 }

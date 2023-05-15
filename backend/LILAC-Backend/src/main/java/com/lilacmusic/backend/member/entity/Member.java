@@ -78,4 +78,9 @@ public class Member extends BaseTime {
 
     }
 
+    public void updateProfileImageAndNickname(String profileImage, String nickname) {
+        this.profileImage = profileImage;
+        this.nickname = nickname;
+    }
+
 }
