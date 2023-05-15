@@ -52,15 +52,15 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
                 <AlbumCard
                   data={data}
                   showAlbumDetail={true}
-                  albumSize='85%'
-                  titleSize='125%'
+                  albumSize="85%"
+                  titleSize="125%"
                 />
               </S.OneAlbumCard>
             </Link>
           ))
         ) : (
           <S.EmptyContainer>
-            <BasicText text='나만의 앨범을 발매해보세요' size='120%' />
+            <BasicText text="나만의 앨범을 발매해보세요" size="120%" />
           </S.EmptyContainer>
         ))}
       {content === "Own" &&
@@ -71,15 +71,15 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
                 <AlbumCard
                   data={data}
                   showAlbumDetail={true}
-                  albumSize='85%'
-                  titleSize='125%'
+                  albumSize="85%"
+                  titleSize="125%"
                 />
               </S.OneAlbumCard>
             </Link>
           ))
         ) : (
           <S.EmptyContainer>
-            <BasicText text='친구의 앨범을 등록해보세요' size='120%' />
+            <BasicText text="친구의 앨범을 등록해보세요" size="120%" />
           </S.EmptyContainer>
         ))}
     </S.AlbumContainer>

@@ -5,9 +5,10 @@ export const AlbumContainer = styled.div`
   padding-top: 0.5rem;
   height: calc(var(--vh, 1vh) * 100 - 14.5rem);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   @media (min-width: 43.75rem) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
   justify-content: center;
   text-align: center;
