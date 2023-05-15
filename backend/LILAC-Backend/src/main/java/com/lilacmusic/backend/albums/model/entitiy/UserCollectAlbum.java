@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "user_collect_album", indexes = @Index(name = "idx__member_id__album__id", columnList = "member_id, album_id"))
 public class UserCollectAlbum {
 
     @Id

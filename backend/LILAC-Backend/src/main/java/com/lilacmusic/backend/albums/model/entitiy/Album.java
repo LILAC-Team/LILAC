@@ -15,7 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "album")
+@Table(name = "album", indexes = {
+        @Index(name = "idx__member_id", columnList = "member_id")
+})
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
