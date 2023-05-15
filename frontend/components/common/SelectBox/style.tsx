@@ -15,17 +15,17 @@ export const SelectBox = styled.div`
 `;
 
 export const Label = styled.label`
-  width: 5rem;
-  height: 100%;
+  width: 6rem;
+  height: 4.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
-  border-radius: 15%;
+  border-radius: 10%;
   border: 2px solid var(--color-primary);
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 3rem;
+  right: 0.025rem;
 `;
 
 export const Icon = styled.div`

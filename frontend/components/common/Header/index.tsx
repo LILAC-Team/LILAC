@@ -2,10 +2,17 @@ import Link from "next/link";
 import BasicText from "../BasicText";
 import ProfileImg from "../ProfileImg";
 import * as S from "./style";
-import SelectBox from "../SelectBox";
 import { memberApi } from "@/api/utils/member";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import SmallModal from "../CommonModal/SmallModal";
+import BasicInput from "../BasicInput";
+import CustomTextButton from "../CustomTextButton";
+
+interface ProfileState {
+  previewImgUrl: any;
+  file: any;
+}
 
 interface userState {
   user: any;
@@ -15,14 +22,69 @@ interface HeaderProps {
   isShown?: boolean;
 }
 
-const list = ["정보수정", "로그아웃"];
-const funcArr = [() => console.log("수정"), () => console.log("로그아웃")];
-
 const Header = ({ isShown = true }: HeaderProps) => {
   const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
-  const [isDropdown, setIsDropdown] = useState(true);
+  const [isDropdown, setIsDropdown] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(false);
+  const [isLogoutModal, setIsLogoutModal] = useState(false);
+  const [nickName, setNickName] = useState("");
+  const [profile, setProfile] = useState<ProfileState>({
+    previewImgUrl: "",
+    file: {},
+  });
+
+  const handleEdit = () => {
+    console.log("정보수정");
+    setIsDropdown(false);
+    setIsEditModal(true);
+  };
+
+  const finishEdit = () => {
+    console.log("편집 완료");
+    setIsEditModal(false);
+  };
+
+  const handleLogout = () => {
+    console.log("로그아웃");
+    setIsDropdown(false);
+    setIsLogoutModal(true);
+  };
+
+  const handleLogoutAPI = () => {
+    console.log("Cookie, Storage 비우기");
+    setIsLogoutModal(false);
+  };
 
   const userInfo = useSelector((state: userState) => state.user);
+
+  const handleProfileClick = () => {
+    setIsDropdown(true);
+  };
+
+  const handleProfileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const {
+      target: { files },
+    } = e;
+
+    if (e.target.value === "") {
+      setProfile({ previewImgUrl: "", file: {} });
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onload = () => {
+        setProfile({ previewImgUrl: reader.result, file: files[0] });
+      };
+    }
+  };
+
+  const handleNicknameChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNickName(e.target.value);
+  };
+
   // console.log(userInfo);
 
   // const getProfileImage = async () => {
@@ -36,13 +98,13 @@ const Header = ({ isShown = true }: HeaderProps) => {
 
   useEffect(() => {
     if (userInfo.profileImage) {
-      setProfileImage(userInfo.profileImage);
+      // setProfileImage(userInfo.profileImage);
     }
     // getProfileImage();
   }, [userInfo]);
 
   return (
-    <div>
+    <>
       <S.HeaderWrapper>
         <Link href={"/"}>
           <S.LogoWrapper>
@@ -56,27 +118,82 @@ const Header = ({ isShown = true }: HeaderProps) => {
             />
           </S.LogoWrapper>
         </Link>
-        <S.ProfileWrapper>
-          {isShown && (
-            <>
+        {isShown && (
+          <>
+            <S.ProfileWrapper onClick={handleProfileClick}>
               <ProfileImg size="4rem" src={profileImage} />
-              {isDropdown && (
-                <SelectBox
-                  list={list}
-                  funcArr={funcArr}
-                  isDropdown={isDropdown}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div>{list[0]}</div>
-                    <div>{list[1]}</div>
-                  </div>
-                </SelectBox>
-              )}
-            </>
-          )}
-        </S.ProfileWrapper>
+            </S.ProfileWrapper>
+            {isDropdown && (
+              <S.Wrapper>
+                <S.LabelWrapper>
+                  <S.Label onClick={handleEdit}>
+                    <BasicText text="정보수정" color="black" />
+                  </S.Label>
+                  <S.Label onClick={handleLogout}>
+                    <BasicText text="로그아웃" color="black" />
+                  </S.Label>
+                </S.LabelWrapper>
+              </S.Wrapper>
+            )}
+          </>
+        )}
       </S.HeaderWrapper>
-    </div>
+      {isEditModal && (
+        <SmallModal
+          handleSetShowModal={() => {
+            setIsEditModal(false);
+          }}
+        >
+          <S.EditWrapper>
+            <S.ImageWrapper>
+              <ProfileImg
+                src={userInfo.profileImage}
+                onClickEvent={handleProfileChange}
+                isEditable={true}
+              />
+            </S.ImageWrapper>
+            <S.InputWrapper>
+              <BasicInput
+                id="nickname"
+                type="text"
+                value={nickName}
+                handleOnChangeValue={handleNicknameChange}
+              />
+            </S.InputWrapper>
+            <S.SubmitButtonWrap>
+              <CustomTextButton text="수정" handleOnClickButton={finishEdit} />
+            </S.SubmitButtonWrap>
+          </S.EditWrapper>
+        </SmallModal>
+      )}
+      {isLogoutModal && (
+        <SmallModal
+          handleSetShowModal={() => {
+            setIsLogoutModal(false);
+          }}
+        >
+          <S.EditWrapper>
+            <BasicText text="로그아웃 하시겠습니까?" size="120%" />
+            <S.LogoutWrapper>
+              <S.SmallButtonWrap>
+                <CustomTextButton
+                  text="확인"
+                  handleOnClickButton={handleLogoutAPI}
+                />
+              </S.SmallButtonWrap>
+              <S.SmallButtonWrap>
+                <CustomTextButton
+                  text="취소"
+                  handleOnClickButton={() => {
+                    setIsLogoutModal(false);
+                  }}
+                />
+              </S.SmallButtonWrap>
+            </S.LogoutWrapper>
+          </S.EditWrapper>
+        </SmallModal>
+      )}
+    </>
   );
 };
 
