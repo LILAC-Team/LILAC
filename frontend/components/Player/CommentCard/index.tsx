@@ -42,11 +42,14 @@ const CommentCard = ({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // After AddAlbum
   const [changeNext, setChangeNext] = useState(false);
-  // isOnClick
-  const [isOnClick, setIsOnClick] = useState(false);
 
   useEffect(() => {
-    handler(code);
+    if (changeNext) {
+      handler(code);
+      setTimeout(() => setChangeNext(false), 1100);
+      setTimeout(() => setIsDeleteModalOpen(false), 1100);
+      // setChangeNext(false);
+    }
   }, [changeNext]);
 
   return (
