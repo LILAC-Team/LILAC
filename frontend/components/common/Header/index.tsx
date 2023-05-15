@@ -2,7 +2,6 @@ import Link from "next/link";
 import BasicText from "../BasicText";
 import ProfileImg from "../ProfileImg";
 import * as S from "./style";
-import { memberApi } from "@/api/utils/member";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SmallModal from "../CommonModal/SmallModal";
@@ -23,13 +22,15 @@ interface HeaderProps {
 }
 
 const Header = ({ isShown = true }: HeaderProps) => {
-  const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
+  const userInfo = useSelector((state: userState) => state.user);
+
+  const [profileImage, setProfileImage] = useState(userInfo.profileImage);
   const [isDropdown, setIsDropdown] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
-  const [nickName, setNickName] = useState("");
+  const [nickName, setNickName] = useState(userInfo.nickName);
   const [profile, setProfile] = useState<ProfileState>({
-    previewImgUrl: "",
+    previewImgUrl: userInfo.profileImage,
     file: {},
   });
 
@@ -54,8 +55,6 @@ const Header = ({ isShown = true }: HeaderProps) => {
     console.log("Cookie, Storage 비우기");
     setIsLogoutModal(false);
   };
-
-  const userInfo = useSelector((state: userState) => state.user);
 
   const handleProfileClick = () => {
     setIsDropdown(true);
@@ -85,22 +84,12 @@ const Header = ({ isShown = true }: HeaderProps) => {
     setNickName(e.target.value);
   };
 
-  // console.log(userInfo);
-
-  // const getProfileImage = async () => {
-  //   try {
-  //     const res = await memberApi.getUserInfo();
-  //     setProfileImage(res.data.profileImage);
-  //   } catch (error) {
-  //     console.log("error: ", error);
-  //   }
-  // };
+  console.log(userInfo);
 
   useEffect(() => {
-    if (userInfo.profileImage) {
-      // setProfileImage(userInfo.profileImage);
+    if (userInfo) {
+      setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
     }
-    // getProfileImage();
   }, [userInfo]);
 
   return (
