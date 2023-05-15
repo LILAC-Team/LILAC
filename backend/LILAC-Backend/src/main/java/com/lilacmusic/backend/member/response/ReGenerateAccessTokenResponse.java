@@ -1,7 +1,7 @@
 package com.lilacmusic.backend.member.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
+import lombok.*;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;

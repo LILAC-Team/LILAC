@@ -1,6 +1,6 @@
 package com.lilacmusic.backend.global.security.jwt;
 
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 

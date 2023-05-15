@@ -3,7 +3,7 @@ package com.lilacmusic.backend.playlists.dto.request;
 import com.lilacmusic.backend.playlists.model.entitiy.PlayListMusic;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
