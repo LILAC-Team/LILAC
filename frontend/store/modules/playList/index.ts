@@ -11,8 +11,10 @@ export interface currPlayingMusicInfoState {
 }
 
 export interface playListState {
+  loop: boolean;
   playing: boolean;
   shuffle: boolean;
+  OnSeekToZero: boolean;
   currentTrackIndex: number;
   currPlayingMusicInfo: currPlayingMusicInfoState;
   musicList: object;
@@ -20,13 +22,14 @@ export interface playListState {
   musicListSize: number;
   listSize: number;
 }
-
-export const initialState: playListState = {
+const initialState: playListState = {
+  loop: false,
   playing: false,
   shuffle: false,
+  OnSeekToZero: false,
   currentTrackIndex: -1,
   currPlayingMusicInfo: {
-    index: 0,
+    index: -1,
     name: "",
     artistName: "",
     playtime: 0,
@@ -63,6 +66,9 @@ export const playList = createSlice({
         state.shuffleArr = Array.from(Array(state.listSize), (_, v) => v);
       }
     },
+    setLoop: (state) => {
+      state.loop = !state.loop;
+    },
     setShuffle: (state) => {
       state.shuffle = !state.shuffle;
       if (state.shuffle) {
@@ -89,7 +95,6 @@ export const playList = createSlice({
       state.playing = !state.playing;
     },
     prevTrack: (state) => {
-      state.playing = false;
       state.currentTrackIndex =
         (state.currentTrackIndex + state.listSize + 1) % state.listSize;
       state.currPlayingMusicInfo =
@@ -97,29 +102,34 @@ export const playList = createSlice({
       state.playing = true;
     },
     nextTrack: (state) => {
-      state.playing = false;
       state.currentTrackIndex = (state.currentTrackIndex + 1) % state.listSize;
       state.currPlayingMusicInfo =
         state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
       state.playing = true;
     },
     setTrack: (state, action) => {
-      state.playing = false;
-      state.currentTrackIndex = action.payload.currentTrackIndex;
+      state.currentTrackIndex = action.payload.index;
+      state.currPlayingMusicInfo =
+        state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
       state.playing = true;
     },
     addAlbum: (state, action) => {},
+    PutStartingPointToZero: (state, action) => {
+      state.OnSeekToZero = action.payload;
+    },
   },
 });
 
 export const {
   setPlayList,
+  setLoop,
   setShuffle,
   togglePlay,
   prevTrack,
   nextTrack,
   setTrack,
   addAlbum,
+  PutStartingPointToZero,
 } = playList.actions;
 
 export default playList.reducer;
