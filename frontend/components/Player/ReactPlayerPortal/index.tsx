@@ -1,39 +1,80 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import ReactPlayer from "react-player";
 import { createPortal } from "react-dom";
-import {
-  togglePlay,
-  setShuffle,
-  nextTrack,
-  setTrack,
-} from "@/store/modules/playList";
+import { nextTrack, PutStartingPointToZero } from "@/store/modules/playList";
 import { useSelector, useDispatch } from "react-redux";
 import { playListState } from "@/store/modules/playList";
+import { musicApi } from "@/api/utils/music";
+import {
+  setRecentCommentList,
+  setTotalCommentList,
+} from "@/store/modules/commentList";
 interface MusicControllerState {
   playList: playListState;
 }
-const ReactPlayerPortal: React.FC = React.memo(() => {
+
+// const ReactPlayerPortal: React.FC = React.memo(() => {
+const ReactPlayerPortal = () => {
   const playerRef = useRef(null);
   const dispatch = useDispatch();
+  const { loop, playing, OnSeekToZero, currPlayingMusicInfo } = useSelector(
+    (state: MusicControllerState) => state.playList
+  );
+  useEffect(() => {
+    if (OnSeekToZero) {
+      playerRef.current.seekTo(0);
+      dispatch(PutStartingPointToZero(false));
+    }
+  }, [dispatch, OnSeekToZero]);
+
+  useEffect(() => {
+    if (currPlayingMusicInfo) {
+      console.log("currPlayingMusicInfo: ", currPlayingMusicInfo);
+      musicApi
+        .getMusicInfo(currPlayingMusicInfo.code)
+        .then(({ data: { recentCommentList } }) => {
+          dispatch(setRecentCommentList({ recentCommentList }));
+          return musicApi.getCommentList(currPlayingMusicInfo.code, 1);
+        })
+        .then(
+          ({
+            data: {
+              commentList,
+              totalPages,
+              totalElements,
+              number,
+              first,
+              last,
+            },
+          }) => {
+            dispatch(
+              setTotalCommentList({
+                commentList,
+                totalPages,
+                totalElements,
+                number,
+                first,
+                last,
+              })
+            );
+          }
+        )
+        .catch((error) => {
+          console.log("error: ", error);
+        });
+    }
+  }, [currPlayingMusicInfo]);
 
   const handleClickForward = () => {
     playerRef.current.seekTo(0);
     dispatch(nextTrack());
   };
-  const {
-    playing,
-    currentTrackIndex,
-    currPlayingMusicInfo,
-    musicList,
-    shuffleArr,
-    musicListSize,
-    listSize,
-  } = useSelector((state: MusicControllerState) => state.playList);
-  return createPortal(
+  return (
     <ReactPlayer
       ref={playerRef}
       playing={playing}
-      url={currPlayingMusicInfo.src}
+      loop={loop}
+      url={currPlayingMusicInfo ? currPlayingMusicInfo.src : ""}
       stopOnUnmount={true}
       config={{
         file: {
@@ -44,11 +85,8 @@ const ReactPlayerPortal: React.FC = React.memo(() => {
       onEnded={handleClickForward}
       width={0}
       height={0}
-    />,
-    document.body
+    />
   );
-});
-
-ReactPlayerPortal.displayName = "ReactPlayerPortal";
+};
 
 export default ReactPlayerPortal;
