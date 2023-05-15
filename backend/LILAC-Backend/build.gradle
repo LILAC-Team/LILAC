@@ -92,6 +92,8 @@ private excludedClassFilesForReport(classDirectories) {
                 fileTree(dir: it, exclude: [
                         "**/request/**",
                         "**/response/**",
+                        "**/*Request*",
+                        "**/*Response*",
                         "**/entity/**",
                         "**/*Application*",
                         "**/*Config*"
