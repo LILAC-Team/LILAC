@@ -50,7 +50,7 @@ public class MemberController {
     @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = MemberSignUpResponse.class)))
     @Operation(description = "회원 가입 API", summary = "회원가입 API")
     @PostMapping("/api/v1/members")
-    public BaseResponse<MemberSignUpResponse> signup(@RequestPart("memberInfo") String memberInfoJson,  @RequestPart(value = "profileImage", required = false) MultipartFile profileImageFile) throws JsonProcessingException {
+    public BaseResponse<MemberSignUpResponse> signup(@RequestPart("memberInfo") String memberInfoJson, @RequestPart(value = "profileImage", required = false) MultipartFile profileImageFile) throws JsonProcessingException {
         MemberSignUpRequest request = new ObjectMapper().readValue(memberInfoJson, MemberSignUpRequest.class);
 
         if (profileImageFile != null) {
@@ -67,9 +67,23 @@ public class MemberController {
     @GetMapping("/api/v1/members")
     public BaseResponse<MemberDetailResponse> memberInfo(HttpServletRequest request) throws JsonProcessingException {
 
-        Long memberId = validator.getMemberIdOrMinusOne(request);
+        Long memberId = validator.validateEmail(request);
 
         MemberDetailResponse memberDetail = memberService.memberDetail(memberId);
+        return new BaseResponse<>(memberDetail);
+    }
+
+    @ApiResponse(responseCode = "200", description = "회원정보 수정 성공", content = @Content(schema = @Schema(implementation = MemberDetailResponse.class)))
+    @Operation(description = "회원정보 수정 API", summary = "회원정보 수정 API")
+    @PutMapping("/api/v1/members")
+    public BaseResponse<MemberDetailResponse> memberUpdate(
+            @RequestPart(value = "profileImage", required = false) MultipartFile profileImage,
+            @RequestPart(value = "nickname", required = false) String nickname,
+            HttpServletRequest request) {
+
+        Long memberId = validator.validateEmail(request);
+
+        MemberDetailResponse memberDetail = memberService.updateMember(memberId, profileImage, nickname);
         return new BaseResponse<>(memberDetail);
     }
 

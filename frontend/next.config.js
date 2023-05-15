@@ -5,10 +5,9 @@ const withPWA = require("next-pwa")({
 });
 
 module.exports = withPWA({
-  // pwa: {
-  //   dest: "public",
-  //   // 추가적인 PWA 구성 옵션을 여기에 설정할 수 있습니다.
-  // },
+  env: {
+    CLOUDFRONT_URL: "https://d1nj0um6xv6zar.cloudfront.net/",
+  },
   pageExtensions: ["tsx"],
   reactStrictMode: false,
   webpack: (config) => {
@@ -39,3 +38,13 @@ module.exports = withPWA({
     return config;
   },
 });
+
+// async redirects() {
+//   return [
+//     {
+//       source: "/404",
+//       destination: "/404/index",
+//       permanent: true,
+//     },
+//   ];
+// },

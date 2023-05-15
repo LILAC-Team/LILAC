@@ -9,18 +9,23 @@ export const SelectBox = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 1.25rem;
-  /* font-family: "RobotoMedium"; */
   background-color: var(--color-primary);
   color: var(--color-background);
   cursor: pointer;
 `;
 
 export const Label = styled.label`
-  width: 100%;
-  height: 100%;
+  width: 6rem;
+  height: 4.5rem;
   display: flex;
   align-items: center;
-  /* font-family: "RobotoMedium"; */
+  justify-content: center;
+  background-color: white;
+  border-radius: 10%;
+  border: 2px solid var(--color-primary);
+  position: absolute;
+  top: 3rem;
+  right: 0.025rem;
 `;
 
 export const Icon = styled.div`
@@ -54,7 +59,6 @@ export const Option = styled.li`
   color: var(--color-text);
   cursor: pointer;
   border-radius: 0.75rem;
-  /* width: 10rem; */
   width: 100%;
   height: 3.25rem;
 

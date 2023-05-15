@@ -1,18 +1,119 @@
 import * as S from "./style";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import BasicText from "@/components/common/BasicText";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import DragAndDrop from "@/components/Container/DragAndDrop";
-import MusicList from "../../../pages/musicList.json";
+import { useSelector, useDispatch } from "react-redux";
 import MusicCard from "../MusicCard";
+import { CLOUD_FRONT } from "@/api/index";
+import { playlistApi } from "@/api/utils/playlist";
+import { setPlayList, setTrack } from "@/store/modules/playList";
+
+interface Music {
+  name: string;
+  albumImage: string;
+  artistName: string;
+  playtime: number;
+  code: string;
+}
+
+interface PlayList {
+  musicList: Music[];
+  listSize: number;
+}
+
+interface AppState {
+  playList: PlayList;
+}
+
+interface MusicControllerState {
+  playList: {
+    playing: boolean;
+    currentTrackIndex: number;
+    currSrc: string;
+    musicList: MusicTrack[];
+    listSize: number;
+  };
+}
+
+interface MusicTrack {
+  name: string;
+  artistName: string;
+  playtime: number;
+  code: string;
+  albumImage: string;
+}
 
 const PlaylistDrawer = () => {
+  // Edit 여부
   const [isEdit, setIsEdit] = useState(false);
-  const [list, setList] = useState(MusicList.musicList);
+  // GET PlayList from Redux
+  const nowPlayList = useSelector((state: AppState) => state.playList);
+  const dispatch = useDispatch();
+  // UPDATE PlayList 담는 list
+  const [list, setList] = useState(nowPlayList.musicList);
+  // UPDATE list Size
+  const [listSize, setListSize] = useState(nowPlayList.listSize);
 
-  const handleEditClick = () => {
-    setIsEdit((props) => !props);
+  // RELOAD PlayList
+  const reloadPlayListHandler = useCallback(async () => {
+    try {
+      const { data } = await playlistApi.getPlayList();
+      dispatch(setPlayList(data));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch]);
+
+  // EDIT Click
+  const handleEditClick = async () => {
+    try {
+      const req = { musicList: list };
+      await playlistApi.putPlayList(req);
+      dispatch(
+        setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
+      );
+      setIsEdit((prevIsEdit) => !prevIsEdit);
+      setListSize(list.length);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // PLAY Music of Playlist
+  const playMusicHandler = async (index: number) => {
+    try {
+      console.log("nowIndex", index);
+      console.log("nowPlayList", nowPlayList);
+      dispatch(
+        setTrack({
+          ...nowPlayList,
+          currentTrackIndex: index,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(
+    "nownownow",
+    useSelector(
+      (state: MusicControllerState) => state.playList.currentTrackIndex
+    )
+  );
+
+  useEffect(() => {
+    setList(nowPlayList.musicList);
+  }, [nowPlayList.musicList]);
+
+  useEffect(() => {
+    reloadPlayListHandler();
+  }, [reloadPlayListHandler]);
+
+  useEffect(() => {
+    setListSize(nowPlayList.listSize);
+  }, [nowPlayList.listSize]);
 
   return (
     <S.Playlist>
@@ -21,12 +122,21 @@ const PlaylistDrawer = () => {
         <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
-        <BasicText text={list.length + "곡"} size="0.85rem" />
+        <BasicText
+          text={
+            (list.length === 0 && nowPlayList.listSize === 0
+              ? listSize
+              : list.length) + "곡"
+          }
+          size="0.85rem"
+        />
         <div />
         {isEdit ? (
           <CustomTextButton
             text="완료"
-            handleOnClickButton={handleEditClick}
+            handleOnClickButton={() => {
+              handleEditClick();
+            }}
             fontColor="#FFFFFF"
             font="Ridibatang"
             isBackground={false}
@@ -35,7 +145,9 @@ const PlaylistDrawer = () => {
         ) : (
           <CustomTextButton
             text="편집"
-            handleOnClickButton={handleEditClick}
+            handleOnClickButton={() => {
+              handleEditClick();
+            }}
             fontColor="#FFFFFF"
             font="Ridibatang"
             isBackground={false}
@@ -47,14 +159,25 @@ const PlaylistDrawer = () => {
         <DragAndDrop list={list} setList={setList} />
       ) : (
         <S.CardsWrapper>
-          {list.map(({ code, name, albumImage, artistName, playtime }) => (
-            <S.OneMusicCard key={code}>
-              <MusicCard
-                data={{ code, name, albumImage, artistName, playtime }}
-                isEditable={false}
-              />
-            </S.OneMusicCard>
-          ))}
+          {nowPlayList.musicList.map(
+            ({ code, name, albumImage, artistName, playtime }, index) => (
+              <S.OneMusicCard
+                key={index}
+                onClick={() => playMusicHandler(index)}
+              >
+                <MusicCard
+                  data={{
+                    code,
+                    name,
+                    albumImage: CLOUD_FRONT + albumImage,
+                    artistName,
+                    playtime,
+                  }}
+                  isEditable={false}
+                />
+              </S.OneMusicCard>
+            )
+          )}
         </S.CardsWrapper>
       )}
     </S.Playlist>

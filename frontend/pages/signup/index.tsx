@@ -1,17 +1,15 @@
 import * as S from "./style";
-import CircularJSON from "circular-json";
 import React, { useState, useEffect } from "react";
 import BasicText from "@/components/common/BasicText";
 import ProfileImg from "@/components/common/ProfileImg";
 import BasicInput from "@/components/common/BasicInput";
-import CustomTextButton from "@/components/common/CustomTextButton";
 import { useSelector, useDispatch } from "react-redux";
 import { memberApi } from "@/api/utils/member";
 import { useCookies } from "react-cookie";
 import { setLogIn } from "@/store/modules/user";
 import { useRouter } from "next/router";
-import { playlistApi } from "@/api/utils/playlist";
 import { setPlayList } from "@/store/modules/playList";
+import axios from "axios";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
@@ -29,15 +27,16 @@ const SignUp = () => {
     previewImgUrl: "",
     file: {},
   });
-  const userInfo = useSelector((state: AppState) => state.user);
+  let userInfo = useSelector((state: AppState) => state.user);
   const router = useRouter();
   const dispatch = useDispatch();
+  console.log("userInfo!!!!: ", userInfo);
   useEffect(() => {
     if (userInfo) {
-      setProfile({ previewImgUrl: userInfo.profileImagePath, file: {} });
+      setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
     }
     console.log("userInfo: ", userInfo);
-  }, []);
+  }, [userInfo]);
 
   const handleNicknameChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -71,43 +70,51 @@ const SignUp = () => {
       registrationId: "kakao",
       nickname: nickName,
     };
-
-    if (profile.previewImgUrl === userInfo.profileImagePath) {
-      data["profileImage"] = userInfo.profileImagePath;
-    } else {
-      await reader.readAsArrayBuffer(profile.file);
-      const blob = new Blob([reader.result], {
-        type: profile.file.type,
-      });
-      formData.append("profileImage", blob);
-    }
     formData.append("memberInfo", JSON.stringify(data));
-    console.log("data: ", data);
-    memberApi
-      .signUp(formData)
+
+    const promise = new Promise<void>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const blob = new Blob([reader.result], { type: profile.file.type });
+        formData.append("profileImage", blob);
+        resolve();
+      };
+      reader.onerror = reject;
+      profile;
+      reader.readAsArrayBuffer(profile.file);
+    });
+    // 사진이 없을 수도 있으니까 수정필요!!!!
+    /////////////////////////////////////
+    ///////////////////////////////
+    ////////////////
+    promise
+      .then(() => {
+        return memberApi.signUp(formData);
+      })
       .then((res) => {
-        console.log("res: ", res);
         alert("회원가입 성공");
         const { email, nickname, profileImage, accessToken, refreshToken } =
-          res.data;
+          res.data.result;
         dispatch(
           setLogIn({
             isLogIn: true,
             email,
             nickName: nickname,
-            profileImagePath: profileImage,
+            profileImage: profileImage,
           })
         );
         setCookies("refreshToken", refreshToken, { path: "/" });
         setCookies("accessToken", accessToken, { path: "/" });
-        return playlistApi.getPlayList();
+
+        return axios.get("https://lilac-music.net/api/v1/playlists", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${accessToken}`,
+          },
+        });
       })
-      .then(({ data }) => {
-        try {
-          dispatch(setPlayList(data));
-        } catch (error) {
-          console.log("error: ", error);
-        }
+      .then((res) => {
+        dispatch(setPlayList(res.data));
         router.push("/");
       })
       .catch((error) => {
@@ -147,14 +154,5 @@ const SignUp = () => {
     </S.SignUpContainer>
   );
 };
-
-export async function getServerSideProps({ req }) {
-  const serializedReq = CircularJSON.stringify(req);
-  return {
-    props: {
-      req: serializedReq,
-    },
-  };
-}
 
 export default SignUp;

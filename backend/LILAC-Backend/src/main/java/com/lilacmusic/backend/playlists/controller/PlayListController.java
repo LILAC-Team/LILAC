@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/playlists")
@@ -56,7 +57,7 @@ public class PlayListController {
             @ApiResponse(responseCode = "404", description = "Not Found 해당 없음"),
             @ApiResponse(responseCode = "500", description = "서버 에러")
     })
-    public ResponseEntity<Void> addMusicToPlayList(HttpServletRequest request, @RequestBody PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
+    public ResponseEntity<Void> addMusicToPlayList(HttpServletRequest request, @RequestBody @Valid PlayListAddRequest playListAddRequest) throws NoMusicFoundException {
         Long memberId = validator.validateEmail(request);
         Long musicId = playListService.addMusicToPlayList(memberId, playListAddRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -72,7 +73,7 @@ public class PlayListController {
             @ApiResponse(responseCode = "404", description = "Not Found 해당 없음"),
             @ApiResponse(responseCode = "500", description = "서버 에러")
     })
-    public ResponseEntity<Void> editPlayList(HttpServletRequest request, @RequestBody PlayListRequest playListRequest) {
+    public ResponseEntity<Void> editPlayList(HttpServletRequest request, @RequestBody @Valid PlayListRequest playListRequest) {
         Long memberId = validator.validateEmail(request);
         Integer listSize = playListService.editPlayList(memberId, playListRequest);
         return ResponseEntity.status(HttpStatus.OK).build();

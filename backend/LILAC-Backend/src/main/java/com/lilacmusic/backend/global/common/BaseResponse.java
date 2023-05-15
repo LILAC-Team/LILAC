@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.lilacmusic.backend.global.error.GlobalErrorCode;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 import lombok.NoArgsConstructor;
 
 import static com.lilacmusic.backend.global.error.GlobalErrorCode.SUCCESS;

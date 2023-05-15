@@ -1,24 +1,29 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import wrapper from "@/store/configStore";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
-import CircularJSON from "circular-json";
 import { setPlayList } from "@/store/modules/playList";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 import { setLogIn } from "@/store/modules/user";
-import { playlistApi } from "@/api/utils/playlist";
 import axios from "axios";
 interface OauthProps {
   query: object;
+  userData: object;
+  playListData: object;
 }
+import { useDispatch } from "react-redux";
 
-const Oauth = ({ query }) => {
+const Oauth = ({ query, userData, playListData }: OauthProps) => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [cookies, setCookie] = useCookies();
   useEffect(() => {
     console.log("저를 복사해주세요: ", window.location.href);
+
+    dispatch(setPlayList(playListData));
+    dispatch(setLogIn(userData));
+
     if (cookies.refreshToken) {
       router.push("/");
     } else {
@@ -45,6 +50,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ query, req, res }) => {
       const { email, nickname, profileImage, accessToken, refreshToken } =
         query;
+      console.info("-----------------------------");
+      console.info("query: ", query);
+      // console.info(decodeURI(query.profileImage));
+      let playListData = { musicList: [], listSize: 0 };
       if (accessToken) {
         res.setHeader("Set-Cookie", [
           "isLogIn=true",
@@ -52,7 +61,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
           `refreshToken=${refreshToken}`,
         ]);
         try {
-          const { data } = await axios.get(
+          const response = await axios.get(
             "https://lilac-music.net/api/v1/playlists",
             {
               headers: {
@@ -60,28 +69,28 @@ export const getServerSideProps = wrapper.getServerSideProps(
               },
             }
           );
-          store.dispatch(setPlayList(data));
+          console.info("------------data-------------- : ", response.data);
+
+          playListData["musicList"] = response.data.musicList;
+          playListData["listSize"] = response.data.listSize;
         } catch (error) {
           console.info("error: ", error);
         }
       } else {
         res.setHeader("Set-Cookie", "isLogIn=false");
-        store.dispatch(setPlayList({ musicList: [], listSize: 0 }));
       }
-      store.dispatch(
-        setLogIn({
-          email: email,
-          isLogIn: true,
-          nickName:
-            typeof nickname === "string" ? decodeURI(nickname) : nickname,
-          profileImage: profileImage,
-        })
-      );
-      console.info("store: ", store);
+      const userData = {
+        email: email,
+        isLogIn: true,
+        nickName: typeof nickname === "string" ? decodeURI(nickname) : nickname,
+        profileImage: profileImage,
+      };
       return {
         props: {
           initialReduxState: store.getState(),
           query,
+          userData,
+          playListData,
         },
       };
     }

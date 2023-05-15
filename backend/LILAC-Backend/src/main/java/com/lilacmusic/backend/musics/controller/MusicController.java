@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Slf4j
 @RestController
@@ -85,7 +86,7 @@ public class MusicController {
             @ApiResponse(responseCode = "500", description = "서버 에러")
     })
     public ResponseEntity<Void> createMusicComment(HttpServletRequest request,
-                                                   @RequestBody CommentRequest commentRequest,
+                                                   @RequestBody @Valid CommentRequest commentRequest,
                                                    @PathVariable("musicCode") @ApiParam("음원 코드") String musicCode) throws NoMusicFoundException {
         Long memberId = validator.validateEmail(request);
         Long commentId = commentService.createMusicComment(memberId, commentRequest, musicCode);

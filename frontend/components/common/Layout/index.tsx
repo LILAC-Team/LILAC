@@ -34,9 +34,6 @@ const Layout = ({ children }: LayoutProps) => {
 
       setState({ ...state, [anchor]: open });
     };
-  const iOS =
-    typeof navigator !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
     <S.ContainerWrap>
       <Header />
@@ -47,7 +44,7 @@ const Layout = ({ children }: LayoutProps) => {
           onClickEvent={toggleDrawer("bottom", true)}
         />
         <Drawer
-          inner="player"
+          inner='player'
           toggleDrawer={toggleDrawer}
           state={{ ...state }}
           anchor={"bottom"}
