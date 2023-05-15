@@ -60,7 +60,7 @@ public class StreamingServiceImpl implements StreamingService {
                 .albumImage(inputKey)
                 .releasedDate(LocalDateTime.now())
                 .build();
-        albumRepository.save(album);
+        album = albumRepository.save(album);
         memberRepository.updateReleasingByMemberId(memberId);
 
         return album.getAlbumId();

@@ -58,6 +58,7 @@ export const ModalContainer = styled.div`
   justify-content: center;
   display: flex;
   flex-direction: column;
+  z-index: 999999;
 `;
 
 export const ModalText = styled.div`

@@ -7,6 +7,8 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   background-color: transparent;
+
+  z-index: 9999999;
 `;
 
 export const BackgroundBlur = styled.div`

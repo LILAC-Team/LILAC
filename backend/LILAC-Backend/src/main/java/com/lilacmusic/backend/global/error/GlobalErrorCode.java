@@ -1,6 +1,6 @@
 package com.lilacmusic.backend.global.error;
 
-import lombok.Getter;
+import lombok.*;
 
 /**
  * 프로젝트 내 사용되는 에러 코드

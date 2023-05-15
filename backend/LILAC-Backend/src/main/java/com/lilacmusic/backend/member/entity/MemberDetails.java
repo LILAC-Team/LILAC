@@ -1,6 +1,6 @@
 package com.lilacmusic.backend.member.entity;
 
-import lombok.Getter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
