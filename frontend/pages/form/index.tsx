@@ -1,5 +1,5 @@
 import * as S from "./style";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@/components/common/Layout";
 import MusicCard from "@/components/Player/MusicCard";
 import BasicText from "@/components/common/BasicText";
@@ -10,6 +10,7 @@ import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import { albumApi } from "@/api/utils/album";
 import { useRouter } from "next/router";
+import BasicImage from "@/components/common/BasicImage";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
@@ -18,7 +19,10 @@ interface ProfileState {
 const Form = () => {
   const [isMusic, setIsMusic] = useState(false);
   const [isAlbum, setIsAlbum] = useState(false);
-
+  const [isAlbumImage, setIsAlbumImage] = useState(false);
+  const [isAlbumMusic, setIsAlbumMusic] = useState(false);
+  const [isTitle, setIsTitle] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const [albumTitle, setAlbumTitle] = useState("");
   const [albumImage, setAlbumImage] = useState<ProfileState>({
@@ -43,15 +47,17 @@ const Form = () => {
 
     if (e.target.value === "") {
       setAlbumImage({ previewImgUrl: "", file: {} });
+      setIsAlbumImage(false);
     } else {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onload = () => {
-        console.log("typeof reader.result: ", typeof reader.result);
+        // console.log("typeof reader.result: ", typeof reader.result);
         const str = reader.result;
-        console.log("str: ", str);
+        // console.log("str: ", str);
         setAlbumImage({ previewImgUrl: str, file: files[0] });
       };
+      setIsAlbumImage(true);
     }
   };
 
@@ -76,33 +82,47 @@ const Form = () => {
         audioContext.decodeAudioData(arrayBuffer, (audioBuffer) => {
           setCurrTrackInfo({
             ...currTrackInfo,
+            isTitle: isTitle,
             playtime: Math.ceil(audioBuffer.duration),
             file: files[0],
           });
-          console.log(`Duration: ${Math.ceil(audioBuffer.duration)} seconds`);
+          // console.log(`Duration: ${Math.ceil(audioBuffer.duration)} seconds`);
         });
       };
       fileReader.readAsArrayBuffer(files[0]);
       setIsModalOpen(true);
+      // setIsAlbumMusic(true);
     }
   };
 
   const handleAlbumTitleOnChange = (e) => {
     setAlbumTitle(e.target.value);
-    if (albumTitle !== "") setIsAlbum(true);
+    if (e.target.value !== "") setIsAlbum(true);
     else setIsAlbum(false);
   };
 
   const handleCurrTrackInfoOnChange = (e) => {
-    const { id, value } = e.target;
-    setCurrTrackInfo({ ...currTrackInfo, [id]: value });
-    if (currTrackInfo.artist !== "" && currTrackInfo.title !== "")
-      setIsMusic(true);
-    else setIsMusic(false);
+    setCurrTrackInfo({ ...currTrackInfo, [e.target.id]: e.target.value });
   };
 
+  const handleTitle = (check: boolean) => {
+    setCurrTrackInfo({ ...currTrackInfo, isTitle: check });
+  };
+
+  useEffect(() => {
+    handleTitle(isChecked);
+  }, [isChecked]);
+
+  useEffect(() => {
+    if (currTrackInfo.artist !== "" && currTrackInfo.title !== "") {
+      setIsMusic(true);
+    } else {
+      setIsMusic(false);
+    }
+  }, [currTrackInfo]);
+
   const handleAddTrackToAlbum = () => {
-    setAlbumTrackList([currTrackInfo, ...albumTrackList]);
+    setAlbumTrackList([...albumTrackList, currTrackInfo]);
     setCurrTrackInfo({
       title: "",
       artist: "",
@@ -111,6 +131,8 @@ const Form = () => {
       file: {},
     });
     setIsModalOpen(false);
+    setIsChecked(false);
+    setIsAlbumMusic(true);
   };
 
   // 앨범 등록
@@ -124,7 +146,7 @@ const Form = () => {
       const obj = {
         artistName: data.artist,
         musicIndex: index,
-        isTitle: false,
+        isTitle: data.isTitle,
         name: data.title,
         playtime: data.playtime,
       };
@@ -167,13 +189,15 @@ const Form = () => {
         return albumApi.uploadAlbum(formData);
       })
       .then((res) => {
-        console.log("res: ", res);
-        router.push(`/album/${res.data}`);
+        setTimeout(() => router.push(`/album/${res.data}`), 500);
       })
       .catch((err) => {
         console.log("err: ", err);
       });
+    setTimeout(() => setIsResultModalOpen(false), 1500);
   };
+
+  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
 
   return (
     <>
@@ -197,28 +221,35 @@ const Form = () => {
           <S.AddMusicWrap>
             <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
           </S.AddMusicWrap>
-          {albumTrackList.length > 0 &&
-            albumTrackList.map((val, index) => (
-              <MusicCard
-                key={index}
-                onClickEvent={() => console.log("ClickClick")}
-                data={{
-                  code: "index",
-                  name: val.title,
-                  playtime: val.playtime,
-                  albumImage: albumImage.previewImgUrl,
-                  artistName: val.artist,
-                }}
-                isEditable={false}
-              />
-            ))}
+          <S.CardsWrapper>
+            {albumTrackList.length > 0 &&
+              albumTrackList.map((val, index) => (
+                <S.OneMusicCard key={index}>
+                  <MusicCard
+                    onClickEvent={() => console.log("ClickClick")}
+                    data={{
+                      code: "index",
+                      name: val.title,
+                      playtime: val.playtime,
+                      albumImage: albumImage.previewImgUrl,
+                      artistName: val.artist,
+                    }}
+                    isEditable={false}
+                    isTitle={val.isTitle}
+                  />
+                </S.OneMusicCard>
+              ))}
+          </S.CardsWrapper>
           <S.UploadButtonWrap>
-            {isAlbum ? (
+            {isAlbum && isAlbumImage && isAlbumMusic ? (
               <CustomTextButton
                 text="등록"
                 font="NotoSansKR700"
                 fontColor="var(--color-background)"
-                handleOnClickButton={registerAlbum}
+                handleOnClickButton={() => {
+                  setIsResultModalOpen(true);
+                  registerAlbum();
+                }}
               />
             ) : (
               <CustomTextButton
@@ -239,50 +270,90 @@ const Form = () => {
           }}
         >
           <S.ModalContainer>
-            <BasicText
-              text="제목"
-              size="1.25rem"
-              color="var(--color-background)"
-            />
-            <BasicInput
-              id="title"
-              type="text"
-              color="var(--color-background)"
-              value={currTrackInfo.title}
-              handleOnChangeValue={handleCurrTrackInfoOnChange}
-            />
-
-            <BasicText
-              text="아티스트"
-              size="1.25rem"
-              color="var(--color-background)"
-            />
-            <BasicInput
-              id="artist"
-              type="text"
-              color="var(--color-background)"
-              value={currTrackInfo.artist}
-              handleOnChangeValue={handleCurrTrackInfoOnChange}
-            />
-            <div>
-              <input type="checkbox" />
-              title 여부
-            </div>
+            <S.ModalSubject>
+              <BasicText
+                text="제목"
+                size="1.25rem"
+                color="var(--color-background)"
+              />
+            </S.ModalSubject>
+            <S.ModalInput>
+              <BasicInput
+                id="title"
+                type="text"
+                color="var(--color-background)"
+                value={currTrackInfo.title}
+                handleOnChangeValue={handleCurrTrackInfoOnChange}
+              />
+            </S.ModalInput>
+            <S.ModalSubject>
+              <BasicText
+                text="아티스트"
+                size="1.25rem"
+                color="var(--color-background)"
+              />
+            </S.ModalSubject>
+            <S.ModalInput>
+              <BasicInput
+                id="artist"
+                type="text"
+                color="var(--color-background)"
+                value={currTrackInfo.artist}
+                handleOnChangeValue={handleCurrTrackInfoOnChange}
+              />
+            </S.ModalInput>
+            <S.TitleInputDiv>
+              <BasicText
+                text="Title"
+                size="1.25rem"
+                color="var(--color-background)"
+              />
+              <S.TitleInput
+                type="checkbox"
+                checked={isChecked}
+                onChange={() => {
+                  setIsChecked(!isChecked);
+                }}
+              />
+            </S.TitleInputDiv>
             {isMusic ? (
               <CustomTextButton
                 text="등록"
+                font="NotoSansKR700"
                 fontColor="var(--color-background)"
                 handleOnClickButton={handleAddTrackToAlbum}
               />
             ) : (
               <CustomTextButton
                 text="등록"
+                font="NotoSansKR700"
                 fontColor="var(--color-background)"
                 handleOnClickButton={handleAddTrackToAlbum}
                 isDisabled={true}
               />
             )}
           </S.ModalContainer>
+        </SmallModal>
+      )}
+      {isResultModalOpen && (
+        <SmallModal
+          handleSetShowModal={() => {
+            setIsResultModalOpen(false);
+          }}
+        >
+          <S.ModalAllContainer>
+            <S.ModalLine>
+              <S.ModalIcon>
+                <BasicImage src="/icons/favicon-512x512.png" />
+              </S.ModalIcon>
+              <S.ModalText>
+                <BasicText text="업로드중입니다" size="1.5rem" color="black" />
+              </S.ModalText>
+              <S.ModalIcon>
+                <BasicImage src="/icons/favicon-512x512.png" />
+              </S.ModalIcon>
+            </S.ModalLine>
+          </S.ModalAllContainer>
         </SmallModal>
       )}
     </>
