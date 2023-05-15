@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import wrapper from "@/store/configStore";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import ReactPlayerPortal from "@/components/Player/ReactPlayerPortal";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(pageProps);
   const persistor = persistStore(store);
@@ -24,6 +25,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <GlobalStyle />
+          <ReactPlayerPortal />
           <Component {...props} />
         </PersistGate>
       </Provider>
