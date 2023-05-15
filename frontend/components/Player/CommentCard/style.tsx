@@ -51,3 +51,42 @@ export const CommentDelete = styled.div`
   width: 3rem;
   /* max-width: calc((var(--vw, 1vw) * 10)); */
 `;
+
+export const ModalContainer = styled.div`
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ModalText = styled.div`
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 2rem;
+`;
+
+export const ModalBtn = styled.div`
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 1rem;
+  height: 2.25rem;
+`;
+
+export const ModalIcon = styled.div`
+  width: 1rem;
+  height: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+`;
+export const ModalLine = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

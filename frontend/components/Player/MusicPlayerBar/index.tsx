@@ -40,19 +40,19 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
   //   (state: MusicControllerState) => state.playList
   // );
   const playing = true;
-  const value = useSelector((state: MusicControllerState) => state.playList);
-  useEffect(() => {
-    console.log("value: ", value);
-  }, []);
+  // const value = useSelector((state: MusicControllerState) => state.playList);
+  // useEffect(() => {
+  // console.log("value: ", value);
+  // }, []);
 
   const handleClickPlay = () => {
     console.log("playing Change");
-    dispatch(togglePlay());
-    console.log("playing: ", playing);
+    // dispatch(togglePlay());
+    // console.log("playing: ", playing);
   };
 
   const handleClickForward = () => {
-    dispatch(nextTrack());
+    // dispatch(nextTrack());
     console.log("Play next music");
   };
 
@@ -117,15 +117,15 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
             <S.Title>
               <BasicText
                 text={data.name}
-                size="1.125rem"
-                font="NotoSansKR700"
+                size='1.125rem'
+                font='NotoSansKR700'
               />
             </S.Title>
             <S.Artist>
               <BasicText
                 text={data.nickname}
-                size="0.75rem"
-                font="NotoSansKR400"
+                size='0.75rem'
+                font='NotoSansKR400'
               />
             </S.Artist>
           </S.TextWrapper>
@@ -133,13 +133,13 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
         <S.RightWrapper>
           <CustomIconButton handleOnClickButton={handleClickPlay}>
             {playing ? (
-              <IoPlay size="2.5rem" color="#FFFFFF" />
+              <IoPlay size='2.5rem' color='#FFFFFF' />
             ) : (
-              <IoPause size="2.5rem" color="#FFFFFF" />
+              <IoPause size='2.5rem' color='#FFFFFF' />
             )}
           </CustomIconButton>
           <CustomIconButton handleOnClickButton={handleClickForward}>
-            <IoPlayForward size="1.5rem" color="#FFFFFF" />
+            <IoPlayForward size='1.5rem' color='#FFFFFF' />
           </CustomIconButton>
           <CustomIconButton
             handleOnClickButton={(e) => {
@@ -147,7 +147,7 @@ const MusicPlayerBar = ({ data, onClickEvent }: MusicPlayerBarProps) => {
               setNowOpen("playlist");
             }}
           >
-            <RiPlayListFill size="1.5rem" color="#FFFFFF" />
+            <RiPlayListFill size='1.5rem' color='#FFFFFF' />
           </CustomIconButton>
         </S.RightWrapper>
       </S.BarWrapper>

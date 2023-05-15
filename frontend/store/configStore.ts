@@ -17,7 +17,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user,
-  playList,
+  // playList,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
