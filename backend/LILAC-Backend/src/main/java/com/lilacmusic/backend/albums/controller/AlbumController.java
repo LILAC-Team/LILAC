@@ -12,6 +12,7 @@ import com.lilacmusic.backend.albums.service.StreamingService;
 import com.lilacmusic.backend.global.common.BaseResponse;
 import com.lilacmusic.backend.global.validation.GlobalRequestValidator;
 import com.lilacmusic.backend.member.service.MemberService;
+import com.lilacmusic.backend.musics.dto.request.MusicRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -112,8 +113,12 @@ public class AlbumController {
             @RequestPart("albumInfo") @ApiParam("앨범 및 음원 정보 - json을 string형식으로") String albumInfoJson,
             HttpServletRequest request
     ) throws JsonProcessingException, NoAlbumFoundException {
-        AlbumRequest albumRequest = new ObjectMapper().readValue(albumInfoJson, AlbumRequest.class);
         Long memberId = validator.validateEmail(request);
+        AlbumRequest albumRequest = new ObjectMapper().readValue(albumInfoJson, AlbumRequest.class);
+        streamingService.validateRequest(albumRequest);
+        for (MusicRequest mr : albumRequest.getMusicList()) {
+            streamingService.validateMusicRequest(mr);
+        }
         // file 개수 검증
         log.debug(albumRequest.toString());
         log.debug(imageFile.getOriginalFilename());
