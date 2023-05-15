@@ -4,7 +4,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import CommentInput from "../CommentInput";
 import CommentCard from "../CommentCard";
 import { useSelector } from "react-redux";
-import { setPlayList } from "@/store/modules/playList";
 import { musicApi } from "@/api/utils/music";
 
 interface userState {
@@ -61,44 +60,14 @@ const initialCommentList: CommentListResponse = {
 
 const CommentDrawer = () => {
   const [inputData, setInputData] = useState("");
-
-  const changeInputData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputData(e.target.value);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputData !== "") {
-      console.log(inputData);
-      newCommentHandler(inputData);
-      setInputData("");
-      commentHandler();
-    }
-  };
-
-  const handleOnClick = () => {
-    console.log(inputData);
-    newCommentHandler(inputData);
-    setInputData("");
-    commentHandler();
-  };
-
   const userInfo = useSelector((state: userState) => state.user);
-  // const currentTrackIndex = useSelector(
-  //   (state: MusicControllerState) => state.playList.currentTrackIndex
-  // );
-  // const musicList = useSelector(
-  //   (state: MusicControllerState) => state.playList.musicList
-  // );
-  // const currentTrack = musicList[currentTrackIndex];
-  // console.log(currentTrack);
-  // const currSrc = useSelector((state) => state.playList);
 
   // GET All Comments
   const [nowCommentList, setNowCommentList] =
     useState<CommentListResponse>(initialCommentList);
   const [nowPage, setNowPage] = useState(1);
-  const commentHandler = async () => {
-    console.log("all");
+
+  const commentHandler = useCallback(async () => {
     try {
       // const { data } = await musicApi.getCommentList(currentTrack.code, nowPage);
       const { data } = await musicApi.getCommentList(
@@ -109,33 +78,36 @@ const CommentDrawer = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [nowPage]);
 
   useEffect(() => {
     commentHandler();
-  }, []);
+  }, [commentHandler]);
 
   // POST New Comment
-  const [nowTime, setNowTime] = useState(5);
-  const newCommentHandler = async (comment: string) => {
-    console.log("new");
-    try {
-      // await musicApi.postRegisterComment(
-      //   currentTrack.code,
-      //   { content: comment, presentTime: nowTime }
-      // );
-      musicApi.postRegisterComment("da798686-10a7-428b-a154-10f34ddd5034", {
-        content: comment,
-        presentTime: nowTime,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [nowTime, setNowTime] = useState(65);
 
-  // useEffect(() => {
-  //   commentHandler();
-  // }, [newCommentHandler]);
+  const newCommentHandler = useCallback(
+    async (comment: string) => {
+      try {
+        // await musicApi.postRegisterComment(
+        //   currentTrack.code,
+        //   { content: comment, presentTime: nowTime }
+        // );
+        await musicApi.postRegisterComment(
+          "da798686-10a7-428b-a154-10f34ddd5034",
+          {
+            content: comment,
+            presentTime: nowTime,
+          }
+        );
+        commentHandler();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [commentHandler]
+  );
 
   // DELETE Comment
   const deleteCommentHandler = useCallback(
@@ -147,13 +119,34 @@ const CommentDrawer = () => {
           "da798686-10a7-428b-a154-10f34ddd5034",
           code
         );
-        commentHandler();
+        setTimeout(() => commentHandler(), 1000);
       } catch (error) {
         console.log(error);
       }
     },
     [commentHandler]
   );
+
+  // CHANGE InputData
+  const changeInputData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputData(e.target.value);
+  };
+
+  // PRESS Enter Key
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && inputData !== "") {
+      console.log(inputData);
+      newCommentHandler(inputData);
+      setInputData("");
+    }
+  };
+
+  // ONCLICK Button
+  const handleOnClick = () => {
+    console.log(inputData);
+    newCommentHandler(inputData);
+    setInputData("");
+  };
 
   return (
     <S.Comment>
@@ -163,6 +156,7 @@ const CommentDrawer = () => {
       </S.Top>
       <S.InputAllWrap>
         <CommentInput
+          nowTime={nowTime}
           src={userInfo.profileImage}
           value={inputData}
           handleOnChangeValue={changeInputData}
