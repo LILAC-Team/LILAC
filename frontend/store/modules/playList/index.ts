@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface currPlayingMusicInfoState {
+  index: number;
   name: string;
   artistName: string;
   playtime: number;
@@ -11,9 +12,10 @@ export interface currPlayingMusicInfoState {
 
 export interface playListState {
   playing: boolean;
+  shuffle: boolean;
   currentTrackIndex: number;
   currPlayingMusicInfo: currPlayingMusicInfoState;
-  musicList: Object;
+  musicList: object;
   shuffleArr: number[];
   musicListSize: number;
   listSize: number;
@@ -21,8 +23,10 @@ export interface playListState {
 
 export const initialState: playListState = {
   playing: false,
+  shuffle: false,
   currentTrackIndex: -1,
   currPlayingMusicInfo: {
+    index: 0,
     name: "",
     artistName: "",
     playtime: 0,
@@ -44,51 +48,78 @@ export const playList = createSlice({
       state.listSize = action.payload.listSize;
       action.payload.musicList.map((data, index) => {
         const key = state.musicListSize + index + 1;
-        const object = data;
-        object["src"] =
-          process.env.CLOUDFRONT_URL +
-          "musics/" +
-          state.musicList[`${state.currentTrackIndex}`].code +
-          ".m3u8";
+        const object = {
+          ...data,
+          index,
+          albumImage: process.env.CLOUDFRONT_URL + data.albumImage,
+          src:
+            process.env.CLOUDFRONT_URL + "musics/music-" + data.code + ".m3u8",
+        };
         state.musicList[`${key}`] = object;
       });
       if (action.payload.listSize !== 0) {
         state.currentTrackIndex = 0;
-        state.currPlayingMusicInfo = action.payload.musicList[0];
-        for (let i = 0; i < state.listSize; i++) {
-          state.shuffleArr.push(i);
-        }
+        state.currPlayingMusicInfo = state.musicList["0"];
+        state.shuffleArr = Array.from(Array(state.listSize), (_, v) => v);
       }
     },
-    setShuffle: (state) => {},
+    setShuffle: (state) => {
+      state.shuffle = !state.shuffle;
+      if (state.shuffle) {
+        const copyNums = [...state.shuffleArr];
+        let numsLength = copyNums.length;
+        while (numsLength) {
+          let randomIndex = Math.floor(numsLength-- * Math.random());
+          let temp = copyNums[randomIndex];
+          copyNums[randomIndex] = copyNums[numsLength];
+          copyNums[numsLength] = temp;
+        }
+        state.shuffleArr = [...copyNums];
+        for (let i = 0; i < state.listSize; i++) {
+          if (state.shuffleArr[i] === state.currentTrackIndex) {
+            state.currentTrackIndex = i;
+            break;
+          }
+        }
+      } else {
+        state.shuffleArr = Array.from(Array(state.listSize), (_, v) => v);
+      }
+    },
     togglePlay: (state) => {
       state.playing = !state.playing;
     },
     prevTrack: (state) => {
+      state.playing = false;
       state.currentTrackIndex =
         (state.currentTrackIndex + state.listSize + 1) % state.listSize;
       state.currPlayingMusicInfo =
-        state.musicList[`${state.currentTrackIndex}`];
+        state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
       state.playing = true;
-      // state.currPlayingMusicInfo["src"] =
-      //   process.env.CLOUDFRONT_URL +
-      //   "musics/" +
-      //   state.currPlayingMusicInfo.code +
-      //   ".m3u8";
     },
     nextTrack: (state) => {
+      state.playing = false;
       state.currentTrackIndex = (state.currentTrackIndex + 1) % state.listSize;
       state.currPlayingMusicInfo =
-        state.musicList[`${state.currentTrackIndex}`];
+        state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
       state.playing = true;
     },
     setTrack: (state, action) => {
+      state.playing = false;
       state.currentTrackIndex = action.payload.currentTrackIndex;
+      state.playing = true;
     },
+    addAlbum: (state, action) => {},
   },
 });
 
-export const { setPlayList, togglePlay, prevTrack, nextTrack, setTrack } =
-  playList.actions;
+export const {
+  setPlayList,
+  setShuffle,
+  togglePlay,
+  prevTrack,
+  nextTrack,
+  setTrack,
+  addAlbum,
+} = playList.actions;
 
 export default playList.reducer;
