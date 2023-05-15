@@ -3,7 +3,7 @@ package com.lilacmusic.backend.member.response;
 import io.swagger.models.auth.In;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
 @Getter

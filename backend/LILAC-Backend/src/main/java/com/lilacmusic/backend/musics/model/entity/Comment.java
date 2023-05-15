@@ -2,7 +2,7 @@ package com.lilacmusic.backend.musics.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -14,7 +14,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "comment")
+@Table(name = "comment", indexes = {
+        @Index(name = "idx__music_id", columnList = "music_id"),
+        @Index(name = "idx__member_id", columnList = "member_id")
+})
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
