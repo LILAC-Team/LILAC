@@ -18,6 +18,7 @@ const allTab = [
 
 const AlbumPage = () => {
   const { currentItem, changeItem } = useTabs(0, allTab);
+
   return (
     <Layout>
       <S.TabWrapper>

@@ -21,9 +21,12 @@ export const AlbumTitleWrap = styled.div`
 `;
 
 export const UploadButtonWrap = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
+  height: 2.25rem;
+  align-items: center;
   justify-content: center;
+  margin-top: 1rem;
 `;
 
 export const ContentTitleWrap = styled.div`
@@ -32,7 +35,12 @@ export const ContentTitleWrap = styled.div`
   min-width: 15.5rem;
   max-width: 25rem;
   padding-top: 20px;
-  padding-bottom: 28px;
+  padding-bottom: 15px;
+`;
+
+export const AddMusicWrap = styled.div`
+  width: 100%;
+  margin-bottom: 1rem;
 `;
 
 export const ModalContainer = styled.div`
