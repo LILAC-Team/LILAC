@@ -16,138 +16,135 @@ import {
 import Drawer from "@/components/common/Drawer";
 import { useRouter } from "next/router";
 import { playListState } from "@/store/modules/playList";
-import ReactPlayerPortal from "../ReactPlayerPortal";
 
 interface MusicPlayerBarProps {
-  // onClickEvent: (event: React.KeyboardEvent | React.MouseEvent) => void;
+  onClickEvent: (event: React.KeyboardEvent | React.MouseEvent) => void;
 }
 
 interface MusicControllerState {
   playList: playListState;
 }
 
-const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(() => {
-  const playerRef = useRef(null);
-  const router = useRouter();
-  const dispatch = useDispatch();
-  // const { playing, currentTrackingIndex, currSrc } = useSelector(
-  //   (state: MusicControllerState) => state.playList
-  // );
-  // const playing = true;
-  // const value = useSelector((state: MusicControllerState) => state.playList);
-  const {
-    playing,
-    currentTrackIndex,
-    currPlayingMusicInfo,
-    musicList,
-    shuffleArr,
-    musicListSize,
-    listSize,
-  } = useSelector((state: MusicControllerState) => state.playList);
+const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
+  ({ onClickEvent }) => {
+    const playerRef = useRef(null);
+    const router = useRouter();
+    const dispatch = useDispatch();
+    // const { playing, currentTrackingIndex, currSrc } = useSelector(
+    //   (state: MusicControllerState) => state.playList
+    // );
+    // const playing = true;
+    // const value = useSelector((state: MusicControllerState) => state.playList);
+    const {
+      playing,
+      currentTrackIndex,
+      currPlayingMusicInfo,
+      musicList,
+      shuffleArr,
+      musicListSize,
+      listSize,
+    } = useSelector((state: MusicControllerState) => state.playList);
 
-  const handleClickPlay = () => {
-    dispatch(togglePlay());
-    dispatch(setShuffle());
-  };
-
-  const handleClickForward = () => {
-    // playerRef.current.seekTo(0);
-    dispatch(nextTrack());
-  };
-
-  const [state, setState] = useState({ bottom: false });
-  const [nowOpen, setNowOpen] = useState("");
-  const toggleDrawer =
-    (anchor: string, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event &&
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
-
-      setState({ ...state, [anchor]: open });
+    const handleClickPlay = () => {
+      dispatch(togglePlay());
+      dispatch(setShuffle());
     };
 
-  useEffect(() => {
-    const handlePopstate = () => {
-      if (nowOpen) {
-        setNowOpen(""); // nowOpen 상태 초기화
-        // console.log("RESET");
-      } else {
-        router.back(); // 이전 페이지로 이동
-        // console.log("BACK");
-      }
+    const handleClickForward = () => {
+      // playerRef.current.seekTo(0);
+      dispatch(nextTrack());
     };
 
-    window.addEventListener("popstate", handlePopstate);
+    const [state, setState] = useState({ bottom: false });
+    const [nowOpen, setNowOpen] = useState("");
+    const toggleDrawer =
+      (anchor: string, open: boolean) =>
+      (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (
+          event &&
+          event.type === "keydown" &&
+          ((event as React.KeyboardEvent).key === "Tab" ||
+            (event as React.KeyboardEvent).key === "Shift")
+        ) {
+          return;
+        }
 
-    return () => {
-      window.removeEventListener("popstate", handlePopstate);
-    };
-  }, [nowOpen]);
+        setState({ ...state, [anchor]: open });
+      };
 
-  const onClickEvent = () => {
-    return;
-  };
+    useEffect(() => {
+      const handlePopstate = () => {
+        if (nowOpen) {
+          setNowOpen(""); // nowOpen 상태 초기화
+          // console.log("RESET");
+        } else {
+          router.back(); // 이전 페이지로 이동
+          // console.log("BACK");
+        }
+      };
 
-  return (
-    <>
-      <S.BarWrapper>
-        <S.LeftWrapper onClick={onClickEvent}>
-          <S.AlbumImg>
-            <BasicImage src={currPlayingMusicInfo.albumImage} radius={0.15} />
-          </S.AlbumImg>
-          <S.TextWrapper>
-            <S.Title>
-              <BasicText
-                text={currPlayingMusicInfo.name}
-                size='1.125rem'
-                font='NotoSansKR700'
-              />
-            </S.Title>
-            <S.Artist>
-              <BasicText
-                text={currPlayingMusicInfo.artistName}
-                size='0.75rem'
-                font='NotoSansKR400'
-              />
-            </S.Artist>
-          </S.TextWrapper>
-        </S.LeftWrapper>
-        <S.RightWrapper>
-          <CustomIconButton handleOnClickButton={handleClickPlay}>
-            {!playing ? (
-              <IoPlay size='2.5rem' color='#FFFFFF' />
-            ) : (
-              <IoPause size='2.5rem' color='#FFFFFF' />
-            )}
-          </CustomIconButton>
-          <CustomIconButton handleOnClickButton={handleClickForward}>
-            <IoPlayForward size='1.5rem' color='#FFFFFF' />
-          </CustomIconButton>
-          <CustomIconButton
-            handleOnClickButton={(e) => {
-              toggleDrawer("bottom", true)(e);
-              setNowOpen("playlist");
-            }}
-          >
-            <RiPlayListFill size='1.5rem' color='#FFFFFF' />
-          </CustomIconButton>
-        </S.RightWrapper>
-      </S.BarWrapper>
-      <Drawer
-        inner={nowOpen}
-        toggleDrawer={toggleDrawer}
-        state={{ ...state }}
-        anchor={"bottom"}
-      />
-    </>
-  );
-});
+      window.addEventListener("popstate", handlePopstate);
+
+      return () => {
+        window.removeEventListener("popstate", handlePopstate);
+      };
+    }, [nowOpen]);
+
+    return (
+      <>
+        <S.BarWrapper>
+          <S.LeftWrapper onClick={onClickEvent}>
+            <S.AlbumImg>
+              <BasicImage src={currPlayingMusicInfo.albumImage} radius={0.15} />
+            </S.AlbumImg>
+            <S.TextWrapper>
+              <S.Title>
+                <BasicText
+                  text={currPlayingMusicInfo.name}
+                  size='1.125rem'
+                  font='NotoSansKR700'
+                />
+              </S.Title>
+              <S.Artist>
+                <BasicText
+                  text={currPlayingMusicInfo.artistName}
+                  size='0.75rem'
+                  font='NotoSansKR400'
+                />
+              </S.Artist>
+            </S.TextWrapper>
+          </S.LeftWrapper>
+          <S.RightWrapper>
+            <CustomIconButton handleOnClickButton={handleClickPlay}>
+              {!playing ? (
+                <IoPlay size='2.5rem' color='#FFFFFF' />
+              ) : (
+                <IoPause size='2.5rem' color='#FFFFFF' />
+              )}
+            </CustomIconButton>
+            <CustomIconButton handleOnClickButton={handleClickForward}>
+              <IoPlayForward size='1.5rem' color='#FFFFFF' />
+            </CustomIconButton>
+            <CustomIconButton
+              handleOnClickButton={(e) => {
+                toggleDrawer("bottom", true)(e);
+                setNowOpen("playlist");
+              }}
+            >
+              <RiPlayListFill size='1.5rem' color='#FFFFFF' />
+            </CustomIconButton>
+          </S.RightWrapper>
+        </S.BarWrapper>
+        <Drawer
+          inner={nowOpen}
+          toggleDrawer={toggleDrawer}
+          state={{ ...state }}
+          anchor={"bottom"}
+        />
+      </>
+    );
+  }
+);
 MusicPlayerBar.displayName = "MusicPlayerBar";
 
 export default MusicPlayerBar;
