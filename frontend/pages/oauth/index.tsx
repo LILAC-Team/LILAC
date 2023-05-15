@@ -21,7 +21,7 @@ const Oauth = ({ query, userData, playListData }: OauthProps) => {
   useEffect(() => {
     console.log("저를 복사해주세요: ", window.location.href);
     console.log("typeof ", typeof playListData);
-    dispatch(setPlayList(playListData));
+    // dispatch(setPlayList(playListData));
     dispatch(setLogIn(userData));
 
     if (cookies.refreshToken) {
