@@ -15,29 +15,27 @@ interface HeaderProps {
   isShown?: boolean;
 }
 
-const list = ["수정", "로그아웃"];
+const list = ["정보수정", "로그아웃"];
 const funcArr = [() => console.log("수정"), () => console.log("로그아웃")];
 
 const Header = ({ isShown = true }: HeaderProps) => {
   const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
+  const [isDropdown, setIsDropdown] = useState(true);
 
   const userInfo = useSelector((state: userState) => state.user);
-
-  const handleProfileClick = () => {
-    console.log("Navigate to User Profile Page");
-  };
+  // console.log(userInfo);
 
   // const getProfileImage = async () => {
   //   try {
-  //     // const res = await memberApi.getUserInfo();
-  //     setProfileImage(userInfo.profileImage);
+  //     const res = await memberApi.getUserInfo();
+  //     setProfileImage(res.data.profileImage);
   //   } catch (error) {
   //     console.log("error: ", error);
   //   }
   // };
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo.profileImage) {
       setProfileImage(userInfo.profileImage);
     }
     // getProfileImage();
@@ -49,20 +47,32 @@ const Header = ({ isShown = true }: HeaderProps) => {
         <Link href={"/"}>
           <S.LogoWrapper>
             <BasicText
-              text='LILAC'
-              size='2.3rem'
-              background='linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)'
-              color='transparent'
+              text="LILAC"
+              size="2.3rem"
+              background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
+              color="transparent"
               clipText={true}
-              font='HSBomBaram'
+              font="HSBomBaram"
             />
           </S.LogoWrapper>
         </Link>
         <S.ProfileWrapper>
           {isShown && (
-            <SelectBox list={list} funcArr={funcArr}>
-              <ProfileImg size='4rem' src={profileImage} />
-            </SelectBox>
+            <>
+              <ProfileImg size="4rem" src={profileImage} />
+              {isDropdown && (
+                <SelectBox
+                  list={list}
+                  funcArr={funcArr}
+                  isDropdown={isDropdown}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div>{list[0]}</div>
+                    <div>{list[1]}</div>
+                  </div>
+                </SelectBox>
+              )}
+            </>
           )}
         </S.ProfileWrapper>
       </S.HeaderWrapper>

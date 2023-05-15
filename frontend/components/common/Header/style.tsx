@@ -10,10 +10,13 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  height: 3rem;
+  display: flex;
+  padding-top: 0.5rem;
+  height: 4rem;
 `;
 
 export const ProfileWrapper = styled.div`
-  width: 2.6rem;
+  display: flex;
+  width: 2.5rem;
   aspect-ratio: 1 /1;
 `;

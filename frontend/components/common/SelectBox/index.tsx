@@ -1,8 +1,8 @@
 import * as S from "./style";
 import { useState } from "react";
 
-const SelectBox = ({ children, list, funcArr }) => {
-  const [isDropdown, setIsDropdown] = useState(false);
+const SelectBox = ({ children, isDropdown, list, funcArr }) => {
+  // const [isDropdown, setIsDropdown] = useState(false);
 
   return (
     <S.SelectBox>
