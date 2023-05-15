@@ -13,8 +13,6 @@ export const AlbumCover = styled.div`
   width: 100%;
   height: 100%;
   aspect-ratio: 1/1;
-  background-color: #d9d9d9;
-  border: 2px solid #e3dfff;
   position: relative;
   border-radius: 1rem;
   min-width: 13rem;
@@ -83,4 +81,43 @@ export const OneMusicCard = styled.div`
   width: 100%;
   height: 100%;
   padding: 0.5rem 0rem 0.5rem 0rem;
+`;
+
+export const ModalContainer = styled.div`
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ModalText = styled.div`
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 2rem;
+`;
+
+export const ModalBtn = styled.div`
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 1rem;
+  height: 2.25rem;
+`;
+
+export const ModalIcon = styled.div`
+  width: 1rem;
+  height: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+`;
+export const ModalLine = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

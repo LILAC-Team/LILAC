@@ -38,6 +38,15 @@ export const TextWrapper = styled.div`
   justify-items: center;
 `;
 
+export const DragAndDropWrap = styled.div`
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 80);
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export const CardsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,6 +61,5 @@ export const CardsWrapper = styled.div`
 
 export const OneMusicCard = styled.div`
   width: 100%;
-  height: 100%;
   padding: 0.5rem;
 `;

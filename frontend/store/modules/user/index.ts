@@ -17,9 +17,15 @@ export const userSlice = createSlice({
       state.nickName = action.payload.nickName;
       state.profileImage = action.payload.profileImage;
     },
+    setUserInfo(state, action) {
+      state.email = action.payload.email;
+      state.isLogIn = true;
+      state.nickName = action.payload.nickName;
+      state.profileImage = action.payload.profileImage;
+    },
   },
 });
 
-export const { setLogIn } = userSlice.actions;
+export const { setLogIn, setUserInfo } = userSlice.actions;
 
 export default userSlice.reducer;
