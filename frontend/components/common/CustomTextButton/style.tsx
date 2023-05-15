@@ -16,7 +16,11 @@ export const CustomTextButton = styled.button<ButtonProps>`
   border: ${(props) => props.border || "none"};
   border-radius: 1rem;
   background-color: ${(props) =>
-    props.isBackground === false ? "transparent" : "#CCA4FC"};
+    props.isBackground === false
+      ? "transparent"
+      : props.isDisabled === true
+      ? "#a9a9be"
+      : "#CCA4FC"};
   pointer-events: ${(props) => (props.isDisabled ? "none" : "auto")};
   cursor: ${(props) => (props.isDisabled ? "default" : "pointer")};
 `;

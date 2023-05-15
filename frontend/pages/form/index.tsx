@@ -16,6 +16,9 @@ interface ProfileState {
 }
 
 const Form = () => {
+  const [isMusic, setIsMusic] = useState(false);
+  const [isAlbum, setIsAlbum] = useState(false);
+
   const router = useRouter();
   const [albumTitle, setAlbumTitle] = useState("");
   const [albumImage, setAlbumImage] = useState<ProfileState>({
@@ -91,6 +94,9 @@ const Form = () => {
   const handleCurrTrackInfoOnChange = (e) => {
     const { id, value } = e.target;
     setCurrTrackInfo({ ...currTrackInfo, [id]: value });
+    if (currTrackInfo.artist !== "" && currTrackInfo.title !== "")
+      setIsMusic(true);
+    else setIsMusic(false);
   };
 
   const handleAddTrackToAlbum = () => {
@@ -103,6 +109,17 @@ const Form = () => {
       file: {},
     });
     setIsModalOpen(false);
+  };
+
+  // 입력 사항 확인
+  const handleRegist = () => {
+    if (
+      albumTrackList.length !== 0 &&
+      albumTitle !== "" &&
+      albumImage.previewImgUrl !== ""
+    )
+      setIsAlbum(true);
+    else setIsAlbum(false);
   };
 
   // 앨범 등록
@@ -203,12 +220,22 @@ const Form = () => {
               />
             ))}
           <S.UploadButtonWrap>
-            <CustomTextButton
-              text="등록"
-              font="NotoSansKR700"
-              fontColor="var(--color-background)"
-              handleOnClickButton={registerAlbum}
-            />
+            {isAlbum ? (
+              <CustomTextButton
+                text="등록"
+                font="NotoSansKR700"
+                fontColor="var(--color-background)"
+                handleOnClickButton={registerAlbum}
+              />
+            ) : (
+              <CustomTextButton
+                text="등록"
+                font="NotoSansKR700"
+                fontColor="var(--color-background)"
+                handleOnClickButton={registerAlbum}
+                isDisabled={true}
+              />
+            )}
           </S.UploadButtonWrap>
         </S.ContentWrap>
       </Layout>
@@ -248,11 +275,20 @@ const Form = () => {
               <input type="checkbox" />
               title 여부
             </div>
-            <CustomTextButton
-              text="등록"
-              fontColor="var(--color-background)"
-              handleOnClickButton={handleAddTrackToAlbum}
-            />
+            {isMusic ? (
+              <CustomTextButton
+                text="등록"
+                fontColor="var(--color-background)"
+                handleOnClickButton={handleAddTrackToAlbum}
+              />
+            ) : (
+              <CustomTextButton
+                text="등록"
+                fontColor="var(--color-background)"
+                handleOnClickButton={handleAddTrackToAlbum}
+                isDisabled={true}
+              />
+            )}
           </S.ModalContainer>
         </SmallModal>
       )}
