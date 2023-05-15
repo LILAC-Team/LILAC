@@ -1,4 +1,3 @@
-import CircularJSON from "circular-json";
 import MyAlbumBox from "../../components/Container/MyAlbumBox";
 import { useTabs } from "@/hooks/useTabs";
 import * as S from "./style";
@@ -8,12 +7,12 @@ const allTab = [
   {
     idx: 0,
     name: "나의 앨범",
-    component: <MyAlbumBox content="My" />,
+    component: <MyAlbumBox content='My' />,
   },
   {
     idx: 1,
     name: "내가 소장한 앨범",
-    component: <MyAlbumBox content="Own" />,
+    component: <MyAlbumBox content='Own' />,
   },
 ];
 
@@ -40,13 +39,13 @@ const AlbumPage = () => {
   );
 };
 
-export async function getServerSideProps({ req }) {
-  const serializedReq = CircularJSON.stringify(req);
-  return {
-    props: {
-      req: serializedReq,
-    },
-  };
-}
+// export async function getServerSideProps({ req }) {
+//   const serializedReq = CircularJSON.stringify(req);
+//   return {
+//     props: {
+//       req: serializedReq,
+//     },
+//   };
+// }
 
 export default AlbumPage;

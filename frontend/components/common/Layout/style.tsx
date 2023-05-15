@@ -9,6 +9,8 @@ export const ContainerWrap = styled.div`
     display: none;
   }
   overflow-y: hidden;
+  overflow-x: hidden;
+  touch-action: pan-x;
 `;
 
 export const ChildrenWrap = styled.div`

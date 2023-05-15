@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import MusicCard from "../MusicCard";
 import { CLOUD_FRONT } from "@/api/index";
 import { playlistApi } from "@/api/utils/playlist";
-import { setPlayList } from "@/store/modules/playList";
+import { setPlayList, setTrack } from "@/store/modules/playList";
 
 interface Music {
   name: string;
@@ -24,6 +24,24 @@ interface PlayList {
 
 interface AppState {
   playList: PlayList;
+}
+
+interface MusicControllerState {
+  playList: {
+    playing: boolean;
+    currentTrackIndex: number;
+    currSrc: string;
+    musicList: MusicTrack[];
+    listSize: number;
+  };
+}
+
+interface MusicTrack {
+  name: string;
+  artistName: string;
+  playtime: number;
+  code: string;
+  albumImage: string;
 }
 
 const PlaylistDrawer = () => {
@@ -61,6 +79,29 @@ const PlaylistDrawer = () => {
       console.log(error);
     }
   };
+
+  // PLAY Music of Playlist
+  const playMusicHandler = async (index: number) => {
+    try {
+      console.log("nowIndex", index);
+      console.log("nowPlayList", nowPlayList);
+      dispatch(
+        setTrack({
+          ...nowPlayList,
+          currentTrackIndex: index,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(
+    "nownownow",
+    useSelector(
+      (state: MusicControllerState) => state.playList.currentTrackIndex
+    )
+  );
 
   useEffect(() => {
     setList(nowPlayList.musicList);
@@ -120,7 +161,10 @@ const PlaylistDrawer = () => {
         <S.CardsWrapper>
           {nowPlayList.musicList.map(
             ({ code, name, albumImage, artistName, playtime }, index) => (
-              <S.OneMusicCard key={index}>
+              <S.OneMusicCard
+                key={index}
+                onClick={() => playMusicHandler(index)}
+              >
                 <MusicCard
                   data={{
                     code,

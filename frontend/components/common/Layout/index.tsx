@@ -44,7 +44,7 @@ const Layout = ({ children }: LayoutProps) => {
           onClickEvent={toggleDrawer("bottom", true)}
         />
         <Drawer
-          inner="player"
+          inner='player'
           toggleDrawer={toggleDrawer}
           state={{ ...state }}
           anchor={"bottom"}

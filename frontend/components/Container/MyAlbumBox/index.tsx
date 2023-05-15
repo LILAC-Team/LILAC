@@ -1,12 +1,10 @@
 import * as S from "./style";
 import AlbumCard from "@/components/common/AlbumCard";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { albumApi } from "@/api/utils/album";
 import BasicText from "@/components/common/BasicText";
 
-import MyAlbum from "@/pages/test.json";
-import OwnAlbum from "@/pages/test2.json";
 import useScroll from "@/hooks/useScroll";
 
 interface MyAlbumBoxProps {
