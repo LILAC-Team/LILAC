@@ -6,13 +6,7 @@ import BasicText from "@/components/common/BasicText";
 import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
 import { RiPlayListFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
-import ReactPlayer from "react-player";
-import {
-  togglePlay,
-  setShuffle,
-  nextTrack,
-  setTrack,
-} from "@/store/modules/playList";
+import { togglePlay, PutStartingPointToZero } from "@/store/modules/playList";
 import Drawer from "@/components/common/Drawer";
 import { useRouter } from "next/router";
 import { playListState } from "@/store/modules/playList";
@@ -27,32 +21,18 @@ interface MusicControllerState {
 
 const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
   ({ onClickEvent }) => {
-    const playerRef = useRef(null);
     const router = useRouter();
     const dispatch = useDispatch();
-    // const { playing, currentTrackingIndex, currSrc } = useSelector(
-    //   (state: MusicControllerState) => state.playList
-    // );
-    // const playing = true;
-    // const value = useSelector((state: MusicControllerState) => state.playList);
-    const {
-      playing,
-      currentTrackIndex,
-      currPlayingMusicInfo,
-      musicList,
-      shuffleArr,
-      musicListSize,
-      listSize,
-    } = useSelector((state: MusicControllerState) => state.playList);
+    const { playing, currPlayingMusicInfo } = useSelector(
+      (state: MusicControllerState) => state.playList
+    );
 
     const handleClickPlay = () => {
       dispatch(togglePlay());
-      dispatch(setShuffle());
     };
 
     const handleClickForward = () => {
-      // playerRef.current.seekTo(0);
-      dispatch(nextTrack());
+      dispatch(PutStartingPointToZero(true));
     };
 
     const [state, setState] = useState({ bottom: false });
@@ -89,25 +69,31 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
         window.removeEventListener("popstate", handlePopstate);
       };
     }, [nowOpen]);
-
     return (
       <>
         <S.BarWrapper>
           <S.LeftWrapper onClick={onClickEvent}>
             <S.AlbumImg>
-              <BasicImage src={currPlayingMusicInfo.albumImage} radius={0.15} />
+              <BasicImage
+                src={
+                  currPlayingMusicInfo ? currPlayingMusicInfo.albumImage : ""
+                }
+                radius={0.15}
+              />
             </S.AlbumImg>
             <S.TextWrapper>
               <S.Title>
                 <BasicText
-                  text={currPlayingMusicInfo.name}
+                  text={currPlayingMusicInfo ? currPlayingMusicInfo.name : ""}
                   size='1.125rem'
                   font='NotoSansKR700'
                 />
               </S.Title>
               <S.Artist>
                 <BasicText
-                  text={currPlayingMusicInfo.artistName}
+                  text={
+                    currPlayingMusicInfo ? currPlayingMusicInfo.artistName : ""
+                  }
                   size='0.75rem'
                   font='NotoSansKR400'
                 />
