@@ -89,6 +89,8 @@ const Form = () => {
 
   const handleAlbumTitleOnChange = (e) => {
     setAlbumTitle(e.target.value);
+    if (albumTitle !== "") setIsAlbum(true);
+    else setIsAlbum(false);
   };
 
   const handleCurrTrackInfoOnChange = (e) => {
@@ -109,17 +111,6 @@ const Form = () => {
       file: {},
     });
     setIsModalOpen(false);
-  };
-
-  // 입력 사항 확인
-  const handleRegist = () => {
-    if (
-      albumTrackList.length !== 0 &&
-      albumTitle !== "" &&
-      albumImage.previewImgUrl !== ""
-    )
-      setIsAlbum(true);
-    else setIsAlbum(false);
   };
 
   // 앨범 등록
@@ -203,7 +194,9 @@ const Form = () => {
           <S.ContentTitleWrap>
             <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
           </S.ContentTitleWrap>
-          <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
+          <S.AddMusicWrap>
+            <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
+          </S.AddMusicWrap>
           {albumTrackList.length > 0 &&
             albumTrackList.map((val, index) => (
               <MusicCard
