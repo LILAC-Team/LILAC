@@ -3,16 +3,13 @@ import React, { useState, useEffect } from "react";
 import BasicText from "@/components/common/BasicText";
 import ProfileImg from "@/components/common/ProfileImg";
 import BasicInput from "@/components/common/BasicInput";
-import CustomTextButton from "@/components/common/CustomTextButton";
 import { useSelector, useDispatch } from "react-redux";
 import { memberApi } from "@/api/utils/member";
 import { useCookies } from "react-cookie";
 import { setLogIn } from "@/store/modules/user";
 import { useRouter } from "next/router";
-import { playlistApi } from "@/api/utils/playlist";
 import { setPlayList } from "@/store/modules/playList";
 import axios from "axios";
-import { persistCombineReducers } from "redux-persist";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
