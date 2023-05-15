@@ -12,12 +12,12 @@ import playList from "./modules/playList";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "playList"],
 };
 
 const rootReducer = combineReducers({
   user,
-  // playList,
+  playList,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
