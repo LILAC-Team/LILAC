@@ -8,6 +8,7 @@ import ProfileImg from "@/components/common/ProfileImg";
 interface CommentInputProps {
   src: string;
   value: string;
+  nowTime: number;
   handleOnChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleOnKeyDownValue: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   handleOnClickValue: React.MouseEventHandler<HTMLButtonElement>;
@@ -16,11 +17,11 @@ interface CommentInputProps {
 const CommentInput = ({
   src,
   value,
+  nowTime,
   handleOnChangeValue,
   handleOnKeyDownValue,
   handleOnClickValue,
 }: CommentInputProps) => {
-  const [nowTime, setNowTime] = useState(178);
   const [convertTime, setConvertTime] = useState("");
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const CommentInput = ({
         (nowTime % 60 >= 10 ? nowTime % 60 : "0" + (nowTime % 60))
     );
   }, [nowTime]);
+
   return (
     <S.CommentInput>
       <S.InputImg>
