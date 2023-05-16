@@ -2,8 +2,13 @@ import * as S from "./style";
 import ProfileImg from "@/components/common/ProfileImg";
 import BasicText from "@/components/common/BasicText";
 import { RiAddLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import BasicImage from "@/components/common/BasicImage";
+
+interface userState {
+  user: any;
+}
 
 interface MainAlbumProps {
   nickname: string;
@@ -18,14 +23,20 @@ const MainAlbum = ({
   myAlbum,
   ownAlbum,
 }: MainAlbumProps) => {
+  const userInfo = useSelector((state: userState) => state.user);
+
   return (
     <S.MainContainer>
       <S.AlbumDataWrapper>
         <S.ProfileWrapper>
-          <ProfileImg isEditable={false} src={profileImage} />
+          <ProfileImg isEditable={false} src={userInfo.profileImage} />
         </S.ProfileWrapper>
         <S.TextWrapper>
-          <BasicText text={nickname} color="#000000" font="NotoSansKR700" />
+          <BasicText
+            text={userInfo.nickName}
+            color="#000000"
+            font="NotoSansKR700"
+          />
         </S.TextWrapper>
         <S.CdContainer>
           <S.CdBox>

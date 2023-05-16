@@ -42,6 +42,10 @@ const Header = ({ isShown = true }: HeaderProps) => {
     file: {},
   });
 
+  const handleProfileClick = () => {
+    setIsDropdown((prev) => !prev);
+  };
+
   const handleEdit = () => {
     console.log("정보수정");
     setIsDropdown(false);
@@ -66,10 +70,6 @@ const Header = ({ isShown = true }: HeaderProps) => {
     removeCookies("refreshToken");
     removeCookies("isLogIn");
     router.push("/login");
-  };
-
-  const handleProfileClick = () => {
-    setIsDropdown(true);
   };
 
   const handleProfileChange = async (
