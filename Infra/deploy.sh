@@ -10,14 +10,14 @@ IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
 echo "> IS_ACTIVE "$IS_ACTIVE
 if [ $IS_ACTIVE -eq 1 ];
 then 
-	IDLE_PORT=8082
+	IDLE_PORT=8081
 	IDLE_PROFILE=prod-green
 	CURRENT_PORT=8080
 	CURRENT_PROFILE=prod-blue
 else
 	IDLE_PORT=8080
 	IDLE_PROFILE=prod-blue
-	CURRENT_PORT=8082
+	CURRENT_PORT=8081
 	CURRENT_PROFILE=prod-green
 fi
 
@@ -56,8 +56,7 @@ do
 		echo "> Health Check Failed"
 		echo "> Health Check RESPONSE : " $RESPONSE
 	fi
-
-	if [ $RETRY -eq 10 ]; then
+if [ $RETRY -eq 10 ]; then
 		echo "> Health Check Failed"
 		echo "FAIL" > RESULT
 	fi
