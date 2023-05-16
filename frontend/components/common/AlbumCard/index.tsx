@@ -32,12 +32,7 @@ const AlbumCard = ({
       </S.AlbumCardImg>
       <S.AlbumCardDiv>
         <S.AlbumCardTitle>
-          <BasicText
-            text={data.name}
-            size={titleSize}
-            isOverflow={true}
-            font={font}
-          />
+          <S.AlbumTitleText>{data.name}</S.AlbumTitleText>
         </S.AlbumCardTitle>
         {showAlbumDetail && (
           <S.AlbumCardDetail>
@@ -49,7 +44,7 @@ const AlbumCard = ({
                 "." +
                 data.releasedDate.split("-")[1]
               }
-              size="75%"
+              size="80%"
             />
           </S.AlbumCardDetail>
         )}

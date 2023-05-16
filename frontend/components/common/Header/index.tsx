@@ -84,8 +84,6 @@ const Header = ({ isShown = true }: HeaderProps) => {
     setNickName(e.target.value);
   };
 
-  console.log(userInfo);
-
   useEffect(() => {
     if (userInfo) {
       setProfile({ previewImgUrl: userInfo.profileImage, file: {} });

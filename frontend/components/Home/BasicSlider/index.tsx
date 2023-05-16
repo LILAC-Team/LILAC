@@ -19,16 +19,12 @@ interface BasicSliderProps {
 const BasicSlider = ({ data }: BasicSliderProps) => {
   return (
     <>
-      <Swiper slidesPerView={3.5} spaceBetween={0}>
+      <Swiper slidesPerView={3.5} spaceBetween={25}>
         {data.map((data: AlbumDataProps) => (
           <SwiperSlide key={data.code}>
             <Link key={data.code} href={`/album/${data.code}`}>
               <S.AlbumWrap>
-                <AlbumCard
-                  data={data}
-                  showAlbumDetail={false}
-                  albumSize="100%"
-                />
+                <AlbumCard data={data} showAlbumDetail={false} />
               </S.AlbumWrap>
             </Link>
           </SwiperSlide>
