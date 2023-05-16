@@ -68,7 +68,7 @@ const PlaylistDrawer = () => {
   const reloadPlayListHandler = useCallback(async () => {
     try {
       const { data } = await playlistApi.getPlayList();
-      dispatch(setPlayList(data));
+      // dispatch(setPlayList(data));
     } catch (error) {
       console.log(error);
     }
@@ -79,11 +79,11 @@ const PlaylistDrawer = () => {
     try {
       const req = { musicList: list };
       await playlistApi.putPlayList(req);
-      dispatch(
-        setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
-      );
+      // dispatch(
+      //   setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
+      // );
       setIsEdit((prevIsEdit) => !prevIsEdit);
-      setListSize(list.length);
+      // setListSize(list.length);
     } catch (error) {
       console.log(error);
     }
