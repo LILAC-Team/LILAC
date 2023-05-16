@@ -17,7 +17,7 @@ import {
 interface playerState {
   playList: playListState;
 }
-const MusicController = ({ handleRotateClick }) => {
+const MusicController = ({}) => {
   const [shuffleState, setShuffleState] = useState(false);
   const [playState, setPlayState] = useState(false);
   const [repeatState, setRepeatState] = useState(0);
@@ -47,9 +47,9 @@ const MusicController = ({ handleRotateClick }) => {
     dispatch(setLoop());
   };
 
-  useEffect(() => {
-    handleRotateClick(playState);
-  }, [playState, handleRotateClick]);
+  // useEffect(() => {
+  //   handleRotateClick(playState);
+  // }, [playState, handleRotateClick]);
 
   return (
     <S.ControllerWrapper>
