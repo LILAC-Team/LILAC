@@ -8,16 +8,17 @@ import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import storage from "redux-persist/lib/storage";
 import user from "./modules/user/index";
 import playList from "./modules/playList";
-
+import commentList from "./modules/commentList";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "playList", "commentList"],
 };
 
 const rootReducer = combineReducers({
   user,
-  // playList,
+  playList,
+  commentList,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

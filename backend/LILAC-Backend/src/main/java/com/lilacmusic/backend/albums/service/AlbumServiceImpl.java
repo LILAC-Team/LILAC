@@ -58,6 +58,30 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    public ReleasedAlbumListResponse getAllReleasedAlbums(Long memberId) {
+        List<AlbumMapping> albumList = albumRepository.getAllAlbumsByMemberId(memberId);
+        List<AlbumResponse> albumResponseList = albumList.stream().map(album ->
+                AlbumResponse.builder()
+                        .code(album.getCode())
+                        .name(album.getName())
+                        .albumImage(album.getAlbumImage())
+                        .releasedDate(album.getReleasedDate())
+                        .nickname(album.getNickname())
+                        .build()
+        ).collect(Collectors.toList());
+
+        ReleasedAlbumListResponse response = ReleasedAlbumListResponse.builder()
+                .releasedAlbumList(albumResponseList)
+                .number(1)
+                .totalPages(1)
+                .totalElements((long) albumResponseList.size())
+                .first(true)
+                .last(true)
+                .build();
+        return response;
+    }
+
+    @Override
     public CollectedAlbumListResponse getCollectedAlbums(Integer pageNumber, Long memberId) {
         Page<AlbumMapping> albumPage = albumRepository.getAlbumsByUserCollectAlbums(memberId,
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "createdTime"));
@@ -77,6 +101,30 @@ public class AlbumServiceImpl implements AlbumService {
                 .totalElements(albumResponsePage.getTotalElements())
                 .first(albumResponsePage.isFirst())
                 .last(albumResponsePage.isLast())
+                .build();
+        return response;
+    }
+
+    @Override
+    public CollectedAlbumListResponse getAllCollectedAlbums(Long memberId) {
+        List<AlbumMapping> albumList = albumRepository.getAllAlbumsByUserCollectAlbums(memberId);
+        List<AlbumResponse> albumResponseList = albumList.stream().map(album ->
+                AlbumResponse.builder()
+                        .code(album.getCode())
+                        .name(album.getName())
+                        .albumImage(album.getAlbumImage())
+                        .releasedDate(album.getReleasedDate())
+                        .nickname(album.getNickname())
+                        .build()
+        ).collect(Collectors.toList());
+
+        CollectedAlbumListResponse response = CollectedAlbumListResponse.builder()
+                .collectedAlbumList(albumResponseList)
+                .number(1)
+                .totalPages(1)
+                .totalElements((long) albumResponseList.size())
+                .first(true)
+                .last(true)
                 .build();
         return response;
     }

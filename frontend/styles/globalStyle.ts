@@ -3,7 +3,6 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 :root {
   --max-width: 900px;
-  /* --max-width: 1100px; */
 
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
@@ -126,9 +125,7 @@ html {
   --color-background: #3d3a4b;
   --color-primary: #cca4fc;
   --color-light: #e3dfff;
-  width:  calc(var(--vw, 1vw) * 100);
   height: calc(var(--vh, 1vh) * 100);
-  height: 100%;
   background-color: white;
 }
 
@@ -161,24 +158,6 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
-  }
-}
-
-@media (max-width: 480px) {
-  * {
-    font-size: 1rem;
-  }
-}
-
-@media (min-width: 480px) {
-  * {
-    font-size: 1.1rem;
-  }
-}
-
-@media (min-width: 768px) {
-  * {
-    font-size: 1.2rem;
   }
 }
 `;
