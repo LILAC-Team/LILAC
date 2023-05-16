@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 현재 사용중인 포트를 확인한다.
+# 현재 사용중인 포트를 확인
 RESPONSE=$(curl -s -k -L lilac-music.net/api/v1/actuator/health)
 echo "> RESPONSE : "$RESPONSE
 
