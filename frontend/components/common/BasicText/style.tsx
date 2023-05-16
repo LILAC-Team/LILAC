@@ -28,9 +28,12 @@ export const Text = styled.div<TextProps>`
   ${(props) => {
     if (props.isOverflow) {
       return `
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      word-wrap: break-word;
+    white-space: nowrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+
       `;
     }
   }}
