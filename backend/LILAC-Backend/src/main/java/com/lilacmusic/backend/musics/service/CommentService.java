@@ -9,6 +9,8 @@ import com.lilacmusic.backend.musics.exceptions.NotMyCommentException;
 public interface CommentService {
     CommentListResponse getCommentList(String code, Integer pageNumber, Long memberId) throws NoMusicFoundException;
 
+    CommentListResponse getAllCommentList(String code, Long memberId) throws NoMusicFoundException;
+
     Long createMusicComment(Long memberId, CommentRequest commentRequest, String musicCode) throws NoMusicFoundException;
 
     Long deleteMusicComment(Long memberId, String musicCode, String commentCode) throws NoCommentFoundException, NotMyCommentException;
