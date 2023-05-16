@@ -9,7 +9,8 @@ interface CustomTextButtonProps {
   border?: string;
   isBackground?: boolean;
   isDisabled?: boolean;
-  handleOnClickButton: () => void;
+  radius?: string;
+  handleOnClickButton?: () => void;
 }
 
 const CustomTextButton = ({
@@ -20,6 +21,7 @@ const CustomTextButton = ({
   border = "none",
   isBackground = true,
   isDisabled = false,
+  radius = "1rem",
   handleOnClickButton,
 }: CustomTextButtonProps) => {
   return (
@@ -28,6 +30,7 @@ const CustomTextButton = ({
       border={border}
       isBackground={isBackground}
       isDisabled={isDisabled}
+      radius={radius}
     >
       <BasicText text={text} size={size} color={fontColor} font={font} />
     </S.CustomTextButton>
