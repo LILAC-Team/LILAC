@@ -6,6 +6,7 @@ import { setPlayList } from "@/store/modules/playList";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 import { setLogIn } from "@/store/modules/user";
+import { resize } from "@/api/func/resize";
 import axios from "axios";
 interface OauthProps {
   query: object;
@@ -18,6 +19,15 @@ const Oauth = ({ query, userData, playListData }: OauthProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [cookies, setCookie] = useCookies();
+
+  useEffect(() => {
+    resize();
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
   useEffect(() => {
     console.log("저를 복사해주세요: ", window.location.href);
     console.log("typeof ", typeof playListData);
