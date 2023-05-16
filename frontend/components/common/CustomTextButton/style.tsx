@@ -4,6 +4,7 @@ interface ButtonProps {
   border?: string;
   isBackground?: boolean;
   isDisabled?: boolean;
+  radius?: string;
 }
 
 export const CustomTextButton = styled.button<ButtonProps>`
@@ -14,7 +15,7 @@ export const CustomTextButton = styled.button<ButtonProps>`
   width: 100%;
   height: 100%;
   border: ${(props) => props.border || "none"};
-  border-radius: 1rem;
+  border-radius: ${(props) => props.radius || "1rem"};
   background-color: ${(props) =>
     props.isBackground === false
       ? "transparent"
