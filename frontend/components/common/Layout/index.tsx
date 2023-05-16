@@ -1,24 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import Head from "next/head";
 import Header from "../Header";
 import * as S from "./style";
 import NavigationBar from "../NavigationBar";
 import MusicPlayerBar from "@/components/Player/MusicPlayerBar";
 import Drawer from "@/components/common/Drawer";
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout = ({ children }: LayoutProps) => {
-  const data = {
-    name: "Hype Boy",
-    albumImage:
-      "https://i.namu.wiki/i/cytHwWVRppd9XseMtP5NN5K9wxAdwHAUCEqRivJ5rxaAR-XEqGoCBPzpBLFyyberN-c57qlxi--sOltC7uLqwl6yVtZcGxpbWxtqNR7tmTZNYKg13ePEZ0-tqiPqPVXT3KAASlW5UkHlto3MLdZQYg.jpg",
-    code: "bbbb",
-    releasedDate: "2023-04-24T01:00:00",
-    nickname: "봄윤식스",
-  };
-
+import { resize } from "@/api/func/resize";
+const Layout = ({ children }) => {
   const [state, setState] = React.useState({ bottom: false });
   const toggleDrawer =
     (anchor: string, open: boolean) =>
@@ -34,25 +22,38 @@ const Layout = ({ children }: LayoutProps) => {
 
       setState({ ...state, [anchor]: open });
     };
+
+  useEffect(() => {
+    resize();
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
   return (
-    <S.ContainerWrap>
-      <Header />
-      <S.ChildrenWrap>{children}</S.ChildrenWrap>
-      <>
-        <MusicPlayerBar
-          data={data}
-          onClickEvent={toggleDrawer("bottom", true)}
-        />
-        <Drawer
-          inner='player'
-          toggleDrawer={toggleDrawer}
-          state={{ ...state }}
-          anchor={"bottom"}
-        />
-      </>
-      <NavigationBar />
-    </S.ContainerWrap>
+    <>
+      <Head>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+      </Head>
+      <S.ContainerWrap>
+        <Header />
+        <S.ChildrenWrap>{children}</S.ChildrenWrap>
+        <>
+          <MusicPlayerBar onClickEvent={toggleDrawer("bottom", true)} />
+          <Drawer
+            inner='player'
+            toggleDrawer={toggleDrawer}
+            state={{ ...state }}
+            anchor={"bottom"}
+          />
+        </>
+        <NavigationBar />
+      </S.ContainerWrap>
+    </>
   );
 };
+
+Layout.displayName = "Layout";
 
 export default Layout;

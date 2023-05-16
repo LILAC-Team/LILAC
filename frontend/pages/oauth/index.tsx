@@ -6,6 +6,7 @@ import { setPlayList } from "@/store/modules/playList";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 import { setLogIn } from "@/store/modules/user";
+import { resize } from "@/api/func/resize";
 import axios from "axios";
 interface OauthProps {
   query: object;
@@ -18,9 +19,18 @@ const Oauth = ({ query, userData, playListData }: OauthProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [cookies, setCookie] = useCookies();
+
+  useEffect(() => {
+    resize();
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
   useEffect(() => {
     console.log("저를 복사해주세요: ", window.location.href);
-
+    console.log("typeof ", typeof playListData);
     dispatch(setPlayList(playListData));
     dispatch(setLogIn(userData));
 
@@ -34,12 +44,12 @@ const Oauth = ({ query, userData, playListData }: OauthProps) => {
   return (
     <S.OauthContainer>
       <BasicText
-        text="LILAC"
-        size="2.3rem"
-        background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
-        color="transparent"
+        text='LILAC'
+        size='2.3rem'
+        background='linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)'
+        color='transparent'
         clipText={true}
-        font="HSBomBaram"
+        font='HSBomBaram'
       />
     </S.OauthContainer>
   );
@@ -50,10 +60,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ query, req, res }) => {
       const { email, nickname, profileImage, accessToken, refreshToken } =
         query;
-      console.info("-----------------------------");
-      console.info("query: ", query);
-      // console.info(decodeURI(query.profileImage));
-      let playListData = { musicList: [], listSize: 0 };
+      let playListData = { musicList: "[]", listSize: 0 };
       if (accessToken) {
         res.setHeader("Set-Cookie", [
           "isLogIn=true",
@@ -70,7 +77,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
             }
           );
           console.info("------------data-------------- : ", response.data);
-
           playListData["musicList"] = response.data.musicList;
           playListData["listSize"] = response.data.listSize;
         } catch (error) {
@@ -85,6 +91,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         nickName: typeof nickname === "string" ? decodeURI(nickname) : nickname,
         profileImage: profileImage,
       };
+
       return {
         props: {
           initialReduxState: store.getState(),

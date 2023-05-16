@@ -6,7 +6,8 @@ import MainAlbum from "@/components/Home/MainAlbum";
 import BasicText from "@/components/common/BasicText";
 import { memberApi } from "@/api/utils/member";
 import { albumApi } from "@/api/utils/album";
-
+import { playlistApi } from "@/api/utils/playlist";
+import { resize } from "@/api/func/resize";
 const Home = () => {
   const [nickname, setNickName] = useState("");
   const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
@@ -14,6 +15,14 @@ const Home = () => {
   const [ownList, setOwnList] = useState([]);
   const [myListNum, setMyListNum] = useState(0);
   const [ownListNum, setOwnListNum] = useState(0);
+
+  // useEffect(() => {
+  //   resize();
+  //   window.addEventListener("resize", resize);
+  //   return () => {
+  //     window.removeEventListener("resize", resize);
+  //   };
+  // }, []);
 
   const getUserInfo = async () => {
     try {
@@ -45,11 +54,20 @@ const Home = () => {
       console.log("error: ", error);
     }
   };
+  const getPlayList = async () => {
+    try {
+      const { data } = await playlistApi.getPlayList();
 
+      // console.log("저는 플레이리스트에요: ", res);
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
   useEffect(() => {
     myAlbumList();
     ownAlbumList();
-    getUserInfo();
+    // getUserInfo();
+    // getPlayList();
   }, []);
 
   return (

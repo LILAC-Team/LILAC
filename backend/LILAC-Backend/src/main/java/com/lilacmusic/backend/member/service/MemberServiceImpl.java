@@ -1,7 +1,5 @@
 package com.lilacmusic.backend.member.service;
 
-import com.lilacmusic.backend.albums.model.repository.AlbumRepository;
-import com.lilacmusic.backend.global.error.GlobalErrorCode;
 import com.lilacmusic.backend.global.error.common.UploadFailException;
 import com.lilacmusic.backend.global.security.jwt.JwtTokenUtils;
 import com.lilacmusic.backend.global.security.jwt.RefreshToken;
@@ -15,18 +13,20 @@ import com.lilacmusic.backend.member.request.MemberSignUpRequest;
 import com.lilacmusic.backend.member.response.MemberDetailResponse;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
 import com.lilacmusic.backend.member.response.ReGenerateAccessTokenResponse;
-import com.lilacmusic.backend.musics.model.repository.MusicRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.DeleteObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.InputStream;
@@ -34,11 +34,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.lilacmusic.backend.global.security.jwt.JwtTokenUtils.BEARER_PREFIX;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheManager = "redisLongCacheManager")
 public class MemberServiceImpl implements MemberService {
     private final S3Client s3Client;
     private final JwtTokenUtils jwtTokenUtils;
@@ -132,7 +131,7 @@ public class MemberServiceImpl implements MemberService {
      * @return 이메일의 멤버 아이디, 없으면 -1 리턴
      */
     @Override
-    @Cacheable(value = "memberIdCache")
+    @Cacheable(value = "memberIdCache", key = "#email")
     public Long getMemberIdByEmail(String email) {
         if (email == null) {
             return -1L;
@@ -166,11 +165,31 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDetailResponse memberDetail(Long memberId) {
         Optional<Member> oMember = memberRepository.findByMemberId(memberId);
-        if(oMember.isEmpty()){
+        if (oMember.isEmpty()) {
             throw new MemberNotFoundException();
         }
         Member member = oMember.get();
-        return new MemberDetailResponse(member.getEmail(),member.getProfileImage(),member.getNickname(),member.getReleaseAlbumCount(),member.getCollectAlbumCount());
+        return new MemberDetailResponse(member.getEmail(), member.getProfileImage(), member.getNickname(), member.getReleaseAlbumCount(), member.getCollectAlbumCount());
+    }
+
+    @Override
+    @Transactional
+    public MemberDetailResponse updateMember(Long memberId, MultipartFile profileImageFile, String nickname) {
+        Member member = memberRepository.findByMemberId(memberId).orElseThrow(() -> new MemberNotFoundException());
+        if (profileImageFile != null && !profileImageFile.isEmpty()) {
+            String newProfileImage = uploadProfileImage(profileImageFile);
+            if (member.getProfileImage().startsWith(cloudfrontUrlPrefix)) {
+                deleteS3Object(member.getProfileImage());
+            }
+            if (nickname == null || nickname.equals("")) {
+                nickname = member.getNickname();
+            }
+            member.updateProfileImageAndNickname(newProfileImage, nickname);
+        } else if (nickname != null && !nickname.equals("")) {
+            member.updateProfileImageAndNickname(member.getProfileImage(), nickname);
+        }
+        member = memberRepository.save(member);
+        return new MemberDetailResponse(member.getEmail(), member.getProfileImage(), member.getNickname(), member.getReleaseAlbumCount(), member.getCollectAlbumCount());
     }
 
     private void uploadToS3(MultipartFile imageFile, String inputKey) {
@@ -184,5 +203,15 @@ public class MemberServiceImpl implements MemberService {
             log.error(e.getMessage());
             throw new UploadFailException();
         }
+    }
+
+    private void deleteS3Object(String deleteFileName) {
+        String[] strings = deleteFileName.split("/");
+        String deleteFile = "images/" + strings[strings.length - 1];
+        DeleteObjectResponse response = s3Client.deleteObject(DeleteObjectRequest.builder()
+                .bucket(bucket)
+                .key(deleteFile)
+                .build());
+        log.info(response.requestChargedAsString());
     }
 }

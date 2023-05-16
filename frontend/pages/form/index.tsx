@@ -11,6 +11,7 @@ import CustomTextButton from "@/components/common/CustomTextButton";
 import { albumApi } from "@/api/utils/album";
 import { useRouter } from "next/router";
 import BasicImage from "@/components/common/BasicImage";
+import { resize } from "@/api/func/resize";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
@@ -52,9 +53,7 @@ const Form = () => {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onload = () => {
-        // console.log("typeof reader.result: ", typeof reader.result);
         const str = reader.result;
-        // console.log("str: ", str);
         setAlbumImage({ previewImgUrl: str, file: files[0] });
       };
       setIsAlbumImage(true);
@@ -145,7 +144,7 @@ const Form = () => {
     albumTrackList.map((data, index) => {
       const obj = {
         artistName: data.artist,
-        musicIndex: index,
+        musicIndex: index + 1,
         isTitle: data.isTitle,
         name: data.title,
         playtime: data.playtime,
@@ -209,14 +208,14 @@ const Form = () => {
           />
           <S.AlbumTitleWrap>
             <BasicInput
-              id="nickname"
-              type="text"
+              id='nickname'
+              type='text'
               value={albumTitle}
               handleOnChangeValue={handleAlbumTitleOnChange}
             />
           </S.AlbumTitleWrap>
           <S.ContentTitleWrap>
-            <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
+            <BasicText text='음원목록' size='1.5rem' font='NotoSansKR700' />
           </S.ContentTitleWrap>
           <S.AddMusicWrap>
             <AudioFileInput onChangeEvent={handleAddAlbumTrack} />
@@ -243,9 +242,9 @@ const Form = () => {
           <S.UploadButtonWrap>
             {isAlbum && isAlbumImage && isAlbumMusic ? (
               <CustomTextButton
-                text="등록"
-                font="NotoSansKR700"
-                fontColor="var(--color-background)"
+                text='등록'
+                font='NotoSansKR700'
+                fontColor='var(--color-background)'
                 handleOnClickButton={() => {
                   setIsResultModalOpen(true);
                   registerAlbum();
@@ -253,9 +252,9 @@ const Form = () => {
               />
             ) : (
               <CustomTextButton
-                text="등록"
-                font="NotoSansKR700"
-                fontColor="var(--color-background)"
+                text='등록'
+                font='NotoSansKR700'
+                fontColor='var(--color-background)'
                 handleOnClickButton={registerAlbum}
                 isDisabled={true}
               />
@@ -272,44 +271,44 @@ const Form = () => {
           <S.ModalContainer>
             <S.ModalSubject>
               <BasicText
-                text="제목"
-                size="1.25rem"
-                color="var(--color-background)"
+                text='제목'
+                size='1.25rem'
+                color='var(--color-background)'
               />
             </S.ModalSubject>
             <S.ModalInput>
               <BasicInput
-                id="title"
-                type="text"
-                color="var(--color-background)"
+                id='title'
+                type='text'
+                color='var(--color-background)'
                 value={currTrackInfo.title}
                 handleOnChangeValue={handleCurrTrackInfoOnChange}
               />
             </S.ModalInput>
             <S.ModalSubject>
               <BasicText
-                text="아티스트"
-                size="1.25rem"
-                color="var(--color-background)"
+                text='아티스트'
+                size='1.25rem'
+                color='var(--color-background)'
               />
             </S.ModalSubject>
             <S.ModalInput>
               <BasicInput
-                id="artist"
-                type="text"
-                color="var(--color-background)"
+                id='artist'
+                type='text'
+                color='var(--color-background)'
                 value={currTrackInfo.artist}
                 handleOnChangeValue={handleCurrTrackInfoOnChange}
               />
             </S.ModalInput>
             <S.TitleInputDiv>
               <BasicText
-                text="Title"
-                size="1.25rem"
-                color="var(--color-background)"
+                text='Title'
+                size='1.25rem'
+                color='var(--color-background)'
               />
               <S.TitleInput
-                type="checkbox"
+                type='checkbox'
                 checked={isChecked}
                 onChange={() => {
                   setIsChecked(!isChecked);
@@ -318,16 +317,16 @@ const Form = () => {
             </S.TitleInputDiv>
             {isMusic ? (
               <CustomTextButton
-                text="등록"
-                font="NotoSansKR700"
-                fontColor="var(--color-background)"
+                text='등록'
+                font='NotoSansKR700'
+                fontColor='var(--color-background)'
                 handleOnClickButton={handleAddTrackToAlbum}
               />
             ) : (
               <CustomTextButton
-                text="등록"
-                font="NotoSansKR700"
-                fontColor="var(--color-background)"
+                text='등록'
+                font='NotoSansKR700'
+                fontColor='var(--color-background)'
                 handleOnClickButton={handleAddTrackToAlbum}
                 isDisabled={true}
               />
@@ -344,13 +343,13 @@ const Form = () => {
           <S.ModalAllContainer>
             <S.ModalLine>
               <S.ModalIcon>
-                <BasicImage src="/icons/favicon-512x512.png" />
+                <BasicImage src='/icons/favicon-512x512.png' />
               </S.ModalIcon>
               <S.ModalText>
-                <BasicText text="업로드중입니다" size="1.5rem" color="black" />
+                <BasicText text='업로드중입니다' size='1.5rem' color='black' />
               </S.ModalText>
               <S.ModalIcon>
-                <BasicImage src="/icons/favicon-512x512.png" />
+                <BasicImage src='/icons/favicon-512x512.png' />
               </S.ModalIcon>
             </S.ModalLine>
           </S.ModalAllContainer>

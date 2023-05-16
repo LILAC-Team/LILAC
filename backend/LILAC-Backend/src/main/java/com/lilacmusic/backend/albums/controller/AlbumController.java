@@ -12,6 +12,7 @@ import com.lilacmusic.backend.albums.service.StreamingService;
 import com.lilacmusic.backend.global.common.BaseResponse;
 import com.lilacmusic.backend.global.validation.GlobalRequestValidator;
 import com.lilacmusic.backend.member.service.MemberService;
+import com.lilacmusic.backend.musics.dto.request.MusicRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -62,6 +63,22 @@ public class AlbumController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/released")
+    @Operation(summary = "내가 발매한 앨범 전체 API",
+            description = "내가 발매한 앨범을 전부 가져오는 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "앨범 리스트 및 페이지 정보 반환", content = @Content(schema = @Schema(implementation = ReleasedAlbumListResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request 잘못된 요청"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized 로그인 필요 / 세션 만료"),
+            @ApiResponse(responseCode = "500", description = "서버 에러")
+    })
+    public ResponseEntity<ReleasedAlbumListResponse> getAllReleasedAlbums(HttpServletRequest request) {
+        Long memberId = validator.validateEmail(request);
+
+        ReleasedAlbumListResponse response = albumService.getAllReleasedAlbums(memberId);
+        return ResponseEntity.ok().body(response);
+    }
+
     @GetMapping("/collected/{pageNumber}")
     @Operation(summary = "내가 소장한 앨범 API",
             description = "내가 소장한 앨범을 가져오는 API, pageNumber는 1부터 시작되며 가지고 있는 이상의 입력의 경우 빈 리스트가 들어있는 객체 반환")
@@ -76,6 +93,22 @@ public class AlbumController {
         Long memberId = validator.validatePageNumberAndEmail(pageNumber, request);
 
         CollectedAlbumListResponse response = albumService.getCollectedAlbums(pageNumber, memberId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/collected")
+    @Operation(summary = "내가 소장한 앨범 전체 API",
+            description = "내가 소장한 앨범을 전부 가져오는 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "앨범 리스트 및 페이지 정보 반환", content = @Content(schema = @Schema(implementation = CollectedAlbumListResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request 잘못된 요청"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized 로그인 필요 / 세션 만료"),
+            @ApiResponse(responseCode = "500", description = "서버 에러")
+    })
+    public ResponseEntity<CollectedAlbumListResponse> getAllCollectedAlbums(HttpServletRequest request) {
+        Long memberId = validator.validateEmail(request);
+
+        CollectedAlbumListResponse response = albumService.getAllCollectedAlbums(memberId);
         return ResponseEntity.ok().body(response);
     }
 
@@ -112,8 +145,12 @@ public class AlbumController {
             @RequestPart("albumInfo") @ApiParam("앨범 및 음원 정보 - json을 string형식으로") String albumInfoJson,
             HttpServletRequest request
     ) throws JsonProcessingException, NoAlbumFoundException {
-        AlbumRequest albumRequest = new ObjectMapper().readValue(albumInfoJson, AlbumRequest.class);
         Long memberId = validator.validateEmail(request);
+        AlbumRequest albumRequest = new ObjectMapper().readValue(albumInfoJson, AlbumRequest.class);
+        streamingService.validateRequest(albumRequest);
+        for (MusicRequest mr : albumRequest.getMusicList()) {
+            streamingService.validateMusicRequest(mr);
+        }
         // file 개수 검증
         log.debug(albumRequest.toString());
         log.debug(imageFile.getOriginalFilename());

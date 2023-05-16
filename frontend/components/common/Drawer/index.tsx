@@ -1,5 +1,5 @@
 import * as S from "./style";
-import React, { useState, KeyboardEvent, MouseEvent, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import MusicPlayerDrawer from "@/components/Player/MusicPlayerDrawer";
 import CommentDrawer from "@/components/Player/CommentDrawer";
@@ -17,40 +17,37 @@ interface DrawerProps {
   };
 }
 
+const iOS =
+  typeof navigator !== "undefined" &&
+  /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 const Drawer = ({ inner, anchor, state, toggleDrawer }: DrawerProps) => {
-  const [innerWidth, setInnerWidth] = useState(0);
+  const [innerWidth, setInnerWidth] = useState("100%");
   const [mytext, setMytext] = useState("");
 
   useEffect(() => {
-    // if (typeof window !== "undefined") {
-    //   setInnerWidth(window.innerWidth);
-    //   const resizeListener = () => {
-    //     setInnerWidth(window.innerWidth);
-    //   };
-    //   window.addEventListener("resize", resizeListener);
-    //   return () => {
-    //     window.removeEventListener("resize", resizeListener);
-    //   };
-    // }
+    const resize = () => {
+      console.log("흠");
+      let width = window.innerWidth;
+      if (window.innerWidth >= 900) {
+        setMytext(`${(width - 900) / 2}px`);
+      } else {
+        setMytext("0px");
+      }
+    };
+    window.addEventListener("resize", resize);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
-  useEffect(() => {
-    if (innerWidth > 900) {
-      setMytext("calc(((var(--vw, 1vw) * 100) - 900px)/2)");
-    } else {
-      setMytext("0px");
-    }
-  }, [innerWidth]);
-
-  const iOS =
-    typeof navigator !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
     <S.Drawer>
       <SwipeableDrawer
         sx={{
           "& .MuiPaper-root": {
-            width: `calc((var(--vw, 1vw) * 100))`,
+            width: "100%",
             maxWidth: `900px`,
             display: "flex",
             justifyContent: "center",
