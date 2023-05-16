@@ -58,7 +58,7 @@ export const commentList = createSlice({
       state.last = action.payload.last;
     },
     setTime: (state, action) => {
-      state.time = action.payload.time;
+      state.time = parseInt(action.payload.time);
     },
   },
 });
