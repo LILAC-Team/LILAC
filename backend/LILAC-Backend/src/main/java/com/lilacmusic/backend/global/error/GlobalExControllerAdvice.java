@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Objects;
 
 /**
@@ -35,6 +36,16 @@ public class GlobalExControllerAdvice {
         return new BaseResponse<>(GlobalErrorCode.VALID_EXCEPTION, Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
     }
 
+    /**
+     * Valid 검증 실패시 오류 발생
+     * 주로 @RequestBody, @RequestPart 어노테이션에서 발생
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public BaseResponse<Object> invalidArgumentValidResponse(ConstraintViolationException e) {
+        log.error("Bad Request Exception : {}", e.getMessage());
+        return new BaseResponse<>(GlobalErrorCode.VALID_EXCEPTION, e.getMessage());
+    }
 
     /**
      * 변수 Binding시 발생하는 오류
@@ -51,7 +62,7 @@ public class GlobalExControllerAdvice {
      * 지원하지 않은 HTTP method 호출 할 경우 발생
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     protected BaseResponse<Object> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         log.error("handleHttpRequestMethodNotSupportedException", e);
 
@@ -61,12 +72,13 @@ public class GlobalExControllerAdvice {
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     protected BaseResponse<Object> handleAccessDeniedException(AccessDeniedException e) {
-        log.info("{}",e.getMessage());
+        log.info("{}", e.getMessage());
         return new BaseResponse<>(GlobalErrorCode.ACCESS_DENIED);
     }
 
     /**
      * 프로젝트내 설정한 예외가 발생할때 처리하는 부분
+     *
      * @param e 발생한 예외
      * @return 예외를 처리해서 반환한다.
      */
@@ -79,6 +91,7 @@ public class GlobalExControllerAdvice {
 
     /**
      * 처리되지 않은 에러를 여기서 처리 한다.
+     *
      * @param e 발생한 에러
      * @return BaseResponse로 메시지를 감춰서 반환한다.
      */

@@ -2,7 +2,7 @@ package com.lilacmusic.backend.albums.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
