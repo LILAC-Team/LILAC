@@ -75,6 +75,23 @@ public class MusicController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/{musicCode}/comments")
+    @Operation(summary = "음원 댓글 전체 API",
+            description = "음원 댓글들을 전부 가져오는 API, 댓글 리스트 페이지로 반환, 페이지 번호는 1부터 시작")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "음원 정보 반환", content = @Content(schema = @Schema(implementation = CommentListResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request 잘못된 요청"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized 로그인 필요 / 세션 만료"),
+            @ApiResponse(responseCode = "404", description = "Not Found 해당 없음"),
+            @ApiResponse(responseCode = "500", description = "서버 에러")
+    })
+    public ResponseEntity<CommentListResponse> getAllCommentList(@PathVariable("musicCode") @ApiParam("음원 코드") String musicCode,
+                                                                 HttpServletRequest request) throws NoMusicFoundException {
+        Long memberId = validator.validateEmail(request);
+        CommentListResponse response = commentService.getAllCommentList(musicCode, memberId);
+        return ResponseEntity.ok().body(response);
+    }
+
     @PostMapping("/{musicCode}/comments")
     @Operation(summary = "음원 댓글 생성 API",
             description = "음원 댓글 생성 API, 댓글 내용과 댓글을 달 시간이 필요")

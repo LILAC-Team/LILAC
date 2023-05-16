@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheManager = "redisLongCacheManager")
 public class MemberServiceImpl implements MemberService {
     private final S3Client s3Client;
     private final JwtTokenUtils jwtTokenUtils;
@@ -129,7 +131,7 @@ public class MemberServiceImpl implements MemberService {
      * @return 이메일의 멤버 아이디, 없으면 -1 리턴
      */
     @Override
-    @Cacheable(value = "memberIdCache", key = "#email", cacheManager = "redisCacheManager")
+    @Cacheable(value = "memberIdCache", key = "#email")
     public Long getMemberIdByEmail(String email) {
         if (email == null) {
             return -1L;
