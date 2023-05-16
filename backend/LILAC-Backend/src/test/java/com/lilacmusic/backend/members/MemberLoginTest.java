@@ -37,8 +37,7 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Transactional
 @AutoConfigureMockMvc
@@ -85,8 +84,11 @@ public class MemberLoginTest {
     @DisplayName("비 로그인 요청시 401 에러")
     void 비로그인시_401에러를_반환() throws Exception {
         mockMvc.perform(
-                get(url + "test")
-        ).andExpect(status().is(401));
+                        get(url + "test")
+                )
+                .andDo(print())
+                .andExpect(status().is(302))
+                .andExpect(redirectedUrl("/api/v1/error/jwt"));
     }
 
     @Test
@@ -120,7 +122,8 @@ public class MemberLoginTest {
         mockMvc.perform(get(url)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer anim"))
                 .andDo(print())
-                .andExpect(status().is(401));
+                .andExpect(status().is(302))
+                .andExpect(redirectedUrl("/api/v1/error/jwt"));
     }
 
 //    @Test

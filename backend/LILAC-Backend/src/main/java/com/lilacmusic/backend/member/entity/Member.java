@@ -2,7 +2,7 @@ package com.lilacmusic.backend.member.entity;
 
 import com.lilacmusic.backend.global.common.BaseTime;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -76,6 +76,11 @@ public class Member extends BaseTime {
     public enum RegistrationId {
         kakao
 
+    }
+
+    public void updateProfileImageAndNickname(String profileImage, String nickname) {
+        this.profileImage = profileImage;
+        this.nickname = nickname;
     }
 
 }

@@ -2,7 +2,7 @@ package com.lilacmusic.backend.musics.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,7 +12,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "recent_comment")
+@Table(name = "recent_comment", indexes = {
+        @Index(name = "idx__music_id", columnList = "music_id"),
+        @Index(name = "idx__member_id", columnList = "member_id"),
+        @Index(name = "idx__music_id__present_time", columnList = "member_id, present_time")
+})
 public class RecentComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

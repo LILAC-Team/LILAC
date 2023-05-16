@@ -1,6 +1,6 @@
 package com.lilacmusic.backend.global.common;
 
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class BaseTime {
 
     @CreatedDate
-    @Column(name = "created_time",updatable = false)
+    @Column(name = "created_time", updatable = false)
     private LocalDateTime createdTime;
 
     @LastModifiedDate

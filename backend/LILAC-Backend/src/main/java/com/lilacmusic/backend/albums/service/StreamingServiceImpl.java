@@ -15,6 +15,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
@@ -22,6 +23,7 @@ import software.amazon.awssdk.services.mediaconvert.model.*;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import javax.validation.Valid;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import java.util.UUID;
 
 @Slf4j
 @Service
+@Validated
 @RequiredArgsConstructor
 public class StreamingServiceImpl implements StreamingService {
     private final S3Client s3Client;
@@ -60,7 +63,7 @@ public class StreamingServiceImpl implements StreamingService {
                 .albumImage(inputKey)
                 .releasedDate(LocalDateTime.now())
                 .build();
-        albumRepository.save(album);
+        album = albumRepository.save(album);
         memberRepository.updateReleasingByMemberId(memberId);
 
         return album.getAlbumId();
@@ -182,5 +185,13 @@ public class StreamingServiceImpl implements StreamingService {
                 .build();
 
         return createJobRequest;
+    }
+
+    @Override
+    public void validateRequest(@Valid AlbumRequest albumRequest) {
+    }
+
+    @Override
+    public void validateMusicRequest(@Valid MusicRequest musicRequest) {
     }
 }
