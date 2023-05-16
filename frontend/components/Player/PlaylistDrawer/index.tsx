@@ -5,9 +5,14 @@ import CustomTextButton from "@/components/common/CustomTextButton";
 import DragAndDrop from "@/components/Container/DragAndDrop";
 import { useSelector, useDispatch } from "react-redux";
 import MusicCard from "../MusicCard";
-import { CLOUD_FRONT } from "@/api/index";
 import { playlistApi } from "@/api/utils/playlist";
-import { setPlayList, setTrack } from "@/store/modules/playList";
+import { playListState } from "@/store/modules/playList";
+import {
+  setPlayList,
+  setTrack,
+  togglePlay,
+  PutStartingPointToZero,
+} from "@/store/modules/playList";
 
 interface Music {
   name: string;
@@ -23,7 +28,7 @@ interface PlayList {
 }
 
 interface AppState {
-  playList: PlayList;
+  playList: playListState;
 }
 
 interface MusicControllerState {
@@ -49,6 +54,10 @@ const PlaylistDrawer = () => {
   const [isEdit, setIsEdit] = useState(false);
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
+  const { musicList, musicListSize, shuffleArr } = useSelector(
+    (state: AppState) => state.playList
+  );
+
   const dispatch = useDispatch();
   // UPDATE PlayList 담는 list
   const [list, setList] = useState(nowPlayList.musicList);
@@ -81,16 +90,18 @@ const PlaylistDrawer = () => {
   };
 
   // PLAY Music of Playlist
-  const playMusicHandler = async (index: number) => {
+  const playMusicHandler = (index: number) => {
     try {
       console.log("nowIndex", index);
       console.log("nowPlayList", nowPlayList);
+      dispatch(togglePlay());
+      dispatch(PutStartingPointToZero(true));
       dispatch(
         setTrack({
-          ...nowPlayList,
-          currentTrackIndex: index,
+          index,
         })
       );
+      dispatch(PutStartingPointToZero(true));
     } catch (error) {
       console.log(error);
     }
@@ -119,39 +130,39 @@ const PlaylistDrawer = () => {
     <S.Playlist>
       <S.Top>
         <S.Bar />
-        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
+        <BasicText text='PlayList' size='125%' font='NotoSansKR500' />
       </S.Top>
       <S.TextWrapper>
         <BasicText
-          text={
-            (list.length === 0 && nowPlayList.listSize === 0
-              ? listSize
-              : list.length) + "곡"
-          }
-          size="0.85rem"
+          text={(listSize ? listSize : 0) + "곡"}
+          //   (list.length === 0 && nowPlayList.listSize === 0
+          //     ? listSize
+          //     : list.length) + "곡"
+          // }
+          size='0.85rem'
         />
         <div />
         {isEdit ? (
           <CustomTextButton
-            text="완료"
+            text='완료'
             handleOnClickButton={() => {
               handleEditClick();
             }}
-            fontColor="#FFFFFF"
-            font="Ridibatang"
+            fontColor='#FFFFFF'
+            font='Ridibatang'
             isBackground={false}
-            size="0.85rem"
+            size='0.85rem'
           />
         ) : (
           <CustomTextButton
-            text="편집"
+            text='편집'
             handleOnClickButton={() => {
               handleEditClick();
             }}
-            fontColor="#FFFFFF"
-            font="Ridibatang"
+            fontColor='#FFFFFF'
+            font='Ridibatang'
             isBackground={false}
-            size="0.85rem"
+            size='0.85rem'
           />
         )}
       </S.TextWrapper>
@@ -159,7 +170,25 @@ const PlaylistDrawer = () => {
         <DragAndDrop list={list} setList={setList} />
       ) : (
         <S.CardsWrapper>
-          {nowPlayList.musicList.map(
+          {shuffleArr &&
+            shuffleArr.map((data, index) => (
+              <S.OneMusicCard
+                key={index}
+                onClick={() => playMusicHandler(index)}
+              >
+                <MusicCard
+                  data={{
+                    code: musicList[`${data}`].code,
+                    name: musicList[`${data}`].name,
+                    albumImage: musicList[`${data}`].albumImage,
+                    artistName: musicList[`${data}`].artistName,
+                    playtime: musicList[`${data}`].playtime,
+                  }}
+                  isEditable={false}
+                />
+              </S.OneMusicCard>
+            ))}
+          {/* {nowPlayList.musicList.map(
             ({ code, name, albumImage, artistName, playtime }, index) => (
               <S.OneMusicCard
                 key={index}
@@ -177,7 +206,7 @@ const PlaylistDrawer = () => {
                 />
               </S.OneMusicCard>
             )
-          )}
+          )} */}
         </S.CardsWrapper>
       )}
     </S.Playlist>
