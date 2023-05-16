@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Head from "next/head";
 import Header from "../Header";
 import * as S from "./style";
 import NavigationBar from "../NavigationBar";
@@ -31,20 +32,25 @@ const Layout = ({ children }) => {
   }, []);
 
   return (
-    <S.ContainerWrap>
-      <Header />
-      <S.ChildrenWrap>{children}</S.ChildrenWrap>
-      <>
-        <MusicPlayerBar onClickEvent={toggleDrawer("bottom", true)} />
-        <Drawer
-          inner='player'
-          toggleDrawer={toggleDrawer}
-          state={{ ...state }}
-          anchor={"bottom"}
-        />
-      </>
-      <NavigationBar />
-    </S.ContainerWrap>
+    <>
+      <Head>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+      </Head>
+      <S.ContainerWrap>
+        <Header />
+        <S.ChildrenWrap>{children}</S.ChildrenWrap>
+        <>
+          <MusicPlayerBar onClickEvent={toggleDrawer("bottom", true)} />
+          <Drawer
+            inner='player'
+            toggleDrawer={toggleDrawer}
+            state={{ ...state }}
+            anchor={"bottom"}
+          />
+        </>
+        <NavigationBar />
+      </S.ContainerWrap>
+    </>
   );
 };
 
