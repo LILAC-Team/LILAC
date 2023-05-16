@@ -3,7 +3,7 @@
 echo "> $DOCKER_REPOSITORY"
 true > RESULT
 chmod 666 /var/run/docker.sock
-RESPONSE=$(curl -s localhost:8080/actuator/health)
+RESPONSE=$(curl -s localhost:8080/api/v1/actuator/health)
 echo "> RESPONSE : "$RESPONSE
 
 IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
@@ -44,7 +44,7 @@ do
 	sleep 1
 	done
 
-	RESPONSE=$(curl -s localhost:${IDLE_PORT}/actuator/health)
+	RESPONSE=$(curl -s localhost:${IDLE_PORT}/api/v1/actuator/health)
 	IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
 
 	if [ $IS_ACTIVE -ge 1 ]; then
