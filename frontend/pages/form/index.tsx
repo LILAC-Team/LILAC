@@ -41,14 +41,6 @@ const Form = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [albumTrackList, setAlbumTrackList] = useState([]);
 
-  // useEffect(() => {
-  //   resize();
-  //   window.addEventListener("resize", resize);
-  //   return () => {
-  //     window.removeEventListener("resize", resize);
-  //   };
-  // }, []);
-
   const handleAlbumImageChange = async (e) => {
     const {
       target: { files },
@@ -61,9 +53,7 @@ const Form = () => {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onload = () => {
-        // console.log("typeof reader.result: ", typeof reader.result);
         const str = reader.result;
-        // console.log("str: ", str);
         setAlbumImage({ previewImgUrl: str, file: files[0] });
       };
       setIsAlbumImage(true);
@@ -154,7 +144,7 @@ const Form = () => {
     albumTrackList.map((data, index) => {
       const obj = {
         artistName: data.artist,
-        musicIndex: index,
+        musicIndex: index + 1,
         isTitle: data.isTitle,
         name: data.title,
         playtime: data.playtime,
