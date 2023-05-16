@@ -1,53 +1,50 @@
 import * as S from "./style";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from "react-icons/tb";
 import { IoPlay, IoPause, IoPlayBack, IoPlayForward } from "react-icons/io5";
-import { useState, useEffect } from "react";
+import { nextTrack, playListState, prevTrack } from "@/store/modules/playList";
+import {
+  setPlayList,
+  setTrack,
+  setLoop,
+  setShuffle,
+  togglePlay,
+  PutStartingPointToZero,
+} from "@/store/modules/playList";
 
+interface playerState {
+  playList: playListState;
+}
 const MusicController = ({ handleRotateClick }) => {
   const [shuffleState, setShuffleState] = useState(false);
   const [playState, setPlayState] = useState(false);
   const [repeatState, setRepeatState] = useState(0);
+  const dispatch = useDispatch();
+  const { loop, playing, shuffle, OnSeekToZero, currPlayingMusicInfo } =
+    useSelector((state: playerState) => state.playList);
 
   const handleClickShuffle = () => {
-    if (shuffleState) {
-      setShuffleState((props) => !props);
-      console.log("Shuffle Off");
-    } else {
-      setShuffleState((props) => !props);
-      console.log("Shuffle On");
-    }
+    dispatch(setShuffle());
   };
 
   const handleClickBackward = () => {
-    console.log("Play previous music");
+    dispatch(PutStartingPointToZero(true));
+    dispatch(prevTrack());
   };
 
   const handleClickPlay = () => {
-    if (playState) {
-      setPlayState((props) => !props);
-      console.log("Play");
-    } else {
-      setPlayState((props) => !props);
-      console.log("Pause");
-    }
+    dispatch(togglePlay());
   };
 
   const handleClickForward = () => {
-    console.log("Play next music");
+    dispatch(PutStartingPointToZero(true));
+    dispatch(nextTrack());
   };
 
   const handleClickRepeat = () => {
-    if (repeatState === 0) {
-      console.log("Repeat all");
-      setRepeatState(1);
-    } else if (repeatState === 1) {
-      setRepeatState(2);
-      console.log("Repeat once");
-    } else {
-      setRepeatState(0);
-      console.log("No repeat");
-    }
+    dispatch(setLoop());
   };
 
   useEffect(() => {
@@ -57,32 +54,30 @@ const MusicController = ({ handleRotateClick }) => {
   return (
     <S.ControllerWrapper>
       <CustomIconButton handleOnClickButton={handleClickShuffle}>
-        {shuffleState ? (
-          <TbArrowsShuffle size="2rem" color="#CCA4FC" />
+        {shuffle ? (
+          <TbArrowsShuffle size='2rem' color='#CCA4FC' />
         ) : (
-          <TbArrowsShuffle size="2rem" color="#FFFFFF" />
+          <TbArrowsShuffle size='2rem' color='#FFFFFF' />
         )}
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickBackward}>
-        <IoPlayBack size="2rem" color="#FFFFFF" />
+        <IoPlayBack size='2rem' color='#FFFFFF' />
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickPlay}>
-        {playState ? (
-          <IoPlay size="3.5rem" color="#FFFFFF" />
+        {playing ? (
+          <IoPause size='3.5rem' color='#FFFFFF' />
         ) : (
-          <IoPause size="3.5rem" color="#FFFFFF" />
+          <IoPlay size='3.5rem' color='#FFFFFF' />
         )}
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickForward}>
-        <IoPlayForward size="2rem" color="#FFFFFF" />
+        <IoPlayForward size='2rem' color='#FFFFFF' />
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickRepeat}>
-        {repeatState === 0 ? (
-          <TbRepeat size="2rem" color="#FFFFFF" />
-        ) : repeatState === 1 ? (
-          <TbRepeat size="2rem" color="#CCA4FC" />
+        {loop ? (
+          <TbRepeatOnce size='2rem' color='#CCA4FC' />
         ) : (
-          <TbRepeatOnce size="2rem" color="#CCA4FC" />
+          <TbRepeat size='2rem' color='#CCA4FC' />
         )}
       </CustomIconButton>
     </S.ControllerWrapper>
