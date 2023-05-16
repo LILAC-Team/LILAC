@@ -16,14 +16,9 @@ export const LogoWrapper = styled.div`
 `;
 
 export const ProfileWrapper = styled.div`
-<<<<<<< HEAD
-  width: 2.6rem;
-  aspect-ratio: 1 / 1;
-=======
   display: flex;
   width: 2.5rem;
   aspect-ratio: 1 /1;
->>>>>>> 4abaa8b54322c565f639e30cb3e4b9b223d352a7
 `;
 
 export const LabelWrapper = styled.div`
