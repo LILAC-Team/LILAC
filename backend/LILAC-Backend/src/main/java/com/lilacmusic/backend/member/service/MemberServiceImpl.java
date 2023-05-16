@@ -129,7 +129,7 @@ public class MemberServiceImpl implements MemberService {
      * @return 이메일의 멤버 아이디, 없으면 -1 리턴
      */
     @Override
-    @Cacheable(value = "memberIdCache")
+    @Cacheable(value = "memberIdCache", key = "#email", cacheManager = "redisCacheManager")
     public Long getMemberIdByEmail(String email) {
         if (email == null) {
             return -1L;
