@@ -5,7 +5,7 @@ import CommentInput from "../CommentInput";
 import CommentCard from "../CommentCard";
 import { useSelector } from "react-redux";
 import { musicApi } from "@/api/utils/music";
-
+import { commentListState } from "@/store/modules/commentList";
 interface userState {
   user: any;
 }
@@ -57,11 +57,15 @@ const initialCommentList: CommentListResponse = {
   first: true,
   last: true,
 };
-
+interface commentState {
+  commentList: commentListState;
+}
 const CommentDrawer = () => {
   const [inputData, setInputData] = useState("");
   const userInfo = useSelector((state: userState) => state.user);
-
+  const { commentList, time } = useSelector(
+    (state: commentState) => state.commentList
+  );
   // GET All Comments
   const [nowCommentList, setNowCommentList] =
     useState<CommentListResponse>(initialCommentList);
@@ -152,11 +156,11 @@ const CommentDrawer = () => {
     <S.Comment>
       <S.Top>
         <S.Bar />
-        <BasicText text="Comment" size="125%" font="NotoSansKR500" />
+        <BasicText text='Comment' size='125%' font='NotoSansKR500' />
       </S.Top>
       <S.InputAllWrap>
         <CommentInput
-          nowTime={nowTime}
+          nowTime={time}
           src={userInfo.profileImage}
           value={inputData}
           handleOnChangeValue={changeInputData}
@@ -165,21 +169,24 @@ const CommentDrawer = () => {
         />
       </S.InputAllWrap>
       <S.CommentAllWrap>
-        {nowCommentList.commentList.map((item, code) => {
-          return (
-            <React.Fragment key={code}>
-              <CommentCard
-                handler={() => deleteCommentHandler(item.code)}
-                code={item.code}
-                src={item.memberInfo.profileImage}
-                nickname={item.memberInfo.nickname}
-                time={item.presentTime}
-                content={item.content}
-                isMine={item.memberInfo.email === userInfo.email ? true : false}
-              />
-            </React.Fragment>
-          );
-        })}
+        {commentList &&
+          commentList.map((item, code) => {
+            return (
+              <React.Fragment key={code}>
+                <CommentCard
+                  handler={() => deleteCommentHandler(item.code)}
+                  code={item.code}
+                  src={item.memberInfo.profileImage}
+                  nickname={item.memberInfo.nickname}
+                  time={item.presentTime}
+                  content={item.content}
+                  isMine={
+                    item.memberInfo.email === userInfo.email ? true : false
+                  }
+                />
+              </React.Fragment>
+            );
+          })}
       </S.CommentAllWrap>
     </S.Comment>
   );
