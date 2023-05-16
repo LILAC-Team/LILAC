@@ -68,6 +68,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.mockito:mockito-core'
 
+    // actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 
 }
 

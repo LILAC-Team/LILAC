@@ -20,8 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -56,6 +58,31 @@ public class CommentServiceImpl implements CommentService {
                 .totalElements(commentResponsePage.getTotalElements())
                 .first(commentResponsePage.isFirst())
                 .last(commentResponsePage.isLast())
+                .build();
+
+        return response;
+    }
+
+    @Override
+    public CommentListResponse getAllCommentList(String code, Long memberId) throws NoMusicFoundException {
+        Long musicId = musicService.getMusicIdByCode(code);
+        List<CommentMapping> commentList = commentRepository.findAllCommentByMusicId(musicId);
+        List<CommentResponse> commentResponsePage = commentList.stream().map(c ->
+                CommentResponse.builder()
+                        .code(c.getCode())
+                        .content(c.getContent())
+                        .presentTime(c.getPresentTime())
+                        .createdTime(c.getCreatedTime())
+                        .memberInfo(new MemberInfoResponse(c.getNickname(), c.getProfileImage(), c.getEmail()))
+                        .build()
+        ).collect(Collectors.toList());
+        CommentListResponse response = CommentListResponse.builder()
+                .commentList(commentResponsePage)
+                .number(1)
+                .totalPages(1)
+                .totalElements((long) commentResponsePage.size())
+                .first(true)
+                .last(true)
                 .build();
 
         return response;
