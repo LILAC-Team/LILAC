@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../Header";
 import * as S from "./style";
 import NavigationBar from "../NavigationBar";
 import MusicPlayerBar from "@/components/Player/MusicPlayerBar";
 import Drawer from "@/components/common/Drawer";
-
+import { resize } from "@/api/func/resize";
 const Layout = ({ children }) => {
   const [state, setState] = React.useState({ bottom: false });
   const toggleDrawer =
@@ -21,6 +21,14 @@ const Layout = ({ children }) => {
 
       setState({ ...state, [anchor]: open });
     };
+
+  useEffect(() => {
+    resize();
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
 
   return (
     <S.ContainerWrap>
