@@ -6,12 +6,13 @@ import {
 import { persistReducer } from "redux-persist";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import storage from "redux-persist/lib/storage";
+import storageSession from "redux-persist/lib/storage/session";
 import user from "./modules/user/index";
 import playList from "./modules/playList";
 import commentList from "./modules/commentList";
 const persistConfig = {
   key: "root",
-  storage,
+  storage: storageSession,
   whitelist: ["user", "playList", "commentList"],
 };
 

@@ -10,6 +10,7 @@ import { setLogIn } from "@/store/modules/user";
 import { useRouter } from "next/router";
 import { setPlayList } from "@/store/modules/playList";
 import axios from "axios";
+import { resize } from "@/api/func/resize";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
@@ -31,6 +32,15 @@ const SignUp = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   console.log("userInfo!!!!: ", userInfo);
+
+  useEffect(() => {
+    resize();
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
   useEffect(() => {
     if (userInfo) {
       setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
