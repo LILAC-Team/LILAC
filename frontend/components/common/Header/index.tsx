@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import SmallModal from "../CommonModal/SmallModal";
 import BasicInput from "../BasicInput";
 import CustomTextButton from "../CustomTextButton";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
 
 interface ProfileState {
   previewImgUrl: any;
@@ -23,7 +25,13 @@ interface HeaderProps {
 
 const Header = ({ isShown = true }: HeaderProps) => {
   const userInfo = useSelector((state: userState) => state.user);
+  const router = useRouter();
 
+  const [cookies, setCookies, removeCookies] = useCookies([
+    "isLogIn",
+    "accessToken",
+    "refreshToken",
+  ]);
   const [profileImage, setProfileImage] = useState(userInfo.profileImage);
   const [isDropdown, setIsDropdown] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
@@ -54,6 +62,10 @@ const Header = ({ isShown = true }: HeaderProps) => {
   const handleLogoutAPI = () => {
     console.log("Cookie, Storage 비우기");
     setIsLogoutModal(false);
+    removeCookies("accessToken");
+    removeCookies("refreshToken");
+    removeCookies("isLogIn");
+    router.push("/login");
   };
 
   const handleProfileClick = () => {
