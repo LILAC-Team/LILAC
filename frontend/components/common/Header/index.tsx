@@ -21,9 +21,10 @@ interface userState {
 
 interface HeaderProps {
   isShown?: boolean;
+  link?: string;
 }
 
-const Header = ({ isShown = true }: HeaderProps) => {
+const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
   const userInfo = useSelector((state: userState) => state.user);
   const router = useRouter();
 
@@ -41,6 +42,10 @@ const Header = ({ isShown = true }: HeaderProps) => {
     previewImgUrl: userInfo.profileImage,
     file: {},
   });
+
+  const handleProfileClick = () => {
+    setIsDropdown((prev) => !prev);
+  };
 
   const handleEdit = () => {
     console.log("정보수정");
@@ -66,10 +71,6 @@ const Header = ({ isShown = true }: HeaderProps) => {
     removeCookies("refreshToken");
     removeCookies("isLogIn");
     router.push("/login");
-  };
-
-  const handleProfileClick = () => {
-    setIsDropdown(true);
   };
 
   const handleProfileChange = async (
@@ -105,7 +106,7 @@ const Header = ({ isShown = true }: HeaderProps) => {
   return (
     <>
       <S.HeaderWrapper>
-        <Link href={"/"}>
+        <Link href={link}>
           <S.LogoWrapper>
             <BasicText
               text="LILAC"
