@@ -48,6 +48,7 @@ export const playList = createSlice({
   initialState,
   reducers: {
     setPlayList(state, action) {
+      state.playing = false;
       state.listSize = action.payload.listSize;
       action.payload.musicList.map((data, index) => {
         const key = state.musicListSize + index + 1;
