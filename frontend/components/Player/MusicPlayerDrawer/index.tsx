@@ -7,7 +7,12 @@ import BasicText from "@/components/common/BasicText";
 import { useSelector, useDispatch } from "react-redux";
 import BasicImage from "@/components/common/BasicImage";
 import { playListState } from "@/store/modules/playList";
-import { commentListState } from "@/store/modules/commentList";
+import {
+  setTime,
+  commentListState,
+  setOnChange,
+} from "@/store/modules/commentList";
+
 interface playerState {
   playList: playListState;
 }
@@ -15,6 +20,7 @@ interface commentState {
   commentList: commentListState;
 }
 const MusicPlayerDrawer = () => {
+  const dispatch = useDispatch();
   // const [isRotating, setIsRotating] = useState(false);
   const [state, setState] = useState({ bottom: false });
   const [nowOpen, setNowOpen] = useState("");
@@ -44,6 +50,13 @@ const MusicPlayerDrawer = () => {
 
       setState({ ...state, [anchor]: open });
     };
+
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("timeChange!!");
+    const changeTime = parseInt(e.target.value);
+    dispatch(setTime({ time: changeTime }));
+    dispatch(setOnChange({ onChangeValue: true }));
+  };
 
   return (
     <S.Player>
@@ -114,6 +127,16 @@ const MusicPlayerDrawer = () => {
             );
           })}
       </S.Comment>
+      <S.PlayerBarWrap>
+        <S.PlayerBar
+          type="range"
+          min={0}
+          max={currPlayingMusicInfo.playtime}
+          step={1}
+          value={time}
+          onChange={handleTimeChange}
+        />
+      </S.PlayerBarWrap>
       <S.ControllBar>
         <MusicController />
       </S.ControllBar>

@@ -29,6 +29,7 @@ export interface commentListState {
   first: boolean;
   last: boolean;
   time: number;
+  onChange: boolean;
 }
 
 const initialState: commentListState = {
@@ -40,6 +41,7 @@ const initialState: commentListState = {
   first: false,
   last: false,
   time: 0,
+  onChange: false,
 };
 
 export const commentList = createSlice({
@@ -60,10 +62,17 @@ export const commentList = createSlice({
     setTime: (state, action) => {
       state.time = parseInt(action.payload.time);
     },
+    setOnChange: (state, action) => {
+      state.onChange = action.payload.onChangeValue;
+    },
   },
 });
 
-export const { setRecentCommentList, setTotalCommentList, setTime } =
-  commentList.actions;
+export const {
+  setRecentCommentList,
+  setTotalCommentList,
+  setTime,
+  setOnChange,
+} = commentList.actions;
 
 export default commentList.reducer;
