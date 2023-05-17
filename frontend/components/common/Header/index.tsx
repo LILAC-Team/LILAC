@@ -145,7 +145,7 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
             <BasicText
               text="LILAC"
               size="2.3rem"
-              background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
+              background="linear-gradient(0deg, #b77bff 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
               color="transparent"
               clipText={true}
               font="HSBomBaram"
@@ -192,13 +192,14 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
                 type="text"
                 value={nickName}
                 handleOnChangeValue={handleNicknameChange}
+                color="black"
               />
             </S.InputWrapper>
             <S.SubmitButtonWrap>
               <CustomTextButton
                 text="수정"
                 handleOnClickButton={finishEdit}
-                size="120%"
+                size="135%"
               />
             </S.SubmitButtonWrap>
           </S.EditWrapper>
