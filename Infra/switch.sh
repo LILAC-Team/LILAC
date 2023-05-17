@@ -16,9 +16,9 @@ then
 		CURRENT_PORT=8082
 		CURRENT_PROFILE=BLUE
 	else
-		IDLE_PORT=8083
+		IDLE_PORT=8082
 		IDLE_PROFILE=BLUE
-		CURRENT_PORT=8082
+		CURRENT_PORT=8083
 		CURRENT_PROFILE=GREEN
 	fi
 else
@@ -32,6 +32,7 @@ echo "전환할 포트: " "$IDLE_PORT"
 echo "> 포트 세팅 변경"
 echo "set \$active_server $IDLE_PROFILE;" | sudo tee /etc/nginx/conf.d/port.conf
 echo "> 기존 컨테이너 삭제"
+echo "> docker kill" $(sudo docker kill $(docker ps -qf publish=$CURRENT_PORT))
 sudo docker kill $(docker ps -qf publish=$CURRENT_PORT)
 echo "> nginx 재시작"
 sudo systemctl reload nginx
