@@ -53,7 +53,7 @@ const DragAndDrop = ({ list, setList }) => {
                           data={{
                             code,
                             name,
-                            albumImage: CLOUD_FRONT + albumImage,
+                            albumImage,
                             artistName,
                             playtime,
                           }}
