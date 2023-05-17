@@ -1,18 +1,18 @@
-import * as S from "./style";
-import { useState, useEffect, useCallback } from "react";
-import BasicText from "@/components/common/BasicText";
-import CustomTextButton from "@/components/common/CustomTextButton";
-import DragAndDrop from "@/components/Container/DragAndDrop";
-import { useSelector, useDispatch } from "react-redux";
-import MusicCard from "../MusicCard";
-import { playlistApi } from "@/api/utils/playlist";
-import { playListState } from "@/store/modules/playList";
+import * as S from './style';
+import { useState, useEffect, useCallback } from 'react';
+import BasicText from '@/components/common/BasicText';
+import CustomTextButton from '@/components/common/CustomTextButton';
+import DragAndDrop from '@/components/Container/DragAndDrop';
+import { useSelector, useDispatch } from 'react-redux';
+import MusicCard from '../MusicCard';
+import { playlistApi } from '@/api/utils/playlist';
+import { playListState } from '@/store/modules/playList';
 import {
   setPlayList,
   setTrack,
   togglePlay,
   PutStartingPointToZero,
-} from "@/store/modules/playList";
+} from '@/store/modules/playList';
 
 interface Music {
   name: string;
@@ -66,11 +66,16 @@ const PlaylistDrawer = () => {
   // UPDATE list Size
   const [listSize, setListSize] = useState(nowPlayList.listSize);
 
+  console.log('1번친구', nowPlayList);
+  console.log('2번친구', musicList);
+  console.log('3번친구', shuffleArr);
+  console.log('4번친구', list);
+
   // RELOAD PlayList
   const reloadPlayListHandler = useCallback(async () => {
     try {
       const { data } = await playlistApi.getPlayList();
-      // dispatch(setPlayList(data));
+      dispatch(setPlayList(data));
     } catch (error) {
       console.log(error);
     }
@@ -81,11 +86,11 @@ const PlaylistDrawer = () => {
     try {
       const req = { musicList: list };
       await playlistApi.putPlayList(req);
-      // dispatch(
-      //   setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
-      // );
+      dispatch(
+        setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
+      );
       setIsEdit((prevIsEdit) => !prevIsEdit);
-      // setListSize(list.length);
+      setListSize(list.length);
     } catch (error) {
       console.log(error);
     }
@@ -94,8 +99,8 @@ const PlaylistDrawer = () => {
   // PLAY Music of Playlist
   const playMusicHandler = (index: number) => {
     try {
-      console.log("nowIndex", index);
-      console.log("nowPlayList", nowPlayList);
+      console.log('nowIndex', index);
+      console.log('nowPlayList', nowPlayList);
       dispatch(togglePlay());
       dispatch(PutStartingPointToZero(true));
       dispatch(
@@ -103,13 +108,14 @@ const PlaylistDrawer = () => {
           index,
         })
       );
+      console.log('11111', nowPlayList);
     } catch (error) {
       console.log(error);
     }
   };
 
   console.log(
-    "nownownow",
+    'nownownow',
     useSelector(
       (state: MusicControllerState) => state.playList.currentTrackIndex
     )
@@ -131,50 +137,49 @@ const PlaylistDrawer = () => {
     <S.Playlist>
       <S.Top>
         <S.Bar />
-        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
+        <BasicText text='PlayList' size='125%' font='NotoSansKR500' />
       </S.Top>
       <S.TextWrapper>
         <BasicText
-          text={(listSize ? listSize : 0) + "곡"}
+          text={(listSize ? listSize : 0) + '곡'}
           //   (list.length === 0 && nowPlayList.listSize === 0
           //     ? listSize
           //     : list.length) + "곡"
           // }
-          size="0.85rem"
+          size='0.85rem'
         />
         <div />
         {isEdit ? (
           <CustomTextButton
-            text="완료"
+            text='완료'
             handleOnClickButton={() => {
               handleEditClick();
             }}
-            fontColor="#FFFFFF"
+            fontColor='#FFFFFF'
             isBackground={false}
-            size="0.85rem"
+            size='0.85rem'
           />
         ) : (
           <CustomTextButton
-            text="편집"
+            text='편집'
             handleOnClickButton={() => {
               setIsEdit((prev) => !prev);
             }}
-            fontColor="#FFFFFF"
+            fontColor='#FFFFFF'
             isBackground={false}
-            size="0.85rem"
+            size='0.85rem'
           />
         )}
       </S.TextWrapper>
       {isEdit ? (
-        <DragAndDrop list={list} setList={setList} />
+        <DragAndDrop list={list} setList={setList} nowPlayList={nowPlayList} />
       ) : (
         <S.CardsWrapper>
           {shuffleArr &&
             shuffleArr.map((data, index) => (
               <S.OneMusicCard
                 key={index}
-                onClick={() => playMusicHandler(index)}
-              >
+                onClick={() => playMusicHandler(index)}>
                 <MusicCard
                   data={{
                     code: musicList[`${data}`].code,
