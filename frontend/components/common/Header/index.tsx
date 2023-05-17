@@ -3,19 +3,21 @@ import BasicText from "../BasicText";
 import ProfileImg from "../ProfileImg";
 import * as S from "./style";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SmallModal from "../CommonModal/SmallModal";
 import BasicInput from "../BasicInput";
 import CustomTextButton from "../CustomTextButton";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
+import { memberApi } from "@/api/utils/member";
+import { setLogIn } from "@/store/modules/user";
 
 interface ProfileState {
   previewImgUrl: any;
   file: any;
 }
 
-interface userState {
+interface UserState {
   user: any;
 }
 
@@ -24,8 +26,9 @@ interface HeaderProps {
 }
 
 const Header = ({ isShown = true }: HeaderProps) => {
-  const userInfo = useSelector((state: userState) => state.user);
+  const userInfo = useSelector((state: UserState) => state.user);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [cookies, setCookies, removeCookies] = useCookies([
     "isLogIn",
@@ -36,9 +39,10 @@ const Header = ({ isShown = true }: HeaderProps) => {
   const [isDropdown, setIsDropdown] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
+  // 수정을 위한 사용자 정보: 닉네임, 프로필 이미지
   const [nickName, setNickName] = useState(userInfo.nickName);
   const [profile, setProfile] = useState<ProfileState>({
-    previewImgUrl: userInfo.profileImage,
+    previewImgUrl: "",
     file: {},
   });
 
@@ -52,11 +56,6 @@ const Header = ({ isShown = true }: HeaderProps) => {
     setIsEditModal(true);
   };
 
-  const finishEdit = () => {
-    console.log("편집 완료");
-    setIsEditModal(false);
-  };
-
   const handleLogout = () => {
     console.log("로그아웃");
     setIsDropdown(false);
@@ -64,7 +63,6 @@ const Header = ({ isShown = true }: HeaderProps) => {
   };
 
   const handleLogoutAPI = () => {
-    console.log("Cookie, Storage 비우기");
     setIsLogoutModal(false);
     removeCookies("accessToken");
     removeCookies("refreshToken");
@@ -96,11 +94,48 @@ const Header = ({ isShown = true }: HeaderProps) => {
     setNickName(e.target.value);
   };
 
-  useEffect(() => {
-    if (userInfo) {
-      setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
-    }
-  }, [userInfo]);
+  const finishEdit = async () => {
+    console.log("편집 완료");
+
+    const formData = new FormData();
+
+    const promise = new Promise<void>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const blob = new Blob([reader.result], { type: profile.file.type });
+        formData.append("profileImage", blob);
+        formData.append("nickname", nickName);
+        resolve();
+      };
+      reader.onerror = reject;
+      profile;
+      reader.readAsArrayBuffer(profile.file);
+    });
+    promise
+      .then(() => {
+        return memberApi.profileEdit(formData);
+      })
+      .then((res) => {
+        const { email, profileImage, nickname } = res.data.result;
+        dispatch(
+          setLogIn({
+            isLogIn: true,
+            email,
+            nickName: nickname,
+            profileImage,
+          })
+        );
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+
+    setIsEditModal(false);
+  };
+
+  // useEffect(() => {
+  //   setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
+  // }, [userInfo]);
 
   return (
     <>
