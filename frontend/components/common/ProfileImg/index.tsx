@@ -21,7 +21,7 @@ const ProfileImg = ({
         <S.ProfileImage src={src} size={size} onChange={onClickEvent}>
           <S.EditIconWrapper>
             <label htmlFor="featured-image">
-              <MdModeEdit className="edit-icon" size={20} />
+              <MdModeEdit className="edit-icon" size={20} color="white" />
             </label>
             <S.EditIcon
               id="featured-image"
