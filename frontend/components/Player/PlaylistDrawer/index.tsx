@@ -50,10 +50,9 @@ interface MusicTrack {
 }
 
 const PlaylistDrawer = () => {
-  const CLOUD_FRONT = "https://d1nj0um6xv6zar.cloudfront.net/";
-
   // Edit 여부
   const [isEdit, setIsEdit] = useState(false);
+
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
   const { musicList, musicListSize, shuffleArr } = useSelector(
@@ -61,6 +60,7 @@ const PlaylistDrawer = () => {
   );
 
   const dispatch = useDispatch();
+
   // UPDATE PlayList 담는 list
   const [list, setList] = useState(Object.values(nowPlayList.musicList));
   // UPDATE list Size
