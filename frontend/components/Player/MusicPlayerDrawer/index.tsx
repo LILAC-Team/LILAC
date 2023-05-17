@@ -90,8 +90,7 @@ const MusicPlayerDrawer = () => {
             return (
               <React.Fragment key={index}>
                 {(item.presentTime === time ||
-                  item.presentTime === time + 1 ||
-                  item.presentTime === time + 2) && (
+                  item.presentTime === time + 1) && (
                   <S.CommentWrap
                     onClick={(e) => {
                       toggleDrawer("bottom", true)(e);
