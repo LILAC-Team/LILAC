@@ -2,7 +2,7 @@ import Link from "next/link";
 import BasicText from "../BasicText";
 import ProfileImg from "../ProfileImg";
 import * as S from "./style";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SmallModal from "../CommonModal/SmallModal";
 import BasicInput from "../BasicInput";
@@ -40,10 +40,9 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
   const [isDropdown, setIsDropdown] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
-  // 수정을 위한 사용자 정보: 닉네임, 프로필 이미지
   const [nickName, setNickName] = useState(userInfo.nickName);
   const [profile, setProfile] = useState<ProfileState>({
-    previewImgUrl: "",
+    previewImgUrl: profileImage,
     file: {},
   });
 
@@ -52,23 +51,30 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
   };
 
   const handleEdit = () => {
-    console.log("정보수정");
     setIsDropdown(false);
     setIsEditModal(true);
   };
 
   const handleLogout = () => {
-    console.log("로그아웃");
     setIsDropdown(false);
     setIsLogoutModal(true);
   };
 
   const handleLogoutAPI = () => {
-    setIsLogoutModal(false);
-    removeCookies("accessToken");
-    removeCookies("refreshToken");
-    removeCookies("isLogIn");
-    router.push("/login");
+    memberApi
+      .logOut(cookies.refreshToken)
+      .then(() => {
+        removeCookies("accessToken");
+        removeCookies("refreshToken");
+        removeCookies("isLogIn");
+      })
+      .then(() => {
+        setIsLogoutModal(false);
+        router.push("/login");
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
 
   const handleProfileChange = async (
@@ -79,7 +85,7 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
     } = e;
 
     if (e.target.value === "") {
-      setProfile({ previewImgUrl: "", file: {} });
+      setProfile({ previewImgUrl: profileImage, file: {} });
     } else {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
@@ -96,8 +102,6 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
   };
 
   const finishEdit = async () => {
-    console.log("편집 완료");
-
     const formData = new FormData();
 
     const promise = new Promise<void>((resolve, reject) => {
@@ -130,13 +134,8 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
       .catch((error) => {
         console.log("error: ", error);
       });
-
     setIsEditModal(false);
   };
-
-  // useEffect(() => {
-  //   setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
-  // }, [userInfo]);
 
   return (
     <>
@@ -182,7 +181,7 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
           <S.EditWrapper>
             <S.ImageWrapper>
               <ProfileImg
-                src={userInfo.profileImage}
+                src={profile.previewImgUrl}
                 onClickEvent={handleProfileChange}
                 isEditable={true}
               />
@@ -196,7 +195,11 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
               />
             </S.InputWrapper>
             <S.SubmitButtonWrap>
-              <CustomTextButton text="수정" handleOnClickButton={finishEdit} />
+              <CustomTextButton
+                text="수정"
+                handleOnClickButton={finishEdit}
+                size="120%"
+              />
             </S.SubmitButtonWrap>
           </S.EditWrapper>
         </SmallModal>

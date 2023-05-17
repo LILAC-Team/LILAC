@@ -22,4 +22,7 @@ export const memberApi = {
         "Content-Type": "multipart/form-data",
       },
     }),
+
+  // 로그아웃 API
+  logOut: (refreshToken) => api.post("/members/logout", refreshToken),
 };
