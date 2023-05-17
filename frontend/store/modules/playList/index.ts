@@ -60,6 +60,7 @@ export const playList = createSlice({
         };
         state.musicList[`${key}`] = object;
       });
+
       if (action.payload.listSize !== 0) {
         state.currentTrackIndex = 0;
         state.currPlayingMusicInfo = state.musicList["0"];

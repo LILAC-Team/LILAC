@@ -44,12 +44,12 @@ const Oauth = ({ query, userData, playListData }: OauthProps) => {
   return (
     <S.OauthContainer>
       <BasicText
-        text='LILAC'
-        size='2.3rem'
-        background='linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)'
-        color='transparent'
+        text="LILAC"
+        size="2.3rem"
+        background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
+        color="transparent"
         clipText={true}
-        font='HSBomBaram'
+        font="HSBomBaram"
       />
     </S.OauthContainer>
   );
@@ -60,7 +60,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ query, req, res }) => {
       const { email, nickname, profileImage, accessToken, refreshToken } =
         query;
-      let playListData = { musicList: "[]", listSize: 0 };
+      let playListData = { musicList: [], listSize: 0 };
       if (accessToken) {
         res.setHeader("Set-Cookie", [
           "isLogIn=true",
