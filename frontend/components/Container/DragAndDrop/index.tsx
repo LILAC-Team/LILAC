@@ -10,7 +10,7 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
   const dispatch = useDispatch();
   const { data } = nowPlayList;
   const tempList = { ...nowPlayList };
-  console.log('맞나', tempList);
+  console.log('편집용 복사 플레이리스트', tempList);
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
@@ -26,11 +26,11 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
   const handleDelete = (index) => {
     const newList = list.filter((_, idx) => idx !== index);
     setList(newList);
-    tempList.listSize = nowPlayList.listSize - 1;
-    tempList.musicList = newList;
-    dispatch(setPlayList(tempList));
-    console.log('마무리2: ', newList);
-    console.log('마무리33: ', list);
+    // tempList.musicList = newList;
+    // tempList.shuffleArr = [...nowPlayList.shuffleArr];
+    // dispatch(setPlayList(tempList));
+    console.log('삭제 반영된 플레이리스트: ', newList);
+    console.log('결국 Update될 목록', list);
   };
 
   return (
