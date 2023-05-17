@@ -66,10 +66,9 @@ const PlaylistDrawer = () => {
   // UPDATE list Size
   const [listSize, setListSize] = useState(nowPlayList.listSize);
 
-  console.log('1번친구', nowPlayList);
-  console.log('2번친구', musicList);
-  console.log('3번친구', shuffleArr);
-  console.log('4번친구', list);
+  console.log('전체 플레이리스트', musicList);
+  console.log('셔플된 index 번호', shuffleArr);
+  console.log('Update된 플레이리스트', list);
 
   // RELOAD PlayList
   const reloadPlayListHandler = useCallback(async () => {
@@ -108,7 +107,6 @@ const PlaylistDrawer = () => {
           index,
         })
       );
-      console.log('11111', nowPlayList);
     } catch (error) {
       console.log(error);
     }
