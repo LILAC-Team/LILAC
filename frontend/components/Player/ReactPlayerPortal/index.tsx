@@ -89,17 +89,6 @@ const ReactPlayerPortal = () => {
     dispatch(nextTrack());
     setSeeking(false);
   };
-  const handleSeek = () => {
-    console.log("seek");
-    setSeeking(true);
-
-    playerRef.current.seekTo(time);
-  };
-  const handleSeeked = () => {
-    console.log("seeked");
-    setSeeking(false);
-    // playerRef.current.seekTo(time);
-  };
 
   return (
     <ReactPlayer
@@ -112,14 +101,6 @@ const ReactPlayerPortal = () => {
           dispatch(setTime({ time: playedSeconds }));
         }
       }}
-      // onBuffer={() => {
-      //   dispatch(togglePlay({ playing: false }));
-      // }}
-      // onBufferEnd={() => {
-      //   dispatch(togglePlay({ playing: true }));
-      // }}
-      // onSeek={handleSeek}
-      // onSeeked={handleSeeked}
       stopOnUnmount={true}
       config={{
         file: {
