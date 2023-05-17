@@ -21,9 +21,10 @@ interface userState {
 
 interface HeaderProps {
   isShown?: boolean;
+  link?: string;
 }
 
-const Header = ({ isShown = true }: HeaderProps) => {
+const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
   const userInfo = useSelector((state: userState) => state.user);
   const router = useRouter();
 
@@ -105,7 +106,7 @@ const Header = ({ isShown = true }: HeaderProps) => {
   return (
     <>
       <S.HeaderWrapper>
-        <Link href={"/"}>
+        <Link href={link}>
           <S.LogoWrapper>
             <BasicText
               text="LILAC"
