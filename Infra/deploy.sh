@@ -3,7 +3,7 @@
 echo "> $DOCKER_REPOSITORY"
 true > RESULT
 chmod 666 /var/run/docker.sock
-RESPONSE=$(curl -s http://lilac-music.net:8081/api/v1/actuator/health)
+RESPONSE=$(sudo curl -s http://lilac-music.net:8081/api/v1/actuator/health)
 echo "> RESPONSE : "$RESPONSE
 
 IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
@@ -35,7 +35,7 @@ sudo nohup docker run --name $IDLE_PROFILE -p $IDLE_PORT:8080 -e ADMIN_NAME=${AD
 
 echo "> 60초동안 5초마다 Health Check"
 
-for RETRY in {1..12}
+for RETRY in {1..3}
 do
 	for i in {1..5} ;
 	do
@@ -44,7 +44,7 @@ do
 	sleep 1
 	done
 
-	RESPONSE=$(curl -s http://lilac-music.net:${IDLE_PORT}/api/v1/actuator/health)
+	RESPONSE=$(sudo curl -s http://lilac-music.net:${IDLE_PORT}/api/v1/actuator/health)
 	IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
 
 	if [ $IS_ACTIVE -ge 1 ]; then
