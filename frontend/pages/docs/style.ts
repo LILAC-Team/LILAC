@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DocsContainer = styled.div`
   width: 100%;
-  height: calc(var(--vh, 1 * vh) * 100 - 4rem);
+  height: calc(var(--vh, 1vh) * 100 - 4rem);
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@ export const DocsContainer = styled.div`
 
 export const AllWrapper = styled.div`
   width: 100%;
-  height: calc(var(--vh, 1 * vh) * 25);
+  height: calc(var(--vh, 1vh) * 25);
   background-color: #e3dfff;
   border-radius: 1rem;
   display: flex;
