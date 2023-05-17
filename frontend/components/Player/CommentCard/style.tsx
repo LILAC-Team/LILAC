@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const CommentCard = styled.div`
   width: 100%;
-  height: calc((var(--vh, 1vh) * 9));
+  height: 9vh;
   display: flex;
   padding: calc((var(--vw, 1vw) * 2.5));
   align-items: center;
 `;
 
 export const CommentImg = styled.div`
-  width: calc((var(--vh, 1vh) * 7.5));
+  width: 7.5vh;
   margin-top: 0.125rem;
   margin-right: calc((var(--vw, 1vw) * 2.5));
 `;

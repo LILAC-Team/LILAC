@@ -89,7 +89,9 @@ const MusicPlayerDrawer = () => {
           recentCommentList.map((item, index) => {
             return (
               <React.Fragment key={index}>
-                {item.presentTime === time && (
+                {(item.presentTime === time ||
+                  item.presentTime === time + 1 ||
+                  item.presentTime === time + 2) && (
                   <S.CommentWrap
                     onClick={(e) => {
                       toggleDrawer("bottom", true)(e);
