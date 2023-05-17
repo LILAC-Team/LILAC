@@ -11,7 +11,7 @@ const LogIn = () => {
         <BasicText
           text="LILAC"
           size="4rem"
-          background="linear-gradient(0deg, rgba(61,58,75,1) 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
+          background="linear-gradient(0deg, #b77bff 0%, rgba(204,164,252,1) 65%, rgba(216,194,254,1) 100%)"
           color="transparent"
           clipText={true}
           font="HSBomBaram"
@@ -29,9 +29,13 @@ const LogIn = () => {
         <S.DocsButton>
           <Link href={"/docs"}>
             <CustomTextButton
-              text="LILAC 사용설명서"
+              text="앱으로 시작하기&nbsp;&nbsp;"
+              fontColor="black"
+              size="1rem"
               radius="0.5rem"
-              font="NotoSansKR700"
+              font="NotoSansKR400"
+              isImage={true}
+              src="/icons/favicon-512x512.png"
             />
           </Link>
         </S.DocsButton>

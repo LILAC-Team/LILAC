@@ -34,7 +34,7 @@ const Docs = () => {
 
   return (
     <>
-      <Header isShown={false} />
+      <Header isShown={false} link="/login" />
       <S.DocsContainer>
         <S.AllWrapper onClick={() => setAndroidModalOpen(!androidModalOpen)}>
           <S.ImageWrapper>
@@ -53,7 +53,7 @@ const Docs = () => {
               <BasicText
                 text="사용설명서"
                 color="black"
-                font="RidiBatang"
+                font="NotoSansKR400"
                 size="150%"
               />
             </S.BottomTextWrapper>
@@ -104,11 +104,13 @@ const Docs = () => {
                         <BasicText
                           text="Google Play"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                         <BasicText
                           text="다운로드 하러가기"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                       </S.RightWrap>
@@ -119,6 +121,7 @@ const Docs = () => {
                     <BasicText
                       text="※ PWA 설치는 다음장을 참고해주세요"
                       color="black"
+                      font="NotoSansKR400"
                       size="50%"
                     />
                   </S.OneSlide>
@@ -134,16 +137,18 @@ const Docs = () => {
                         <BasicText
                           text="다운로드 버튼을"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                         <BasicText
                           text="눌러주세요"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                       </S.RightWrap>
                     </S.AllWrap>
-                    <S.ImageWrap src="/pictures/android_1.png" />
+                    <S.ImageWrap src="/pictures/android_2.png" />
                   </S.OneSlide>
                 </SwiperSlide>
                 <SwiperSlide>
@@ -156,16 +161,18 @@ const Docs = () => {
                         <BasicText
                           text="안내에 따라"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                         <BasicText
                           text="설치해주세요"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                       </S.RightWrap>
                     </S.AllWrap>
-                    <S.ImageWrap src="/pictures/android_1.png" />
+                    <S.ImageWrap src="/pictures/android_3.png" />
                   </S.OneSlide>
                 </SwiperSlide>
                 <SwiperSlide>
@@ -178,16 +185,18 @@ const Docs = () => {
                         <BasicText
                           text="이제 홈화면에서"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                         <BasicText
                           text="확인할 수 있습니다!"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                       </S.RightWrap>
                     </S.AllWrap>
-                    <S.ImageWrap src="/pictures/android_1.png" />
+                    <S.ImageWrap src="/pictures/android_4.png" />
                   </S.OneSlide>
                 </SwiperSlide>
               </Swiper>
@@ -226,7 +235,7 @@ const Docs = () => {
               <BasicText
                 text="사용설명서"
                 color="black"
-                font="RidiBatang"
+                font="NotoSansKR400"
                 size="150%"
               />
             </S.BottomTextWrapper>
@@ -279,11 +288,13 @@ const Docs = () => {
                         <BasicText
                           text="사이트에 접속하신 후"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                         <BasicText
                           text="공유버튼을 눌러주세요"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                       </S.RightWrap>
@@ -301,11 +312,13 @@ const Docs = () => {
                         <BasicText
                           text="홈 화면에 추가"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                         <BasicText
                           text="버튼을 눌러주세요"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                       </S.RightWrap>
@@ -323,11 +336,13 @@ const Docs = () => {
                         <BasicText
                           text="LILAC을 입력하고"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                         <BasicText
                           text="추가하면 완료!"
                           color="black"
+                          font="NotoSansKR400"
                           size="125%"
                         />
                       </S.RightWrap>

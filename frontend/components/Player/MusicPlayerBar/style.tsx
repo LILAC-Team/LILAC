@@ -14,6 +14,11 @@ export const BarWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 0.75rem;
+
+  position: absolute;
+  left: 50%;
+  bottom: 4.5rem;
+  transform: translateX(-50%);
 `;
 
 export const LeftWrapper = styled.div`

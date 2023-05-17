@@ -79,10 +79,10 @@ const Home = () => {
         ownAlbum={ownListNum.toString()}
       />
       <SliderWrapper>
-        <BasicText text='나의 앨범' size='1.125rem' font='NotoSansKR700' />
+        <BasicText text="나의 앨범" size="1.125rem" font="NotoSansKR700" />
         {myListNum === 0 ? (
           <EmptyWrapper>
-            <BasicText text='나만의 앨범을 발매해보세요' />
+            <BasicText text="나만의 앨범을 발매해보세요" />
           </EmptyWrapper>
         ) : (
           <BasicSlider data={myList} />
@@ -90,13 +90,13 @@ const Home = () => {
       </SliderWrapper>
       <SliderWrapper>
         <BasicText
-          text='내가 소장한 앨범'
-          size='1.125rem'
-          font='NotoSansKR700'
+          text="내가 소장한 앨범"
+          size="1.125rem"
+          font="NotoSansKR700"
         />
         {ownListNum === 0 ? (
           <EmptyWrapper>
-            <BasicText text='친구의 앨범을 등록해보세요' />
+            <BasicText text="친구의 앨범을 등록해보세요" />
           </EmptyWrapper>
         ) : (
           <BasicSlider data={ownList} />

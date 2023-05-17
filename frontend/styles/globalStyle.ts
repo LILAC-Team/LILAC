@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: "NotoSansKR400";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     font-display: swap;
     src: url("/fonts/NotoSansKR-Regular.otf") format("opentype");
   }
@@ -36,7 +36,7 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: "NotoSansKR500";
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     font-display: swap;
     src: url("/fonts/NotoSansKR-Medium.otf") format("opentype");
   }
@@ -44,7 +44,7 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: "NotoSansKR700";
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-display: swap;
     src: url("/fonts/NotoSansKR-Bold.otf") format("opentype");
   }
@@ -137,7 +137,7 @@ html {
 }
 
 body {
-  font-family: "RidiBatang", "NotoSansKR400", "NotoSansKR500", "HSBomBaram", "NotoSansKR700",  
+  font-family: "NotoSansKR500", "NotoSansKR400", "HSBomBaram", "NotoSansKR700", "RidiBatang", 
     sans-serif;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
