@@ -148,7 +148,7 @@ const Docs = () => {
                         />
                       </S.RightWrap>
                     </S.AllWrap>
-                    <S.ImageWrap src="/pictures/android_1.png" />
+                    <S.ImageWrap src="/pictures/android_2.png" />
                   </S.OneSlide>
                 </SwiperSlide>
                 <SwiperSlide>
@@ -172,7 +172,7 @@ const Docs = () => {
                         />
                       </S.RightWrap>
                     </S.AllWrap>
-                    <S.ImageWrap src="/pictures/android_1.png" />
+                    <S.ImageWrap src="/pictures/android_3.png" />
                   </S.OneSlide>
                 </SwiperSlide>
                 <SwiperSlide>
@@ -196,7 +196,7 @@ const Docs = () => {
                         />
                       </S.RightWrap>
                     </S.AllWrap>
-                    <S.ImageWrap src="/pictures/android_1.png" />
+                    <S.ImageWrap src="/pictures/android_4.png" />
                   </S.OneSlide>
                 </SwiperSlide>
               </Swiper>
