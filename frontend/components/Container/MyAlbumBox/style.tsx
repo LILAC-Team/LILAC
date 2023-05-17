@@ -10,6 +10,7 @@ export const AlbumContainer = styled.div`
   @media (min-width: 43.75rem) {
     grid-template-columns: repeat(3, 1fr);
   }
+  align-items: center;
   justify-content: center;
   text-align: center;
   overflow-y: auto;
@@ -20,7 +21,7 @@ export const AlbumContainer = styled.div`
 
 export const EmptyContainer = styled.div`
   display: flex;
-  width: 22.5rem;
+  width: 54rem;
   align-items: center;
   justify-content: center;
 `;
