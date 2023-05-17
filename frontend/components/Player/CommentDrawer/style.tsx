@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Comment = styled.div`
   background-color: #4e4e4e;
-  height: 95vh;
+  height: calc((var(--vh, 1vh) * 95));
   width: calc(var(--vw, 1vw) * 100);
   max-width: 900px;
   border-top-left-radius: 2rem;
@@ -10,10 +10,11 @@ export const Comment = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow: hidden;
 `;
 
 export const Top = styled.div`
-  padding-top: 1.5vh;
+  padding-top: calc((var(--vh, 1vh) * 1.5));
   padding-bottom: calc((var(--vh, 1vh) * 2));
   display: flex;
   flex-direction: column;
@@ -34,9 +35,9 @@ export const InputAllWrap = styled.div`
 `;
 export const CommentAllWrap = styled.div`
   width: 100%;
-  height: 72.5vh;
+  height: calc((var(--vh, 1vh) * 72.5));
   padding: 0 calc((var(--vw, 1vw) * 5)) 0 calc((var(--vw, 1vw) * 5));
-  margin: 1vh 0 2.5vh 0;
+  margin: calc((var(--vh, 1vh) * 1)) 0 calc((var(--vh, 1vh) * 2.5)) 0;
   overflow-y: auto;
   ::-webkit-scrollbar {
     display: none;

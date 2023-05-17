@@ -1,6 +1,12 @@
 import BasicText from "@/components/common/BasicText";
 import * as S from "./style";
-import React, { useEffect, useState, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+} from "react";
 import CommentInput from "../CommentInput";
 import CommentCard from "../CommentCard";
 import { useSelector } from "react-redux";
@@ -74,11 +80,21 @@ interface commentProps {
   time: number;
 }
 const CommentDrawer = ({ time }: commentProps) => {
+  // const listRef = useRef(null);
+
+  // useLayoutEffect(() => {
+  //   const detectMobileKeyboard = () => {
+  //     if (document.activeElement.tagName === "INPUT") {
+  //       listRef.current.scrollIntoView({ block: "end" });
+  //     }
+  //   };
+
+  //   window.addEventListener("resize", detectMobileKeyboard);
+
+  //   return () => window.removeEventListener("resize", detectMobileKeyboard);
+  // }, []);
   const [inputData, setInputData] = useState("");
   const userInfo = useSelector((state: userState) => state.user);
-  // const { commentList, time } = useSelector(
-  //   (state: commentState) => state.commentList
-  // );
   const { currPlayingMusicInfo } = useSelector(
     (state: playerState) => state.playList
   );
@@ -98,7 +114,7 @@ const CommentDrawer = ({ time }: commentProps) => {
     } catch (error) {
       console.log(error);
     }
-  }, [nowPage]);
+  }, [nowPage, currPlayingMusicInfo]);
 
   useEffect(() => {
     commentHandler();
