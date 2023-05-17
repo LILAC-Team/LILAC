@@ -4,7 +4,7 @@ sudo true > RESULT
 sudo chmod 666 /var/run/docker.sock
 
 # 현재 사용하고 있는 포트와 유휴 상태인 포트를 체크한다.
-RESPONSE=$(curl -s localhost:8081/api/v1/actuator/health)
+RESPONSE=$(curl -s localhost:8082/api/v1/actuator/health)
 
 echo "> RESPONSE : "$RESPONSE
 IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
