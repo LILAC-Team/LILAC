@@ -90,6 +90,9 @@ export const CdBox = styled.div`
 export const CdWrapper = styled.div`
   height: 4rem;
   aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  box-shadow: 0 0.875rem 1.75rem rgba(0, 0, 0, 0.25),
+    0 0.625rem 0.625rem rgba(0, 0, 0, 0.22);
 
   flex-direction: column;
   align-items: center;
@@ -100,7 +103,7 @@ export const CdWrapper = styled.div`
 export const InnerCd = styled.div`
   position: relative;
   left: 1.15rem;
-  bottom: 3.05rem;
+  bottom: 3.125rem;
 
   border: 2px solid darkgray;
   background-color: gray;

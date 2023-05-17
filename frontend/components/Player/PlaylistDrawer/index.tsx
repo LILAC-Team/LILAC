@@ -103,7 +103,6 @@ const PlaylistDrawer = () => {
           index,
         })
       );
-      dispatch(PutStartingPointToZero(true));
     } catch (error) {
       console.log(error);
     }
