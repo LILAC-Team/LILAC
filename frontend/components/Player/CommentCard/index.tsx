@@ -46,8 +46,8 @@ const CommentCard = ({
   useEffect(() => {
     if (changeNext) {
       handler(code);
-      setTimeout(() => setChangeNext(false), 1100);
-      setTimeout(() => setIsDeleteModalOpen(false), 1100);
+      setTimeout(() => setChangeNext(false), 1000);
+      setTimeout(() => setIsDeleteModalOpen(false), 1000);
       // setChangeNext(false);
     }
   }, [changeNext]);
