@@ -5,7 +5,7 @@ interface AlbumCardProps {
 }
 
 export const AlbumCard = styled.div<AlbumCardProps>`
-  border: 2px solid yellow;
+  /* border: 2px solid yellow; */
 
   width: 100%;
   display: grid;
@@ -20,17 +20,17 @@ export const AlbumCard = styled.div<AlbumCardProps>`
 `;
 
 export const AlbumCardImg = styled.div`
-  border: 2px solid black;
+  /* border: 2px solid black; */
 
   display: flex;
-  width: 80%;
+  width: 100%;
   aspect-ratio: 1 / 1;
   align-items: center;
   justify-content: center;
 `;
 
 export const AlbumCardDiv = styled.div`
-  border: 2px solid white;
+  /* border: 2px solid white; */
 
   display: flex;
   flex-direction: column;
@@ -42,7 +42,7 @@ export const AlbumCardDiv = styled.div`
 `;
 
 export const AlbumCardTitle = styled.div`
-  border: 2px solid green;
+  /* border: 2px solid green; */
 
   display: flex;
   margin: 0.5rem 0rem 0.75rem 0rem;
@@ -52,10 +52,10 @@ export const AlbumCardTitle = styled.div`
 `;
 
 export const AlbumTitleText = styled.p`
-  border: 2px solid red;
+  /* border: 2px solid red; */
 
   width: 100%;
-  max-width: 21.5vw;
+  max-width: 21vw;
   word-wrap: break-word;
   white-space: nowrap;
   overflow: hidden;
