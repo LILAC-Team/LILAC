@@ -53,7 +53,11 @@ const MusicPlayerDrawer = () => {
       </S.Top>
       <S.AlbumCover>
         <BasicImage
-          src={currPlayingMusicInfo.albumImage}
+          src={
+            currPlayingMusicInfo.index !== -1
+              ? currPlayingMusicInfo.albumImage
+              : "/defaultProfile.svg"
+          }
           size="calc((var(--vh, 1vh) * 30))"
           radius={10}
           isRotate={playing}
@@ -61,13 +65,24 @@ const MusicPlayerDrawer = () => {
       </S.AlbumCover>
       <S.Title>
         <BasicText
-          text={currPlayingMusicInfo.name}
+          text={
+            currPlayingMusicInfo.index !== -1
+              ? currPlayingMusicInfo.name
+              : "LILAC"
+          }
           size="2rem"
           font="NotoSansKR700"
         />
       </S.Title>
       <S.Artist>
-        <BasicText text={currPlayingMusicInfo.artistName} size="1rem" />
+        <BasicText
+          text={
+            currPlayingMusicInfo.index !== -1
+              ? currPlayingMusicInfo.artistName
+              : "나만의 플레이리스트를 생성해보세요"
+          }
+          size="1rem"
+        />
       </S.Artist>
       <S.Comment>
         {currPlayingMusicInfo &&
