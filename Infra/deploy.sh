@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-curl --version
+echo "> curl --version: "$(curl --version)
 
 echo "> $DOCKER_REPOSITORY"
 true > RESULT
