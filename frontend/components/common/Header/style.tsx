@@ -73,7 +73,7 @@ export const InputWrapper = styled.div`
 
 export const SubmitButtonWrap = styled.div`
   width: 100%;
-  height: 2.5rem;
+  height: 3rem;
   margin: 2rem 0 0 0;
   min-width: 15.5rem;
   max-width: 19rem;
