@@ -4,6 +4,8 @@ import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 import Link from "next/link";
 import CustomTextButton from "@/components/common/CustomTextButton";
+import { isMobile } from "react-device-detect";
+
 const LogIn = () => {
   return (
     <S.LogInContainer>
@@ -26,19 +28,21 @@ const LogIn = () => {
             height={50}
           />
         </S.LogInButton>
-        <S.DocsButton>
-          <Link href={"/docs"}>
-            <CustomTextButton
-              text="앱으로 시작하기&nbsp;&nbsp;"
-              fontColor="black"
-              size="1rem"
-              radius="0.5rem"
-              font="NotoSansKR400"
-              isImage={true}
-              src="/icons/favicon-512x512.png"
-            />
-          </Link>
-        </S.DocsButton>
+        {!isMobile && (
+          <S.DocsButton>
+            <Link href={"/docs"}>
+              <CustomTextButton
+                text="앱으로 시작하기&nbsp;&nbsp;"
+                fontColor="black"
+                size="1rem"
+                radius="0.5rem"
+                font="NotoSansKR400"
+                isImage={true}
+                src="/icons/favicon-512x512.png"
+              />
+            </Link>
+          </S.DocsButton>
+        )}
       </S.ButtonWrap>
     </S.LogInContainer>
   );
