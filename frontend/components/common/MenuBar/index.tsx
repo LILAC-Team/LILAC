@@ -3,8 +3,13 @@ import CustomIconButton from "../CustomIconButton";
 import React, { useState, useRef, useEffect } from "react";
 import { BiCommentDetail } from "react-icons/bi";
 import { RiPlayListFill } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import Drawer from "@/components/common/Drawer";
+import { commentListState } from "@/store/modules/commentList";
 
+interface commentState {
+  commentList: commentListState;
+}
 const MenuBar = () => {
   const [state, setState] = React.useState({ bottom: false });
   const [nowOpen, setNowOpen] = useState("");
@@ -22,6 +27,9 @@ const MenuBar = () => {
 
       setState({ ...state, [anchor]: open });
     };
+
+  const [nowTime, setNowTime] = useState(0);
+  const { time } = useSelector((state: commentState) => state.commentList);
   return (
     <>
       <S.MenuWrapper>
@@ -29,6 +37,7 @@ const MenuBar = () => {
           onClick={(e) => {
             toggleDrawer("bottom", true)(e);
             setNowOpen("comment");
+            setNowTime(time);
           }}
         >
           <CustomIconButton>
@@ -51,6 +60,7 @@ const MenuBar = () => {
         toggleDrawer={toggleDrawer}
         state={{ ...state }}
         anchor={"bottom"}
+        time={nowTime}
       />
     </>
   );

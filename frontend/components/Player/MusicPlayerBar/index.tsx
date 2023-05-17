@@ -76,7 +76,9 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
             <S.AlbumImg>
               <BasicImage
                 src={
-                  currPlayingMusicInfo ? currPlayingMusicInfo.albumImage : ""
+                  currPlayingMusicInfo.index !== -1
+                    ? currPlayingMusicInfo.albumImage
+                    : "/defaultProfile.svg"
                 }
                 radius={0.15}
               />
@@ -84,7 +86,11 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
             <S.TextWrapper>
               <S.Title>
                 <BasicText
-                  text={currPlayingMusicInfo ? currPlayingMusicInfo.name : ""}
+                  text={
+                    currPlayingMusicInfo.index !== -1
+                      ? currPlayingMusicInfo.name
+                      : "LILAC"
+                  }
                   size="1.125rem"
                   font="NotoSansKR700"
                 />
@@ -92,7 +98,9 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
               <S.Artist>
                 <BasicText
                   text={
-                    currPlayingMusicInfo ? currPlayingMusicInfo.artistName : ""
+                    currPlayingMusicInfo.index !== -1
+                      ? currPlayingMusicInfo.artistName
+                      : "나만의 앨범을 등록해보세요"
                   }
                   size="0.75rem"
                   font="NotoSansKR400"

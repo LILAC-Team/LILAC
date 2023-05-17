@@ -14,7 +14,7 @@ export const moveAstronaut = keyframes`
 
 export const moveLilac = keyframes`
   100% {
-    transform: translate(160px, 160px);
+    transform: translate(-80px, 80px);
   }
 `;
 
@@ -23,10 +23,16 @@ export const rotateAstronaut = keyframes`
     transform: rotate(-720deg);
   }
 `;
+export const rotateLilac = keyframes`
+  100% {
+    transform: rotate(720deg);
+  }
+`;
 
 export const ErrorPage = styled.div`
   width: calc(var(--vw, 1vw) * 100);
   height: calc(var(--vh, 1vh) * 100);
+  max-width: 900px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,16 +77,16 @@ export const LogoWrapper = styled.div`
 `;
 
 export const Lilac = styled.img`
-  animation: ${rotateAstronaut} 200s infinite linear both alternate;
+  animation: ${rotateLilac} 25s infinite linear both alternate;
 `;
 
 export const LilacBox = styled.div`
   z-index: 110;
   position: absolute;
-  top: 70%;
-  left: 20%;
+  top: 60%;
+  left: 30%;
   will-change: transform;
-  animation: ${moveLilac} 50s infinite linear both alternate;
+  animation: ${moveLilac} 10s infinite linear both alternate;
 `;
 
 export const Objects = styled.div`
@@ -93,7 +99,7 @@ export const Objects = styled.div`
 export const Earth = styled.img`
   position: absolute;
   bottom: 20%;
-  right: 15%;
+  right: 30%;
   z-index: 90;
   animation: ${spinEarth} 200s infinite;
 `;

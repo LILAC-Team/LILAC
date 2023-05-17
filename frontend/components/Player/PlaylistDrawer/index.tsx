@@ -52,6 +52,7 @@ interface MusicTrack {
 const PlaylistDrawer = () => {
   // Edit 여부
   const [isEdit, setIsEdit] = useState(false);
+
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
   const { musicList, musicListSize, shuffleArr } = useSelector(
@@ -59,8 +60,9 @@ const PlaylistDrawer = () => {
   );
 
   const dispatch = useDispatch();
+
   // UPDATE PlayList 담는 list
-  const [list, setList] = useState(nowPlayList.musicList);
+  const [list, setList] = useState(Object.values(nowPlayList.musicList));
   // UPDATE list Size
   const [listSize, setListSize] = useState(nowPlayList.listSize);
 
@@ -101,7 +103,6 @@ const PlaylistDrawer = () => {
           index,
         })
       );
-      dispatch(PutStartingPointToZero(true));
     } catch (error) {
       console.log(error);
     }
@@ -115,7 +116,7 @@ const PlaylistDrawer = () => {
   );
 
   useEffect(() => {
-    setList(nowPlayList.musicList);
+    setList(Object.values(nowPlayList.musicList));
   }, [nowPlayList.musicList]);
 
   useEffect(() => {
@@ -130,7 +131,7 @@ const PlaylistDrawer = () => {
     <S.Playlist>
       <S.Top>
         <S.Bar />
-        <BasicText text='PlayList' size='125%' font='NotoSansKR500' />
+        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
         <BasicText
@@ -139,30 +140,28 @@ const PlaylistDrawer = () => {
           //     ? listSize
           //     : list.length) + "곡"
           // }
-          size='0.85rem'
+          size="0.85rem"
         />
         <div />
         {isEdit ? (
           <CustomTextButton
-            text='완료'
+            text="완료"
             handleOnClickButton={() => {
               handleEditClick();
             }}
-            fontColor='#FFFFFF'
-            font='Ridibatang'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         ) : (
           <CustomTextButton
-            text='편집'
+            text="편집"
             handleOnClickButton={() => {
-              handleEditClick();
+              setIsEdit((prev) => !prev);
             }}
-            fontColor='#FFFFFF'
-            font='Ridibatang'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         )}
       </S.TextWrapper>
