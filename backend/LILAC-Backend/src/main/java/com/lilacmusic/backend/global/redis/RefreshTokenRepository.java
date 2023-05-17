@@ -42,4 +42,10 @@ public class RefreshTokenRepository {
             valueOperations.set(refreshToken, accessToken, expire, TimeUnit.SECONDS);
         }
     }
+
+    public Boolean delete(String refreshToken) {
+        Boolean delete = redisTemplate.delete(refreshToken);
+        return delete;
+    }
+
 }
