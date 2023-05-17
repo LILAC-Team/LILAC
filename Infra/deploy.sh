@@ -44,7 +44,7 @@ do
 	sleep 1
 	done
 
-	RESPONSE=$(curl -s localhost:${IDLE_PORT}/api/v1/actuator/health)
+	RESPONSE=$(curl -s localhost:${IDLE_PORT}/api/v1/playlists)
 	IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
 
 	if [ $IS_ACTIVE -ge 1 ]; then
