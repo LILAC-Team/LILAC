@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+curl --version
+
 echo "> $DOCKER_REPOSITORY"
 true > RESULT
 chmod 666 /var/run/docker.sock
-RESPONSE=$(sudo curl -s http://lilac-music.net:8081/api/v1/actuator/health)
+RESPONSE=$(curl -s http://lilac-music.net:8081/api/v1/actuator/health)
 echo "> RESPONSE : "$RESPONSE
 
 IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
@@ -44,7 +46,7 @@ do
 	sleep 1
 	done
 
-	RESPONSE=$(sudo curl -s http://lilac-music.net:${IDLE_PORT}/api/v1/actuator/health)
+	RESPONSE=$(curl -s http://lilac-music.net:${IDLE_PORT}/api/v1/actuator/health)
 	IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
 
 	if [ $IS_ACTIVE -ge 1 ]; then
