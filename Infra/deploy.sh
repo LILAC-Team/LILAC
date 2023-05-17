@@ -3,7 +3,7 @@
 echo "> $DOCKER_REPOSITORY"
 true > RESULT
 chmod 666 /var/run/docker.sock
-RESPONSE=$(curl -s localhost:8080/api/v1/actuator/health)
+RESPONSE=$(curl -s localhost:8081/api/v1/actuator/health)
 echo "> RESPONSE : "$RESPONSE
 
 IS_ACTIVE=$(echo ${RESPONSE} | grep 'UP' | wc -l)
