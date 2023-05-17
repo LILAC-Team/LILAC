@@ -22,6 +22,7 @@ interface AppState {
 }
 
 const SignUp = () => {
+  const [isDisable, setIsDisable] = useState(false);
   const [cookies, setCookies] = useCookies(["refreshToken", "accessToken"]);
   const [nickName, setNickName] = useState("");
   const [profile, setProfile] = useState<ProfileState>({
@@ -31,7 +32,6 @@ const SignUp = () => {
   let userInfo = useSelector((state: AppState) => state.user);
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log("userInfo!!!!: ", userInfo);
 
   useEffect(() => {
     resize();
@@ -42,11 +42,10 @@ const SignUp = () => {
   }, []);
 
   useEffect(() => {
-    if (userInfo) {
+    if (profile.previewImgUrl === "") {
       setProfile({ previewImgUrl: userInfo.profileImage, file: {} });
     }
-    console.log("userInfo: ", userInfo);
-  }, [userInfo]);
+  }, [profile]);
 
   const handleNicknameChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -73,30 +72,37 @@ const SignUp = () => {
   };
 
   const signUp = async () => {
+    setIsDisable(true);
     const formData = new FormData();
-    const reader = new FileReader();
     const data = {
       email: userInfo.email,
       registrationId: "kakao",
       nickname: nickName,
     };
+
+    if (profile.previewImgUrl === userInfo.profileImage) {
+      data["profileImage"] = profile.previewImgUrl;
+    }
+
     formData.append("memberInfo", JSON.stringify(data));
 
     const promise = new Promise<void>((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
         const blob = new Blob([reader.result], { type: profile.file.type });
+
         formData.append("profileImage", blob);
+
         resolve();
       };
       reader.onerror = reject;
       profile;
+      if (profile.previewImgUrl === userInfo.profileImage) {
+        resolve();
+      }
       reader.readAsArrayBuffer(profile.file);
     });
-    // 사진이 없을 수도 있으니까 수정필요!!!!
-    /////////////////////////////////////
-    ///////////////////////////////
-    ////////////////
+
     promise
       .then(() => {
         return memberApi.signUp(formData);
@@ -128,8 +134,8 @@ const SignUp = () => {
         router.push("/");
       })
       .catch((error) => {
-        console.log("흠");
         console.log("error: ", error);
+        setIsDisable(false);
       });
   };
 
@@ -160,7 +166,9 @@ const SignUp = () => {
           handleOnChangeValue={handleNicknameChange}
         />
       </S.UserNameInputWrap>
-      <S.SubmitButtonWrap onClick={signUp}>시작하기</S.SubmitButtonWrap>
+      <S.SubmitButtonWrap disabled={isDisable} onClick={signUp}>
+        시작하기
+      </S.SubmitButtonWrap>
     </S.SignUpContainer>
   );
 };

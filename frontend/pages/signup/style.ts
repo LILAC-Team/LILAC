@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SignUpContainer = styled.div`
   width: 100%;
@@ -31,7 +31,11 @@ export const UserNameInputWrap = styled.div`
   max-width: 9rem;
 `;
 
-export const SubmitButtonWrap = styled.div`
+interface SubmitButtonWrapState {
+  disabled: boolean;
+}
+
+export const SubmitButtonWrap = styled.div<SubmitButtonWrapState>`
   width: 100%;
   height: 3.5rem;
   margin: 8rem 0 0 0;
@@ -48,4 +52,11 @@ export const SubmitButtonWrap = styled.div`
   letter-spacing: 5px;
   font-family: "NotoSansKR700";
   font-weight: 700;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.5;
+      cursor: not-allowed;
+    `}
 `;
