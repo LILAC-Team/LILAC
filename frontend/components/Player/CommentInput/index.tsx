@@ -25,9 +25,11 @@ const CommentInput = ({
   const [convertTime, setConvertTime] = useState("");
 
   useEffect(() => {
-    const min = (nowTime - (nowTime % 60)) / 60;
-    const seconds = nowTime % 60;
-    setConvertTime(`${min} : ${seconds}`);
+    setConvertTime(
+      (nowTime - (nowTime % 60)) / 60 +
+        " : " +
+        (nowTime % 60 >= 10 ? nowTime % 60 : "0" + (nowTime % 60))
+    );
   }, [nowTime]);
 
   return (
@@ -37,23 +39,23 @@ const CommentInput = ({
       </S.InputImg>
       <S.InputWrap>
         <S.Input
-          type='text'
+          type="text"
           value={value}
           onChange={handleOnChangeValue}
           onKeyDown={handleOnKeyDownValue}
-          placeholder='댓글을 입력하세요'
+          placeholder="댓글을 입력하세요"
         />
         <S.InputTime>
           <BasicText
             text={convertTime}
-            color='#929292'
-            size='0.75rem'
-            font='NotoSansKR400'
+            color="#929292"
+            size="0.75rem"
+            font="NotoSansKR400"
           />
         </S.InputTime>
         <S.CommentBtn>
           <CustomIconButton handleOnClickButton={handleOnClickValue}>
-            <BsFillSendFill color='black' />
+            <BsFillSendFill color="black" />
           </CustomIconButton>
         </S.CommentBtn>
       </S.InputWrap>
