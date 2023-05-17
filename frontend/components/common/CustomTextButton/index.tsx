@@ -1,5 +1,6 @@
 import * as S from "./style";
 import BasicText from "../BasicText";
+import BasicImage from "../BasicImage";
 
 interface CustomTextButtonProps {
   text: string;
@@ -10,6 +11,8 @@ interface CustomTextButtonProps {
   isBackground?: boolean;
   isDisabled?: boolean;
   radius?: string;
+  isImage?: boolean;
+  src?: string;
   handleOnClickButton?: () => void;
 }
 
@@ -22,6 +25,8 @@ const CustomTextButton = ({
   isBackground = true,
   isDisabled = false,
   radius = "1rem",
+  isImage = false,
+  src = "",
   handleOnClickButton,
 }: CustomTextButtonProps) => {
   return (
@@ -32,7 +37,14 @@ const CustomTextButton = ({
       isDisabled={isDisabled}
       radius={radius}
     >
-      <BasicText text={text} size={size} color={fontColor} font={font} />
+      {isImage && (
+        <S.IconImage>
+          <BasicImage src={src} size="1.6rem" />
+        </S.IconImage>
+      )}
+      <S.TextDiv>
+        <BasicText text={text} size={size} color={fontColor} font={font} />
+      </S.TextDiv>
     </S.CustomTextButton>
   );
 };
