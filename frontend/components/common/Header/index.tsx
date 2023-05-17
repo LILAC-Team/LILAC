@@ -17,16 +17,17 @@ interface ProfileState {
   file: any;
 }
 
-interface UserState {
+interface userState {
   user: any;
 }
 
 interface HeaderProps {
   isShown?: boolean;
+  link?: string;
 }
 
-const Header = ({ isShown = true }: HeaderProps) => {
-  const userInfo = useSelector((state: UserState) => state.user);
+const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
+  const userInfo = useSelector((state: userState) => state.user);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -140,7 +141,7 @@ const Header = ({ isShown = true }: HeaderProps) => {
   return (
     <>
       <S.HeaderWrapper>
-        <Link href={"/"}>
+        <Link href={link}>
           <S.LogoWrapper>
             <BasicText
               text="LILAC"

@@ -29,9 +29,13 @@ const LogIn = () => {
         <S.DocsButton>
           <Link href={"/docs"}>
             <CustomTextButton
-              text="LILAC 사용설명서"
+              text="앱으로 시작하기&nbsp;&nbsp;"
+              fontColor="black"
+              size="1rem"
               radius="0.5rem"
-              font="NotoSansKR700"
+              font="NotoSansKR400"
+              isImage={true}
+              src="/icons/favicon-512x512.png"
             />
           </Link>
         </S.DocsButton>

@@ -3,11 +3,14 @@ package com.lilacmusic.backend.member.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lilacmusic.backend.global.common.BaseResponse;
+import com.lilacmusic.backend.global.redis.RefreshTokenRepository;
 import com.lilacmusic.backend.global.validation.GlobalRequestValidator;
 import com.lilacmusic.backend.member.request.DuplicateNicknameRequest;
+import com.lilacmusic.backend.member.request.LogoutRequest;
 import com.lilacmusic.backend.member.request.MemberSignUpRequest;
 import com.lilacmusic.backend.member.request.ReGenerateAccessTokenRequest;
 import com.lilacmusic.backend.member.response.MemberDetailResponse;
+import com.lilacmusic.backend.member.response.MemberLogoutResponse;
 import com.lilacmusic.backend.member.response.MemberSignUpResponse;
 import com.lilacmusic.backend.member.response.ReGenerateAccessTokenResponse;
 import com.lilacmusic.backend.member.service.MemberService;
@@ -31,6 +34,8 @@ public class MemberController {
     private final MemberService memberService;
 
     private final GlobalRequestValidator validator;
+
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @GetMapping("/test")
     @Operation(description = "임시 테스트용 API", summary = "임시 테스트용 API")
@@ -85,6 +90,16 @@ public class MemberController {
 
         MemberDetailResponse memberDetail = memberService.updateMember(memberId, profileImage, nickname);
         return new BaseResponse<>(memberDetail);
+    }
+
+    @ApiResponse(responseCode = "200", description = "로그아웃 성공", content = @Content(schema = @Schema(implementation = MemberLogoutResponse.class)))
+    @Operation(description = "로그아웃 API", summary = "로그아웃 API")
+    @PostMapping("/api/v1/members/logout")
+    public BaseResponse<MemberLogoutResponse> memberLogout(@RequestBody LogoutRequest refresh) {
+
+        Boolean delete = refreshTokenRepository.delete(refresh.getRefreshToken());
+
+        return new BaseResponse<>(new MemberLogoutResponse(delete));
     }
 
 }
