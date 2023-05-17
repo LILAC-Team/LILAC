@@ -93,3 +93,40 @@ export const ControllBar = styled.div`
   justify-content: center;
   bottom: calc((var(--vh, 1vh) * 12.5));
 `;
+
+export const PlayerBarWrap = styled.div`
+  width: 100%;
+  padding: 1rem;
+`;
+
+export const PlayerBar = styled.input`
+  width: 100%;
+  height: 0.5rem;
+  color: white;
+  background-color: white;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1rem;
+    height: 1rem;
+    background-color: #333;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    background-color: #333;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::-ms-thumb {
+    width: 1rem;
+    height: 1rem;
+    background-color: #333;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+`;
