@@ -1,9 +1,9 @@
-import * as S from './style';
-import AlbumCard from '@/components/common/AlbumCard';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { albumApi } from '@/api/utils/album';
-import BasicText from '@/components/common/BasicText';
+import * as S from "./style";
+import AlbumCard from "@/components/common/AlbumCard";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { albumApi } from "@/api/utils/album";
+import BasicText from "@/components/common/BasicText";
 
 interface MyAlbumBoxProps {
   content: string;
@@ -24,7 +24,7 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
         myCount: res.data.totalElements,
       });
     } catch (error) {
-      console.log('error: ', error);
+      console.log("error: ", error);
     }
   };
 
@@ -36,7 +36,7 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
         ownCount: res.data.totalElements,
       });
     } catch (error) {
-      console.log('error: ', error);
+      console.log("error: ", error);
     }
   };
 
@@ -47,7 +47,7 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
 
   return (
     <S.AlbumContainer>
-      {content === 'My' &&
+      {content === "My" &&
         (myAlbum.myCount !== 0 ? (
           myAlbum.myList.map((data, index) => (
             <Link key={data.code} href={`/album/${data.code}`}>
@@ -55,18 +55,18 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
                 <AlbumCard
                   data={data}
                   showAlbumDetail={true}
-                  albumSize='85%'
-                  titleSize='125%'
+                  albumSize="85%"
+                  titleSize="125%"
                 />
               </S.OneAlbumCard>
             </Link>
           ))
         ) : (
           <S.EmptyContainer>
-            <BasicText text='나만의 앨범을 발매해보세요' size='120%' />
+            <BasicText text="나만의 앨범을 발매해보세요" size="120%" />
           </S.EmptyContainer>
         ))}
-      {content === 'Own' &&
+      {content === "Own" &&
         (ownAlbum.ownCount !== 0 ? (
           ownAlbum.ownList.map((data, index) => (
             <Link key={data.code} href={`/album/${data.code}`}>
@@ -74,15 +74,15 @@ const AlbumBox = ({ content }: MyAlbumBoxProps) => {
                 <AlbumCard
                   data={data}
                   showAlbumDetail={true}
-                  albumSize='85%'
-                  titleSize='125%'
+                  albumSize="85%"
+                  titleSize="125%"
                 />
               </S.OneAlbumCard>
             </Link>
           ))
         ) : (
           <S.EmptyContainer>
-            <BasicText text='친구의 앨범을 등록해보세요' size='120%' />
+            <BasicText text="친구의 앨범을 등록해보세요" size="120%" />
           </S.EmptyContainer>
         ))}
     </S.AlbumContainer>
