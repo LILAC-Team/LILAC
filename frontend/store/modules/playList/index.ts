@@ -48,10 +48,6 @@ export const playList = createSlice({
   initialState,
   reducers: {
     setPlayList(state, action) {
-      // [삭제]
-      console.log("state", state);
-      console.log("action", action);
-
       state.playing = false;
       state.listSize = action.payload.listSize;
       action.payload.musicList.map((data, index) => {
@@ -59,7 +55,7 @@ export const playList = createSlice({
         const object = {
           ...data,
           index,
-          albumImage: process.env.CLOUDFRONT_URL + data.albumImage,
+          albumImage: data.albumImage,
           src:
             process.env.CLOUDFRONT_URL + "musics/music-" + data.code + ".m3u8",
         };

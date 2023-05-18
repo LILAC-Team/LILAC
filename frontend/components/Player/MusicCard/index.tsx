@@ -38,7 +38,11 @@ const MusicCard = ({
     <S.MusicCard onClick={onClickEvent}>
       <S.LeftWrapper>
         <S.CoverImg>
-          <BasicImage src={data.albumImage} radius={0.75} size="4rem" />
+          <BasicImage
+            src={process.env.CLOUDFRONT_URL + data.albumImage}
+            radius={0.75}
+            size="4rem"
+          />
         </S.CoverImg>
         <S.TextWrapper>
           <S.TopWrapper>

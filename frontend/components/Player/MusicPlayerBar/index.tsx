@@ -83,7 +83,8 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
               <BasicImage
                 src={
                   currPlayingMusicInfo.index !== -1
-                    ? currPlayingMusicInfo.albumImage
+                    ? process.env.CLOUDFRONT_URL +
+                      currPlayingMusicInfo.albumImage
                     : "/defaultProfile.svg"
                 }
                 radius={0.15}
