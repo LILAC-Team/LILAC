@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
     rgba(255, 255, 255, 0)
   );
 
-  @font-face {
+  /* @font-face {
     font-family: "NotoSansKR400";
     font-style: normal;
     font-weight: 300;
@@ -63,7 +63,7 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 700;
     font-display: swap;
     src: url("/fonts/RIDIBatang.otf") format("opentype");
-  }
+  } */
 
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;

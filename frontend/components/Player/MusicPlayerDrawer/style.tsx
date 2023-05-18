@@ -46,6 +46,8 @@ export const Artist = styled.div`
   padding: 0.5rem;
   display: flex;
   justify-content: center;
+  /* position: absolute; */
+  /* bottom: calc(var(--vh, 1vh)* ); */
 `;
 
 export const Comment = styled.div`
