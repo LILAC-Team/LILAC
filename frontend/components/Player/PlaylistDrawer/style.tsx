@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface CardProps {
+  active: any;
+}
+
 export const Playlist = styled.div`
   background-color: #4e4e4e;
   height: calc(var(--vh, 1vh) * 95);
@@ -59,7 +63,9 @@ export const CardsWrapper = styled.div`
   }
 `;
 
-export const OneMusicCard = styled.div`
+export const OneMusicCard = styled.div<CardProps>`
   width: 100%;
   padding: 0.5rem;
+  background-color: ${(props) => props.active && "#7a7981"};
+  border-radius: ${(props) => props.active && "10px"};
 `;
