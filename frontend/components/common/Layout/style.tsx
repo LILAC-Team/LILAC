@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContainerWrap = styled.div`
   width: 100%;
@@ -14,8 +14,9 @@ export const ContainerWrap = styled.div`
 `;
 
 export const ChildrenWrap = styled.div`
-  height: calc(var(--vh, 1vh) * 100 - 12.8rem);
+  height: calc(var(--vh, 1vh) * 100 - 13.8rem);
   padding: 0 1rem 0 1rem;
+  margin-bottom: 1rem;
   ::-webkit-scrollbar {
     display: none;
   }
