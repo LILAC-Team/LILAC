@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Builder
 public class CommentRequest {
-    @Size(max = 100)
+    @Size(max = 100, min = 1)
     private String content;
     @PositiveOrZero
     private Integer presentTime;
