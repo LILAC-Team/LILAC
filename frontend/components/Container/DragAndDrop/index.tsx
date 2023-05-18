@@ -12,11 +12,15 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
   const tempList = { ...nowPlayList };
 
   const handleOnDragEnd = (result) => {
+    console.log("이동 결과", result);
+
     if (!result.destination) return;
 
     const items = Array.from(list);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
+    console.log("내용물", items);
+
     setList(items);
     tempList.musicList = items;
     dispatch(setPlayList(tempList));
