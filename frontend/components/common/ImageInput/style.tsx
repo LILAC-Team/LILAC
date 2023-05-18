@@ -9,8 +9,8 @@ export const ImageWrap = styled.div<ImageWrapProps>`
   width: 100%;
   height: 100%;
   aspect-ratio: 1/1;
-  background-color: #d9d9d9;
-  border: 2px dashed black;
+  background-color: #e6e6e6;
+  /* border: 2px dashed black; */
   position: relative;
   border-radius: 1rem;
   min-width: 13rem;

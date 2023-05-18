@@ -52,6 +52,7 @@ const MusicPlayerDrawer = () => {
     console.log("timeChange!!");
     const changeTime = parseInt(e.target.value);
     dispatch(setTime({ time: changeTime }));
+    dispatch(setOnChange({onChangeValue: true}));
   };
 
   return (
@@ -69,7 +70,7 @@ const MusicPlayerDrawer = () => {
                   ? currPlayingMusicInfo.albumImage
                   : "/defaultProfile.svg"
               }
-              size="16rem"
+              size="calc((var(--vh, 1vh) * 30))"
               radius={10}
               isRotate={playing}
             />
@@ -132,7 +133,6 @@ const MusicPlayerDrawer = () => {
                 // step={1}
                 value={time}
                 onChange={handleTimeChange}
-                progress={(time / currPlayingMusicInfo.playtime) * 100}
               />
             }
             <S.PlayerBarTimeInfo>

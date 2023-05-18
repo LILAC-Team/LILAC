@@ -61,9 +61,11 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
       const handlePopstate = () => {
         if (nowOpen) {
           setNowOpen(""); // nowOpen 상태 초기화
-        } else {
-          router.back(); // 이전 페이지로 이동
-        }
+        } 
+        // 이런거 쓰지 마시오 - MZ
+        // else {
+        //   router.back(); // 이전 페이지로 이동
+        // }
       };
 
       window.addEventListener("popstate", handlePopstate);

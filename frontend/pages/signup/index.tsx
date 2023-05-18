@@ -131,7 +131,7 @@ const SignUp = () => {
       })
       .then((res) => {
         dispatch(setPlayList(res.data));
-        router.push("/");
+        router.replace("/");
       })
       .catch((error) => {
         console.log("error: ", error);

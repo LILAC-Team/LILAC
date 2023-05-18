@@ -7,6 +7,8 @@ import CustomTextButton from "@/components/common/CustomTextButton";
 import { isMobile } from "react-device-detect";
 
 const LogIn = () => {
+  // TODO 로그인 되어있으면 홈으로 보낼것
+
   return (
     <S.LogInContainer>
       <S.LogoWrapper>
