@@ -1,8 +1,9 @@
-import * as S from "./style";
-import BasicImage from "../../common/BasicImage";
-import BasicText from "../../common/BasicText";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { useEffect, useState } from "react";
+import * as S from './style';
+import BasicImage from '../../common/BasicImage';
+import BasicText from '../../common/BasicText';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { useEffect, useState } from 'react';
+import { CLOUD_FRONT } from '@/api';
 
 interface MusicCardProps {
   onClickEvent?: () => void;
@@ -23,35 +24,39 @@ const MusicCard = ({
   isEditable = false,
   isTitle = false,
 }: MusicCardProps) => {
-  const [convertTime, setConvertTime] = useState("");
+  const [convertTime, setConvertTime] = useState('');
 
   useEffect(() => {
     setConvertTime(
       (data.playtime - (data.playtime % 60)) / 60 +
-        " : " +
+        ' : ' +
         (data.playtime % 60 >= 10
           ? data.playtime % 60
-          : "0" + (data.playtime % 60))
+          : '0' + (data.playtime % 60))
     );
   }, [data.playtime]);
   return (
     <S.MusicCard onClick={onClickEvent}>
       <S.LeftWrapper>
         <S.CoverImg>
-          <BasicImage src={data.albumImage} radius={0.75} size="4rem" />
+          <BasicImage
+            src={CLOUD_FRONT + data.albumImage}
+            radius={0.75}
+            size='4rem'
+          />
         </S.CoverImg>
         <S.TextWrapper>
           <S.TopWrapper>
             <S.Title>
-              <BasicText text={data.name} size="110%" font="NotoSansKR700" />
+              <BasicText text={data.name} size='110%' font='NotoSansKR700' />
             </S.Title>
             {isTitle && (
               <S.isTitle>
                 <BasicText
-                  text="Title"
-                  size="50%"
-                  font="NotoSansKR400"
-                  color="black"
+                  text='Title'
+                  size='50%'
+                  font='NotoSansKR400'
+                  color='black'
                 />
               </S.isTitle>
             )}
@@ -60,19 +65,19 @@ const MusicCard = ({
             <S.Singer>
               <BasicText
                 text={data.artistName}
-                size="80%"
-                font="NotoSansKR400"
+                size='80%'
+                font='NotoSansKR400'
               />
             </S.Singer>
             <S.Time>
-              <BasicText text={convertTime} size="65%" font="NotoSansKR400" />
+              <BasicText text={convertTime} size='65%' font='NotoSansKR400' />
             </S.Time>
           </S.BottomWrapper>
         </S.TextWrapper>
       </S.LeftWrapper>
       {isEditable && (
         <S.Hamberger>
-          <RxHamburgerMenu color="#ffffff" size="75%" />
+          <RxHamburgerMenu color='#ffffff' size='75%' />
         </S.Hamberger>
       )}
     </S.MusicCard>

@@ -6,7 +6,11 @@ import BasicText from "@/components/common/BasicText";
 import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
 import { RiPlayListFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
-import { togglePlay, PutStartingPointToZero } from "@/store/modules/playList";
+import {
+  togglePlay,
+  PutStartingPointToZero,
+  nextTrack,
+} from "@/store/modules/playList";
 import Drawer from "@/components/common/Drawer";
 import { useRouter } from "next/router";
 import { playListState } from "@/store/modules/playList";
@@ -33,6 +37,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
 
     const handleClickForward = () => {
       dispatch(PutStartingPointToZero(true));
+      dispatch(nextTrack());
     };
 
     const [state, setState] = useState({ bottom: false });

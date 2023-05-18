@@ -1,33 +1,50 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { createPortal } from "react-dom";
 import { nextTrack, PutStartingPointToZero } from "@/store/modules/playList";
 import { useSelector, useDispatch } from "react-redux";
-import { playListState } from "@/store/modules/playList";
+import { playListState, togglePlay } from "@/store/modules/playList";
 import { musicApi } from "@/api/utils/music";
-import { setTime } from "@/store/modules/commentList";
+import {
+  setTime,
+  commentListState,
+  setOnChange,
+} from "@/store/modules/commentList";
 import {
   setRecentCommentList,
   setTotalCommentList,
 } from "@/store/modules/commentList";
+
 interface MusicControllerState {
   playList: playListState;
 }
-
+interface commentState {
+  commentList: commentListState;
+}
 // const ReactPlayerPortal: React.FC = React.memo(() => {
 const ReactPlayerPortal = () => {
   const playerRef = useRef(null);
   const dispatch = useDispatch();
+  const [seeking, setSeeking] = useState(false);
   const { loop, playing, OnSeekToZero, currPlayingMusicInfo } = useSelector(
     (state: MusicControllerState) => state.playList
   );
-
+  const { time, onChange } = useSelector(
+    (state: commentState) => state.commentList
+  );
   useEffect(() => {
     if (OnSeekToZero) {
       playerRef.current.seekTo(0);
       dispatch(PutStartingPointToZero(false));
     }
   }, [dispatch, OnSeekToZero]);
+
+  useEffect(() => {
+    if (onChange) {
+      playerRef.current.seekTo(time);
+      dispatch(setOnChange({ onChangeValue: false }));
+    }
+  }, [onChange]);
 
   useEffect(() => {
     if (currPlayingMusicInfo.code) {
@@ -70,15 +87,19 @@ const ReactPlayerPortal = () => {
   const handleClickForward = () => {
     playerRef.current.seekTo(0);
     dispatch(nextTrack());
+    setSeeking(false);
   };
+
   return (
     <ReactPlayer
       ref={playerRef}
       playing={playing}
       loop={loop}
       url={currPlayingMusicInfo ? currPlayingMusicInfo.src : ""}
-      onProgress={(progress) => {
-        dispatch(setTime({ time: progress.playedSeconds }));
+      onProgress={({ playedSeconds }) => {
+        if (!onChange) {
+          dispatch(setTime({ time: playedSeconds }));
+        }
       }}
       stopOnUnmount={true}
       config={{
