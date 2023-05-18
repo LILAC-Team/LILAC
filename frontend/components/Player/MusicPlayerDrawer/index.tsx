@@ -52,6 +52,7 @@ const MusicPlayerDrawer = () => {
     console.log("timeChange!!");
     const changeTime = parseInt(e.target.value);
     dispatch(setTime({ time: changeTime }));
+    dispatch(setOnChange({onChangeValue: true}));
   };
 
   return (
