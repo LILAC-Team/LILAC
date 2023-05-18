@@ -22,7 +22,7 @@ const LogIn = () => {
         />
       </S.LogoWrapper>
       <S.ButtonWrap>
-        <S.LogInButton href="https://lilac-music.net/api/oauth/kakao" onClick={handleClickLogInButton}>
+        <S.LogInButton href="https://lilac-music.net/api/oauth/kakao">
           <Image
             src="/logIn/kakao-login.png"
             alt="logIn"
