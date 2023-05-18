@@ -175,7 +175,6 @@ const CommentDrawer = ({ time }: commentProps) => {
     newCommentHandler(inputData, time);
     setInputData("");
   };
-
   return (
     <S.Comment>
       <S.Top>
@@ -192,26 +191,28 @@ const CommentDrawer = ({ time }: commentProps) => {
           handleOnClickValue={handleOnClick}
         />
       </S.InputAllWrap>
-      <S.CommentAllWrap>
-        {nowCommentList &&
-          nowCommentList.commentList.map((item, code) => {
-            return (
-              <React.Fragment key={code}>
-                <CommentCard
-                  handler={() => deleteCommentHandler(item.code)}
-                  code={item.code}
-                  src={item.memberInfo.profileImage}
-                  nickname={item.memberInfo.nickname}
-                  time={item.presentTime}
-                  content={item.content}
-                  isMine={
-                    item.memberInfo.email === userInfo.email ? true : false
-                  }
-                />
-              </React.Fragment>
-            );
-          })}
-      </S.CommentAllWrap>
+      <S.ContentWrap>
+        <S.CommentAllWrap>
+          {nowCommentList &&
+            nowCommentList.commentList.map((item, code) => {
+              return (
+                <React.Fragment key={code}>
+                  <CommentCard
+                    handler={() => deleteCommentHandler(item.code)}
+                    code={item.code}
+                    src={item.memberInfo.profileImage}
+                    nickname={item.memberInfo.nickname}
+                    time={item.presentTime}
+                    content={item.content}
+                    isMine={
+                      item.memberInfo.email === userInfo.email ? true : false
+                    }
+                  />
+                </React.Fragment>
+              );
+            })}
+        </S.CommentAllWrap>
+      </S.ContentWrap>
     </S.Comment>
   );
 };
