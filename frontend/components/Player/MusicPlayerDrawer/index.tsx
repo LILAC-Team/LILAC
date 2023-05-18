@@ -132,7 +132,6 @@ const MusicPlayerDrawer = () => {
                 // step={1}
                 value={time}
                 onChange={handleTimeChange}
-                progress={(time / currPlayingMusicInfo.playtime) * 100}
               />
             }
             <S.PlayerBarTimeInfo>
