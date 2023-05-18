@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
@@ -74,6 +74,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
         window.removeEventListener("popstate", handlePopstate);
       };
     }, [nowOpen]);
+
     return (
       <>
         <S.BarWrapper>
