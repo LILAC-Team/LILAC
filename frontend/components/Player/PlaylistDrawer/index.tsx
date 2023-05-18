@@ -53,6 +53,9 @@ const PlaylistDrawer = () => {
   // Edit 여부
   const [isEdit, setIsEdit] = useState(false);
 
+  // 현재 재생중인 곡의 index
+  const [idx, setIdx] = useState(0);
+
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
   const { musicList, musicListSize, shuffleArr } = useSelector(
@@ -94,6 +97,7 @@ const PlaylistDrawer = () => {
   // PLAY Music of Playlist
   const playMusicHandler = (index: number) => {
     try {
+      setIdx(index);
       dispatch(togglePlay());
       dispatch(PutStartingPointToZero(true));
       dispatch(
@@ -105,13 +109,6 @@ const PlaylistDrawer = () => {
       console.log(error);
     }
   };
-
-  console.log(
-    "nownownow",
-    useSelector(
-      (state: MusicControllerState) => state.playList.currentTrackIndex
-    )
-  );
 
   useEffect(() => {
     setList(Object.values(nowPlayList.musicList));
@@ -132,14 +129,7 @@ const PlaylistDrawer = () => {
         <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
-        <BasicText
-          text={(listSize ? listSize : 0) + "곡"}
-          //   (list.length === 0 && nowPlayList.listSize === 0
-          //     ? listSize
-          //     : list.length) + "곡"
-          // }
-          size="0.85rem"
-        />
+        <BasicText text={(listSize ? listSize : 0) + "곡"} size="0.85rem" />
         <div />
         {isEdit ? (
           <CustomTextButton
@@ -172,6 +162,7 @@ const PlaylistDrawer = () => {
               <S.OneMusicCard
                 key={index}
                 onClick={() => playMusicHandler(index)}
+                active={index === idx}
               >
                 <MusicCard
                   data={{
@@ -185,25 +176,6 @@ const PlaylistDrawer = () => {
                 />
               </S.OneMusicCard>
             ))}
-          {/* {nowPlayList.musicList.map(
-            ({ code, name, albumImage, artistName, playtime }, index) => (
-              <S.OneMusicCard
-                key={index}
-                onClick={() => playMusicHandler(index)}
-              >
-                <MusicCard
-                  data={{
-                    code,
-                    name,
-                    albumImage: CLOUD_FRONT + albumImage,
-                    artistName,
-                    playtime,
-                  }}
-                  isEditable={false}
-                />
-              </S.OneMusicCard>
-            )
-          )} */}
         </S.CardsWrapper>
       )}
     </S.Playlist>
