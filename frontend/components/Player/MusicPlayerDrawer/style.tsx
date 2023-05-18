@@ -100,11 +100,7 @@ export const PlayerBarWrap = styled.div`
   padding: 2rem 10% 1rem 10%;
 `;
 
-interface PlayerBarProps {
-  progress: number;
-}
-
-export const PlayerBar = styled.input<PlayerBarProps>`
+export const PlayerBar = styled.input`
   width: 100%;
   height: 0.5rem;
   border-radius: 0;
