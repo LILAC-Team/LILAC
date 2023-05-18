@@ -45,6 +45,8 @@ export const Artist = styled.div`
   padding: 0.75rem;
   display: flex;
   justify-content: center;
+  /* position: absolute; */
+  /* bottom: calc(var(--vh, 1vh)* ); */
 `;
 
 export const Comment = styled.div`
@@ -55,7 +57,7 @@ export const Comment = styled.div`
   justify-content: center;
   padding: 1rem;
   position: absolute;
-  bottom: calc((var(--vh, 1vh) * 30));
+  bottom: calc((var(--vh, 1vh) * 29));
 `;
 
 export const CommentWrap = styled.div`
@@ -97,7 +99,9 @@ export const ControllBar = styled.div`
 
 export const PlayerBarWrap = styled.div`
   width: 100%;
-  padding: 2rem 10% 1rem 10%;
+  padding: 1rem 10% 1rem 10%;
+  position: absolute;
+  bottom: calc((var(--vh, 1vh) * 20));
 `;
 
 export const PlayerBar = styled.input`

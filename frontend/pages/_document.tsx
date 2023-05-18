@@ -5,7 +5,7 @@ const MyDocument = (props) => {
   return (
     <Html>
       <Head>
-        <style>{props.styles}</style>
+        {props.styles}
         <link rel='manifest' href='/manifest.json' />
         <meta name='theme-color' content='#3d3a4b' />
         <link rel='favicon' sizes='192x192' href='/icons/favicon-192x192.png' />
@@ -169,12 +169,7 @@ MyDocument.getInitialProps = async (ctx) => {
     const initialProps = await Document.getInitialProps(ctx);
     return {
       ...initialProps,
-      styles: (
-        <>
-          {initialProps.styles}
-          {sheet.getStyleElement()}
-        </>
-      ),
+      styles: [initialProps.styles, sheet.getStyleElement()],
     };
   } finally {
     sheet.seal();
