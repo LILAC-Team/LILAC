@@ -28,7 +28,6 @@ const Drawer = ({ inner, anchor, state, toggleDrawer, time }: DrawerProps) => {
 
   useEffect(() => {
     const resize = () => {
-      console.log("흠");
       let width = window.innerWidth;
       if (window.innerWidth >= 900) {
         setMytext(`${(width - 900) / 2}px`);
