@@ -1,18 +1,18 @@
-import * as S from './style';
-import { useState, useEffect, useCallback } from 'react';
-import BasicText from '@/components/common/BasicText';
-import CustomTextButton from '@/components/common/CustomTextButton';
-import DragAndDrop from '@/components/Container/DragAndDrop';
-import { useSelector, useDispatch } from 'react-redux';
-import MusicCard from '../MusicCard';
-import { playlistApi } from '@/api/utils/playlist';
-import { playListState } from '@/store/modules/playList';
+import * as S from "./style";
+import { useState, useEffect, useCallback } from "react";
+import BasicText from "@/components/common/BasicText";
+import CustomTextButton from "@/components/common/CustomTextButton";
+import DragAndDrop from "@/components/Container/DragAndDrop";
+import { useSelector, useDispatch } from "react-redux";
+import MusicCard from "../MusicCard";
+import { playlistApi } from "@/api/utils/playlist";
+import { playListState } from "@/store/modules/playList";
 import {
   setPlayList,
   setTrack,
   togglePlay,
   PutStartingPointToZero,
-} from '@/store/modules/playList';
+} from "@/store/modules/playList";
 
 interface Music {
   name: string;
@@ -66,9 +66,9 @@ const PlaylistDrawer = () => {
   // UPDATE list Size
   const [listSize, setListSize] = useState(nowPlayList.listSize);
 
-  console.log('전체 플레이리스트', musicList);
-  console.log('셔플된 index 번호', shuffleArr);
-  console.log('Update된 플레이리스트', list);
+  console.log("전체 플레이리스트", musicList);
+  console.log("셔플된 index 번호", shuffleArr);
+  console.log("Update된 플레이리스트", list);
 
   // RELOAD PlayList
   const reloadPlayListHandler = useCallback(async () => {
@@ -98,8 +98,8 @@ const PlaylistDrawer = () => {
   // PLAY Music of Playlist
   const playMusicHandler = (index: number) => {
     try {
-      console.log('nowIndex', index);
-      console.log('nowPlayList', nowPlayList);
+      console.log("nowIndex", index);
+      console.log("nowPlayList", nowPlayList);
       dispatch(togglePlay());
       dispatch(PutStartingPointToZero(true));
       dispatch(
@@ -113,7 +113,7 @@ const PlaylistDrawer = () => {
   };
 
   console.log(
-    'nownownow',
+    "nownownow",
     useSelector(
       (state: MusicControllerState) => state.playList.currentTrackIndex
     )
@@ -135,82 +135,70 @@ const PlaylistDrawer = () => {
     <S.Playlist>
       <S.Top>
         <S.Bar />
-        <BasicText text='PlayList' size='125%' font='NotoSansKR500' />
+        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
         <BasicText
-          text={(listSize ? listSize : 0) + '곡'}
+          text={(listSize ? listSize : 0) + "곡"}
           //   (list.length === 0 && nowPlayList.listSize === 0
           //     ? listSize
           //     : list.length) + "곡"
           // }
-          size='0.85rem'
+          size="0.85rem"
         />
         <div />
         {isEdit ? (
           <CustomTextButton
-            text='완료'
+            text="완료"
             handleOnClickButton={() => {
               handleEditClick();
             }}
-            fontColor='#FFFFFF'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         ) : (
           <CustomTextButton
-            text='편집'
+            text="편집"
             handleOnClickButton={() => {
               setIsEdit((prev) => !prev);
             }}
-            fontColor='#FFFFFF'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         )}
       </S.TextWrapper>
-      {isEdit ? (
-        <DragAndDrop list={list} setList={setList} nowPlayList={nowPlayList} />
-      ) : (
-        <S.CardsWrapper>
-          {shuffleArr &&
-            shuffleArr.map((data, index) => (
-              <S.OneMusicCard
-                key={index}
-                onClick={() => playMusicHandler(index)}>
-                <MusicCard
-                  data={{
-                    code: musicList[`${data}`].code,
-                    name: musicList[`${data}`].name,
-                    albumImage: musicList[`${data}`].albumImage,
-                    artistName: musicList[`${data}`].artistName,
-                    playtime: musicList[`${data}`].playtime,
-                  }}
-                  isEditable={false}
-                />
-              </S.OneMusicCard>
-            ))}
-          {/* {nowPlayList.musicList.map(
-            ({ code, name, albumImage, artistName, playtime }, index) => (
-              <S.OneMusicCard
-                key={index}
-                onClick={() => playMusicHandler(index)}
-              >
-                <MusicCard
-                  data={{
-                    code,
-                    name,
-                    albumImage: CLOUD_FRONT + albumImage,
-                    artistName,
-                    playtime,
-                  }}
-                  isEditable={false}
-                />
-              </S.OneMusicCard>
-            )
-          )} */}
-        </S.CardsWrapper>
-      )}
+      <S.ContentWrap>
+        {isEdit ? (
+          <DragAndDrop
+            list={list}
+            setList={setList}
+            nowPlayList={nowPlayList}
+          />
+        ) : (
+          <>
+            {shuffleArr &&
+              shuffleArr.map((data, index) => (
+                <S.OneMusicCard
+                  key={index}
+                  onClick={() => playMusicHandler(index)}
+                >
+                  <MusicCard
+                    data={{
+                      code: musicList[`${data}`].code,
+                      name: musicList[`${data}`].name,
+                      albumImage: musicList[`${data}`].albumImage,
+                      artistName: musicList[`${data}`].artistName,
+                      playtime: musicList[`${data}`].playtime,
+                    }}
+                    isEditable={false}
+                  />
+                </S.OneMusicCard>
+              ))}
+          </>
+        )}
+      </S.ContentWrap>
     </S.Playlist>
   );
 };
