@@ -39,7 +39,7 @@ const CustomTextButton = ({
     >
       {isImage && (
         <S.IconImage>
-          <BasicImage src={src} size="1.6rem" />
+          <BasicImage isAlbumPage={true} src={src} size="1.6rem" />
         </S.IconImage>
       )}
       <S.TextDiv>

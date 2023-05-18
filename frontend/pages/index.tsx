@@ -57,8 +57,6 @@ const Home = () => {
   const getPlayList = async () => {
     try {
       const { data } = await playlistApi.getPlayList();
-
-      // console.log("저는 플레이리스트에요: ", res);
     } catch (error) {
       console.log("error: ", error);
     }

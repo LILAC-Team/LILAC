@@ -47,37 +47,33 @@ const MusicController = ({}) => {
     dispatch(setLoop());
   };
 
-  // useEffect(() => {
-  //   handleRotateClick(playState);
-  // }, [playState, handleRotateClick]);
-
   return (
     <S.ControllerWrapper>
       <CustomIconButton handleOnClickButton={handleClickShuffle}>
         {shuffle ? (
-          <TbArrowsShuffle size='2rem' color='#CCA4FC' />
+          <TbArrowsShuffle size="2rem" color="#CCA4FC" />
         ) : (
-          <TbArrowsShuffle size='2rem' color='#FFFFFF' />
+          <TbArrowsShuffle size="2rem" color="#FFFFFF" />
         )}
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickBackward}>
-        <IoPlayBack size='2rem' color='#FFFFFF' />
+        <IoPlayBack size="2rem" color="#FFFFFF" />
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickPlay}>
         {playing ? (
-          <IoPause size='3.5rem' color='#FFFFFF' />
+          <IoPause size="3.5rem" color="#FFFFFF" />
         ) : (
-          <IoPlay size='3.5rem' color='#FFFFFF' />
+          <IoPlay size="3.5rem" color="#FFFFFF" />
         )}
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickForward}>
-        <IoPlayForward size='2rem' color='#FFFFFF' />
+        <IoPlayForward size="2rem" color="#FFFFFF" />
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickRepeat}>
         {loop ? (
-          <TbRepeatOnce size='2rem' color='#CCA4FC' />
+          <TbRepeatOnce size="2rem" color="#CCA4FC" />
         ) : (
-          <TbRepeat size='2rem' color='#CCA4FC' />
+          <TbRepeat size="2rem" color="#CCA4FC" />
         )}
       </CustomIconButton>
     </S.ControllerWrapper>

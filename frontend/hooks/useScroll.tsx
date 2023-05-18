@@ -16,18 +16,11 @@ export const useScroll = (onIntersect) => {
 
   useEffect(() => {
     let observer;
-    // [삭제]
-    console.log("ref 확인: ", ref);
 
     if (ref.current) {
       // 관찰 대상이 존재하는지 체크
       // threshold: viewport와의 교차범위(0 ~ 1) 설정
-
       observer = new IntersectionObserver(handleIntersect, { threshold: 0.1 }); // 관찰 대상이 존재하면 관찰자를 생성
-
-      // [삭제]
-      console.log(observer);
-
       observer.observe(ref.current); // 관찰자에게 타겟을 지정
     }
     return () => observer && observer.disconnect(); // 데이터 페칭 완료 후 업데이트 x
