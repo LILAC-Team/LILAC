@@ -1,9 +1,12 @@
 package com.lilacmusic.backend.musics.dto.request;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -11,8 +14,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Builder
 public class CommentRequest {
-    @Size(max = 100)
+    @Size(max = 100, min = 1)
     private String content;
-    @Positive
+    @PositiveOrZero
     private Integer presentTime;
 }

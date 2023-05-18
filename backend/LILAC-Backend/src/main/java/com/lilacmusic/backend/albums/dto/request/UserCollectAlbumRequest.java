@@ -13,6 +13,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Builder
 public class UserCollectAlbumRequest {
-    @Size(max = 100)
+    @Size(max = 100, min = 1)
     private String code;
 }
