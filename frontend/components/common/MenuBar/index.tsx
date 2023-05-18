@@ -6,9 +6,13 @@ import { RiPlayListFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import Drawer from "@/components/common/Drawer";
 import { commentListState } from "@/store/modules/commentList";
+import { playListState } from "@/store/modules/playList";
 
 interface commentState {
   commentList: commentListState;
+}
+interface playerState {
+  playList: playListState;
 }
 const MenuBar = () => {
   const [state, setState] = React.useState({ bottom: false });
@@ -30,6 +34,12 @@ const MenuBar = () => {
 
   const [nowTime, setNowTime] = useState(0);
   const { time } = useSelector((state: commentState) => state.commentList);
+  const { currPlayingMusicInfo } = useSelector(
+    (state: playerState) => state.playList
+  );
+  useEffect(() => {
+    setNowTime(0);
+  }, [currPlayingMusicInfo]);
   return (
     <>
       <S.MenuWrapper>
