@@ -1,5 +1,5 @@
 import * as S from "./style";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import MusicPlayerDrawer from "@/components/Player/MusicPlayerDrawer";
 import CommentDrawer from "@/components/Player/CommentDrawer";
@@ -28,7 +28,6 @@ const Drawer = ({ inner, anchor, state, toggleDrawer, time }: DrawerProps) => {
 
   useEffect(() => {
     const resize = () => {
-      console.log("흠");
       let width = window.innerWidth;
       if (window.innerWidth >= 900) {
         setMytext(`${(width - 900) / 2}px`);
