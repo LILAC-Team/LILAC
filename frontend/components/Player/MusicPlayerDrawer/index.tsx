@@ -69,7 +69,7 @@ const MusicPlayerDrawer = () => {
                   ? currPlayingMusicInfo.albumImage
                   : "/defaultProfile.svg"
               }
-              size="16rem"
+              size="calc((var(--vh, 1vh) * 30))"
               radius={10}
               isRotate={playing}
             />
