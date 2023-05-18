@@ -15,6 +15,7 @@ interface MusicCardProps {
   };
   isEditable: boolean;
   isTitle?: boolean;
+  isUpload?: boolean;
 }
 
 const MusicCard = ({
@@ -22,6 +23,7 @@ const MusicCard = ({
   data,
   isEditable = false,
   isTitle = false,
+  isUpload = false,
 }: MusicCardProps) => {
   const [convertTime, setConvertTime] = useState("");
 
@@ -38,7 +40,16 @@ const MusicCard = ({
     <S.MusicCard onClick={onClickEvent}>
       <S.LeftWrapper>
         <S.CoverImg>
-          <BasicImage src={data.albumImage} radius={0.75} size="4rem" />
+          {isUpload ? (
+            <BasicImage
+              isAlbumPage={true}
+              src={data.albumImage}
+              radius={0.75}
+              size="4rem"
+            />
+          ) : (
+            <BasicImage src={data.albumImage} radius={0.75} size="4rem" />
+          )}
         </S.CoverImg>
         <S.TextWrapper>
           <S.TopWrapper>

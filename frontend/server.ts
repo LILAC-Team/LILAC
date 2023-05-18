@@ -11,7 +11,6 @@ app.prepare().then(() => {
   // 로그인 여부를 확인하는 미들웨어
   const checkAuthMiddleware = async (req, res, next) => {
     // 로그인 여부를 확인하는 로직을 구현
-    // console.log("-------------req-------------: ", req.headers.cookie);
     try {
       await fetch("https://lilac-music.net/api/v1/members", {
         method: "GET",

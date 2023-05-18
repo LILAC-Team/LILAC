@@ -51,7 +51,6 @@ const ReactPlayerPortal = () => {
 
   useEffect(() => {
     if (currPlayingMusicInfo.code) {
-      console.log("currPlayingMusicInfo.code: ", currPlayingMusicInfo.code);
       musicApi
         .getMusicInfo(currPlayingMusicInfo.code)
         .then(({ data: { recentCommentList } }) => {

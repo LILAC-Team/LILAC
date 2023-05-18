@@ -42,6 +42,7 @@ const MainAlbum = ({
           <S.CdBox>
             <S.CdWrapper>
               <BasicImage
+                isAlbumPage={true}
                 src="/album.png"
                 size="100%"
                 radius={0}
@@ -60,6 +61,7 @@ const MainAlbum = ({
           <S.CdBox>
             <S.CdWrapper>
               <BasicImage
+                isAlbumPage={true}
                 src="/album.png"
                 size="100%"
                 radius={0}
