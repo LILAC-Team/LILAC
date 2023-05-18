@@ -18,16 +18,16 @@ const BasicImage = ({
 }: BasicImageProps) => {
   return (
     <>
-      {isAlbumPage ? (
+      {src.startsWith("images/") ? (
         <S.BasicImage
-          src={src}
+          src={process.env.CLOUDFRONT_URL + src}
           size={size}
           radius={radius}
           isRotate={isRotate}
         />
       ) : (
         <S.BasicImage
-          src={process.env.CLOUDFRONT_URL + src}
+          src={src}
           size={size}
           radius={radius}
           isRotate={isRotate}
