@@ -46,8 +46,8 @@ const CommentCard = ({
   useEffect(() => {
     if (changeNext) {
       handler(code);
-      setTimeout(() => setChangeNext(false), 1100);
-      setTimeout(() => setIsDeleteModalOpen(false), 1100);
+      setTimeout(() => setChangeNext(false), 1000);
+      setTimeout(() => setIsDeleteModalOpen(false), 1000);
       // setChangeNext(false);
     }
   }, [changeNext]);
@@ -115,13 +115,19 @@ const CommentCard = ({
               ) : (
                 <S.ModalLine>
                   <S.ModalIcon>
-                    <BasicImage src="/icons/favicon-512x512.png" />
+                    <BasicImage
+                      isAlbumPage={true}
+                      src="/icons/favicon-512x512.png"
+                    />
                   </S.ModalIcon>
                   <S.ModalText>
                     <BasicText text="삭제완료" size="1.5rem" color="black" />
                   </S.ModalText>
                   <S.ModalIcon>
-                    <BasicImage src="/icons/favicon-512x512.png" />
+                    <BasicImage
+                      isAlbumPage={true}
+                      src="/icons/favicon-512x512.png"
+                    />
                   </S.ModalIcon>
                 </S.ModalLine>
               )}

@@ -15,19 +15,19 @@ interface DrawerProps {
   state: {
     bottom: boolean;
   };
+  time?: number;
 }
 
 const iOS =
   typeof navigator !== "undefined" &&
   /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-const Drawer = ({ inner, anchor, state, toggleDrawer }: DrawerProps) => {
+const Drawer = ({ inner, anchor, state, toggleDrawer, time }: DrawerProps) => {
   const [innerWidth, setInnerWidth] = useState("100%");
   const [mytext, setMytext] = useState("");
 
   useEffect(() => {
     const resize = () => {
-      console.log("흠");
       let width = window.innerWidth;
       if (window.innerWidth >= 900) {
         setMytext(`${(width - 900) / 2}px`);
@@ -55,7 +55,7 @@ const Drawer = ({ inner, anchor, state, toggleDrawer }: DrawerProps) => {
             marginLeft: `${mytext}`,
           },
         }}
-        anchor='bottom'
+        anchor="bottom"
         open={state["bottom"]}
         onClose={toggleDrawer("bottom", false)}
         onOpen={toggleDrawer("bottom", true)}
@@ -64,7 +64,7 @@ const Drawer = ({ inner, anchor, state, toggleDrawer }: DrawerProps) => {
         PaperProps={{ style: { backgroundColor: "transparent" } }}
       >
         {inner === "player" && <MusicPlayerDrawer />}
-        {inner === "comment" && <CommentDrawer />}
+        {inner === "comment" && <CommentDrawer time={time} />}
         {inner === "playlist" && <PlaylistDrawer />}
       </SwipeableDrawer>
     </S.Drawer>

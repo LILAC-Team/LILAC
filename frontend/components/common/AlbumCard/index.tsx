@@ -28,7 +28,7 @@ const AlbumCard = ({
   return (
     <S.AlbumCard showAlbumDetail={showAlbumDetail} onClick={onClickEvent}>
       <S.AlbumCardImg>
-        <BasicImage src={CLOUD_FRONT + data.albumImage} size={albumSize} />
+        <BasicImage src={data.albumImage} size={albumSize} />
       </S.AlbumCardImg>
       <S.AlbumCardDiv>
         <S.AlbumCardTitle>

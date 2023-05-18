@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Comment = styled.div`
   background-color: #4e4e4e;
-  height: calc(var(--vh, 1vh) * 95);
+  height: calc((var(--vh, 1vh) * 95));
   width: calc(var(--vw, 1vw) * 100);
   max-width: 900px;
   border-top-left-radius: 2rem;
@@ -10,6 +10,7 @@ export const Comment = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow: hidden;
 `;
 
 export const Top = styled.div`

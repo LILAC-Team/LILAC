@@ -42,8 +42,6 @@ export const AlbumCardDiv = styled.div`
 `;
 
 export const AlbumCardTitle = styled.div`
-  /* border: 2px solid green; */
-
   display: flex;
   margin: 0.5rem 0rem 0.75rem 0rem;
   justify-content: center;
@@ -52,8 +50,6 @@ export const AlbumCardTitle = styled.div`
 `;
 
 export const AlbumTitleText = styled.p`
-  /* border: 2px solid red; */
-
   width: 100%;
   max-width: 21vw;
   word-wrap: break-word;

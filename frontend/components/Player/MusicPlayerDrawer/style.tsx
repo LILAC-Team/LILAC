@@ -3,15 +3,15 @@ import styled from "styled-components";
 export const Player = styled.div`
   background-color: #4e4e4e;
   height: calc(var(--vh, 1vh) * 95);
-  /* display: flex; */
-  /* flex-direction: column; */
   width: 100%;
   max-width: 900px;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
-  /* justify-content: center; */
-  /* align-items: center; */
   text-align: center;
+`;
+export const PlayerWrap = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Top = styled.div`
@@ -49,6 +49,7 @@ export const Artist = styled.div`
 
 export const Comment = styled.div`
   width: 100%;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,4 +93,43 @@ export const ControllBar = styled.div`
   align-items: center;
   justify-content: center;
   bottom: calc((var(--vh, 1vh) * 12.5));
+`;
+
+export const PlayerBarWrap = styled.div`
+  width: 100%;
+  padding: 2rem 10% 1rem 10%;
+`;
+
+interface PlayerBarProps {
+  progress: number;
+}
+
+export const PlayerBar = styled.input<PlayerBarProps>`
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.5rem;
+    background: #808080;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0.7rem;
+    height: 0.5rem;
+    background: #d3d3d3;
+    cursor: pointer;
+  }
+`;
+
+export const PlayerBarTimeInfo = styled.div`
+  display: flex;
+  width: 100%;
+  color: white;
+  justify-content: space-between;
 `;

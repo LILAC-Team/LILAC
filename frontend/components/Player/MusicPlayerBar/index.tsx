@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
@@ -6,7 +6,11 @@ import BasicText from "@/components/common/BasicText";
 import { IoPlay, IoPause, IoPlayForward } from "react-icons/io5";
 import { RiPlayListFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
-import { togglePlay, PutStartingPointToZero } from "@/store/modules/playList";
+import {
+  togglePlay,
+  PutStartingPointToZero,
+  nextTrack,
+} from "@/store/modules/playList";
 import Drawer from "@/components/common/Drawer";
 import { useRouter } from "next/router";
 import { playListState } from "@/store/modules/playList";
@@ -33,6 +37,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
 
     const handleClickForward = () => {
       dispatch(PutStartingPointToZero(true));
+      dispatch(nextTrack());
     };
 
     const [state, setState] = useState({ bottom: false });
@@ -56,10 +61,8 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
       const handlePopstate = () => {
         if (nowOpen) {
           setNowOpen(""); // nowOpen 상태 초기화
-          // console.log("RESET");
         } else {
           router.back(); // 이전 페이지로 이동
-          // console.log("BACK");
         }
       };
 
@@ -69,14 +72,19 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
         window.removeEventListener("popstate", handlePopstate);
       };
     }, [nowOpen]);
+
     return (
       <>
         <S.BarWrapper>
           <S.LeftWrapper onClick={onClickEvent}>
             <S.AlbumImg>
               <BasicImage
+                isAlbumPage={true}
                 src={
-                  currPlayingMusicInfo ? currPlayingMusicInfo.albumImage : ""
+                  currPlayingMusicInfo.index !== -1
+                    ? process.env.CLOUDFRONT_URL +
+                      currPlayingMusicInfo.albumImage
+                    : "/defaultProfile.svg"
                 }
                 radius={0.15}
               />
@@ -84,7 +92,11 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
             <S.TextWrapper>
               <S.Title>
                 <BasicText
-                  text={currPlayingMusicInfo ? currPlayingMusicInfo.name : ""}
+                  text={
+                    currPlayingMusicInfo.index !== -1
+                      ? currPlayingMusicInfo.name
+                      : "LILAC"
+                  }
                   size="1.125rem"
                   font="NotoSansKR700"
                 />
@@ -92,7 +104,9 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
               <S.Artist>
                 <BasicText
                   text={
-                    currPlayingMusicInfo ? currPlayingMusicInfo.artistName : ""
+                    currPlayingMusicInfo.index !== -1
+                      ? currPlayingMusicInfo.artistName
+                      : "나만의 앨범을 등록해보세요"
                   }
                   size="0.75rem"
                   font="NotoSansKR400"

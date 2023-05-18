@@ -52,6 +52,10 @@ interface MusicTrack {
 const PlaylistDrawer = () => {
   // Edit 여부
   const [isEdit, setIsEdit] = useState(false);
+
+  // 현재 재생중인 곡의 index
+  const [idx, setIdx] = useState(0);
+
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
   const { musicList, musicListSize, shuffleArr } = useSelector(
@@ -59,8 +63,9 @@ const PlaylistDrawer = () => {
   );
 
   const dispatch = useDispatch();
+
   // UPDATE PlayList 담는 list
-  const [list, setList] = useState(nowPlayList.musicList);
+  const [list, setList] = useState(Object.values(nowPlayList.musicList));
   // UPDATE list Size
   const [listSize, setListSize] = useState(nowPlayList.listSize);
 
@@ -68,7 +73,7 @@ const PlaylistDrawer = () => {
   const reloadPlayListHandler = useCallback(async () => {
     try {
       const { data } = await playlistApi.getPlayList();
-      // dispatch(setPlayList(data));
+      dispatch(setPlayList(data));
     } catch (error) {
       console.log(error);
     }
@@ -79,11 +84,11 @@ const PlaylistDrawer = () => {
     try {
       const req = { musicList: list };
       await playlistApi.putPlayList(req);
-      // dispatch(
-      //   setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
-      // );
+      dispatch(
+        setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
+      );
       setIsEdit((prevIsEdit) => !prevIsEdit);
-      // setListSize(list.length);
+      setListSize(list.length);
     } catch (error) {
       console.log(error);
     }
@@ -92,8 +97,7 @@ const PlaylistDrawer = () => {
   // PLAY Music of Playlist
   const playMusicHandler = (index: number) => {
     try {
-      console.log("nowIndex", index);
-      console.log("nowPlayList", nowPlayList);
+      setIdx(index);
       dispatch(togglePlay());
       dispatch(PutStartingPointToZero(true));
       dispatch(
@@ -101,21 +105,13 @@ const PlaylistDrawer = () => {
           index,
         })
       );
-      dispatch(PutStartingPointToZero(true));
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(
-    "nownownow",
-    useSelector(
-      (state: MusicControllerState) => state.playList.currentTrackIndex
-    )
-  );
-
   useEffect(() => {
-    setList(nowPlayList.musicList);
+    setList(Object.values(nowPlayList.musicList));
   }, [nowPlayList.musicList]);
 
   useEffect(() => {
@@ -130,44 +126,35 @@ const PlaylistDrawer = () => {
     <S.Playlist>
       <S.Top>
         <S.Bar />
-        <BasicText text='PlayList' size='125%' font='NotoSansKR500' />
+        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
-        <BasicText
-          text={(listSize ? listSize : 0) + "곡"}
-          //   (list.length === 0 && nowPlayList.listSize === 0
-          //     ? listSize
-          //     : list.length) + "곡"
-          // }
-          size='0.85rem'
-        />
+        <BasicText text={(listSize ? listSize : 0) + "곡"} size="0.85rem" />
         <div />
         {isEdit ? (
           <CustomTextButton
-            text='완료'
+            text="완료"
             handleOnClickButton={() => {
               handleEditClick();
             }}
-            fontColor='#FFFFFF'
-            font='Ridibatang'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         ) : (
           <CustomTextButton
-            text='편집'
+            text="편집"
             handleOnClickButton={() => {
-              handleEditClick();
+              setIsEdit((prev) => !prev);
             }}
-            fontColor='#FFFFFF'
-            font='Ridibatang'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         )}
       </S.TextWrapper>
       {isEdit ? (
-        <DragAndDrop list={list} setList={setList} />
+        <DragAndDrop list={list} setList={setList} nowPlayList={nowPlayList} />
       ) : (
         <S.CardsWrapper>
           {shuffleArr &&
@@ -175,6 +162,7 @@ const PlaylistDrawer = () => {
               <S.OneMusicCard
                 key={index}
                 onClick={() => playMusicHandler(index)}
+                active={index === idx}
               >
                 <MusicCard
                   data={{
@@ -188,25 +176,6 @@ const PlaylistDrawer = () => {
                 />
               </S.OneMusicCard>
             ))}
-          {/* {nowPlayList.musicList.map(
-            ({ code, name, albumImage, artistName, playtime }, index) => (
-              <S.OneMusicCard
-                key={index}
-                onClick={() => playMusicHandler(index)}
-              >
-                <MusicCard
-                  data={{
-                    code,
-                    name,
-                    albumImage: CLOUD_FRONT + albumImage,
-                    artistName,
-                    playtime,
-                  }}
-                  isEditable={false}
-                />
-              </S.OneMusicCard>
-            )
-          )} */}
         </S.CardsWrapper>
       )}
     </S.Playlist>
