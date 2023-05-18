@@ -147,7 +147,7 @@ const CommentDrawer = ({ time }: commentProps) => {
 
   // PRESS Enter Key
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputData !== "") {
+    if (e.key === "Enter" && inputData.length !== 0) {
       newCommentHandler(inputData, time);
       setInputData("");
     }
@@ -155,8 +155,10 @@ const CommentDrawer = ({ time }: commentProps) => {
 
   // ONCLICK Button
   const handleOnClick = () => {
-    newCommentHandler(inputData, time);
-    setInputData("");
+    if (inputData !== "") {
+      newCommentHandler(inputData, time);
+      setInputData("");
+    }
   };
 
   return (
