@@ -12,7 +12,6 @@ import {
   commentListState,
   setOnChange,
 } from "@/store/modules/commentList";
-import { Time } from "../MusicCard/style";
 
 interface playerState {
   playList: playListState;
@@ -22,7 +21,6 @@ interface commentState {
 }
 const MusicPlayerDrawer = () => {
   const dispatch = useDispatch();
-  // const [isRotating, setIsRotating] = useState(false);
   const [state, setState] = useState({ bottom: false });
   const [nowOpen, setNowOpen] = useState("");
 
@@ -33,9 +31,7 @@ const MusicPlayerDrawer = () => {
     (state: playerState) => state.playList
   );
 
-  // const handleRotateClick = (state: boolean) => {
-  //   setIsRotating(!state);
-  // };
+  console.log("rerendering!!");
 
   const toggleDrawer =
     (anchor: string, open: boolean) =>
@@ -56,7 +52,6 @@ const MusicPlayerDrawer = () => {
     console.log("timeChange!!");
     const changeTime = parseInt(e.target.value);
     dispatch(setTime({ time: changeTime }));
-    dispatch(setOnChange({ onChangeValue: true }));
   };
 
   return (

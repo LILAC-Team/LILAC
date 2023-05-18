@@ -1,7 +1,7 @@
-import * as S from './style';
-import BasicImage from '../BasicImage';
-import BasicText from '../BasicText';
-import { CLOUD_FRONT } from '@/api';
+import * as S from "./style";
+import BasicImage from "../BasicImage";
+import BasicText from "../BasicText";
+import { CLOUD_FRONT } from "@/api";
 
 interface AlbumCardProps {
   onClickEvent?: () => void;
@@ -20,15 +20,15 @@ interface AlbumCardProps {
 const AlbumCard = ({
   onClickEvent,
   data,
-  albumSize = '100%',
-  titleSize = '100%',
+  albumSize = "100%",
+  titleSize = "100%",
   font,
   showAlbumDetail = false,
 }: AlbumCardProps) => {
   return (
     <S.AlbumCard showAlbumDetail={showAlbumDetail} onClick={onClickEvent}>
       <S.AlbumCardImg>
-        <BasicImage src={CLOUD_FRONT + data.albumImage} size={albumSize} />
+        <BasicImage src={data.albumImage} size={albumSize} />
       </S.AlbumCardImg>
       <S.AlbumCardDiv>
         <S.AlbumCardTitle>
@@ -39,12 +39,12 @@ const AlbumCard = ({
             <BasicText
               text={
                 data.nickname +
-                ' · ' +
-                data.releasedDate.split('-')[0] +
-                '.' +
-                data.releasedDate.split('-')[1]
+                " · " +
+                data.releasedDate.split("-")[0] +
+                "." +
+                data.releasedDate.split("-")[1]
               }
-              size='80%'
+              size="80%"
             />
           </S.AlbumCardDetail>
         )}

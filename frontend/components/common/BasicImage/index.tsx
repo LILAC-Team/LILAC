@@ -6,6 +6,7 @@ interface BasicImageProps {
   size?: string;
   radius?: number;
   isRotate?: boolean;
+  isAlbumPage?: boolean;
 }
 
 const BasicImage = ({
@@ -13,9 +14,26 @@ const BasicImage = ({
   size = "100%",
   radius = 1,
   isRotate = false,
+  isAlbumPage = false,
 }: BasicImageProps) => {
   return (
-    <S.BasicImage src={src} size={size} radius={radius} isRotate={isRotate} />
+    <>
+      {isAlbumPage ? (
+        <S.BasicImage
+          src={src}
+          size={size}
+          radius={radius}
+          isRotate={isRotate}
+        />
+      ) : (
+        <S.BasicImage
+          src={process.env.CLOUDFRONT_URL + src}
+          size={size}
+          radius={radius}
+          isRotate={isRotate}
+        />
+      )}
+    </>
   );
 };
 

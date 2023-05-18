@@ -14,7 +14,7 @@ export const AlbumDataWrapper = styled.div`
 
   width: 48%;
   height: 13rem;
-  background-color: #8e8ac2;
+  background: linear-gradient(45deg, #bc92f4, #dccbfd);
 `;
 
 export const TextWrapper = styled.div`
@@ -25,6 +25,7 @@ export const TextWrapper = styled.div`
   justify-content: center;
 
   width: 100%;
+  height: 100%;
 `;
 
 export const ContentWrapper = styled.div`
@@ -45,7 +46,7 @@ export const AddAlbum = styled.div`
 
   width: 100%;
   height: 47%;
-  background-color: #856fa4;
+  background: linear-gradient(45deg, #bc92f4, #dccbfd);
   margin-bottom: 3%;
   border-radius: 10px;
 `;
@@ -58,7 +59,7 @@ export const CatchPhrase = styled.div`
 
   width: 100%;
   height: 47%;
-  background-color: #c28a97;
+  background: linear-gradient(45deg, #bc92f4, #dccbfd);
   margin-top: 3%;
   border-radius: 10px;
 `;
@@ -117,4 +118,25 @@ export const InnerText = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const ModalWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ButtonWrap = styled.div`
+  display: flex;
+  padding: 0.125rem 0;
+  height: 2.75rem;
+`;
+
+export const Temp = styled.div`
+  display: flex;
+  width: auto;
+  height: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

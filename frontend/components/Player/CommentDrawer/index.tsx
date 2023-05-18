@@ -80,24 +80,12 @@ interface commentProps {
   time: number;
 }
 const CommentDrawer = ({ time }: commentProps) => {
-  // const listRef = useRef(null);
-
-  // useLayoutEffect(() => {
-  //   const detectMobileKeyboard = () => {
-  //     if (document.activeElement.tagName === "INPUT") {
-  //       listRef.current.scrollIntoView({ block: "end" });
-  //     }
-  //   };
-
-  //   window.addEventListener("resize", detectMobileKeyboard);
-
-  //   return () => window.removeEventListener("resize", detectMobileKeyboard);
-  // }, []);
   const [inputData, setInputData] = useState("");
   const userInfo = useSelector((state: userState) => state.user);
   const { currPlayingMusicInfo } = useSelector(
     (state: playerState) => state.playList
   );
+
   // GET All Comments
   const [nowCommentList, setNowCommentList] =
     useState<CommentListResponse>(initialCommentList);
@@ -105,7 +93,6 @@ const CommentDrawer = ({ time }: commentProps) => {
 
   const commentHandler = useCallback(async () => {
     try {
-      console.log("please", currPlayingMusicInfo);
       const { data } = await musicApi.getCommentList(
         currPlayingMusicInfo.code,
         nowPage
@@ -121,7 +108,6 @@ const CommentDrawer = ({ time }: commentProps) => {
   }, []);
 
   useEffect(() => {
-    console.log(currPlayingMusicInfo);
     commentHandler();
   }, [currPlayingMusicInfo]);
 
@@ -129,7 +115,6 @@ const CommentDrawer = ({ time }: commentProps) => {
   const newCommentHandler = useCallback(
     async (comment: string, time: number) => {
       try {
-        console.log("content", comment, "presentTime", time);
         await musicApi.postRegisterComment(currPlayingMusicInfo.code, {
           content: comment,
           presentTime: time,
@@ -162,8 +147,7 @@ const CommentDrawer = ({ time }: commentProps) => {
 
   // PRESS Enter Key
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputData !== "") {
-      console.log(inputData);
+    if (e.key === "Enter" && inputData.length !== 0) {
       newCommentHandler(inputData, time);
       setInputData("");
     }
@@ -171,9 +155,10 @@ const CommentDrawer = ({ time }: commentProps) => {
 
   // ONCLICK Button
   const handleOnClick = () => {
-    console.log(inputData);
-    newCommentHandler(inputData, time);
-    setInputData("");
+    if (inputData !== "") {
+      newCommentHandler(inputData, time);
+      setInputData("");
+    }
   };
   return (
     <S.Comment>

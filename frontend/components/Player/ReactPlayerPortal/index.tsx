@@ -36,19 +36,21 @@ const ReactPlayerPortal = () => {
     if (OnSeekToZero) {
       playerRef.current.seekTo(0);
       dispatch(PutStartingPointToZero(false));
-    }
-  }, [dispatch, OnSeekToZero]);
-
-  useEffect(() => {
-    if (onChange) {
+    } else if (onChange) {
       playerRef.current.seekTo(time);
       dispatch(setOnChange({ onChangeValue: false }));
     }
-  }, [onChange]);
+  }, [dispatch, OnSeekToZero, onChange]);
+
+  // useEffect(() => {
+  //   if (onChange) {
+  //     playerRef.current.seekTo(time);
+  //     dispatch(setOnChange({ onChangeValue: false }));
+  //   }
+  // }, [onChange]);
 
   useEffect(() => {
     if (currPlayingMusicInfo.code) {
-      console.log("currPlayingMusicInfo.code: ", currPlayingMusicInfo.code);
       musicApi
         .getMusicInfo(currPlayingMusicInfo.code)
         .then(({ data: { recentCommentList } }) => {

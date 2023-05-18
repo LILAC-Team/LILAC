@@ -55,7 +55,7 @@ export const playList = createSlice({
         const object = {
           ...data,
           index,
-          albumImage: process.env.CLOUDFRONT_URL + data.albumImage,
+          albumImage: data.albumImage,
           src:
             process.env.CLOUDFRONT_URL + "musics/music-" + data.code + ".m3u8",
         };
@@ -115,9 +115,11 @@ export const playList = createSlice({
         state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
       state.playing = true;
     },
-    addAlbum: (state, action) => {},
     PutStartingPointToZero: (state, action) => {
       state.OnSeekToZero = action.payload;
+    },
+    deleteTrack: (state, action) => {
+      state.musicList = action.payload.musicList;
     },
   },
 });
@@ -130,8 +132,8 @@ export const {
   prevTrack,
   nextTrack,
   setTrack,
-  addAlbum,
   PutStartingPointToZero,
+  deleteTrack,
 } = playList.actions;
 
 export default playList.reducer;
