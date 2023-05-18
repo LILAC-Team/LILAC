@@ -4,10 +4,8 @@ import BasicSlider from "@/components/Home/BasicSlider";
 import Layout from "@/components/common/Layout";
 import MainAlbum from "@/components/Home/MainAlbum";
 import BasicText from "@/components/common/BasicText";
-import { memberApi } from "@/api/utils/member";
 import { albumApi } from "@/api/utils/album";
-import { playlistApi } from "@/api/utils/playlist";
-import { resize } from "@/api/func/resize";
+
 const Home = () => {
   const [nickname, setNickName] = useState("");
   const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
@@ -16,28 +14,9 @@ const Home = () => {
   const [myListNum, setMyListNum] = useState(0);
   const [ownListNum, setOwnListNum] = useState(0);
 
-  // useEffect(() => {
-  //   resize();
-  //   window.addEventListener("resize", resize);
-  //   return () => {
-  //     window.removeEventListener("resize", resize);
-  //   };
-  // }, []);
-
-  const getUserInfo = async () => {
-    try {
-      const res = await memberApi.getUserInfo();
-      setNickName(res.data.result.nickname);
-      setProfileImage(res.data.result.profileImage);
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
-
   const myAlbumList = async () => {
     try {
       const res = await albumApi.getReleasedAlbum(1);
-      console.log("res: ", res);
       setMyList(res.data.releasedAlbumList);
       setMyListNum(res.data.totalElements);
     } catch (error) {
@@ -54,18 +33,10 @@ const Home = () => {
       console.log("error: ", error);
     }
   };
-  const getPlayList = async () => {
-    try {
-      const { data } = await playlistApi.getPlayList();
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  };
+
   useEffect(() => {
     myAlbumList();
     ownAlbumList();
-    // getUserInfo();
-    // getPlayList();
   }, []);
 
   return (
