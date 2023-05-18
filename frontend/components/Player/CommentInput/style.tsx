@@ -2,14 +2,15 @@ import styled from "styled-components";
 
 export const CommentInput = styled.div`
   width: 100%;
-  height: 10vh;
-  padding: 2vh calc((var(--vw, 1vw) * 7.5)) 2vh calc((var(--vw, 1vw) * 7.5));
+  height: 4.25rem;
+  padding: 0.5rem calc((var(--vw, 1vw) * 7.5)) 0.5rem
+    calc((var(--vw, 1vw) * 7.5));
   display: flex;
   align-items: center;
 `;
 
 export const InputImg = styled.div`
-  width: 7.5vh;
+  width: 3.75rem;
   margin-left: calc((var(--vw, 1vw) * 0.5));
   margin-right: calc((var(--vw, 1vw) * 2.5));
 `;

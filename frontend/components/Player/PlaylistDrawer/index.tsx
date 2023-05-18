@@ -153,31 +153,37 @@ const PlaylistDrawer = () => {
           />
         )}
       </S.TextWrapper>
-      {isEdit ? (
-        <DragAndDrop list={list} setList={setList} nowPlayList={nowPlayList} />
-      ) : (
-        <S.CardsWrapper>
-          {shuffleArr &&
-            shuffleArr.map((data, index) => (
-              <S.OneMusicCard
-                key={index}
-                onClick={() => playMusicHandler(index)}
-                active={index === idx}
-              >
-                <MusicCard
-                  data={{
-                    code: musicList[`${data}`].code,
-                    name: musicList[`${data}`].name,
-                    albumImage: musicList[`${data}`].albumImage,
-                    artistName: musicList[`${data}`].artistName,
-                    playtime: musicList[`${data}`].playtime,
-                  }}
-                  isEditable={false}
-                />
-              </S.OneMusicCard>
-            ))}
-        </S.CardsWrapper>
-      )}
+      <S.ContentWrap>
+        {isEdit ? (
+          <DragAndDrop
+            list={list}
+            setList={setList}
+            nowPlayList={nowPlayList}
+          />
+        ) : (
+          <>
+            {shuffleArr &&
+              shuffleArr.map((data, index) => (
+                <S.OneMusicCard
+                  key={index}
+                  onClick={() => playMusicHandler(index)}
+                  active={index === idx}
+                >
+                  <MusicCard
+                    data={{
+                      code: musicList[`${data}`].code,
+                      name: musicList[`${data}`].name,
+                      albumImage: musicList[`${data}`].albumImage,
+                      artistName: musicList[`${data}`].artistName,
+                      playtime: musicList[`${data}`].playtime,
+                    }}
+                    isEditable={false}
+                  />
+                </S.OneMusicCard>
+              ))}
+          </>
+        )}
+      </S.ContentWrap>
     </S.Playlist>
   );
 };
