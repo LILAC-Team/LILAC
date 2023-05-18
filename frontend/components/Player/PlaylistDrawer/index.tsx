@@ -7,15 +7,6 @@ import { useSelector, useDispatch } from "react-redux";
 import MusicCard from "../MusicCard";
 import { playlistApi } from "@/api/utils/playlist";
 import { playListState } from "@/store/modules/playList";
-import * as S from "./style";
-import { useState, useEffect, useCallback } from "react";
-import BasicText from "@/components/common/BasicText";
-import CustomTextButton from "@/components/common/CustomTextButton";
-import DragAndDrop from "@/components/Container/DragAndDrop";
-import { useSelector, useDispatch } from "react-redux";
-import MusicCard from "../MusicCard";
-import { playlistApi } from "@/api/utils/playlist";
-import { playListState } from "@/store/modules/playList";
 import {
   setPlayList,
   setTrack,
@@ -136,7 +127,6 @@ const PlaylistDrawer = () => {
       <S.Top>
         <S.Bar />
         <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
-        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
         <BasicText text={(listSize ? listSize : 0) + "곡"} size="0.85rem" />
@@ -144,27 +134,21 @@ const PlaylistDrawer = () => {
         {isEdit ? (
           <CustomTextButton
             text="완료"
-            text="완료"
             handleOnClickButton={() => {
               handleEditClick();
             }}
             fontColor="#FFFFFF"
-            fontColor="#FFFFFF"
             isBackground={false}
-            size="0.85rem"
             size="0.85rem"
           />
         ) : (
           <CustomTextButton
             text="편집"
-            text="편집"
             handleOnClickButton={() => {
               setIsEdit((prev) => !prev);
             }}
             fontColor="#FFFFFF"
-            fontColor="#FFFFFF"
             isBackground={false}
-            size="0.85rem"
             size="0.85rem"
           />
         )}
@@ -183,6 +167,7 @@ const PlaylistDrawer = () => {
                 <S.OneMusicCard
                   key={index}
                   onClick={() => playMusicHandler(index)}
+                  active={index === idx}
                 >
                   <MusicCard
                     data={{
