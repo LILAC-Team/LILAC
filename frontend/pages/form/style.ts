@@ -22,12 +22,11 @@ export const AlbumTitleWrap = styled.div`
 
 export const UploadButtonWrap = styled.div`
   display: flex;
-  width: 90%;
-  height: 2.5rem;
-  /* max-width: calc(var(--vw, 1vw) * 80); */
+  width: 100%;
+  height: 3.5rem;
   align-items: center;
   justify-content: center;
-  margin: 1rem 1.5rem 2rem 1.5rem;
+  padding: 0rem 1.5rem 1rem 1.5rem;
 `;
 
 export const ContentTitleWrap = styled.div`
