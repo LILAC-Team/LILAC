@@ -85,12 +85,10 @@ const Form = () => {
             playtime: Math.ceil(audioBuffer.duration),
             file: files[0],
           });
-          // console.log(`Duration: ${Math.ceil(audioBuffer.duration)} seconds`);
         });
       };
       fileReader.readAsArrayBuffer(files[0]);
       setIsModalOpen(true);
-      // setIsAlbumMusic(true);
     }
   };
 
@@ -225,7 +223,7 @@ const Form = () => {
               albumTrackList.map((val, index) => (
                 <S.OneMusicCard key={index}>
                   <MusicCard
-                    onClickEvent={() => console.log("ClickClick")}
+                    onClickEvent={() => console.log("")}
                     data={{
                       code: "index",
                       name: val.title,

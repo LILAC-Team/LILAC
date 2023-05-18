@@ -110,7 +110,6 @@ const AlbumDetail = () => {
     try {
       const { data } = await albumApi.getAlbumInfo(albumId);
       setAlbumDetailData(data);
-      console.log(data);
     } catch (error) {
       console.log("error: ", error);
     }
