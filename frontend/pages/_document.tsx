@@ -11,7 +11,6 @@ const MyDocument = (props) => {
         <link rel='favicon' sizes='192x192' href='/icons/favicon-192x192.png' />
         <link rel='favicon' sizes='512x512' href='/icons/favicon-512x512.png' />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <link
           rel='apple-touch-icon'
           sizes='57x57'

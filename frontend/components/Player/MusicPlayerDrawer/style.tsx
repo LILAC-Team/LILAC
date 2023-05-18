@@ -144,10 +144,3 @@ export const PlayerBarTimeInfo = styled.div`
   padding: 0.25rem 0rem 0rem 0.25rem;
   justify-content: space-between;
 `;
-
-// export const MenuBarDiv = styled.div`
-//   height: 4.5rem;
-//   position: absolute;
-//   display: flex;
-//   bottom: 0;
-// `;
