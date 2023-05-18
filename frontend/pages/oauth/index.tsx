@@ -35,7 +35,7 @@ const Oauth = ({ query, userData, playListData }: OauthProps) => {
     dispatch(setLogIn(userData));
 
     if (cookies.refreshToken) {
-      router.push("/");
+      router.replace("/");
     } else {
       router.push("/signup");
     }

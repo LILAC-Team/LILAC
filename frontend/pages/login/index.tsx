@@ -7,6 +7,8 @@ import CustomTextButton from "@/components/common/CustomTextButton";
 import { isMobile } from "react-device-detect";
 
 const LogIn = () => {
+  // TODO 로그인 되어있으면 홈으로 보낼것
+
   return (
     <S.LogInContainer>
       <S.LogoWrapper>
@@ -20,7 +22,7 @@ const LogIn = () => {
         />
       </S.LogoWrapper>
       <S.ButtonWrap>
-        <S.LogInButton href="https://lilac-music.net/api/oauth/kakao">
+        <S.LogInButton href="https://lilac-music.net/api/oauth/kakao" onClick={handleClickLogInButton}>
           <Image
             src="/logIn/kakao-login.png"
             alt="logIn"
