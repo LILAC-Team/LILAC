@@ -220,6 +220,7 @@ const Form = () => {
               type="text"
               value={albumTitle}
               handleOnChangeValue={handleAlbumTitleOnChange}
+              placeholder="앨범제목"
             />
           </S.AlbumTitleWrap>
           <S.ContentTitleWrap>

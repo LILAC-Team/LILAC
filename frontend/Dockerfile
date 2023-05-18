@@ -19,6 +19,7 @@ COPY --from=build-deps /usr/src/app/package*.json ./
 RUN npm install --only=production
 COPY --from=build-deps /usr/src/app/.next ./.next
 COPY --from=build-deps /usr/src/app/public ./public
+COPY --from=build-deps /usr/src/app/server.ts ./server.ts
 # expose port
 EXPOSE 3000
 # start command
