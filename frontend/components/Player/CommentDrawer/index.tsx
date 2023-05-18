@@ -80,24 +80,12 @@ interface commentProps {
   time: number;
 }
 const CommentDrawer = ({ time }: commentProps) => {
-  // const listRef = useRef(null);
-
-  // useLayoutEffect(() => {
-  //   const detectMobileKeyboard = () => {
-  //     if (document.activeElement.tagName === "INPUT") {
-  //       listRef.current.scrollIntoView({ block: "end" });
-  //     }
-  //   };
-
-  //   window.addEventListener("resize", detectMobileKeyboard);
-
-  //   return () => window.removeEventListener("resize", detectMobileKeyboard);
-  // }, []);
   const [inputData, setInputData] = useState("");
   const userInfo = useSelector((state: userState) => state.user);
   const { currPlayingMusicInfo } = useSelector(
     (state: playerState) => state.playList
   );
+
   // GET All Comments
   const [nowCommentList, setNowCommentList] =
     useState<CommentListResponse>(initialCommentList);
