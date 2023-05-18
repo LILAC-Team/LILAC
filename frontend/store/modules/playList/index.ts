@@ -48,6 +48,10 @@ export const playList = createSlice({
   initialState,
   reducers: {
     setPlayList(state, action) {
+      // [삭제]
+      console.log("state", state);
+      console.log("action", action);
+
       state.playing = false;
       state.listSize = action.payload.listSize;
       action.payload.musicList.map((data, index) => {
@@ -115,9 +119,11 @@ export const playList = createSlice({
         state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
       state.playing = true;
     },
-    addAlbum: (state, action) => {},
     PutStartingPointToZero: (state, action) => {
       state.OnSeekToZero = action.payload;
+    },
+    deleteTrack: (state, action) => {
+      state.musicList = action.payload.musicList;
     },
   },
 });
@@ -130,8 +136,8 @@ export const {
   prevTrack,
   nextTrack,
   setTrack,
-  addAlbum,
   PutStartingPointToZero,
+  deleteTrack,
 } = playList.actions;
 
 export default playList.reducer;
