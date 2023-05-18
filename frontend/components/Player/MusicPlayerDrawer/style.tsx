@@ -52,6 +52,8 @@ export const Artist = styled.div`
   padding: 0.5rem;
   display: flex;
   justify-content: center;
+  /* position: absolute; */
+  /* bottom: calc(var(--vh, 1vh)* ); */
 `;
 
 export const Comment = styled.div`
@@ -61,6 +63,8 @@ export const Comment = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  position: absolute;
+  bottom: calc((var(--vh, 1vh) * 29));
 `;
 
 export const CommentWrap = styled.div`
@@ -140,10 +144,3 @@ export const PlayerBarTimeInfo = styled.div`
   padding: 0.25rem 0rem 0rem 0.25rem;
   justify-content: space-between;
 `;
-
-// export const MenuBarDiv = styled.div`
-//   height: 4.5rem;
-//   position: absolute;
-//   display: flex;
-//   bottom: 0;
-// `;
