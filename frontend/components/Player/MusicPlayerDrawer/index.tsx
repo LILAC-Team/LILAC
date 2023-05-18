@@ -110,6 +110,7 @@ const MusicPlayerDrawer = () => {
                     >
                       <S.CommentImg>
                         <BasicImage
+                          isAlbumPage={true}
                           src={item.memberInfo.profileImage}
                           size='1.5rem'
                           radius={100}

@@ -25,6 +25,7 @@ export const TextWrapper = styled.div`
   justify-content: center;
 
   width: 100%;
+  height: 100%;
 `;
 
 export const ContentWrapper = styled.div`
@@ -117,4 +118,16 @@ export const InnerText = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const ModalWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ButtonWrap = styled.div`
+  display: flex;
+  padding: 0.125rem 0;
+  height: 2.75rem;
 `;

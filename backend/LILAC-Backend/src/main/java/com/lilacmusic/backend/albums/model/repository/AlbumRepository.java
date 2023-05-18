@@ -16,13 +16,13 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
     @Query(value = "SELECT a.code AS code, a.name AS name, a.albumImage AS albumImage, a.releasedDate AS releasedDate, u.nickname AS nickname FROM Album a INNER JOIN Member u ON a.memberId = u.memberId WHERE a.memberId = ?1")
     Page<AlbumMapping> getAlbumsByMemberId(Long memberId, Pageable pageable);
 
-    @Query(value = "SELECT a.code AS code, a.name AS name, a.albumImage AS albumImage, a.releasedDate AS releasedDate, u.nickname AS nickname FROM Album a INNER JOIN Member u ON a.memberId = u.memberId WHERE a.memberId = ?1")
+    @Query(value = "SELECT a.code AS code, a.name AS name, a.albumImage AS albumImage, a.releasedDate AS releasedDate, u.nickname AS nickname FROM Album a INNER JOIN Member u ON a.memberId = u.memberId WHERE a.memberId = ?1 ORDER BY a.releasedDate DESC")
     List<AlbumMapping> getAllAlbumsByMemberId(Long memberId);
 
     @Query(value = "SELECT a.code AS code, a.name AS name, a.albumImage AS albumImage, a.releasedDate AS releasedDate, u.nickname AS nickname FROM UserCollectAlbum ua INNER JOIN Album a ON ua.albumId = a.albumId INNER JOIN Member u ON a.memberId = u.memberId WHERE ua.memberId = ?1")
     Page<AlbumMapping> getAlbumsByUserCollectAlbums(Long memberId, Pageable pageable);
 
-    @Query(value = "SELECT a.code AS code, a.name AS name, a.albumImage AS albumImage, a.releasedDate AS releasedDate, u.nickname AS nickname FROM UserCollectAlbum ua INNER JOIN Album a ON ua.albumId = a.albumId INNER JOIN Member u ON a.memberId = u.memberId WHERE ua.memberId = ?1")
+    @Query(value = "SELECT a.code AS code, a.name AS name, a.albumImage AS albumImage, a.releasedDate AS releasedDate, u.nickname AS nickname FROM UserCollectAlbum ua INNER JOIN Album a ON ua.albumId = a.albumId INNER JOIN Member u ON a.memberId = u.memberId WHERE ua.memberId = ?1 ORDER BY ua.createdTime DESC")
     List<AlbumMapping> getAllAlbumsByUserCollectAlbums(Long memberId);
 
     Optional<Album> getAlbumByCode(String code);

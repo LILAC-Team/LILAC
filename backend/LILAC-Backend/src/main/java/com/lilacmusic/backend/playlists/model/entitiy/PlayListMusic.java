@@ -22,9 +22,9 @@ public class PlayListMusic {
     @Positive
     private Integer playtime;
 
-    @Size(max = 100)
+    @Size(max = 100, min = 1)
     private String code;
 
-    @Size(max = 100)
+    @Size(max = 100, min = 1)
     private String albumImage;
 }
