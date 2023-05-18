@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const DragDropWrap = styled.div`
+  /* border: 2px solid red; */
+
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -12,6 +14,8 @@ export const DragDropWrap = styled.div`
 `;
 
 export const OneMusicCard = styled.div`
+  /* border: 2px solid green; */
+
   padding: 0.5rem 0.5rem 0.5rem 0rem;
   width: 100%;
   display: flex;

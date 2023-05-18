@@ -11,7 +11,6 @@ import CustomTextButton from "@/components/common/CustomTextButton";
 import { albumApi } from "@/api/utils/album";
 import { useRouter } from "next/router";
 import BasicImage from "@/components/common/BasicImage";
-import { resize } from "@/api/func/resize";
 interface ProfileState {
   previewImgUrl: any;
   file: any;
@@ -93,13 +92,24 @@ const Form = () => {
   };
 
   const handleAlbumTitleOnChange = (e) => {
-    setAlbumTitle(e.target.value);
+    if (e.target.value.length < 10) {
+      setAlbumTitle(e.target.value);
+    } else {
+      setAlbumTitle(e.target.value.substr(0, 10));
+    }
     if (e.target.value !== "") setIsAlbum(true);
     else setIsAlbum(false);
   };
 
   const handleCurrTrackInfoOnChange = (e) => {
-    setCurrTrackInfo({ ...currTrackInfo, [e.target.id]: e.target.value });
+    if (e.target.value.length < 10) {
+      setCurrTrackInfo({ ...currTrackInfo, [e.target.id]: e.target.value });
+    } else {
+      setCurrTrackInfo({
+        ...currTrackInfo,
+        [e.target.id]: e.target.value.substr(0, 10),
+      });
+    }
   };
 
   const handleTitle = (check: boolean) => {
