@@ -66,9 +66,6 @@ export const CardsWrapper = styled.div`
 export const OneMusicCard = styled.div<CardProps>`
   width: 100%;
   padding: 0.5rem;
-
-  // CSS 임시 적용
-  background-color: ${(props) => props.active && "darkgray"};
-  border: ${(props) => props.active && "2px dashed gray"};
+  background-color: ${(props) => props.active && "#7a7981"};
   border-radius: ${(props) => props.active && "10px"};
 `;
