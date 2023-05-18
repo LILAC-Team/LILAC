@@ -38,7 +38,7 @@ const Docs = () => {
       <S.DocsContainer>
         <S.AllWrapper onClick={() => setAndroidModalOpen(!androidModalOpen)}>
           <S.ImageWrapper>
-            <BasicImage src="/pictures/For_Android.png" />
+            <BasicImage isAlbumPage={true} src="/pictures/For_Android.png" />
           </S.ImageWrapper>
           <S.TextWrapper>
             <S.TopTextWrapper>
@@ -220,7 +220,7 @@ const Docs = () => {
         )}
         <S.AllWrapper onClick={() => setIOSModalOpen(!iOSModalOpen)}>
           <S.ImageWrapper>
-            <BasicImage src="/pictures/For_iOS.png" />
+            <BasicImage isAlbumPage={true} src="/pictures/For_iOS.png" />
           </S.ImageWrapper>
           <S.TextWrapper>
             <S.TopTextWrapper>

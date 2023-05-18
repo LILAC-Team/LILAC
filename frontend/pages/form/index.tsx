@@ -223,7 +223,7 @@ const Form = () => {
               albumTrackList.map((val, index) => (
                 <S.OneMusicCard key={index}>
                   <MusicCard
-                    onClickEvent={() => console.log("")}
+                    isUpload={true}
                     data={{
                       code: "index",
                       name: val.title,
@@ -341,13 +341,19 @@ const Form = () => {
           <S.ModalAllContainer>
             <S.ModalLine>
               <S.ModalIcon>
-                <BasicImage src="/icons/favicon-512x512.png" />
+                <BasicImage
+                  isAlbumPage={true}
+                  src="/icons/favicon-512x512.png"
+                />
               </S.ModalIcon>
               <S.ModalText>
                 <BasicText text="업로드중입니다" size="1.5rem" color="black" />
               </S.ModalText>
               <S.ModalIcon>
-                <BasicImage src="/icons/favicon-512x512.png" />
+                <BasicImage
+                  isAlbumPage={true}
+                  src="/icons/favicon-512x512.png"
+                />
               </S.ModalIcon>
             </S.ModalLine>
           </S.ModalAllContainer>

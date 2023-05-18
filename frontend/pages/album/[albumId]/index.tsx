@@ -170,7 +170,7 @@ const AlbumDetail = () => {
           <BasicImage
             src={
               albumDetailData?.albumImage !== ""
-                ? CLOUD_FRONT + albumDetailData?.albumImage
+                ? albumDetailData?.albumImage
                 : ""
             }
           />
@@ -215,13 +215,19 @@ const AlbumDetail = () => {
                 ) : (
                   <S.ModalLine>
                     <S.ModalIcon>
-                      <BasicImage src="/icons/favicon-512x512.png" />
+                      <BasicImage
+                        isAlbumPage={true}
+                        src="/icons/favicon-512x512.png"
+                      />
                     </S.ModalIcon>
                     <S.ModalText>
                       <BasicText text="소장완료" size="1.5rem" color="black" />
                     </S.ModalText>
                     <S.ModalIcon>
-                      <BasicImage src="/icons/favicon-512x512.png" />
+                      <BasicImage
+                        isAlbumPage={true}
+                        src="/icons/favicon-512x512.png"
+                      />
                     </S.ModalIcon>
                   </S.ModalLine>
                 )}
@@ -292,7 +298,7 @@ const AlbumDetail = () => {
                   data={{
                     code: code,
                     name: name,
-                    albumImage: CLOUD_FRONT + albumDetailData.albumImage,
+                    albumImage: albumDetailData.albumImage,
                     artistName: artistName,
                     playtime: playtime,
                   }}

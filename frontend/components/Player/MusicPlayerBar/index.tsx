@@ -79,6 +79,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
           <S.LeftWrapper onClick={onClickEvent}>
             <S.AlbumImg>
               <BasicImage
+                isAlbumPage={true}
                 src={
                   currPlayingMusicInfo.index !== -1
                     ? process.env.CLOUDFRONT_URL +
