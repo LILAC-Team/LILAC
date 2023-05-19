@@ -9,6 +9,7 @@ import { playlistApi } from "@/api/utils/playlist";
 import { playListState } from "@/store/modules/playList";
 import {
   setPlayList,
+  updatePlayList,
   setTrack,
   togglePlay,
   PutStartingPointToZero,
@@ -84,8 +85,15 @@ const PlaylistDrawer = () => {
     try {
       const req = { musicList: list };
       await playlistApi.putPlayList(req);
+      // dispatch(
+      //   setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
+      // );
       dispatch(
-        setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
+        updatePlayList({
+          ...nowPlayList,
+          musicList: list,
+          listSize: list.length,
+        })
       );
       setIsEdit((prevIsEdit) => !prevIsEdit);
       setListSize(list.length);
@@ -163,6 +171,7 @@ const PlaylistDrawer = () => {
         ) : (
           <>
             {shuffleArr &&
+              shuffleArr.length > 0 &&
               shuffleArr.map((data, index) => (
                 <S.OneMusicCard
                   key={index}

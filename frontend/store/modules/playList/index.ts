@@ -50,7 +50,6 @@ export const playList = createSlice({
     setPlayList(state, action) {
       state.playing = false;
       state.listSize = action.payload.listSize;
-      state.shuffleArr = [];
       action.payload.musicList.map((data, index) => {
         const key = state.musicListSize + index + 1;
         const object = {
@@ -67,6 +66,63 @@ export const playList = createSlice({
         state.currentTrackIndex = 0;
         state.currPlayingMusicInfo = state.musicList["0"];
         state.shuffleArr = Array.from(Array(state.listSize), (_, v) => v);
+      }
+    },
+    updatePlayList: (state, action) => {
+      // state.playing = false;
+      state.listSize = action.payload.listSize;
+      state.musicListSize = -1;
+      state.shuffleArr = [];
+      if (action.payload.listSize === 0) {
+        state.playing = false;
+        state.musicList = {};
+        state.currPlayingMusicInfo = {
+          index: -1,
+          name: "",
+          artistName: "",
+          playtime: 0,
+          code: "",
+          albumImage: "",
+          src: "",
+        };
+      } else if (action.payload.listSize !== 0) {
+        action.payload.musicList.map((data, index) => {
+          const key = state.musicListSize + index + 1;
+          const object = {
+            ...data,
+            index,
+          };
+          state.musicList[`${key}`] = object;
+        });
+        state.currentTrackIndex = 0;
+        const temp = {
+          index: state.currPlayingMusicInfo.index,
+          name: state.currPlayingMusicInfo.name,
+          artistName: state.currPlayingMusicInfo.artistName,
+          playtime: state.currPlayingMusicInfo.playtime,
+          code: state.currPlayingMusicInfo.code,
+          albumImage: state.currPlayingMusicInfo.albumImage,
+          src: state.currPlayingMusicInfo.src,
+        };
+        state.currPlayingMusicInfo = {
+          index: -1,
+          name: "",
+          artistName: "",
+          playtime: 0,
+          code: "",
+          albumImage: "",
+          src: "",
+        };
+        state.shuffleArr = Array.from(Array(state.listSize), (_, v) => v);
+        for (let i = 0; i < state.listSize; i++) {
+          if (state.musicList[`${i}`].src === temp.src) {
+            state.currPlayingMusicInfo = state.musicList[`${i}`];
+            state.currentTrackIndex = i;
+            state.playing = true;
+            return;
+          }
+        }
+        state.playing = false;
       }
     },
     setLoop: (state) => {
@@ -127,6 +183,7 @@ export const playList = createSlice({
 
 export const {
   setPlayList,
+  updatePlayList,
   setLoop,
   setShuffle,
   togglePlay,
