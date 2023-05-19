@@ -29,7 +29,7 @@ export const LabelWrapper = styled.div`
 export const Label = styled.div`
   display: flex;
   width: 100%;
-  padding: 0.45rem;
+  padding: 0.25rem 0.45rem;
 `;
 
 export const Wrapper = styled.div`
@@ -44,6 +44,7 @@ export const Wrapper = styled.div`
   position: absolute;
   top: 3.75rem;
   right: 1rem;
+  z-index: 9999;
 `;
 
 export const EditWrapper = styled.div`

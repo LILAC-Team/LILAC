@@ -1,17 +1,17 @@
-import MyAlbumBox from "../../components/Container/MyAlbumBox";
-import { useTabs } from "@/hooks/useTabs";
-import * as S from "./style";
-import Layout from "@/components/common/Layout";
-import React from "react";
+import MyAlbumBox from '../../components/Container/MyAlbumBox';
+import { useTabs } from '@/hooks/useTabs';
+import * as S from './style';
+import Layout from '@/components/common/Layout';
+import React from 'react';
 const allTab = [
   {
     idx: 0,
-    name: "나의 앨범",
+    name: '나의 앨범',
     component: <MyAlbumBox content='My' />,
   },
   {
     idx: 1,
-    name: "내가 소장한 앨범",
+    name: '내가 소장한 앨범',
     component: <MyAlbumBox content='Own' />,
   },
 ];
@@ -27,8 +27,7 @@ const AlbumPage = () => {
             <S.TabItem
               isCurrent={currentItem.idx === idx}
               key={idx}
-              onClick={() => changeItem(idx)}
-            >
+              onClick={() => changeItem(idx)}>
               {name}
             </S.TabItem>
           ))}
@@ -38,14 +37,5 @@ const AlbumPage = () => {
     </Layout>
   );
 };
-
-// export async function getServerSideProps({ req }) {
-//   const serializedReq = CircularJSON.stringify(req);
-//   return {
-//     props: {
-//       req: serializedReq,
-//     },
-//   };
-// }
 
 export default AlbumPage;

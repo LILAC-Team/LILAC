@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface AlbumCardProps {
   showAlbumDetail: boolean;
@@ -20,8 +20,6 @@ export const AlbumCard = styled.div<AlbumCardProps>`
 `;
 
 export const AlbumCardImg = styled.div`
-  /* border: 2px solid black; */
-
   display: flex;
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -30,8 +28,6 @@ export const AlbumCardImg = styled.div`
 `;
 
 export const AlbumCardDiv = styled.div`
-  /* border: 2px solid white; */
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +39,6 @@ export const AlbumCardDiv = styled.div`
 
 export const AlbumCardTitle = styled.div`
   display: flex;
-  margin: 0.5rem 0rem 0.75rem 0rem;
   justify-content: center;
   width: 100%;
   max-width: 14.375rem;
@@ -51,6 +46,7 @@ export const AlbumCardTitle = styled.div`
 
 export const AlbumTitleText = styled.p`
   width: 100%;
+  margin: 0.25rem 0;
   max-width: 21vw;
   word-wrap: break-word;
   white-space: nowrap;
