@@ -123,6 +123,8 @@ export const playList = createSlice({
           }
         }
         state.playing = false;
+        state.currentTrackIndex = 0;
+        state.currPlayingMusicInfo = state.musicList[state.currentTrackIndex];
       }
     },
     setLoop: (state) => {

@@ -55,13 +55,12 @@ const PlaylistDrawer = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   // 현재 재생중인 곡의 index
-  const [idx, setIdx] = useState(0);
+  // const [idx, setIdx] = useState(0);
 
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
-  const { musicList, musicListSize, shuffleArr } = useSelector(
-    (state: AppState) => state.playList
-  );
+  const { musicList, musicListSize, shuffleArr, currentTrackIndex } =
+    useSelector((state: AppState) => state.playList);
 
   const dispatch = useDispatch();
 
@@ -105,7 +104,7 @@ const PlaylistDrawer = () => {
   // PLAY Music of Playlist
   const playMusicHandler = (index: number) => {
     try {
-      setIdx(index);
+      // setIdx(index);
       dispatch(togglePlay());
       dispatch(PutStartingPointToZero(true));
       dispatch(
@@ -123,7 +122,7 @@ const PlaylistDrawer = () => {
   }, [nowPlayList.musicList]);
 
   useEffect(() => {
-    reloadPlayListHandler();
+    // reloadPlayListHandler();
   }, [reloadPlayListHandler]);
 
   useEffect(() => {
@@ -176,7 +175,8 @@ const PlaylistDrawer = () => {
                 <S.OneMusicCard
                   key={index}
                   onClick={() => playMusicHandler(index)}
-                  active={index === idx}
+                  // active={index === idx}
+                  active={index === currentTrackIndex}
                 >
                   <MusicCard
                     data={{
