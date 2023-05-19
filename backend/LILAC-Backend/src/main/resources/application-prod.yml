@@ -1,0 +1,120 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  #  mvc:
+  #    pathmatch:
+  #      matching-strategy: ant_path_matcher
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://lilac-music.net:3306/lilac_db?serverTimezone=Asia/Seoul
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+      open-in-view: true
+
+  data:
+    mongodb:
+      host: lilac-music.net
+      port: 27017
+      authentication-database: admin
+      database: lilac_mongodb
+      username: ${MONGO_USER}
+      password: ${MONGO_PASSWORD}
+
+  redis:
+    lettuce:
+      pool:
+        max-active: 5
+        max-idle: 5
+        min-idle: 2
+    host: lilac-music.net
+    port: 6379
+    username: ${REDIS_USER}
+    password: ${REDIS_PASSWORD}
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+  security:
+    user:
+      name: ${ADMIN_NAME}
+      password: ${ADMIN_PASSWORD}
+      roles: ADMIN
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${KAKAO_ID}
+            redirect-uri: "https://lilac-music.net/api/oauth2/kakao"
+            client-authentication-method: POST
+            client-secret: ${KAKAO_SECRET}
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+            client_name: kakao
+
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+jwt:
+  secretKey: ${JWT_SECRET_KEY}
+  access:
+    expiration: 3600000 # 1시간
+    header: Authorization
+  refresh:
+    expiration: 1209600000 # 2주
+    header: Authorization-refresh
+
+logging:
+  level:
+    root: info
+    com.lilacmusic: debug
+
+
+cloud:
+  aws:
+    access_key: ${AWS_ACCESS_KEY_ID}
+    secret_key: ${AWS_SECRET_KEY}
+    s3:
+      bucket: ${S3_BUCKET}
+    region:
+      static: ${AWS_REGION}
+    stack:
+      auto: false
+    mediaconvert:
+      endpoint: ${MEDIACONVERT_ENDPOINT}
+      role: ${IAM_ROLE}
+    cloudfront:
+      url_prefix: ${CLOUDFRONT_PREFIX}
+
+management:
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /api/v1/actuator
+      exposure:
+        include: health, info
+    enabled-by-default: false
