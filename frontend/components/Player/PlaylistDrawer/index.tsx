@@ -59,7 +59,7 @@ const PlaylistDrawer = () => {
 
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
-  const { musicList, musicListSize, shuffleArr, currentTrackIndex } =
+  const { playing, musicList, musicListSize, shuffleArr, currentTrackIndex } =
     useSelector((state: AppState) => state.playList);
 
   const dispatch = useDispatch();
@@ -80,13 +80,11 @@ const PlaylistDrawer = () => {
   }, [dispatch]);
 
   // EDIT Click
+  const [isNowPlaying, setIsNowPlaying] = useState(playing);
   const handleEditClick = async () => {
     try {
       const req = { musicList: list };
       await playlistApi.putPlayList(req);
-      // dispatch(
-      //   setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
-      // );
       dispatch(
         updatePlayList({
           ...nowPlayList,
@@ -96,6 +94,9 @@ const PlaylistDrawer = () => {
       );
       setIsEdit((prevIsEdit) => !prevIsEdit);
       setListSize(list.length);
+      if (isNowPlaying && !playing) {
+        dispatch(togglePlay());
+      }
     } catch (error) {
       console.log(error);
     }
@@ -133,30 +134,30 @@ const PlaylistDrawer = () => {
     <S.Playlist>
       <S.Top>
         <S.Bar />
-        <BasicText text='PlayList' size='125%' font='NotoSansKR500' />
+        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
-        <BasicText text={(listSize ? listSize : 0) + "곡"} size='0.85rem' />
+        <BasicText text={(listSize ? listSize : 0) + "곡"} size="0.85rem" />
         <div />
         {isEdit ? (
           <CustomTextButton
-            text='완료'
+            text="완료"
             handleOnClickButton={() => {
               handleEditClick();
             }}
-            fontColor='#FFFFFF'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         ) : (
           <CustomTextButton
-            text='편집'
+            text="편집"
             handleOnClickButton={() => {
               setIsEdit((prev) => !prev);
             }}
-            fontColor='#FFFFFF'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         )}
       </S.TextWrapper>
