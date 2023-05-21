@@ -59,13 +59,20 @@ const PlaylistDrawer = () => {
 
   // GET PlayList from Redux
   const nowPlayList = useSelector((state: AppState) => state.playList);
-  const { musicList, musicListSize, shuffleArr, currentTrackIndex } =
+  const { playing, musicList, musicListSize, shuffleArr, currentTrackIndex } =
     useSelector((state: AppState) => state.playList);
 
   const dispatch = useDispatch();
 
   // UPDATE PlayList 담는 list
   const [list, setList] = useState(Object.values(nowPlayList.musicList));
+
+  // const handleButtonClick = () => {
+  //   const sortedMusicList = shuffleArr.map((data) => musicList[data]);
+
+  //   setList(sortedMusicList);
+  // };
+
   // UPDATE list Size
   const [listSize, setListSize] = useState(nowPlayList.listSize);
 
@@ -84,9 +91,6 @@ const PlaylistDrawer = () => {
     try {
       const req = { musicList: list };
       await playlistApi.putPlayList(req);
-      // dispatch(
-      //   setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
-      // );
       dispatch(
         updatePlayList({
           ...nowPlayList,
@@ -96,6 +100,9 @@ const PlaylistDrawer = () => {
       );
       setIsEdit((prevIsEdit) => !prevIsEdit);
       setListSize(list.length);
+      if (!playing) {
+        dispatch(togglePlay());
+      }
     } catch (error) {
       console.log(error);
     }
@@ -128,35 +135,35 @@ const PlaylistDrawer = () => {
   useEffect(() => {
     setListSize(nowPlayList.listSize);
   }, [nowPlayList.listSize]);
-
   return (
     <S.Playlist>
       <S.Top>
         <S.Bar />
-        <BasicText text='PlayList' size='125%' font='NotoSansKR500' />
+        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
       </S.Top>
       <S.TextWrapper>
-        <BasicText text={(listSize ? listSize : 0) + "곡"} size='0.85rem' />
+        <BasicText text={(listSize ? listSize : 0) + "곡"} size="0.85rem" />
         <div />
         {isEdit ? (
           <CustomTextButton
-            text='완료'
+            text="완료"
             handleOnClickButton={() => {
               handleEditClick();
             }}
-            fontColor='#FFFFFF'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         ) : (
           <CustomTextButton
-            text='편집'
+            text="편집"
             handleOnClickButton={() => {
               setIsEdit((prev) => !prev);
+              // handleButtonClick();
             }}
-            fontColor='#FFFFFF'
+            fontColor="#FFFFFF"
             isBackground={false}
-            size='0.85rem'
+            size="0.85rem"
           />
         )}
       </S.TextWrapper>
@@ -175,7 +182,6 @@ const PlaylistDrawer = () => {
                 <S.OneMusicCard
                   key={index}
                   onClick={() => playMusicHandler(index)}
-                  // active={index === idx}
                   active={index === currentTrackIndex}
                 >
                   <MusicCard

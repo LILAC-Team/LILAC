@@ -14,7 +14,14 @@ import { CLOUD_FRONT } from "@/api/index";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import { useSelector, useDispatch } from "react-redux";
-import { setPlayList } from "@/store/modules/playList";
+import { playListState } from "@/store/modules/playList";
+import {
+  setPlayList,
+  updatePlayList,
+  setTrack,
+  togglePlay,
+  PutStartingPointToZero,
+} from "@/store/modules/playList";
 
 interface Music {
   name: string;
@@ -47,7 +54,7 @@ interface PlayList {
 }
 
 interface AppState {
-  playList: PlayList;
+  playList: playListState;
 }
 
 const initialAlbumDetailData: Album = {
@@ -92,7 +99,8 @@ const AlbumDetail = () => {
   // OnClick 여부
   const [isOnClick, setIsOnClick] = useState(false);
   // GET PlayList from Redux
-  const nowPlayList = useSelector((state: AppState) => state.playList);
+  const { musicList, musicListSize, shuffleArr, currentTrackIndex } =
+    useSelector((state: AppState) => state.playList);
   const dispatch = useDispatch();
 
   // COPY ClipBoard
@@ -140,7 +148,6 @@ const AlbumDetail = () => {
   // ADD to PlayList
   const addPlayListHandler = useCallback(async () => {
     try {
-      console.log(addMusic);
       const req = {};
       req["code"] = addMusic;
       await playlistApi.addMusicToPlayList(req);

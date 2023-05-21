@@ -21,8 +21,8 @@ export const CustomTextButton = styled.button<ButtonProps>`
       : props.isDisabled === true
       ? "#a9a9be"
       : "#CCA4FC"};
-  pointer-events: ${(props) => (props.isDisabled ? "none" : "auto")};
-  cursor: ${(props) => (props.isDisabled ? "default" : "pointer")};
+  /* pointer-events: ${(props) => (props.isDisabled ? "none" : "auto")}; */
+  /* cursor: ${(props) => (props.isDisabled ? "default" : "pointer")}; */
 `;
 
 export const TextDiv = styled.div`

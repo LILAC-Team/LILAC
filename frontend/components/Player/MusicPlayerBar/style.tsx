@@ -7,7 +7,7 @@ export const ReactPlayerWrap = styled.div`
 
 export const BarWrapper = styled.div`
   display: flex;
-  background-color: var(--color-primary);
+  background: linear-gradient(45deg, #bc92f4, #dccbfd);
   height: 4.3rem;
   width: 100%;
   max-width: 900px;

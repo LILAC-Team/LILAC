@@ -2,14 +2,24 @@ import * as S from "./style";
 import MusicCard from "@/components/Player/MusicCard";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CustomIconButton from "@/components/common/CustomIconButton";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
+import { playListState } from "@/store/modules/playList";
 import { setPlayList, deleteTrack } from "@/store/modules/playList";
 
+interface AppState {
+  playList: playListState;
+}
+
 const DragAndDrop = ({ list, setList, nowPlayList }) => {
+  console.log("in", list);
   const dispatch = useDispatch();
   const { data } = nowPlayList;
   const tempList = { ...nowPlayList };
+
+  const { currentTrackIndex } = useSelector(
+    (state: AppState) => state.playList
+  );
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
@@ -25,9 +35,9 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
 
   const handleDelete = (index) => {
     const newList = list.filter((_, idx) => idx !== index);
-    setList(newList);
     tempList.musicList = newList;
     dispatch(deleteTrack(tempList));
+    setList(newList);
   };
 
   return (
@@ -45,6 +55,7 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
                 >
                   {(provided) => (
                     <S.OneMusicCard
+                      active={index === currentTrackIndex}
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
