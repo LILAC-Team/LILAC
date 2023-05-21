@@ -44,7 +44,7 @@ export const Wrapper = styled.div`
   position: absolute;
   top: 3.75rem;
   right: 1rem;
-  z-index: 9999;
+  z-index: 2;
 `;
 
 export const EditWrapper = styled.div`
