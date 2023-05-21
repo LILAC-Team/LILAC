@@ -66,6 +66,13 @@ const PlaylistDrawer = () => {
 
   // UPDATE PlayList 담는 list
   const [list, setList] = useState(Object.values(nowPlayList.musicList));
+
+  // const handleButtonClick = () => {
+  //   const sortedMusicList = shuffleArr.map((data) => musicList[data]);
+
+  //   setList(sortedMusicList);
+  // };
+
   // UPDATE list Size
   const [listSize, setListSize] = useState(nowPlayList.listSize);
 
@@ -80,7 +87,6 @@ const PlaylistDrawer = () => {
   }, [dispatch]);
 
   // EDIT Click
-  const [isNowPlaying, setIsNowPlaying] = useState(playing);
   const handleEditClick = async () => {
     try {
       const req = { musicList: list };
@@ -94,7 +100,7 @@ const PlaylistDrawer = () => {
       );
       setIsEdit((prevIsEdit) => !prevIsEdit);
       setListSize(list.length);
-      if (isNowPlaying && !playing) {
+      if (!playing) {
         dispatch(togglePlay());
       }
     } catch (error) {
@@ -129,7 +135,6 @@ const PlaylistDrawer = () => {
   useEffect(() => {
     setListSize(nowPlayList.listSize);
   }, [nowPlayList.listSize]);
-
   return (
     <S.Playlist>
       <S.Top>
@@ -154,6 +159,7 @@ const PlaylistDrawer = () => {
             text="편집"
             handleOnClickButton={() => {
               setIsEdit((prev) => !prev);
+              // handleButtonClick();
             }}
             fontColor="#FFFFFF"
             isBackground={false}
@@ -176,7 +182,6 @@ const PlaylistDrawer = () => {
                 <S.OneMusicCard
                   key={index}
                   onClick={() => playMusicHandler(index)}
-                  // active={index === idx}
                   active={index === currentTrackIndex}
                 >
                   <MusicCard
