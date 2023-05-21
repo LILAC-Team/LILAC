@@ -52,7 +52,7 @@ const MusicPlayerDrawer = () => {
     console.log("timeChange!!");
     const changeTime = parseInt(e.target.value);
     dispatch(setTime({ time: changeTime }));
-    dispatch(setOnChange({onChangeValue: true}));
+    dispatch(setOnChange({ onChangeValue: true }));
   };
 
   return (
@@ -68,7 +68,7 @@ const MusicPlayerDrawer = () => {
               src={
                 currPlayingMusicInfo.index !== -1
                   ? currPlayingMusicInfo.albumImage
-                  : "/defaultProfile.svg"
+                  : "/icons/favicon-96x96.png"
               }
               size="calc((var(--vh, 1vh) * 30))"
               radius={10}

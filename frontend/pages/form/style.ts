@@ -28,6 +28,13 @@ export const UploadButtonWrap = styled.div`
   justify-content: center;
   padding: 0rem 1.5rem 1rem 1.5rem;
 `;
+export const ButtonWrap = styled.div`
+  display: flex;
+  width: 100%;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const ContentTitleWrap = styled.div`
   display: flex;
