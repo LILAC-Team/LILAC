@@ -57,23 +57,23 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
         setState({ ...state, [anchor]: open });
       };
 
-    useEffect(() => {
-      const handlePopstate = () => {
-        if (nowOpen) {
-          setNowOpen(""); // nowOpen 상태 초기화
-        } 
-        // 이런거 쓰지 마시오 - MZ
-        // else {
-        //   router.back(); // 이전 페이지로 이동
-        // }
-      };
+    // useEffect(() => {
+    //   const handlePopstate = () => {
+    //     if (nowOpen) {
+    //       setNowOpen(""); // nowOpen 상태 초기화
+    //     }
+    //     // 이런거 쓰지 마시오 - MZ
+    //     // else {
+    //     //   router.back(); // 이전 페이지로 이동
+    //     // }
+    //   };
 
-      window.addEventListener("popstate", handlePopstate);
+    //   window.addEventListener("popstate", handlePopstate);
 
-      return () => {
-        window.removeEventListener("popstate", handlePopstate);
-      };
-    }, [nowOpen]);
+    //   return () => {
+    //     window.removeEventListener("popstate", handlePopstate);
+    //   };
+    // }, [nowOpen]);
 
     return (
       <>
@@ -86,7 +86,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
                   currPlayingMusicInfo.index !== -1
                     ? process.env.CLOUDFRONT_URL +
                       currPlayingMusicInfo.albumImage
-                    : "/defaultProfile.svg"
+                    : "/icons/favicon-96x96.png"
                 }
                 radius={0.15}
               />
