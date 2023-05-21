@@ -205,6 +205,7 @@ const Form = () => {
   };
 
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
+  const [notYetModalOpen, setNotYetModalOpen] = useState(false);
 
   return (
     <>
@@ -264,7 +265,7 @@ const Form = () => {
                 text="등록"
                 font="NotoSansKR700"
                 fontColor="var(--color-background)"
-                handleOnClickButton={registerAlbum}
+                handleOnClickButton={() => setNotYetModalOpen(true)}
                 isDisabled={true}
               />
             )}
@@ -324,22 +325,24 @@ const Form = () => {
                 }}
               />
             </S.TitleInputDiv>
-            {isMusic ? (
-              <CustomTextButton
-                text="등록"
-                font="NotoSansKR700"
-                fontColor="var(--color-background)"
-                handleOnClickButton={handleAddTrackToAlbum}
-              />
-            ) : (
-              <CustomTextButton
-                text="등록"
-                font="NotoSansKR700"
-                fontColor="var(--color-background)"
-                handleOnClickButton={handleAddTrackToAlbum}
-                isDisabled={true}
-              />
-            )}
+            <S.ButtonWrap>
+              {isMusic ? (
+                <CustomTextButton
+                  text="등록"
+                  font="NotoSansKR700"
+                  fontColor="var(--color-background)"
+                  handleOnClickButton={handleAddTrackToAlbum}
+                />
+              ) : (
+                <CustomTextButton
+                  text="등록"
+                  font="NotoSansKR700"
+                  fontColor="var(--color-background)"
+                  handleOnClickButton={() => setNotYetModalOpen(true)}
+                  isDisabled={true}
+                />
+              )}
+            </S.ButtonWrap>
           </S.ModalContainer>
         </SmallModal>
       )}
@@ -367,6 +370,27 @@ const Form = () => {
                 />
               </S.ModalIcon>
             </S.ModalLine>
+          </S.ModalAllContainer>
+        </SmallModal>
+      )}
+      {notYetModalOpen && (
+        <SmallModal handleSetShowModal={() => setNotYetModalOpen(false)}>
+          <S.ModalAllContainer>
+            <S.ModalText>
+              <BasicText
+                text="입력하지 않은 정보가 있습니다"
+                size="1.25rem"
+                color="black"
+              />
+            </S.ModalText>
+            <S.UploadButtonWrap>
+              <CustomTextButton
+                text="닫기"
+                font="NotoSansKR700"
+                fontColor="var(--color-background)"
+                handleOnClickButton={() => setNotYetModalOpen(false)}
+              />
+            </S.UploadButtonWrap>
           </S.ModalAllContainer>
         </SmallModal>
       )}
