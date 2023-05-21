@@ -10,7 +10,7 @@ interface ProfileImgProps {
 }
 
 const ProfileImg = ({
-  src = "/defaultProfile.svg",
+  src = "/icons/favicon-96x96.png",
   size = "100%",
   onClickEvent,
   isEditable = false,

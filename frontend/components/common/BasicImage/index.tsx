@@ -27,7 +27,7 @@ const BasicImage = ({
         />
       ) : (
         <S.BasicImage
-          src={src}
+          src={src !== "" ? src : "/icons/favicon-96x96.png"}
           size={size}
           radius={radius}
           isRotate={isRotate}
