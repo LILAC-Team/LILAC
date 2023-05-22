@@ -77,7 +77,8 @@
 
 ## 📝 요구사항정의서
 
-![요구사항정의서](https://user-images.githubusercontent.com/97906125/233523032-e30cf65f-cdb1-42d7-a39b-c9d669d81ceb.png)
+![요구사항정의서](https://github.com/suz-dev/fit_with_me/assets/91257772/5865935d-4e74-485b-8ade-ceb13fd96c46)
+
 
 ## 💄 디자인 시안
 
@@ -89,7 +90,7 @@
 
 ## 📄 아키텍처 구성도
 
-![아키텍처 설계도](https://user-images.githubusercontent.com/97906125/233522945-e08da732-4429-45c5-9e62-ff1ead4913a8.png)
+![아키텍처 설계도](https://github.com/suz-dev/fit_with_me/assets/91257772/09bf6a52-4046-4722-9130-2873a635a739)
 
 ## 📄 시퀀스다이어그램
 
@@ -97,7 +98,7 @@
 
 ## 📄 컴포넌트 명세서
 
-![컴포넌트 명세서1](https://user-images.githubusercontent.com/97906125/233523091-fe8b3dee-d96b-492a-b048-edb8eb852379.png)
+![컴포넌트 명세서1](https://github.com/suz-dev/fit_with_me/assets/91257772/476e0be7-335e-4c1e-9bce-cbb055b5acff)
 
 ## ⚙️ 프로젝트 파일 구조
 
