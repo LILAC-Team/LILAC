@@ -45,6 +45,7 @@ export const HaveDiv = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 export const AlbumTitle = styled.div`
   width: 100%;
   height: 100%;
@@ -65,6 +66,7 @@ export const AlbumTitleLink = styled.div`
   justify-content: left;
   padding-left: 0.5rem;
 `;
+
 export const ContentTitleWrap = styled.div`
   display: flex;
   width: 100%;
@@ -114,6 +116,7 @@ export const ModalIcon = styled.div`
   margin-right: 1rem;
   margin-bottom: 2rem;
 `;
+
 export const ModalLine = styled.div`
   width: 100%;
   height: 100%;
