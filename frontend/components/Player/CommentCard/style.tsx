@@ -48,7 +48,9 @@ export const CommentContent = styled.div`
 `;
 
 export const CommentDelete = styled.div`
-  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* max-width: calc((var(--vw, 1vw) * 10)); */
 `;
 

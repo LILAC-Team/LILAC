@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
@@ -57,24 +57,6 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
         setState({ ...state, [anchor]: open });
       };
 
-    useEffect(() => {
-      const handlePopstate = () => {
-        if (nowOpen) {
-          setNowOpen(""); // nowOpen 상태 초기화
-        } 
-        // 이런거 쓰지 마시오 - MZ
-        // else {
-        //   router.back(); // 이전 페이지로 이동
-        // }
-      };
-
-      window.addEventListener("popstate", handlePopstate);
-
-      return () => {
-        window.removeEventListener("popstate", handlePopstate);
-      };
-    }, [nowOpen]);
-
     return (
       <>
         <S.BarWrapper>
@@ -83,10 +65,10 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
               <BasicImage
                 isAlbumPage={true}
                 src={
-                  currPlayingMusicInfo.index !== -1
+                  currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                     ? process.env.CLOUDFRONT_URL +
                       currPlayingMusicInfo.albumImage
-                    : "/defaultProfile.svg"
+                    : "/icons/favicon-512x512.png"
                 }
                 radius={0.15}
               />
@@ -95,45 +77,52 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
               <S.Title>
                 <BasicText
                   text={
-                    currPlayingMusicInfo.index !== -1
+                    currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                       ? currPlayingMusicInfo.name
                       : "LILAC"
                   }
-                  size="1.125rem"
-                  font="NotoSansKR700"
+                  size='1.125rem'
+                  font='NotoSansKR700'
                 />
               </S.Title>
               <S.Artist>
                 <BasicText
                   text={
-                    currPlayingMusicInfo.index !== -1
+                    currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                       ? currPlayingMusicInfo.artistName
                       : "나만의 앨범을 등록해보세요"
                   }
-                  size="0.75rem"
-                  font="NotoSansKR400"
+                  size='0.75rem'
+                  font='NotoSansKR400'
                 />
               </S.Artist>
             </S.TextWrapper>
           </S.LeftWrapper>
           <S.RightWrapper>
-            <CustomIconButton handleOnClickButton={handleClickPlay}>
+            <CustomIconButton
+              size='3.25rem'
+              handleOnClickButton={handleClickPlay}
+            >
               {!playing ? (
-                <IoPlay size="2.5rem" color="#FFFFFF" />
+                <IoPlay size='2.5rem' color='#FFFFFF' />
               ) : (
-                <IoPause size="2.5rem" color="#FFFFFF" />
+                <IoPause size='2.5rem' color='#FFFFFF' />
               )}
             </CustomIconButton>
-            <CustomIconButton handleOnClickButton={handleClickForward}>
-              <IoPlayForward size="1.5rem" color="#FFFFFF" />
+            <CustomIconButton
+              size='2.25rem'
+              handleOnClickButton={handleClickForward}
+            >
+              <IoPlayForward size='1.5rem' color='#FFFFFF' />
             </CustomIconButton>
             <CustomIconButton
+              size='2.25rem'
               handleOnClickButton={(e) => {
                 toggleDrawer("bottom", true)(e);
                 setNowOpen("playlist");
               }}
             >
-              <RiPlayListFill size="1.5rem" color="#FFFFFF" />
+              <RiPlayListFill size='1.5rem' color='#FFFFFF' />
             </CustomIconButton>
           </S.RightWrapper>
         </S.BarWrapper>

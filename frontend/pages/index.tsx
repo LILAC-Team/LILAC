@@ -8,7 +8,9 @@ import { albumApi } from "@/api/utils/album";
 
 const Home = () => {
   const [nickname, setNickName] = useState("");
-  const [profileImage, setProfileImage] = useState("/defaultProfile.svg");
+  const [profileImage, setProfileImage] = useState(
+    "/icons/favicon-512x512.png"
+  );
   const [myList, setMyList] = useState([]);
   const [ownList, setOwnList] = useState([]);
   const [myListNum, setMyListNum] = useState(0);

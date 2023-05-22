@@ -2,14 +2,22 @@ import * as S from "./style";
 import MusicCard from "@/components/Player/MusicCard";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CustomIconButton from "@/components/common/CustomIconButton";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
+import { playListState } from "@/store/modules/playList";
 import { setPlayList, deleteTrack } from "@/store/modules/playList";
+
+interface AppState {
+  playList: playListState;
+}
 
 const DragAndDrop = ({ list, setList, nowPlayList }) => {
   const dispatch = useDispatch();
-  const { data } = nowPlayList;
   const tempList = { ...nowPlayList };
+
+  const { currentTrackIndex } = useSelector(
+    (state: AppState) => state.playList
+  );
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
@@ -25,15 +33,15 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
 
   const handleDelete = (index) => {
     const newList = list.filter((_, idx) => idx !== index);
-    setList(newList);
     tempList.musicList = newList;
+    setList(newList);
     dispatch(deleteTrack(tempList));
   };
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       {/* <S.DragDropWrap> */}
-      <Droppable droppableId="list">
+      <Droppable droppableId='list'>
         {(provided) => (
           <S.DragDropWrap {...provided.droppableProps} ref={provided.innerRef}>
             {list.map(
@@ -45,15 +53,17 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
                 >
                   {(provided) => (
                     <S.OneMusicCard
+                      active={index === currentTrackIndex}
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
                       <S.DeleteBtn>
                         <CustomIconButton
+                          size='2rem'
                           handleOnClickButton={() => handleDelete(index)}
                         >
-                          <FaTimes color="#F68888" size={20} />
+                          <FaTimes color='#F68888' size={20} />
                         </CustomIconButton>
                       </S.DeleteBtn>
                       <MusicCard

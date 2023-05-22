@@ -22,4 +22,7 @@ export const ButtonWrapper = styled.div`
   width: 3.5rem;
   margin: 0 0.125rem;
   aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

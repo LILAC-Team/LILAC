@@ -1,14 +1,11 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 import Link from "next/link";
 import CustomTextButton from "@/components/common/CustomTextButton";
-import { isMobile } from "react-device-detect";
 
 const LogIn = () => {
-  // TODO 로그인 되어있으면 홈으로 보낼것
-
   return (
     <S.LogInContainer>
       <S.LogoWrapper>
@@ -30,21 +27,20 @@ const LogIn = () => {
             height={50}
           />
         </S.LogInButton>
-        {!isMobile && (
-          <S.DocsButton>
-            <Link href={"/docs"}>
-              <CustomTextButton
-                text="앱으로 시작하기&nbsp;&nbsp;"
-                fontColor="black"
-                size="1rem"
-                radius="0.5rem"
-                font="NotoSansKR400"
-                isImage={true}
-                src="/icons/favicon-512x512.png"
-              />
-            </Link>
-          </S.DocsButton>
-        )}
+
+        <S.DocsButton>
+          <Link href={"/docs"}>
+            <CustomTextButton
+              text="앱으로 시작하기&nbsp;&nbsp;"
+              fontColor="black"
+              size="1rem"
+              radius="0.5rem"
+              font="NotoSansKR400"
+              isImage={true}
+              src="/icons/favicon-512x512.png"
+            />
+          </Link>
+        </S.DocsButton>
       </S.ButtonWrap>
     </S.LogInContainer>
   );

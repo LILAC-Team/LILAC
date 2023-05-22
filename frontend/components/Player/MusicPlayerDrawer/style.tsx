@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Player = styled.div`
-  background-color: #4e4e4e;
+  background-color: #191919;
   height: calc(var(--vh, 1vh) * 95);
   width: 100%;
   max-width: 900px;
@@ -9,6 +9,7 @@ export const Player = styled.div`
   border-top-right-radius: 2rem;
   text-align: center;
 `;
+
 export const PlayerWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,8 +47,6 @@ export const Artist = styled.div`
   padding: 0.5rem;
   display: flex;
   justify-content: center;
-  /* position: absolute; */
-  /* bottom: calc(var(--vh, 1vh)* ); */
 `;
 
 export const Comment = styled.div`
@@ -65,6 +64,12 @@ export const CommentWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  &:active {
+    padding-left: 0.125rem;
+    padding-right: 0.125rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+  }
 `;
 
 export const CommentImg = styled.div`

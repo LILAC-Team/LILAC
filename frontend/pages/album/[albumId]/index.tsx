@@ -10,11 +10,17 @@ import { BiLink } from "react-icons/bi";
 import { BiDownload } from "react-icons/bi";
 import { albumApi } from "@/api/utils/album";
 import { playlistApi } from "@/api/utils/playlist";
-import { CLOUD_FRONT } from "@/api/index";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import { useSelector, useDispatch } from "react-redux";
-import { setPlayList } from "@/store/modules/playList";
+import { playListState, addTrackToPlayList } from "@/store/modules/playList";
+import {
+  setPlayList,
+  updatePlayList,
+  setTrack,
+  togglePlay,
+  PutStartingPointToZero,
+} from "@/store/modules/playList";
 
 interface Music {
   name: string;
@@ -47,7 +53,7 @@ interface PlayList {
 }
 
 interface AppState {
-  playList: PlayList;
+  playList: playListState;
 }
 
 const initialAlbumDetailData: Album = {
@@ -82,7 +88,7 @@ const AlbumDetail = () => {
     initialAlbumDetailData
   );
   // ADD PlayList
-  const [addMusic, setAddMusic] = useState("");
+  // const [addMusic, setAddMusic] = useState("");
   // isRealCollect Modal
   const [isCollectModalOpen, setIsCollectModalOpen] = useState(false);
   // CopyAddress Modal
@@ -92,7 +98,7 @@ const AlbumDetail = () => {
   // OnClick 여부
   const [isOnClick, setIsOnClick] = useState(false);
   // GET PlayList from Redux
-  const nowPlayList = useSelector((state: AppState) => state.playList);
+
   const dispatch = useDispatch();
 
   // COPY ClipBoard
@@ -133,35 +139,26 @@ const AlbumDetail = () => {
   };
 
   // Change MusicCode
-  const changeHandler = (code) => {
-    setAddMusic(code);
+  // const changeHandler = (code) => {
+  //   setAddMusic(code);
+  // };
+
+  const addTrack = ({ name, artistName, playtime, code, albumImage }) => {
+    const req = {
+      code,
+    };
+    playlistApi.addMusicToPlayList(req);
+    console.log("이거 왜이래?");
+    dispatch(
+      addTrackToPlayList({
+        name,
+        artistName,
+        playtime,
+        code,
+        albumImage,
+      })
+    );
   };
-
-  // ADD to PlayList
-  const addPlayListHandler = useCallback(async () => {
-    try {
-      console.log(addMusic);
-      const req = {};
-      req["code"] = addMusic;
-      await playlistApi.addMusicToPlayList(req);
-      await playlistApi.getPlayList().then(({ data }) => {
-        try {
-          dispatch(setPlayList(data));
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, [addMusic, dispatch]);
-
-  // BUTTON Click -> ADD to PlayList
-  useEffect(() => {
-    if (addMusic !== "") {
-      addPlayListHandler();
-    }
-  }, [isOnClick, addPlayListHandler, addMusic]);
 
   return (
     <Layout>
@@ -174,15 +171,15 @@ const AlbumDetail = () => {
                 : ""
             }
           />
-          {albumDetailData.albumStatus === "NOT_COLLECTED" && (
+          {albumDetailData?.albumStatus === "NOT_COLLECTED" && (
             <S.AlbumCoverDiv onClick={() => setIsCollectModalOpen(true)}>
               <S.HaveBtn>
-                <CustomIconButton>
-                  <BiDownload size="3rem" />
+                <CustomIconButton size='3.75rem'>
+                  <BiDownload size='3rem' />
                 </CustomIconButton>
               </S.HaveBtn>
               <S.HaveDiv>
-                <BasicText text="소장하기" size="2rem" color="black" />
+                <BasicText text='소장하기' size='2rem' color='black' />
               </S.HaveDiv>
             </S.AlbumCoverDiv>
           )}
@@ -197,14 +194,14 @@ const AlbumDetail = () => {
                   <>
                     <S.ModalText>
                       <BasicText
-                        text="소장하시겠습니까?"
-                        size="1.5rem"
-                        color="black"
+                        text='소장하시겠습니까?'
+                        size='1.5rem'
+                        color='black'
                       />
                     </S.ModalText>
                     <S.ModalBtn>
                       <CustomTextButton
-                        text="소장"
+                        text='소장'
                         handleOnClickButton={() => {
                           addOwnAlbumHandler();
                           setChangeNext(true);
@@ -217,16 +214,16 @@ const AlbumDetail = () => {
                     <S.ModalIcon>
                       <BasicImage
                         isAlbumPage={true}
-                        src="/icons/favicon-512x512.png"
+                        src='/icons/favicon-512x512.png'
                       />
                     </S.ModalIcon>
                     <S.ModalText>
-                      <BasicText text="소장완료" size="1.5rem" color="black" />
+                      <BasicText text='소장완료' size='1.5rem' color='black' />
                     </S.ModalText>
                     <S.ModalIcon>
                       <BasicImage
                         isAlbumPage={true}
-                        src="/icons/favicon-512x512.png"
+                        src='/icons/favicon-512x512.png'
                       />
                     </S.ModalIcon>
                   </S.ModalLine>
@@ -239,11 +236,11 @@ const AlbumDetail = () => {
           <S.AlbumTitleDiv>
             <BasicText
               text={albumDetailData.name}
-              size="2rem"
-              font="NotoSansKR700"
+              size='2rem'
+              font='NotoSansKR700'
             />
           </S.AlbumTitleDiv>
-          {albumDetailData.albumStatus === "RELEASED" && (
+          {albumDetailData?.albumStatus === "RELEASED" && (
             <>
               <S.AlbumTitleLink
                 onClick={() =>
@@ -253,7 +250,7 @@ const AlbumDetail = () => {
                 }
               >
                 <CustomIconButton>
-                  <BiLink color="#e3dfff" size="2rem" />
+                  <BiLink color='#e3dfff' size='2rem' />
                 </CustomIconButton>
               </S.AlbumTitleLink>
               {isCopyModalOpen && (
@@ -266,19 +263,19 @@ const AlbumDetail = () => {
                     <S.ModalLine>
                       <S.ModalText>
                         <BasicText
-                          text="링크가 복사되었습니다"
-                          size="1.5rem"
-                          color="black"
+                          text='링크가 복사되었습니다'
+                          size='1.5rem'
+                          color='black'
                         />
                       </S.ModalText>
                     </S.ModalLine>
                     <S.ModalBtn>
                       <CustomTextButton
-                        text="닫기"
+                        text='닫기'
                         handleOnClickButton={() => {
                           setIsCopyModalOpen(false);
                         }}
-                        font="Ridibatang"
+                        font='Ridibatang'
                       />
                     </S.ModalBtn>
                   </S.ModalContainer>
@@ -288,12 +285,28 @@ const AlbumDetail = () => {
           )}
         </S.AlbumTitle>
         <S.ContentTitleWrap>
-          <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
+          <BasicText text='음원목록' size='1.5rem' font='NotoSansKR700' />
         </S.ContentTitleWrap>
         <S.MusicList>
-          {albumDetailData.musicList.map(
+          {albumDetailData?.musicList.map(
             ({ code, name, artistName, playtime, isTitle }, index) => (
-              <S.OneMusicCard key={index}>
+              <S.OneMusicCard
+                key={index}
+                onClick={() => {
+                  if (
+                    albumDetailData.albumStatus === "RELEASED" ||
+                    albumDetailData.albumStatus === "COLLECTED"
+                  ) {
+                    addTrack({
+                      name,
+                      artistName,
+                      playtime,
+                      code,
+                      albumImage: albumDetailData.albumImage,
+                    });
+                  }
+                }}
+              >
                 <MusicCard
                   data={{
                     code: code,
@@ -304,15 +317,6 @@ const AlbumDetail = () => {
                   }}
                   isEditable={false}
                   isTitle={isTitle}
-                  onClickEvent={() => {
-                    if (
-                      albumDetailData.albumStatus === "RELEASED" ||
-                      albumDetailData.albumStatus === "COLLECTED"
-                    ) {
-                      changeHandler(code);
-                      setIsOnClick(!isOnClick);
-                    }
-                  }}
                 />
               </S.OneMusicCard>
             )
@@ -324,12 +328,3 @@ const AlbumDetail = () => {
 };
 
 export default AlbumDetail;
-
-// export async function getServerSideProps({ req }) {
-//   const serializedReq = CircularJSON.stringify(req);
-//   return {
-//     props: {
-//       req: serializedReq,
-//     },
-//   };
-// }

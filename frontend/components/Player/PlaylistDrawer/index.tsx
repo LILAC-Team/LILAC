@@ -32,42 +32,21 @@ interface AppState {
   playList: playListState;
 }
 
-interface MusicControllerState {
-  playList: {
-    playing: boolean;
-    currentTrackIndex: number;
-    currSrc: string;
-    musicList: MusicTrack[];
-    listSize: number;
-  };
-}
-
-interface MusicTrack {
-  name: string;
-  artistName: string;
-  playtime: number;
-  code: string;
-  albumImage: string;
-}
-
 const PlaylistDrawer = () => {
+  const dispatch = useDispatch();
+  const nowPlayList = useSelector((state: AppState) => state.playList);
   // Edit 여부
+  const { playing, musicList, currentTrackIndex } = useSelector(
+    // GET PlayList from Redux
+    (state: AppState) => state.playList
+  );
   const [isEdit, setIsEdit] = useState(false);
 
-  // 현재 재생중인 곡의 index
-  // const [idx, setIdx] = useState(0);
-
-  // GET PlayList from Redux
-  const nowPlayList = useSelector((state: AppState) => state.playList);
-  const { musicList, musicListSize, shuffleArr, currentTrackIndex } =
-    useSelector((state: AppState) => state.playList);
-
-  const dispatch = useDispatch();
-
   // UPDATE PlayList 담는 list
-  const [list, setList] = useState(Object.values(nowPlayList.musicList));
+  const [list, setList] = useState(Object.values(musicList));
+
   // UPDATE list Size
-  const [listSize, setListSize] = useState(nowPlayList.listSize);
+  const [listSize, setListSize] = useState(Object.keys(musicList).length);
 
   // RELOAD PlayList
   const reloadPlayListHandler = useCallback(async () => {
@@ -84,18 +63,17 @@ const PlaylistDrawer = () => {
     try {
       const req = { musicList: list };
       await playlistApi.putPlayList(req);
-      // dispatch(
-      //   setPlayList({ ...nowPlayList, musicList: list, listSize: list.length })
-      // );
       dispatch(
         updatePlayList({
-          ...nowPlayList,
-          musicList: list,
+          musicList: [...list],
           listSize: list.length,
         })
       );
       setIsEdit((prevIsEdit) => !prevIsEdit);
       setListSize(list.length);
+      if (!playing) {
+        dispatch(togglePlay());
+      }
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +82,6 @@ const PlaylistDrawer = () => {
   // PLAY Music of Playlist
   const playMusicHandler = (index: number) => {
     try {
-      // setIdx(index);
       dispatch(togglePlay());
       dispatch(PutStartingPointToZero(true));
       dispatch(
@@ -118,16 +95,9 @@ const PlaylistDrawer = () => {
   };
 
   useEffect(() => {
-    setList(Object.values(nowPlayList.musicList));
-  }, [nowPlayList.musicList]);
-
-  useEffect(() => {
-    // reloadPlayListHandler();
-  }, [reloadPlayListHandler]);
-
-  useEffect(() => {
-    setListSize(nowPlayList.listSize);
-  }, [nowPlayList.listSize]);
+    setList(Object.values(musicList));
+    setListSize(Object.keys(musicList).length);
+  }, [musicList]);
 
   return (
     <S.Playlist>
@@ -141,9 +111,7 @@ const PlaylistDrawer = () => {
         {isEdit ? (
           <CustomTextButton
             text='완료'
-            handleOnClickButton={() => {
-              handleEditClick();
-            }}
+            handleOnClickButton={handleEditClick}
             fontColor='#FFFFFF'
             isBackground={false}
             size='0.85rem'
@@ -169,13 +137,12 @@ const PlaylistDrawer = () => {
           />
         ) : (
           <>
-            {shuffleArr &&
-              shuffleArr.length > 0 &&
-              shuffleArr.map((data, index) => (
+            {musicList &&
+              Object.keys(musicList).length > 0 &&
+              Object.keys(musicList).map((data, index) => (
                 <S.OneMusicCard
                   key={index}
                   onClick={() => playMusicHandler(index)}
-                  // active={index === idx}
                   active={index === currentTrackIndex}
                 >
                   <MusicCard
