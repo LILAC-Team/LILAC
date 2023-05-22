@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
@@ -57,24 +57,6 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
         setState({ ...state, [anchor]: open });
       };
 
-    // useEffect(() => {
-    //   const handlePopstate = () => {
-    //     if (nowOpen) {
-    //       setNowOpen(""); // nowOpen 상태 초기화
-    //     }
-    //     // 이런거 쓰지 마시오 - MZ
-    //     // else {
-    //     //   router.back(); // 이전 페이지로 이동
-    //     // }
-    //   };
-
-    //   window.addEventListener("popstate", handlePopstate);
-
-    //   return () => {
-    //     window.removeEventListener("popstate", handlePopstate);
-    //   };
-    // }, [nowOpen]);
-
     return (
       <>
         <S.BarWrapper>
@@ -119,8 +101,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
           <S.RightWrapper>
             <CustomIconButton
               size="3.25rem"
-              handleOnClickButton={handleClickPlay}
-            >
+              handleOnClickButton={handleClickPlay}>
               {!playing ? (
                 <IoPlay size="2.5rem" color="#FFFFFF" />
               ) : (
@@ -129,8 +110,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
             </CustomIconButton>
             <CustomIconButton
               size="2.25rem"
-              handleOnClickButton={handleClickForward}
-            >
+              handleOnClickButton={handleClickForward}>
               <IoPlayForward size="1.5rem" color="#FFFFFF" />
             </CustomIconButton>
             <CustomIconButton
@@ -138,8 +118,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
               handleOnClickButton={(e) => {
                 toggleDrawer("bottom", true)(e);
                 setNowOpen("playlist");
-              }}
-            >
+              }}>
               <RiPlayListFill size="1.5rem" color="#FFFFFF" />
             </CustomIconButton>
           </S.RightWrapper>

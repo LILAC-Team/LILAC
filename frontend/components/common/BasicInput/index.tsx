@@ -1,4 +1,3 @@
-import { isReadable } from "stream";
 import * as S from "./style";
 
 interface BasicInputProps {
