@@ -9,10 +9,10 @@ const MyDocument = (props) => {
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#3d3a4b" />
         <meta property="og:title" content="LILAC" />
-        <meta property="og:image" content="/icons/favicon-512x512.png" />
+        <meta property="og:image" content="/LILAC_og.png" />
         <meta
           property="og:description"
-          content="LILAC 앱에서 공유받은 앨범을 소장해보세요!"
+          content="LILAC에서 추억을 공유해보세요!"
         />
         <link rel="favicon" sizes="192x192" href="/icons/favicon-192x192.png" />
         <link rel="favicon" sizes="512x512" href="/icons/favicon-512x512.png" />

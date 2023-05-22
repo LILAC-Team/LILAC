@@ -25,9 +25,9 @@ export const OneMusicCard = styled.div<CardProps>`
 `;
 
 export const DeleteBtn = styled.div`
-  width: 2rem;
-  height: 2rem;
-  padding: 0rem 0.25rem 0rem 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const MusicCardContent = styled.div`
