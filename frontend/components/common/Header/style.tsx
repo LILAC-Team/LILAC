@@ -28,13 +28,19 @@ export const LabelWrapper = styled.div`
 
 export const Label = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  padding: 0.25rem 0.45rem;
+  padding: 0.25rem 0.4rem;
+  &:active {
+    border-radius: 5px;
+    background-color: #dccbfd;
+  }
 `;
 
 export const Wrapper = styled.div`
-  width: 6rem;
-  height: 4.5rem;
+  width: 5.75rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
