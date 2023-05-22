@@ -6,8 +6,6 @@ import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from "react-icons/tb";
 import { IoPlay, IoPause, IoPlayBack, IoPlayForward } from "react-icons/io5";
 import { nextTrack, playListState, prevTrack } from "@/store/modules/playList";
 import {
-  setPlayList,
-  setTrack,
   setLoop,
   setShuffle,
   togglePlay,
@@ -26,54 +24,64 @@ const MusicController = ({}) => {
     useSelector((state: playerState) => state.playList);
 
   const handleClickShuffle = () => {
-    dispatch(setShuffle());
+    if (currPlayingMusicInfo && currPlayingMusicInfo.index !== -1) {
+      dispatch(setShuffle());
+    }
   };
 
   const handleClickBackward = () => {
-    dispatch(PutStartingPointToZero(true));
-    dispatch(prevTrack());
+    if (currPlayingMusicInfo && currPlayingMusicInfo.index !== -1) {
+      dispatch(PutStartingPointToZero(true));
+      dispatch(prevTrack());
+    }
   };
 
   const handleClickPlay = () => {
-    dispatch(togglePlay());
+    if (currPlayingMusicInfo && currPlayingMusicInfo.index !== -1) {
+      dispatch(togglePlay());
+    }
   };
 
   const handleClickForward = () => {
-    dispatch(PutStartingPointToZero(true));
-    dispatch(nextTrack());
+    if (currPlayingMusicInfo && currPlayingMusicInfo.index !== -1) {
+      dispatch(PutStartingPointToZero(true));
+      dispatch(nextTrack());
+    }
   };
 
   const handleClickRepeat = () => {
-    dispatch(setLoop());
+    if (currPlayingMusicInfo && currPlayingMusicInfo.index !== -1) {
+      dispatch(setLoop());
+    }
   };
 
   return (
     <S.ControllerWrapper>
       <CustomIconButton handleOnClickButton={handleClickShuffle}>
         {shuffle ? (
-          <TbArrowsShuffle size="2rem" color="#CCA4FC" />
+          <TbArrowsShuffle size='2rem' color='#CCA4FC' />
         ) : (
-          <TbArrowsShuffle size="2rem" color="#FFFFFF" />
+          <TbArrowsShuffle size='2rem' color='#FFFFFF' />
         )}
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickBackward}>
-        <IoPlayBack size="2rem" color="#FFFFFF" />
+        <IoPlayBack size='2rem' color='#FFFFFF' />
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickPlay}>
         {playing ? (
-          <IoPause size="3.5rem" color="#FFFFFF" />
+          <IoPause size='3.5rem' color='#FFFFFF' />
         ) : (
-          <IoPlay size="3.5rem" color="#FFFFFF" />
+          <IoPlay size='3.5rem' color='#FFFFFF' />
         )}
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickForward}>
-        <IoPlayForward size="2rem" color="#FFFFFF" />
+        <IoPlayForward size='2rem' color='#FFFFFF' />
       </CustomIconButton>
       <CustomIconButton handleOnClickButton={handleClickRepeat}>
         {loop ? (
-          <TbRepeatOnce size="2rem" color="#CCA4FC" />
+          <TbRepeatOnce size='2rem' color='#CCA4FC' />
         ) : (
-          <TbRepeat size="2rem" color="#CCA4FC" />
+          <TbRepeat size='2rem' color='#CCA4FC' />
         )}
       </CustomIconButton>
     </S.ControllerWrapper>

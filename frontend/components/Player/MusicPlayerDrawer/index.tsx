@@ -31,8 +31,6 @@ const MusicPlayerDrawer = () => {
     (state: playerState) => state.playList
   );
 
-  console.log("rerendering!!");
-
   const toggleDrawer =
     (anchor: string, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -49,7 +47,6 @@ const MusicPlayerDrawer = () => {
     };
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("timeChange!!");
     const changeTime = parseInt(e.target.value);
     dispatch(setTime({ time: changeTime }));
     dispatch(setOnChange({ onChangeValue: true }));
@@ -60,17 +57,17 @@ const MusicPlayerDrawer = () => {
       <S.Player>
         <S.Top>
           <S.Bar />
-          <BasicText text="Now Playing" size="125%" font="NotoSansKR500" />
+          <BasicText text='Now Playing' size='125%' font='NotoSansKR500' />
         </S.Top>
         <S.PlayerWrap>
           <S.AlbumCover>
             <BasicImage
               src={
-                currPlayingMusicInfo.index !== -1
+                currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                   ? currPlayingMusicInfo.albumImage
                   : "/icons/favicon-96x96.png"
               }
-              size="calc((var(--vh, 1vh) * 30))"
+              size='calc((var(--vh, 1vh) * 30))'
               radius={10}
               isRotate={playing}
             />
@@ -78,22 +75,22 @@ const MusicPlayerDrawer = () => {
           <S.Title>
             <BasicText
               text={
-                currPlayingMusicInfo.index !== -1
+                currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                   ? currPlayingMusicInfo.name
                   : "LILAC"
               }
-              size="2rem"
-              font="NotoSansKR700"
+              size='2rem'
+              font='NotoSansKR700'
             />
           </S.Title>
           <S.Artist>
             <BasicText
               text={
-                currPlayingMusicInfo.index !== -1
+                currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                   ? currPlayingMusicInfo.artistName
                   : "나만의 플레이리스트를 생성해보세요"
               }
-              size="1rem"
+              size='1rem'
             />
           </S.Artist>
           <S.Comment>
@@ -111,12 +108,12 @@ const MusicPlayerDrawer = () => {
                         <S.CommentImg>
                           <BasicImage
                             src={item.memberInfo.profileImage}
-                            size="1.5rem"
+                            size='1.5rem'
                             radius={100}
                           />
                         </S.CommentImg>
                         <S.CommentDiv>
-                          <BasicText text={item.content} size="0.75rem" />
+                          <BasicText text={item.content} size='0.75rem' />
                         </S.CommentDiv>
                       </S.CommentWrap>
                     )}
@@ -125,16 +122,13 @@ const MusicPlayerDrawer = () => {
               })}
           </S.Comment>
           <S.PlayerBarWrap>
-            {
-              <S.PlayerBar
-                type="range"
-                min={0}
-                max={currPlayingMusicInfo.playtime}
-                // step={1}
-                value={time}
-                onChange={handleTimeChange}
-              />
-            }
+            <S.PlayerBar
+              type='range'
+              min={0}
+              max={currPlayingMusicInfo.playtime}
+              value={time}
+              onChange={handleTimeChange}
+            />
             <S.PlayerBarTimeInfo>
               <BasicText
                 text={
@@ -142,8 +136,8 @@ const MusicPlayerDrawer = () => {
                   " : " +
                   (time % 60 >= 10 ? time % 60 : "0" + (time % 60))
                 }
-                font="NotoSansKR400"
-                size="75%"
+                font='NotoSansKR400'
+                size='75%'
               />
               <BasicText
                 text={`${Math.floor(currPlayingMusicInfo.playtime / 60)} : ${
@@ -151,15 +145,14 @@ const MusicPlayerDrawer = () => {
                     ? currPlayingMusicInfo.playtime % 60
                     : "0" + (currPlayingMusicInfo.playtime % 60)
                 }`}
-                font="NotoSansKR400"
-                size="75%"
+                font='NotoSansKR400'
+                size='75%'
               />
             </S.PlayerBarTimeInfo>
           </S.PlayerBarWrap>
           <S.ControllBar>
             <MusicController />
           </S.ControllBar>
-          {/* <S.MenuBarDiv /> */}
           <MenuBar />
         </S.PlayerWrap>
         <Drawer
