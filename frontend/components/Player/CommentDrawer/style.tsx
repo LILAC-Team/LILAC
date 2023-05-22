@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const Comment = styled.div`
+  opacity: 95%;
   background-color: #4e4e4e;
+  background-color: var(--color-background);
   height: calc((var(--vh, 1vh) * 95));
   width: calc(var(--vw, 1vw) * 100);
   max-width: 900px;
