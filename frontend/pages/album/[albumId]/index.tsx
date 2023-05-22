@@ -184,7 +184,7 @@ const AlbumDetail = () => {
           {albumDetailData.albumStatus === "NOT_COLLECTED" && (
             <S.AlbumCoverDiv onClick={() => setIsCollectModalOpen(true)}>
               <S.HaveBtn>
-                <CustomIconButton>
+                <CustomIconButton size="3.75rem">
                   <BiDownload size="3rem" />
                 </CustomIconButton>
               </S.HaveBtn>

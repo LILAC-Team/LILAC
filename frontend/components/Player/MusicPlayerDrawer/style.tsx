@@ -65,6 +65,12 @@ export const CommentWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  &:active {
+    padding-left: 0.125rem;
+    padding-right: 0.125rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+  }
 `;
 
 export const CommentImg = styled.div`

@@ -54,7 +54,10 @@ const CommentInput = ({
           />
         </S.InputTime>
         <S.CommentBtn>
-          <CustomIconButton handleOnClickButton={handleOnClickValue}>
+          <CustomIconButton
+            size="2rem"
+            handleOnClickButton={handleOnClickValue}
+          >
             <BsFillSendFill color="black" />
           </CustomIconButton>
         </S.CommentBtn>
