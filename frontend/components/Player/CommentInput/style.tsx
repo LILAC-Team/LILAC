@@ -41,5 +41,7 @@ export const InputTime = styled.div`
 `;
 
 export const CommentBtn = styled.div`
-  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

@@ -50,9 +50,11 @@ const MenuBar = () => {
             setNowTime(time);
           }}
         >
-          <CustomIconButton>
-            <BiCommentDetail size="1.5rem" color="#CCA4FC" />
-          </CustomIconButton>
+          <S.ButtonWrapper>
+            <CustomIconButton size="2.5rem">
+              <BiCommentDetail size="1.5rem" color="#FFFFFF" />
+            </CustomIconButton>
+          </S.ButtonWrapper>
         </S.Comment>
         <S.PlayList
           onClick={(e) => {
@@ -60,9 +62,11 @@ const MenuBar = () => {
             setNowOpen("playlist");
           }}
         >
-          <CustomIconButton>
-            <RiPlayListFill size="1.5rem" color="#CCA4FC" />
-          </CustomIconButton>
+          <S.ButtonWrapper>
+            <CustomIconButton size="2.5rem">
+              <RiPlayListFill size="1.5rem" color="#FFFFFF" />
+            </CustomIconButton>
+          </S.ButtonWrapper>
         </S.PlayList>
       </S.MenuWrapper>
       <Drawer

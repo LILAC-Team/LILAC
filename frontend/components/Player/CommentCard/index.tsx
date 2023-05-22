@@ -81,6 +81,7 @@ const CommentCard = ({
         {isMine && (
           <S.CommentDelete>
             <CustomIconButton
+              size="2rem"
               handleOnClickButton={() => setIsDeleteModalOpen(true)}
             >
               <FaTimes color="#F68888" size={20} />

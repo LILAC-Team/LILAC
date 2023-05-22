@@ -49,33 +49,55 @@ const MusicController = ({}) => {
 
   return (
     <S.ControllerWrapper>
-      <CustomIconButton handleOnClickButton={handleClickShuffle}>
-        {shuffle ? (
-          <TbArrowsShuffle size="2rem" color="#CCA4FC" />
-        ) : (
-          <TbArrowsShuffle size="2rem" color="#FFFFFF" />
-        )}
-      </CustomIconButton>
-      <CustomIconButton handleOnClickButton={handleClickBackward}>
-        <IoPlayBack size="2rem" color="#FFFFFF" />
-      </CustomIconButton>
-      <CustomIconButton handleOnClickButton={handleClickPlay}>
-        {playing ? (
-          <IoPause size="3.5rem" color="#FFFFFF" />
-        ) : (
-          <IoPlay size="3.5rem" color="#FFFFFF" />
-        )}
-      </CustomIconButton>
-      <CustomIconButton handleOnClickButton={handleClickForward}>
-        <IoPlayForward size="2rem" color="#FFFFFF" />
-      </CustomIconButton>
-      <CustomIconButton handleOnClickButton={handleClickRepeat}>
-        {loop ? (
-          <TbRepeatOnce size="2rem" color="#CCA4FC" />
-        ) : (
-          <TbRepeat size="2rem" color="#CCA4FC" />
-        )}
-      </CustomIconButton>
+      <S.ButtonWrapper>
+        <CustomIconButton
+          size="2.75rem"
+          handleOnClickButton={handleClickShuffle}
+        >
+          {shuffle ? (
+            <TbArrowsShuffle size="2rem" color="#CCA4FC" />
+          ) : (
+            <TbArrowsShuffle size="2rem" color="#FFFFFF" />
+          )}
+        </CustomIconButton>
+      </S.ButtonWrapper>
+      <S.ButtonWrapper>
+        <CustomIconButton
+          size="2.75rem"
+          handleOnClickButton={handleClickBackward}
+        >
+          <IoPlayBack size="2rem" color="#FFFFFF" />
+        </CustomIconButton>
+      </S.ButtonWrapper>
+      <S.ButtonWrapper>
+        <CustomIconButton size="4.25rem" handleOnClickButton={handleClickPlay}>
+          {playing ? (
+            <IoPause size="3.5rem" color="#FFFFFF" />
+          ) : (
+            <IoPlay size="3.5rem" color="#FFFFFF" />
+          )}
+        </CustomIconButton>
+      </S.ButtonWrapper>
+      <S.ButtonWrapper>
+        <CustomIconButton
+          size="2.75rem"
+          handleOnClickButton={handleClickForward}
+        >
+          <IoPlayForward size="2rem" color="#FFFFFF" />
+        </CustomIconButton>
+      </S.ButtonWrapper>
+      <S.ButtonWrapper>
+        <CustomIconButton
+          size="2.75rem"
+          handleOnClickButton={handleClickRepeat}
+        >
+          {loop ? (
+            <TbRepeatOnce size="2rem" color="#CCA4FC" />
+          ) : (
+            <TbRepeat size="2rem" color="#CCA4FC" />
+          )}
+        </CustomIconButton>
+      </S.ButtonWrapper>
     </S.ControllerWrapper>
   );
 };

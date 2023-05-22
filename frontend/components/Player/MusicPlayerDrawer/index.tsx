@@ -68,7 +68,7 @@ const MusicPlayerDrawer = () => {
               src={
                 currPlayingMusicInfo.index !== -1
                   ? currPlayingMusicInfo.albumImage
-                  : "/icons/favicon-96x96.png"
+                  : "/icons/favicon-512x512.png"
               }
               size="calc((var(--vh, 1vh) * 30))"
               radius={10}

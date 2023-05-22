@@ -86,7 +86,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
                   currPlayingMusicInfo.index !== -1
                     ? process.env.CLOUDFRONT_URL +
                       currPlayingMusicInfo.albumImage
-                    : "/icons/favicon-96x96.png"
+                    : "/icons/favicon-512x512.png"
                 }
                 radius={0.15}
               />
@@ -117,17 +117,24 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
             </S.TextWrapper>
           </S.LeftWrapper>
           <S.RightWrapper>
-            <CustomIconButton handleOnClickButton={handleClickPlay}>
+            <CustomIconButton
+              size="3.25rem"
+              handleOnClickButton={handleClickPlay}
+            >
               {!playing ? (
                 <IoPlay size="2.5rem" color="#FFFFFF" />
               ) : (
                 <IoPause size="2.5rem" color="#FFFFFF" />
               )}
             </CustomIconButton>
-            <CustomIconButton handleOnClickButton={handleClickForward}>
+            <CustomIconButton
+              size="2.25rem"
+              handleOnClickButton={handleClickForward}
+            >
               <IoPlayForward size="1.5rem" color="#FFFFFF" />
             </CustomIconButton>
             <CustomIconButton
+              size="2.25rem"
               handleOnClickButton={(e) => {
                 toggleDrawer("bottom", true)(e);
                 setNowOpen("playlist");

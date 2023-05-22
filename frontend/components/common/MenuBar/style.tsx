@@ -28,3 +28,10 @@ export const Comment = styled.div`
 export const PlayList = styled.div`
   width: 100%;
 `;
+
+export const ButtonWrapper = styled.div`
+  /* aspect-ratio: 1 / 1; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
