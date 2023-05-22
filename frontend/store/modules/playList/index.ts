@@ -93,8 +93,8 @@ export const playList = createSlice({
         action.payload.musicList.map((data, index) => {
           const key = index;
           if (data.index === state.currentTrackIndex) {
-            state.currentTrackIndex = data.index;
-            state.currPlayingMusicInfo.index = data.index;
+            state.currentTrackIndex = index;
+            state.currPlayingMusicInfo.index = index;
             bo = true;
           }
           const object = {
