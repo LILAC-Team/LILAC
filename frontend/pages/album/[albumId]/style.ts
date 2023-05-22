@@ -36,6 +36,9 @@ export const AlbumCoverDiv = styled.div`
 export const HaveBtn = styled.div`
   width: 100%;
   padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const HaveDiv = styled.div`
