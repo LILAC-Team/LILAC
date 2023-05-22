@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import { createPortal } from "react-dom";
 import { nextTrack, PutStartingPointToZero } from "@/store/modules/playList";
 import { useSelector, useDispatch } from "react-redux";
-import { playListState, togglePlay } from "@/store/modules/playList";
+import { playListState } from "@/store/modules/playList";
 import { musicApi } from "@/api/utils/music";
 import {
   setTime,
@@ -41,13 +40,6 @@ const ReactPlayerPortal = () => {
       dispatch(setOnChange({ onChangeValue: false }));
     }
   }, [dispatch, OnSeekToZero, onChange]);
-
-  // useEffect(() => {
-  //   if (onChange) {
-  //     playerRef.current.seekTo(time);
-  //     dispatch(setOnChange({ onChangeValue: false }));
-  //   }
-  // }, [onChange]);
 
   useEffect(() => {
     if (currPlayingMusicInfo.code) {

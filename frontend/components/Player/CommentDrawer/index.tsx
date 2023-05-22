@@ -13,9 +13,11 @@ import { useSelector } from "react-redux";
 import { musicApi } from "@/api/utils/music";
 import { commentListState } from "@/store/modules/commentList";
 import { playListState } from "@/store/modules/playList";
+
 interface playerState {
   playList: playListState;
 }
+
 interface userState {
   user: any;
 }
