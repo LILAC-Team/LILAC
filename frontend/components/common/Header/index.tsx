@@ -69,6 +69,10 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
         removeCookies("isLogIn");
       })
       .then(() => {
+        localStorage.removeItem("persist:root");
+        window.localStorage.clear();
+      })
+      .then(() => {
         setIsLogoutModal(false);
         router.push("/login");
       })
