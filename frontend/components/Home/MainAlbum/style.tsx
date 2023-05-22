@@ -133,6 +133,7 @@ export const ModalWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
 `;
 
 export const ButtonWrap = styled.div`
@@ -148,4 +149,9 @@ export const Temp = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+export const ModalInputWrap = styled.div`
+  width: 100%;
+  padding: 1rem;
 `;
