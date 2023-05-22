@@ -160,32 +160,6 @@ const AlbumDetail = () => {
     );
   };
 
-  // ADD to PlayList
-  // const addPlayListHandler = useCallback(async () => {
-  //   try {
-  //     const req = {};
-  //     req["code"] = addMusic;
-  //     await playlistApi.addMusicToPlayList(req);
-
-  //     playlistApi.getPlayList().then(({ data }) => {
-  //       try {
-  //         dispatch(setPlayList(data));
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [addMusic, dispatch]);
-
-  // BUTTON Click -> ADD to PlayList
-  // useEffect(() => {
-  //   if (addMusic !== "") {
-  //     addPlayListHandler();
-  //   }
-  // }, [isOnClick, addPlayListHandler, addMusic]);
-
   return (
     <Layout>
       <S.AlbumDetail>
@@ -200,13 +174,8 @@ const AlbumDetail = () => {
           {albumDetailData?.albumStatus === "NOT_COLLECTED" && (
             <S.AlbumCoverDiv onClick={() => setIsCollectModalOpen(true)}>
               <S.HaveBtn>
-<<<<<<< HEAD
-                <CustomIconButton>
+                <CustomIconButton size='3.75rem'>
                   <BiDownload size='3rem' />
-=======
-                <CustomIconButton size="3.75rem">
-                  <BiDownload size="3rem" />
->>>>>>> 058e2e6e0ccbbb79bea98c11f744168fc6a1925c
                 </CustomIconButton>
               </S.HaveBtn>
               <S.HaveDiv>
