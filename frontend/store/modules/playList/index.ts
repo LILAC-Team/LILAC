@@ -90,11 +90,11 @@ export const playList = createSlice({
         // 일부 삭제일 경우
       } else if (action.payload.listSize !== 0) {
         let bo = false;
+        let curr = -1;
         action.payload.musicList.map((data, index) => {
           const key = index;
           if (data.index === state.currentTrackIndex) {
-            state.currentTrackIndex = index;
-            state.currPlayingMusicInfo.index = index;
+            curr = index;
             bo = true;
           }
           const object = {
@@ -106,6 +106,9 @@ export const playList = createSlice({
         if (!bo) {
           state.currentTrackIndex = 0;
           state.currPlayingMusicInfo = state.musicList[state.currentTrackIndex];
+        } else {
+          state.currentTrackIndex = curr;
+          state.currPlayingMusicInfo.index = curr;
         }
       }
     },
