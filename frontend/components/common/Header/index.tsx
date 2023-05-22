@@ -216,12 +216,17 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
           }}
         >
           <S.EditWrapper>
-            <BasicText text="로그아웃 하시겠습니까?" size="120%" />
+            <BasicText
+              text="로그아웃 하시겠습니까?"
+              size="120%"
+              color="black"
+            />
             <S.LogoutWrapper>
               <S.SmallButtonWrap>
                 <CustomTextButton
                   text="확인"
                   handleOnClickButton={handleLogoutAPI}
+                  size="115%"
                 />
               </S.SmallButtonWrap>
               <S.SmallButtonWrap>
@@ -230,6 +235,7 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
                   handleOnClickButton={() => {
                     setIsLogoutModal(false);
                   }}
+                  size="115%"
                 />
               </S.SmallButtonWrap>
             </S.LogoutWrapper>
