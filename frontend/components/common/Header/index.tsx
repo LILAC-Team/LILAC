@@ -163,7 +163,7 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
               <ProfileImg size="4rem" src={profileImage} />
             </S.ProfileWrapper>
             {isDropdown && (
-              <S.Wrapper>
+              <S.Wrapper isDropdown={isDropdown}>
                 <S.LabelWrapper>
                   <S.Label onClick={handleEdit}>
                     <RiEditBoxLine
