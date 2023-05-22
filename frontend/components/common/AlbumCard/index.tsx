@@ -1,7 +1,6 @@
 import * as S from "./style";
 import BasicImage from "../BasicImage";
 import BasicText from "../BasicText";
-import { CLOUD_FRONT } from "@/api";
 
 interface AlbumCardProps {
   onClickEvent?: () => void;

@@ -1,13 +1,11 @@
 import * as S from "./style";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from "react-icons/tb";
 import { IoPlay, IoPause, IoPlayBack, IoPlayForward } from "react-icons/io5";
 import { nextTrack, playListState, prevTrack } from "@/store/modules/playList";
 import {
-  setPlayList,
-  setTrack,
   setLoop,
   setShuffle,
   togglePlay,
@@ -52,8 +50,7 @@ const MusicController = ({}) => {
       <S.ButtonWrapper>
         <CustomIconButton
           size="2.75rem"
-          handleOnClickButton={handleClickShuffle}
-        >
+          handleOnClickButton={handleClickShuffle}>
           {shuffle ? (
             <TbArrowsShuffle size="2rem" color="#CCA4FC" />
           ) : (
@@ -64,8 +61,7 @@ const MusicController = ({}) => {
       <S.ButtonWrapper>
         <CustomIconButton
           size="2.75rem"
-          handleOnClickButton={handleClickBackward}
-        >
+          handleOnClickButton={handleClickBackward}>
           <IoPlayBack size="2rem" color="#FFFFFF" />
         </CustomIconButton>
       </S.ButtonWrapper>
@@ -81,16 +77,14 @@ const MusicController = ({}) => {
       <S.ButtonWrapper>
         <CustomIconButton
           size="2.75rem"
-          handleOnClickButton={handleClickForward}
-        >
+          handleOnClickButton={handleClickForward}>
           <IoPlayForward size="2rem" color="#FFFFFF" />
         </CustomIconButton>
       </S.ButtonWrapper>
       <S.ButtonWrapper>
         <CustomIconButton
           size="2.75rem"
-          handleOnClickButton={handleClickRepeat}
-        >
+          handleOnClickButton={handleClickRepeat}>
           {loop ? (
             <TbRepeatOnce size="2rem" color="#CCA4FC" />
           ) : (
