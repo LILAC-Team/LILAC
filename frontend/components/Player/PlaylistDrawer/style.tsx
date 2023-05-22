@@ -61,6 +61,6 @@ export const ContentWrap = styled.div`
 export const OneMusicCard = styled.div<CardProps>`
   width: 100%;
   padding: 0.5rem;
-  background-color: ${(props) => props.active && "#dadade"};
+  background-color: ${(props) => props.active && "#7a7a7a"};
   border-radius: ${(props) => props.active && "10px"};
 `;
