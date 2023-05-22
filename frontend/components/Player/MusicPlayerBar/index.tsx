@@ -65,7 +65,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
               <BasicImage
                 isAlbumPage={true}
                 src={
-                  currPlayingMusicInfo.index !== -1
+                  currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                     ? process.env.CLOUDFRONT_URL +
                       currPlayingMusicInfo.albumImage
                     : "/icons/favicon-512x512.png"
@@ -77,49 +77,52 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
               <S.Title>
                 <BasicText
                   text={
-                    currPlayingMusicInfo.index !== -1
+                    currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                       ? currPlayingMusicInfo.name
                       : "LILAC"
                   }
-                  size="1.125rem"
-                  font="NotoSansKR700"
+                  size='1.125rem'
+                  font='NotoSansKR700'
                 />
               </S.Title>
               <S.Artist>
                 <BasicText
                   text={
-                    currPlayingMusicInfo.index !== -1
+                    currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                       ? currPlayingMusicInfo.artistName
                       : "나만의 앨범을 등록해보세요"
                   }
-                  size="0.75rem"
-                  font="NotoSansKR400"
+                  size='0.75rem'
+                  font='NotoSansKR400'
                 />
               </S.Artist>
             </S.TextWrapper>
           </S.LeftWrapper>
           <S.RightWrapper>
             <CustomIconButton
-              size="3.25rem"
-              handleOnClickButton={handleClickPlay}>
+              size='3.25rem'
+              handleOnClickButton={handleClickPlay}
+            >
               {!playing ? (
-                <IoPlay size="2.5rem" color="#FFFFFF" />
+                <IoPlay size='2.5rem' color='#FFFFFF' />
               ) : (
-                <IoPause size="2.5rem" color="#FFFFFF" />
+                <IoPause size='2.5rem' color='#FFFFFF' />
               )}
             </CustomIconButton>
             <CustomIconButton
-              size="2.25rem"
-              handleOnClickButton={handleClickForward}>
-              <IoPlayForward size="1.5rem" color="#FFFFFF" />
+              size='2.25rem'
+              handleOnClickButton={handleClickForward}
+            >
+              <IoPlayForward size='1.5rem' color='#FFFFFF' />
             </CustomIconButton>
             <CustomIconButton
-              size="2.25rem"
+              size='2.25rem'
               handleOnClickButton={(e) => {
                 toggleDrawer("bottom", true)(e);
                 setNowOpen("playlist");
-              }}>
-              <RiPlayListFill size="1.5rem" color="#FFFFFF" />
+              }}
+            >
+              <RiPlayListFill size='1.5rem' color='#FFFFFF' />
             </CustomIconButton>
           </S.RightWrapper>
         </S.BarWrapper>

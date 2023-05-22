@@ -12,9 +12,7 @@ interface AppState {
 }
 
 const DragAndDrop = ({ list, setList, nowPlayList }) => {
-  console.log("in", list);
   const dispatch = useDispatch();
-  const { data } = nowPlayList;
   const tempList = { ...nowPlayList };
 
   const { currentTrackIndex } = useSelector(
@@ -36,14 +34,14 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
   const handleDelete = (index) => {
     const newList = list.filter((_, idx) => idx !== index);
     tempList.musicList = newList;
-    dispatch(deleteTrack(tempList));
     setList(newList);
+    dispatch(deleteTrack(tempList));
   };
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       {/* <S.DragDropWrap> */}
-      <Droppable droppableId="list">
+      <Droppable droppableId='list'>
         {(provided) => (
           <S.DragDropWrap {...provided.droppableProps} ref={provided.innerRef}>
             {list.map(
@@ -62,10 +60,10 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
                     >
                       <S.DeleteBtn>
                         <CustomIconButton
-                          size="2rem"
+                          size='2rem'
                           handleOnClickButton={() => handleDelete(index)}
                         >
-                          <FaTimes color="#F68888" size={20} />
+                          <FaTimes color='#F68888' size={20} />
                         </CustomIconButton>
                       </S.DeleteBtn>
                       <MusicCard

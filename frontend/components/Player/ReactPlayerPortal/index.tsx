@@ -20,7 +20,7 @@ interface MusicControllerState {
 interface commentState {
   commentList: commentListState;
 }
-// const ReactPlayerPortal: React.FC = React.memo(() => {
+
 const ReactPlayerPortal = () => {
   const playerRef = useRef(null);
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const ReactPlayerPortal = () => {
   }, [dispatch, OnSeekToZero, onChange]);
 
   useEffect(() => {
-    if (currPlayingMusicInfo.code) {
+    if (currPlayingMusicInfo && currPlayingMusicInfo.code) {
       musicApi
         .getMusicInfo(currPlayingMusicInfo.code)
         .then(({ data: { recentCommentList } }) => {

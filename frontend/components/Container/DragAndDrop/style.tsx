@@ -28,6 +28,7 @@ export const DeleteBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 `;
 
 export const MusicCardContent = styled.div`

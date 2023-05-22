@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import CommentInput from "../CommentInput";
 import CommentCard from "../CommentCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { musicApi } from "@/api/utils/music";
 import { commentListState } from "@/store/modules/commentList";
 import { playListState } from "@/store/modules/playList";
@@ -20,29 +20,6 @@ interface playerState {
 
 interface userState {
   user: any;
-}
-
-interface MusicControllerState {
-  loop: boolean;
-  playing: boolean;
-  shuffle: boolean;
-  OnSeekToZero: boolean;
-  currentTrackIndex: number;
-  currPlayingMusicInfo: MusicTrack;
-  musicList: object;
-  shuffleArr: number[];
-  musicListSize: number;
-  listSize: number;
-}
-
-interface MusicTrack {
-  index: number;
-  name: string;
-  artistName: string;
-  playtime: number;
-  code: string;
-  albumImage: string;
-  src: string;
 }
 
 interface Comment {
@@ -82,6 +59,7 @@ interface commentProps {
   time: number;
 }
 const CommentDrawer = ({ time }: commentProps) => {
+  const dispatch = useDispatch();
   const [inputData, setInputData] = useState("");
   const userInfo = useSelector((state: userState) => state.user);
   const { currPlayingMusicInfo } = useSelector(
@@ -166,7 +144,7 @@ const CommentDrawer = ({ time }: commentProps) => {
     <S.Comment>
       <S.Top>
         <S.Bar />
-        <BasicText text="Comment" size="125%" font="NotoSansKR500" />
+        <BasicText text='Comment' size='125%' font='NotoSansKR500' />
       </S.Top>
       <S.InputAllWrap>
         <CommentInput
