@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface CardProps {
-  active: any;
+  active: boolean;
 }
 
 export const Playlist = styled.div`
