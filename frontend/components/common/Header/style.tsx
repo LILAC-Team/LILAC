@@ -1,4 +1,8 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+interface WrapperProps {
+  isDropdown: boolean;
+}
 
 export const HeaderWrapper = styled.div`
   display: flex;
@@ -28,13 +32,54 @@ export const LabelWrapper = styled.div`
 
 export const Label = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  padding: 0.25rem 0.45rem;
+  padding: 0.25rem 0.4rem;
+  &:active {
+    border-radius: 5px;
+    background-color: #dccbfd;
+  }
 `;
 
-export const Wrapper = styled.div`
-  width: 6rem;
-  height: 4.5rem;
+// export const Wrapper = styled.div<WrapperProps>`
+//   width: 5.75rem;
+//   height: 4rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: white;
+//   border-radius: 10%;
+//   border: 2px solid var(--color-primary);
+//   position: absolute;
+//   top: 3.75rem;
+//   right: 1rem;
+//   z-index: 2;
+//   animation: ${({ isDropdown }) =>
+//       isDropdown ? "openDropbox" : "closeDropbox"}
+//     0.4s ease forwards;
+
+//   @keyframes openDropbox {
+//     0% {
+//       transform: scaleY(0);
+//     }
+//     100% {
+//       transform: scaleY(1);
+//     }
+//   }
+
+//   @keyframes closeDropbox {
+//     0% {
+//       transform: scaleY(1);
+//     }
+//     100% {
+//       transform: scaleY(0);
+//     }
+//   }
+// `;
+export const Wrapper = styled.div<WrapperProps>`
+  width: 5.75rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,6 +90,17 @@ export const Wrapper = styled.div`
   top: 3.75rem;
   right: 1rem;
   z-index: 2;
+  animation: "openDropbox" 0.3s ease forwards;
+
+  @keyframes openDropbox {
+    0% {
+      opacity: 0%;
+      top: 2.75rem;
+    }
+    100% {
+      top: 3.75rem;
+    }
+  }
 `;
 
 export const EditWrapper = styled.div`
