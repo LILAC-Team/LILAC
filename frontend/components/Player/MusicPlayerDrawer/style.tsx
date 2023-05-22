@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Player = styled.div`
-  background-color: #4e4e4e;
+  background-color: var(--color-background);
   height: calc(var(--vh, 1vh) * 95);
   width: 100%;
   max-width: 900px;
@@ -9,6 +9,7 @@ export const Player = styled.div`
   border-top-right-radius: 2rem;
   text-align: center;
 `;
+
 export const PlayerWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,8 +47,6 @@ export const Artist = styled.div`
   padding: 0.5rem;
   display: flex;
   justify-content: center;
-  /* position: absolute; */
-  /* bottom: calc(var(--vh, 1vh)* ); */
 `;
 
 export const Comment = styled.div`
