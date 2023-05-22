@@ -28,7 +28,6 @@ export const Input = styled.input`
   width: 100%;
   background-color: transparent;
   border: none;
-  font-family: "RidiBatang";
   &:focus {
     outline: none;
   }
