@@ -118,14 +118,20 @@ const MainAlbum = ({
       {isModal && (
         <SmallModal handleSetShowModal={() => setIsModal(false)}>
           <S.ModalWrap>
-            <BasicText text="등록하실 앨범의 링크를 입력해주세요" size="115%" />
+            <BasicText
+              text="등록하실 앨범의 링크를 입력해주세요"
+              color="black"
+            />
           </S.ModalWrap>
-          <BasicInput
-            id="albumLink"
-            type="text"
-            value={linkAddress}
-            handleOnChangeValue={handleLinkChange}
-          />
+          <S.ModalInputWrap>
+            <BasicInput
+              id="albumLink"
+              type="text"
+              value={linkAddress}
+              handleOnChangeValue={handleLinkChange}
+              color="black"
+            />
+          </S.ModalInputWrap>
           <S.ButtonWrap>
             <CustomTextButton
               text="이동"
