@@ -98,7 +98,7 @@
 
 ## 📄 컴포넌트 명세서
 
-![컴포넌트 명세서1](https://github.com/suz-dev/fit_with_me/assets/91257772/954865c4-07fa-4276-adfd-15323fcb62b3)
+![컴포넌트 명세서1](https://github.com/suz-dev/fit_with_me/assets/91257772/476e0be7-335e-4c1e-9bce-cbb055b5acff)
 
 ## ⚙️ 프로젝트 파일 구조
 
