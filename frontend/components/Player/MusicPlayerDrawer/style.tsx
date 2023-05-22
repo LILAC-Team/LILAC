@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Player = styled.div`
-  background-color: var(--color-background);
+  background-color: #191919;
   height: calc(var(--vh, 1vh) * 95);
   width: 100%;
   max-width: 900px;

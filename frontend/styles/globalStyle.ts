@@ -122,7 +122,7 @@ export const GlobalStyle = createGlobalStyle`
 
 html {
   max-width: 900px;
-  --color-background: #3d3a4b;
+  --color-background: #191919;
   --color-primary: #cca4fc;
   --color-light: #e3dfff;
   height: calc(var(--vh, 1vh) * 100);
