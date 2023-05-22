@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MenuWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: #676767;
+  background-color: black;
 
   position: absolute;
   left: 50%;
