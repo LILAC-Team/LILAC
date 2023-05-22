@@ -53,7 +53,7 @@ const MenuBar = () => {
           }}>
           <S.ButtonWrapper>
             <CustomIconButton size="2.5rem">
-              <BiCommentDetail size="1.5rem" color="#FFFFFF" />
+              <BiCommentDetail size="1.5rem" color="#CCA4FC" />
             </CustomIconButton>
           </S.ButtonWrapper>
         </S.Comment>
@@ -64,7 +64,7 @@ const MenuBar = () => {
           }}>
           <S.ButtonWrapper>
             <CustomIconButton size="2.5rem">
-              <RiPlayListFill size="1.5rem" color="#FFFFFF" />
+              <RiPlayListFill size="1.5rem" color="#CCA4FC" />
             </CustomIconButton>
           </S.ButtonWrapper>
         </S.PlayList>
