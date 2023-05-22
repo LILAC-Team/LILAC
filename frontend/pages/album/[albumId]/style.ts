@@ -82,7 +82,12 @@ export const MusicList = styled.div`
 export const OneMusicCard = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0.5rem 0rem 0.5rem 0rem;
+  padding: 0.5rem;
+
+  &:active {
+    border-radius: 15px;
+    background-color: #7a7a7a;
+  }
 `;
 
 export const ModalContainer = styled.div`
