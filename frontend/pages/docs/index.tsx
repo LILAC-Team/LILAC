@@ -3,7 +3,7 @@ import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
 import Header from "@/components/common/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -31,6 +31,11 @@ const Docs = () => {
   const [swipe_iOS, setSwipe_iOS] = useState<any>();
   const [reachingEnd_iOS, setReachingEnd_iOS] = useState<boolean>(false);
   const [reachingFirst_iOS, setReachingFirst_iOS] = useState<boolean>(true);
+
+  const [userAgent, setUserAgent] = useState("");
+  useEffect(() => {
+    setUserAgent(navigator.userAgent.toLowerCase());
+  }, []);
 
   return (
     <>
@@ -364,6 +369,7 @@ const Docs = () => {
             </S.SliderWrap>
           </SmallModal>
         )}
+        <BasicText text={userAgent} />
       </S.DocsContainer>
     </>
   );
