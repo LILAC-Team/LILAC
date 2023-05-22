@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import { useSelector, useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
-import { playListState } from "@/store/modules/playList";
+import { playListState, updatePlayList } from "@/store/modules/playList";
 import { setPlayList, deleteTrack } from "@/store/modules/playList";
 
 interface AppState {
@@ -28,14 +28,26 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
 
     setList(items);
     tempList.musicList = items;
-    dispatch(setPlayList(tempList));
+    // dispatch(setPlayList(tempList));
+    dispatch(
+      updatePlayList({
+        musicList: tempList.musicList,
+        listSize: tempList.musicList.length,
+      })
+    );
   };
 
   const handleDelete = (index) => {
     const newList = list.filter((_, idx) => idx !== index);
     tempList.musicList = newList;
     setList(newList);
-    dispatch(deleteTrack(tempList));
+    // dispatch(deleteTrack(tempList));
+    dispatch(
+      updatePlayList({
+        musicList: tempList.musicList,
+        listSize: tempList.musicList.length,
+      })
+    );
   };
 
   return (
