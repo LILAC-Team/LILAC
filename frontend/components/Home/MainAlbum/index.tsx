@@ -52,8 +52,8 @@ const MainAlbum = ({
         <S.TextWrapper>
           <BasicText
             text={userInfo.nickName}
-            color='#000000'
-            font='NotoSansKR700'
+            color="#000000"
+            font="NotoSansKR700"
           />
         </S.TextWrapper>
         <S.CdContainer>
@@ -61,38 +61,38 @@ const MainAlbum = ({
             <S.CdWrapper>
               <BasicImage
                 isAlbumPage={true}
-                src='/album.png'
-                size='100%'
+                src="/album.png"
+                size="100%"
                 radius={0}
                 isRotate={true}
               />
               <S.InnerCd>
                 <S.InnerText>
-                  <BasicText text={myAlbum} size='80%' />
+                  <BasicText text={myAlbum} size="80%" />
                 </S.InnerText>
               </S.InnerCd>
             </S.CdWrapper>
             <S.InnerText>
-              <BasicText text='My' color='black' />
+              <BasicText text="My" color="black" />
             </S.InnerText>
           </S.CdBox>
           <S.CdBox>
             <S.CdWrapper>
               <BasicImage
                 isAlbumPage={true}
-                src='/album.png'
-                size='100%'
+                src="/album.png"
+                size="100%"
                 radius={0}
                 isRotate={true}
               />
               <S.InnerCd>
                 <S.InnerText>
-                  <BasicText text={ownAlbum} size='80%' />
+                  <BasicText text={ownAlbum} size="80%" />
                 </S.InnerText>
               </S.InnerCd>
             </S.CdWrapper>
             <S.InnerText>
-              <BasicText text='Own' color='black' />
+              <BasicText text="Own" color="black" />
             </S.InnerText>
           </S.CdBox>
         </S.CdContainer>
@@ -101,16 +101,16 @@ const MainAlbum = ({
         <S.AddAlbum>
           <Link href={"/form"}>
             <S.TextWrapper>
-              <RiAddLine size='1.25rem' color='#000000' />
-              <BasicText text='앨범 발매' size='80%' color='#000000' />
+              <RiAddLine size="1.5rem" color="#000000" />
+              <BasicText text="앨범 발매" size="90%" color="#000000" />
             </S.TextWrapper>
           </Link>
         </S.AddAlbum>
         <S.CatchPhrase onClick={() => setIsModal(true)}>
-          <Link href=''>
+          <Link href="">
             <S.TextWrapper>
-              <RiAddLine size='1.25rem' color='#000000' />
-              <BasicText text='공유 앨범 등록' size='80%' color='#000000' />
+              <RiAddLine size="1.5rem" color="#000000" />
+              <BasicText text="공유 앨범 등록" size="90%" color="#000000" />
             </S.TextWrapper>
           </Link>
         </S.CatchPhrase>
@@ -118,19 +118,19 @@ const MainAlbum = ({
       {isModal && (
         <SmallModal handleSetShowModal={() => setIsModal(false)}>
           <S.ModalWrap>
-            <BasicText text='등록하실 앨범의 링크를 입력해주세요' size='115%' />
+            <BasicText text="등록하실 앨범의 링크를 입력해주세요" size="115%" />
           </S.ModalWrap>
           <BasicInput
-            id='albumLink'
-            type='text'
+            id="albumLink"
+            type="text"
             value={linkAddress}
             handleOnChangeValue={handleLinkChange}
           />
           <S.ButtonWrap>
             <CustomTextButton
-              text='이동'
+              text="이동"
               handleOnClickButton={handleAddAlbum}
-              size='120%'
+              size="120%"
             />
           </S.ButtonWrap>
         </SmallModal>

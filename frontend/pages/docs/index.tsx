@@ -32,11 +32,6 @@ const Docs = () => {
   const [reachingEnd_iOS, setReachingEnd_iOS] = useState<boolean>(false);
   const [reachingFirst_iOS, setReachingFirst_iOS] = useState<boolean>(true);
 
-  const [userAgent, setUserAgent] = useState("");
-  useEffect(() => {
-    setUserAgent(navigator.userAgent.toLowerCase());
-  }, []);
-
   return (
     <>
       <Header isShown={false} link="/login" />
@@ -369,7 +364,6 @@ const Docs = () => {
             </S.SliderWrap>
           </SmallModal>
         )}
-        <BasicText text={userAgent} />
       </S.DocsContainer>
     </>
   );

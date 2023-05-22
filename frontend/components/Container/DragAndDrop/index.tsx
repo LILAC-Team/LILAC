@@ -62,6 +62,7 @@ const DragAndDrop = ({ list, setList, nowPlayList }) => {
                     >
                       <S.DeleteBtn>
                         <CustomIconButton
+                          size="2rem"
                           handleOnClickButton={() => handleDelete(index)}
                         >
                           <FaTimes color="#F68888" size={20} />

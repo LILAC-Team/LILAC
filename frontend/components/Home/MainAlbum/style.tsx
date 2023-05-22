@@ -15,6 +15,9 @@ export const AlbumDataWrapper = styled.div`
   width: 48%;
   height: 13rem;
   background: linear-gradient(45deg, #bc92f4, #dccbfd);
+  &:active {
+    background: linear-gradient(45deg, #dccbfd, #bc92f4);
+  }
 `;
 
 export const TextWrapper = styled.div`
@@ -49,6 +52,9 @@ export const AddAlbum = styled.div`
   background: linear-gradient(45deg, #bc92f4, #dccbfd);
   margin-bottom: 3%;
   border-radius: 10px;
+  &:active {
+    background: linear-gradient(45deg, #dccbfd, #bc92f4);
+  }
 `;
 
 export const CatchPhrase = styled.div`
@@ -62,6 +68,9 @@ export const CatchPhrase = styled.div`
   background: linear-gradient(45deg, #bc92f4, #dccbfd);
   margin-top: 3%;
   border-radius: 10px;
+  &:active {
+    background: linear-gradient(45deg, #dccbfd, #bc92f4);
+  }
 `;
 
 export const ProfileWrapper = styled.div`

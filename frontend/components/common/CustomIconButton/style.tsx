@@ -16,7 +16,12 @@ export const CustomIconButton = styled.button<ButtonProps>`
   height: ${(props) => props.size || "100%"};
   border: ${(props) => props.border || "none"};
   border-radius: 100%;
+  padding: 0rem;
   background-color: ${(props) => props.color};
   pointer-events: ${(props) => (props.isDisabled ? "none" : "auto")};
   cursor: ${(props) => (props.isDisabled ? "default" : "pointer")};
+  &:active {
+    border-radius: 100%;
+    background: rgba(255, 255, 255, 0.15);
+  }
 `;

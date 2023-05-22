@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MenuWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: #676767;
+  background-color: black;
 
   position: absolute;
   left: 50%;
@@ -27,4 +27,11 @@ export const Comment = styled.div`
 
 export const PlayList = styled.div`
   width: 100%;
+`;
+
+export const ButtonWrapper = styled.div`
+  /* aspect-ratio: 1 / 1; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

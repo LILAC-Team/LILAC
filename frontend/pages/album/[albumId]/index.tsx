@@ -10,7 +10,6 @@ import { BiLink } from "react-icons/bi";
 import { BiDownload } from "react-icons/bi";
 import { albumApi } from "@/api/utils/album";
 import { playlistApi } from "@/api/utils/playlist";
-import { CLOUD_FRONT } from "@/api/index";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import { useSelector, useDispatch } from "react-redux";
@@ -184,7 +183,7 @@ const AlbumDetail = () => {
           {albumDetailData.albumStatus === "NOT_COLLECTED" && (
             <S.AlbumCoverDiv onClick={() => setIsCollectModalOpen(true)}>
               <S.HaveBtn>
-                <CustomIconButton>
+                <CustomIconButton size="3.75rem">
                   <BiDownload size="3rem" />
                 </CustomIconButton>
               </S.HaveBtn>
@@ -331,12 +330,3 @@ const AlbumDetail = () => {
 };
 
 export default AlbumDetail;
-
-// export async function getServerSideProps({ req }) {
-//   const serializedReq = CircularJSON.stringify(req);
-//   return {
-//     props: {
-//       req: serializedReq,
-//     },
-//   };
-// }

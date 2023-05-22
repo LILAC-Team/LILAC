@@ -28,7 +28,6 @@ export const Input = styled.input`
   width: 100%;
   background-color: transparent;
   border: none;
-  font-family: "RidiBatang";
   &:focus {
     outline: none;
   }
@@ -42,5 +41,7 @@ export const InputTime = styled.div`
 `;
 
 export const CommentBtn = styled.div`
-  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
