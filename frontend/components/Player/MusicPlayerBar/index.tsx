@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
@@ -57,24 +57,6 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
         setState({ ...state, [anchor]: open });
       };
 
-    // useEffect(() => {
-    //   const handlePopstate = () => {
-    //     if (nowOpen) {
-    //       setNowOpen(""); // nowOpen 상태 초기화
-    //     }
-    //     // 이런거 쓰지 마시오 - MZ
-    //     // else {
-    //     //   router.back(); // 이전 페이지로 이동
-    //     // }
-    //   };
-
-    //   window.addEventListener("popstate", handlePopstate);
-
-    //   return () => {
-    //     window.removeEventListener("popstate", handlePopstate);
-    //   };
-    // }, [nowOpen]);
-
     return (
       <>
         <S.BarWrapper>
@@ -86,7 +68,7 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
                   currPlayingMusicInfo && currPlayingMusicInfo.index !== -1
                     ? process.env.CLOUDFRONT_URL +
                       currPlayingMusicInfo.albumImage
-                    : "/icons/favicon-96x96.png"
+                    : "/icons/favicon-512x512.png"
                 }
                 radius={0.15}
               />
@@ -117,17 +99,24 @@ const MusicPlayerBar: React.FC<MusicPlayerBarProps> = React.memo(
             </S.TextWrapper>
           </S.LeftWrapper>
           <S.RightWrapper>
-            <CustomIconButton handleOnClickButton={handleClickPlay}>
+            <CustomIconButton
+              size='3.25rem'
+              handleOnClickButton={handleClickPlay}
+            >
               {!playing ? (
                 <IoPlay size='2.5rem' color='#FFFFFF' />
               ) : (
                 <IoPause size='2.5rem' color='#FFFFFF' />
               )}
             </CustomIconButton>
-            <CustomIconButton handleOnClickButton={handleClickForward}>
+            <CustomIconButton
+              size='2.25rem'
+              handleOnClickButton={handleClickForward}
+            >
               <IoPlayForward size='1.5rem' color='#FFFFFF' />
             </CustomIconButton>
             <CustomIconButton
+              size='2.25rem'
               handleOnClickButton={(e) => {
                 toggleDrawer("bottom", true)(e);
                 setNowOpen("playlist");

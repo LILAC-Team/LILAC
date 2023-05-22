@@ -7,7 +7,6 @@ import { FaTimes } from "react-icons/fa";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import BasicImage from "@/components/common/BasicImage";
-import { musicApi } from "@/api/utils/music";
 
 interface CommentCardProps {
   code: string;
@@ -40,6 +39,7 @@ const CommentCard = ({
 
   // isRealDelete Modal
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   // After AddAlbum
   const [changeNext, setChangeNext] = useState(false);
 
@@ -48,7 +48,6 @@ const CommentCard = ({
       handler(code);
       setTimeout(() => setChangeNext(false), 1000);
       setTimeout(() => setIsDeleteModalOpen(false), 1000);
-      // setChangeNext(false);
     }
   }, [changeNext]);
 
@@ -81,8 +80,8 @@ const CommentCard = ({
         {isMine && (
           <S.CommentDelete>
             <CustomIconButton
-              handleOnClickButton={() => setIsDeleteModalOpen(true)}
-            >
+              size="2rem"
+              handleOnClickButton={() => setIsDeleteModalOpen(true)}>
               <FaTimes color="#F68888" size={20} />
             </CustomIconButton>
           </S.CommentDelete>
@@ -91,8 +90,7 @@ const CommentCard = ({
           <SmallModal
             handleSetShowModal={() => {
               setIsDeleteModalOpen(false);
-            }}
-          >
+            }}>
             <S.ModalContainer>
               {!changeNext ? (
                 <>

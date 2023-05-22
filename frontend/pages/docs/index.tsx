@@ -3,7 +3,7 @@ import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
 import Header from "@/components/common/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Swiper, SwiperSlide } from "swiper/react";

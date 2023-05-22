@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import { createPortal } from "react-dom";
 import { nextTrack, PutStartingPointToZero } from "@/store/modules/playList";
 import { useSelector, useDispatch } from "react-redux";
-import { playListState, togglePlay } from "@/store/modules/playList";
+import { playListState } from "@/store/modules/playList";
 import { musicApi } from "@/api/utils/music";
 import {
   setTime,
