@@ -7,7 +7,7 @@ const MyDocument = (props) => {
       <Head>
         {props.styles}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#3d3a4b" />
+        <meta name="theme-color" content="#191919" />
         <meta property="og:title" content="LILAC" />
         <meta property="og:image" content="/LILAC_og.png" />
         <meta
