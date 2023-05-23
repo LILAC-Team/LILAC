@@ -166,18 +166,15 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
               <S.Wrapper isDropdown={isDropdown}>
                 <S.LabelWrapper>
                   <S.Label onClick={handleEdit}>
-                    <RiEditBoxLine
-                      size="1.15rem"
-                      color="var(--color-primary)"
-                    />
-                    <BasicText text="&nbsp;정보수정" color="black" size="75%" />
+                    <RiEditBoxLine size="1.4rem" color="var(--color-primary)" />
+                    <BasicText text="&nbsp;정보수정" color="black" size="95%" />
                   </S.Label>
                   <S.Label onClick={handleLogout}>
                     <RiLogoutBoxRLine
-                      size="1.2rem"
+                      size="1.45rem"
                       color="var(--color-primary)"
                     />
-                    <BasicText text="&nbsp;로그아웃" color="black" size="75%" />
+                    <BasicText text="&nbsp;로그아웃" color="black" size="95%" />
                   </S.Label>
                 </S.LabelWrapper>
               </S.Wrapper>
@@ -189,7 +186,8 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
         <SmallModal
           handleSetShowModal={() => {
             setIsEditModal(false);
-          }}>
+          }}
+        >
           <S.EditWrapper>
             <S.ImageWrapper>
               <ProfileImg
@@ -221,7 +219,8 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
         <SmallModal
           handleSetShowModal={() => {
             setIsLogoutModal(false);
-          }}>
+          }}
+        >
           <S.EditWrapper>
             <BasicText
               text="로그아웃 하시겠습니까?"
