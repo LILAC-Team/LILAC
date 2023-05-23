@@ -26,7 +26,6 @@ instance.interceptors.request.use(function (config) {
 
 instance.interceptors.response.use(
   (response) => {
-    console.log("interceptor response 200");
     return response;
   },
 
