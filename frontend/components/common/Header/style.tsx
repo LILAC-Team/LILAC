@@ -35,51 +35,16 @@ export const Label = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0.25rem 0.4rem;
+  padding: 0.3rem 0.4rem;
   &:active {
     border-radius: 5px;
     background-color: #dccbfd;
   }
 `;
 
-// export const Wrapper = styled.div<WrapperProps>`
-//   width: 5.75rem;
-//   height: 4rem;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   background-color: white;
-//   border-radius: 10%;
-//   border: 2px solid var(--color-primary);
-//   position: absolute;
-//   top: 3.75rem;
-//   right: 1rem;
-//   z-index: 2;
-//   animation: ${({ isDropdown }) =>
-//       isDropdown ? "openDropbox" : "closeDropbox"}
-//     0.4s ease forwards;
-
-//   @keyframes openDropbox {
-//     0% {
-//       transform: scaleY(0);
-//     }
-//     100% {
-//       transform: scaleY(1);
-//     }
-//   }
-
-//   @keyframes closeDropbox {
-//     0% {
-//       transform: scaleY(1);
-//     }
-//     100% {
-//       transform: scaleY(0);
-//     }
-//   }
-// `;
 export const Wrapper = styled.div<WrapperProps>`
-  width: 5.75rem;
-  height: 4rem;
+  width: 6.75rem;
+  height: 4.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
