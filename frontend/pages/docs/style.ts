@@ -93,7 +93,7 @@ export const LeftWrap = styled.div`
   height: 100%;
   padding: 0.5rem;
   margin: 0.5rem;
-  background-color: #3d3a4b;
+  background-color: #191919;
   border-radius: 0.5rem;
 `;
 

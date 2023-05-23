@@ -25,45 +25,6 @@ export const GlobalStyle = createGlobalStyle`
     rgba(255, 255, 255, 0)
   );
 
-  /* @font-face {
-    font-family: "NotoSansKR400";
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-    src: url("/fonts/NotoSansKR-Regular.otf") format("opentype");
-  }
-
-  @font-face {
-    font-family: "NotoSansKR500";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("/fonts/NotoSansKR-Medium.otf") format("opentype");
-  }
-
-  @font-face {
-    font-family: "NotoSansKR700";
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url("/fonts/NotoSansKR-Bold.otf") format("opentype");
-  }
-
-  @font-face {
-    font-family: "HSBomBaram";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("/fonts/HSBombaram2.1.ttf") format("woff2");
-  }
-
-  @font-face {
-    font-family: "RidiBatang";
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url("/fonts/RIDIBatang.otf") format("opentype");
-  } */
 
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;
@@ -123,7 +84,7 @@ export const GlobalStyle = createGlobalStyle`
 
 html {
   max-width: 900px;
-  --color-background: #3d3a4b;
+  --color-background: #191919;
   --color-primary: #cca4fc;
   --color-light: #e3dfff;
   height: calc(var(--vh, 1vh) * 100);

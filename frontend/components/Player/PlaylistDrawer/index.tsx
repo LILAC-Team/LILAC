@@ -32,49 +32,21 @@ interface AppState {
   playList: playListState;
 }
 
-interface MusicControllerState {
-  playList: {
-    playing: boolean;
-    currentTrackIndex: number;
-    currSrc: string;
-    musicList: MusicTrack[];
-    listSize: number;
-  };
-}
-
-interface MusicTrack {
-  name: string;
-  artistName: string;
-  playtime: number;
-  code: string;
-  albumImage: string;
-}
-
 const PlaylistDrawer = () => {
+  const dispatch = useDispatch();
+  const nowPlayList = useSelector((state: AppState) => state.playList);
   // Edit 여부
+  const { playing, musicList, currentTrackIndex } = useSelector(
+    // GET PlayList from Redux
+    (state: AppState) => state.playList
+  );
   const [isEdit, setIsEdit] = useState(false);
 
-  // 현재 재생중인 곡의 index
-  // const [idx, setIdx] = useState(0);
-
-  // GET PlayList from Redux
-  const nowPlayList = useSelector((state: AppState) => state.playList);
-  const { playing, musicList, musicListSize, shuffleArr, currentTrackIndex } =
-    useSelector((state: AppState) => state.playList);
-
-  const dispatch = useDispatch();
-
   // UPDATE PlayList 담는 list
-  const [list, setList] = useState(Object.values(nowPlayList.musicList));
-
-  // const handleButtonClick = () => {
-  //   const sortedMusicList = shuffleArr.map((data) => musicList[data]);
-
-  //   setList(sortedMusicList);
-  // };
+  const [list, setList] = useState(Object.values(musicList));
 
   // UPDATE list Size
-  const [listSize, setListSize] = useState(nowPlayList.listSize);
+  const [listSize, setListSize] = useState(Object.keys(musicList).length);
 
   // RELOAD PlayList
   const reloadPlayListHandler = useCallback(async () => {
@@ -93,8 +65,7 @@ const PlaylistDrawer = () => {
       await playlistApi.putPlayList(req);
       dispatch(
         updatePlayList({
-          ...nowPlayList,
-          musicList: list,
+          musicList: [...list],
           listSize: list.length,
         })
       );
@@ -111,7 +82,6 @@ const PlaylistDrawer = () => {
   // PLAY Music of Playlist
   const playMusicHandler = (index: number) => {
     try {
-      // setIdx(index);
       dispatch(togglePlay());
       dispatch(PutStartingPointToZero(true));
       dispatch(
@@ -125,45 +95,36 @@ const PlaylistDrawer = () => {
   };
 
   useEffect(() => {
-    setList(Object.values(nowPlayList.musicList));
-  }, [nowPlayList.musicList]);
+    setList(Object.values(musicList));
+    setListSize(Object.keys(musicList).length);
+  }, [musicList]);
 
-  useEffect(() => {
-    // reloadPlayListHandler();
-  }, [reloadPlayListHandler]);
-
-  useEffect(() => {
-    setListSize(nowPlayList.listSize);
-  }, [nowPlayList.listSize]);
   return (
     <S.Playlist>
       <S.Top>
         <S.Bar />
-        <BasicText text="PlayList" size="125%" font="NotoSansKR500" />
+        <BasicText text='PlayList' size='125%' font='NotoSansKR500' />
       </S.Top>
       <S.TextWrapper>
-        <BasicText text={(listSize ? listSize : 0) + "곡"} size="0.85rem" />
+        <BasicText text={(listSize ? listSize : 0) + "곡"} size='0.85rem' />
         <div />
         {isEdit ? (
           <CustomTextButton
-            text="완료"
-            handleOnClickButton={() => {
-              handleEditClick();
-            }}
-            fontColor="#FFFFFF"
+            text='완료'
+            handleOnClickButton={handleEditClick}
+            fontColor='#FFFFFF'
             isBackground={false}
-            size="0.85rem"
+            size='0.85rem'
           />
         ) : (
           <CustomTextButton
-            text="편집"
+            text='편집'
             handleOnClickButton={() => {
               setIsEdit((prev) => !prev);
-              // handleButtonClick();
             }}
-            fontColor="#FFFFFF"
+            fontColor='#FFFFFF'
             isBackground={false}
-            size="0.85rem"
+            size='0.85rem'
           />
         )}
       </S.TextWrapper>
@@ -176,9 +137,9 @@ const PlaylistDrawer = () => {
           />
         ) : (
           <>
-            {shuffleArr &&
-              shuffleArr.length > 0 &&
-              shuffleArr.map((data, index) => (
+            {musicList &&
+              Object.keys(musicList).length > 0 &&
+              Object.keys(musicList).map((data, index) => (
                 <S.OneMusicCard
                   key={index}
                   onClick={() => playMusicHandler(index)}

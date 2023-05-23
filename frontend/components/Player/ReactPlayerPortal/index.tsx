@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import { createPortal } from "react-dom";
 import { nextTrack, PutStartingPointToZero } from "@/store/modules/playList";
 import { useSelector, useDispatch } from "react-redux";
-import { playListState, togglePlay } from "@/store/modules/playList";
+import { playListState } from "@/store/modules/playList";
 import { musicApi } from "@/api/utils/music";
 import {
   setTime,
@@ -21,7 +20,7 @@ interface MusicControllerState {
 interface commentState {
   commentList: commentListState;
 }
-// const ReactPlayerPortal: React.FC = React.memo(() => {
+
 const ReactPlayerPortal = () => {
   const playerRef = useRef(null);
   const dispatch = useDispatch();
@@ -42,15 +41,8 @@ const ReactPlayerPortal = () => {
     }
   }, [dispatch, OnSeekToZero, onChange]);
 
-  // useEffect(() => {
-  //   if (onChange) {
-  //     playerRef.current.seekTo(time);
-  //     dispatch(setOnChange({ onChangeValue: false }));
-  //   }
-  // }, [onChange]);
-
   useEffect(() => {
-    if (currPlayingMusicInfo.code) {
+    if (currPlayingMusicInfo && currPlayingMusicInfo.code) {
       musicApi
         .getMusicInfo(currPlayingMusicInfo.code)
         .then(({ data: { recentCommentList } }) => {

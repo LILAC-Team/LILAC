@@ -48,34 +48,36 @@ export const playList = createSlice({
   initialState,
   reducers: {
     setPlayList(state, action) {
+      state.musicList = {};
       state.playing = false;
       state.listSize = action.payload.listSize;
-      action.payload.musicList.map((data, index) => {
-        const key = state.musicListSize + index + 1;
-        const object = {
-          ...data,
-          index,
-          albumImage: data.albumImage,
-          src:
-            process.env.CLOUDFRONT_URL + "musics/music-" + data.code + ".m3u8",
-        };
-        state.musicList[`${key}`] = object;
-      });
-
-      if (action.payload.listSize !== 0) {
+      if (state.listSize !== 0) {
+        action.payload.musicList.map((data, index) => {
+          const key = index;
+          const object = {
+            ...data,
+            index,
+            albumImage: data.albumImage,
+            src:
+              process.env.CLOUDFRONT_URL +
+              "musics/music-" +
+              data.code +
+              ".m3u8",
+          };
+          state.musicList[`${key}`] = object;
+        });
         state.currentTrackIndex = 0;
         state.currPlayingMusicInfo = state.musicList["0"];
-        state.shuffleArr = Array.from(Array(state.listSize), (_, v) => v);
       }
     },
     updatePlayList: (state, action) => {
-      // state.playing = false;
+      state.musicList = {};
       state.listSize = action.payload.listSize;
       state.musicListSize = -1;
-      state.shuffleArr = [];
+      // 전체 삭제일 경우
       if (action.payload.listSize === 0) {
+        state.OnSeekToZero = true;
         state.playing = false;
-        state.musicList = {};
         state.currPlayingMusicInfo = {
           index: -1,
           name: "",
@@ -85,46 +87,29 @@ export const playList = createSlice({
           albumImage: "",
           src: "",
         };
+        // 일부 삭제일 경우
       } else if (action.payload.listSize !== 0) {
+        let bo = false;
+        let curr = -1;
         action.payload.musicList.map((data, index) => {
-          const key = state.musicListSize + index + 1;
+          const key = index;
+          if (data.index === state.currentTrackIndex) {
+            curr = index;
+            bo = true;
+          }
           const object = {
             ...data,
             index,
           };
           state.musicList[`${key}`] = object;
         });
-        state.currentTrackIndex = 0;
-        const temp = {
-          index: state.currPlayingMusicInfo.index,
-          name: state.currPlayingMusicInfo.name,
-          artistName: state.currPlayingMusicInfo.artistName,
-          playtime: state.currPlayingMusicInfo.playtime,
-          code: state.currPlayingMusicInfo.code,
-          albumImage: state.currPlayingMusicInfo.albumImage,
-          src: state.currPlayingMusicInfo.src,
-        };
-        state.currPlayingMusicInfo = {
-          index: -1,
-          name: "",
-          artistName: "",
-          playtime: 0,
-          code: "",
-          albumImage: "",
-          src: "",
-        };
-        state.shuffleArr = Array.from(Array(state.listSize), (_, v) => v);
-        for (let i = 0; i < state.listSize; i++) {
-          if (state.musicList[`${i}`].src === temp.src) {
-            state.currPlayingMusicInfo = state.musicList[`${i}`];
-            state.currentTrackIndex = i;
-            state.playing = true;
-            return;
-          }
+        if (!bo) {
+          state.currentTrackIndex = 0;
+          state.currPlayingMusicInfo = state.musicList[state.currentTrackIndex];
+        } else {
+          state.currentTrackIndex = curr;
+          state.currPlayingMusicInfo.index = curr;
         }
-        state.playing = false;
-        state.currentTrackIndex = 0;
-        state.currPlayingMusicInfo = state.musicList[state.currentTrackIndex];
       }
     },
     setLoop: (state) => {
@@ -132,46 +117,43 @@ export const playList = createSlice({
     },
     setShuffle: (state) => {
       state.shuffle = !state.shuffle;
-      if (state.shuffle) {
-        const copyNums = [...state.shuffleArr];
-        let numsLength = copyNums.length;
-        while (numsLength) {
-          let randomIndex = Math.floor(numsLength-- * Math.random());
-          let temp = copyNums[randomIndex];
-          copyNums[randomIndex] = copyNums[numsLength];
-          copyNums[numsLength] = temp;
-        }
-        state.shuffleArr = [...copyNums];
-        for (let i = 0; i < state.listSize; i++) {
-          if (state.shuffleArr[i] === state.currentTrackIndex) {
-            state.currentTrackIndex = i;
-            break;
-          }
-        }
-      } else {
-        state.shuffleArr = Array.from(Array(state.listSize), (_, v) => v);
-      }
     },
     togglePlay: (state) => {
       state.playing = !state.playing;
     },
     prevTrack: (state) => {
-      state.currentTrackIndex =
-        (state.currentTrackIndex + state.listSize + 1) % state.listSize;
-      state.currPlayingMusicInfo =
-        state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
+      let len = Object.keys(state.musicList).length;
+      if (state.shuffle) {
+        state.currentTrackIndex = Math.floor(len-- * Math.random());
+        state.currPlayingMusicInfo =
+          state.musicList[`${state.currentTrackIndex}`];
+      } else {
+        state.currentTrackIndex = (state.currentTrackIndex + len - 1) % len;
+        state.currPlayingMusicInfo =
+          state.musicList[`${state.currentTrackIndex}`];
+      }
+      state.OnSeekToZero = true;
       state.playing = true;
     },
     nextTrack: (state) => {
-      state.currentTrackIndex = (state.currentTrackIndex + 1) % state.listSize;
-      state.currPlayingMusicInfo =
-        state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
+      let len = Object.keys(state.musicList).length;
+      if (state.shuffle) {
+        state.currentTrackIndex = Math.floor(len-- * Math.random());
+        state.currPlayingMusicInfo =
+          state.musicList[`${state.currentTrackIndex}`];
+      } else {
+        state.currentTrackIndex = (state.currentTrackIndex + 1) % len;
+        state.currPlayingMusicInfo =
+          state.musicList[`${state.currentTrackIndex}`];
+      }
       state.playing = true;
+      state.OnSeekToZero = true;
     },
     setTrack: (state, action) => {
       state.currentTrackIndex = action.payload.index;
       state.currPlayingMusicInfo =
-        state.musicList[`${state.shuffleArr[state.currentTrackIndex]}`];
+        state.musicList[`${state.currentTrackIndex}`];
+      state.OnSeekToZero = true;
       state.playing = true;
     },
     PutStartingPointToZero: (state, action) => {
@@ -179,6 +161,20 @@ export const playList = createSlice({
     },
     deleteTrack: (state, action) => {
       state.musicList = action.payload.musicList;
+    },
+    addTrackToPlayList: (state, action) => {
+      let index = Object.keys(state.musicList).length;
+      const data = action.payload;
+      const object = {
+        index,
+        ...data,
+        src: process.env.CLOUDFRONT_URL + "musics/music-" + data.code + ".m3u8",
+      };
+      state.musicList[`${index}`] = object;
+      state.currentTrackIndex = index;
+      state.currPlayingMusicInfo = object;
+      state.OnSeekToZero = true;
+      state.playing = true;
     },
   },
 });
@@ -194,6 +190,7 @@ export const {
   setTrack,
   PutStartingPointToZero,
   deleteTrack,
+  addTrackToPlayList,
 } = playList.actions;
 
 export default playList.reducer;

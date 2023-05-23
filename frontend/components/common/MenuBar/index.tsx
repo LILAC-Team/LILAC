@@ -37,9 +37,11 @@ const MenuBar = () => {
   const { currPlayingMusicInfo } = useSelector(
     (state: playerState) => state.playList
   );
+
   useEffect(() => {
     setNowTime(0);
   }, [currPlayingMusicInfo]);
+
   return (
     <>
       <S.MenuWrapper>
@@ -48,11 +50,10 @@ const MenuBar = () => {
             toggleDrawer("bottom", true)(e);
             setNowOpen("comment");
             setNowTime(time);
-          }}
-        >
+          }}>
           <S.ButtonWrapper>
             <CustomIconButton size="2.5rem">
-              <BiCommentDetail size="1.5rem" color="#FFFFFF" />
+              <BiCommentDetail size="1.5rem" color="#CCA4FC" />
             </CustomIconButton>
           </S.ButtonWrapper>
         </S.Comment>
@@ -60,11 +61,10 @@ const MenuBar = () => {
           onClick={(e) => {
             toggleDrawer("bottom", true)(e);
             setNowOpen("playlist");
-          }}
-        >
+          }}>
           <S.ButtonWrapper>
             <CustomIconButton size="2.5rem">
-              <RiPlayListFill size="1.5rem" color="#FFFFFF" />
+              <RiPlayListFill size="1.5rem" color="#CCA4FC" />
             </CustomIconButton>
           </S.ButtonWrapper>
         </S.PlayList>
