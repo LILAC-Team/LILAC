@@ -14,13 +14,6 @@ import SmallModal from "@/components/common/CommonModal/SmallModal";
 import CustomTextButton from "@/components/common/CustomTextButton";
 import { useSelector, useDispatch } from "react-redux";
 import { playListState, addTrackToPlayList } from "@/store/modules/playList";
-import {
-  setPlayList,
-  updatePlayList,
-  setTrack,
-  togglePlay,
-  PutStartingPointToZero,
-} from "@/store/modules/playList";
 
 interface Music {
   name: string;
@@ -138,17 +131,11 @@ const AlbumDetail = () => {
     }
   };
 
-  // Change MusicCode
-  // const changeHandler = (code) => {
-  //   setAddMusic(code);
-  // };
-
   const addTrack = ({ name, artistName, playtime, code, albumImage }) => {
     const req = {
       code,
     };
     playlistApi.addMusicToPlayList(req);
-    console.log("이거 왜이래?");
     dispatch(
       addTrackToPlayList({
         name,
@@ -174,12 +161,12 @@ const AlbumDetail = () => {
           {albumDetailData?.albumStatus === "NOT_COLLECTED" && (
             <S.AlbumCoverDiv onClick={() => setIsCollectModalOpen(true)}>
               <S.HaveBtn>
-                <CustomIconButton size='3.75rem'>
-                  <BiDownload size='3rem' />
+                <CustomIconButton size="3.75rem">
+                  <BiDownload size="3rem" />
                 </CustomIconButton>
               </S.HaveBtn>
               <S.HaveDiv>
-                <BasicText text='소장하기' size='2rem' color='black' />
+                <BasicText text="소장하기" size="2rem" color="black" />
               </S.HaveDiv>
             </S.AlbumCoverDiv>
           )}
@@ -187,21 +174,20 @@ const AlbumDetail = () => {
             <SmallModal
               handleSetShowModal={() => {
                 setIsCollectModalOpen(false);
-              }}
-            >
+              }}>
               <S.ModalContainer>
                 {!changeNext ? (
                   <>
                     <S.ModalText>
                       <BasicText
-                        text='소장하시겠습니까?'
-                        size='1.5rem'
-                        color='black'
+                        text="소장하시겠습니까?"
+                        size="1.5rem"
+                        color="black"
                       />
                     </S.ModalText>
                     <S.ModalBtn>
                       <CustomTextButton
-                        text='소장'
+                        text="소장"
                         handleOnClickButton={() => {
                           addOwnAlbumHandler();
                           setChangeNext(true);
@@ -214,16 +200,16 @@ const AlbumDetail = () => {
                     <S.ModalIcon>
                       <BasicImage
                         isAlbumPage={true}
-                        src='/icons/favicon-512x512.png'
+                        src="/icons/favicon-512x512.png"
                       />
                     </S.ModalIcon>
                     <S.ModalText>
-                      <BasicText text='소장완료' size='1.5rem' color='black' />
+                      <BasicText text="소장완료" size="1.5rem" color="black" />
                     </S.ModalText>
                     <S.ModalIcon>
                       <BasicImage
                         isAlbumPage={true}
-                        src='/icons/favicon-512x512.png'
+                        src="/icons/favicon-512x512.png"
                       />
                     </S.ModalIcon>
                   </S.ModalLine>
@@ -236,8 +222,8 @@ const AlbumDetail = () => {
           <S.AlbumTitleDiv>
             <BasicText
               text={albumDetailData.name}
-              size='2rem'
-              font='NotoSansKR700'
+              size="2rem"
+              font="NotoSansKR700"
             />
           </S.AlbumTitleDiv>
           {albumDetailData?.albumStatus === "RELEASED" && (
@@ -247,35 +233,33 @@ const AlbumDetail = () => {
                   handleCopyClipBoard(
                     `https://lilac-music.net/album/${albumId}`
                   )
-                }
-              >
+                }>
                 <CustomIconButton>
-                  <BiLink color='#e3dfff' size='2rem' />
+                  <BiLink color="#e3dfff" size="2rem" />
                 </CustomIconButton>
               </S.AlbumTitleLink>
               {isCopyModalOpen && (
                 <SmallModal
                   handleSetShowModal={() => {
                     setIsCopyModalOpen(false);
-                  }}
-                >
+                  }}>
                   <S.ModalContainer>
                     <S.ModalLine>
                       <S.ModalText>
                         <BasicText
-                          text='링크가 복사되었습니다'
-                          size='1.5rem'
-                          color='black'
+                          text="링크가 복사되었습니다"
+                          size="1.5rem"
+                          color="black"
                         />
                       </S.ModalText>
                     </S.ModalLine>
                     <S.ModalBtn>
                       <CustomTextButton
-                        text='닫기'
+                        text="닫기"
                         handleOnClickButton={() => {
                           setIsCopyModalOpen(false);
                         }}
-                        font='Ridibatang'
+                        font="Ridibatang"
                       />
                     </S.ModalBtn>
                   </S.ModalContainer>
@@ -285,7 +269,7 @@ const AlbumDetail = () => {
           )}
         </S.AlbumTitle>
         <S.ContentTitleWrap>
-          <BasicText text='음원목록' size='1.5rem' font='NotoSansKR700' />
+          <BasicText text="음원목록" size="1.5rem" font="NotoSansKR700" />
         </S.ContentTitleWrap>
         <S.MusicList>
           {albumDetailData?.musicList.map(
@@ -305,8 +289,7 @@ const AlbumDetail = () => {
                       albumImage: albumDetailData.albumImage,
                     });
                   }
-                }}
-              >
+                }}>
                 <MusicCard
                   data={{
                     code: code,

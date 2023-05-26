@@ -13,9 +13,9 @@
 
 ## ✨ 프로젝트 핵심 기능
 
-  - 유저 앨범 등록 및 공유
+  - 음원 스트리밍
+  - 앨범 등록 및 공유
   - 음원 타임라인 별 댓글 제공
-  - 백그라운드 스트리밍
 
 ## 👩🏻‍💻 팀 구성
 
@@ -33,11 +33,11 @@
 
 - *IntelliJ IDE*
 - *Java 11.0.14*
-- *Springboot 2.7.7*
-- *Spring Data JPA 2.7.7*
-- *Spring Security 2.7.7*
-- *Spring Validation 2.7.7*
-- *Spring Web 2.7.7*
+- *Springboot 2.7.10*
+- *Spring Data JPA*
+- *Spring Security*
+- *Spring Validation*
+- *Spring Web*
 - *QueryDSL 5.0.0*
 
 **Infra**

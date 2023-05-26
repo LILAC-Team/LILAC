@@ -11,6 +11,7 @@ import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import { memberApi } from "@/api/utils/member";
 import { setLogIn } from "@/store/modules/user";
+import { RiLogoutBoxRLine, RiEditBoxLine } from "react-icons/ri";
 
 interface ProfileState {
   previewImgUrl: any;
@@ -162,13 +163,18 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
               <ProfileImg size="4rem" src={profileImage} />
             </S.ProfileWrapper>
             {isDropdown && (
-              <S.Wrapper>
+              <S.Wrapper isDropdown={isDropdown}>
                 <S.LabelWrapper>
                   <S.Label onClick={handleEdit}>
-                    <BasicText text="정보수정" color="black" />
+                    <RiEditBoxLine size="1.4rem" color="var(--color-primary)" />
+                    <BasicText text="&nbsp;정보수정" color="black" size="95%" />
                   </S.Label>
                   <S.Label onClick={handleLogout}>
-                    <BasicText text="로그아웃" color="black" />
+                    <RiLogoutBoxRLine
+                      size="1.45rem"
+                      color="var(--color-primary)"
+                    />
+                    <BasicText text="&nbsp;로그아웃" color="black" size="95%" />
                   </S.Label>
                 </S.LabelWrapper>
               </S.Wrapper>
