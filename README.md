@@ -35,6 +35,20 @@
 - _Spring Validation_
 - _Spring Web_
 - _QueryDSL 5.0.0_
+  - _Spring Boot Starter Data JPA_
+  - _Spring Boot Starter Security_
+  - _Spring Boot Starter Validation_
+  - _Spring Boot Starter Web_
+  - _Spring Boot Starter Oauth2_
+  - _Spring Boot Starter Actuator_
+- _SpringFox Swagger2 3.0.0_
+- _Jjwt 0.9.1_
+
+**Database**
+
+- MySQL
+- MongoDB
+- Redis
 
 **Infra**
 
@@ -176,6 +190,7 @@
 ```
 ├─api
 │  ├─func
+│  │    ├─AlbumCard
 │  └─utils
 ├─components
 │  ├─common
