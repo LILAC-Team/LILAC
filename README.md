@@ -20,35 +20,43 @@
 
 ### 🎺 랜딩 페이지
 
-![랜딩페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/6fc172a6-1c1d-4b52-94be-7ed8661240ba)
+<img src="https://github.com/LILAC-Team/LILAC/assets/97906125/cc223187-a24f-4428-80e1-b7544a970bd9" width="40%" height="40%">
+<!-- ![랜딩페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/cc223187-a24f-4428-80e1-b7544a970bd9) -->
 
 ### 🎸 메인 페이지
 
-![메인페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/ab605b2a-509a-4e3e-b7a1-5c1f67cb2d9f)
+<img src="https://github.com/LILAC-Team/LILAC/assets/97906125/2a3fcca4-a6cd-4cd6-938c-a69e1981c797" width="40%" height="40%">
+<!-- ![메인페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/2a3fcca4-a6cd-4cd6-938c-a69e1981c797) -->
 
 ### 💿 앨범등록 페이지
 
-![앨범등록](https://github.com/LILAC-Team/LILAC/assets/97906125/ec755640-53f9-409c-a7f1-f6863531724d)
+<img src="https://github.com/LILAC-Team/LILAC/assets/97906125/6cb16211-2c20-4b1b-8020-58036952f3bb" width="40%" height="40%">
+<!-- ![앨범등록](https://github.com/LILAC-Team/LILAC/assets/97906125/6cb16211-2c20-4b1b-8020-58036952f3bb) -->
 
 ### 💾 앨범소장
 
-![앨범소장](https://github.com/LILAC-Team/LILAC/assets/97906125/161b0fad-c73f-4b6f-b528-2fab3d5e1544)
+<img src="https://github.com/LILAC-Team/LILAC/assets/97906125/ef032014-081b-45eb-b75a-a024b5dbe63f" width="40%" height="40%">
+<!-- ![앨범소장](https://github.com/LILAC-Team/LILAC/assets/97906125/ef032014-081b-45eb-b75a-a024b5dbe63f) -->
 
 ### 🎧 플레이어
 
-![플레이어](https://github.com/LILAC-Team/LILAC/assets/97906125/19f67663-e0b7-49ce-9314-af710e1f16ec)
+<img src="https://github.com/LILAC-Team/LILAC/assets/97906125/ddc0092f-6511-4f22-979a-e2e3e641a8f6" width="40%" height="40%">
+<!-- ![플레이어](https://github.com/LILAC-Team/LILAC/assets/97906125/ddc0092f-6511-4f22-979a-e2e3e641a8f6) -->
 
 ### 💬 댓글
 
-![댓글](https://github.com/LILAC-Team/LILAC/assets/97906125/7684a1d0-5722-42bc-9c43-acafebbefeea)
+<img src="https://github.com/LILAC-Team/LILAC/assets/97906125/528a0f9f-b6bc-4bd6-92c7-fd29d50bc2ea" width="40%" height="40%">
+<!-- ![댓글](https://github.com/LILAC-Team/LILAC/assets/97906125/528a0f9f-b6bc-4bd6-92c7-fd29d50bc2ea) -->
 
 ### 🎹 플레이리스트
 
-![플레이리스트](https://github.com/LILAC-Team/LILAC/assets/97906125/e5b621b2-b09b-445d-b034-a3bfda0729a2)
+<img src="https://github.com/LILAC-Team/LILAC/assets/97906125/4571e3b8-994f-475d-a703-8733beb30725" width="40%" height="40%">
+<!-- ![플레이리스트](https://github.com/LILAC-Team/LILAC/assets/97906125/4571e3b8-994f-475d-a703-8733beb30725) -->
 
 ### 💽 앨범페이지
 
-![앨범페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/276a76c0-d0e2-4ab1-a07f-8917b5e15764)
+<img src="https://github.com/LILAC-Team/LILAC/assets/97906125/b5480d8f-21b8-4e25-bead-98788eb72e66" width="40%" height="40%">
+<!-- ![앨범페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/b5480d8f-21b8-4e25-bead-98788eb72e66) -->
 
 ## 👩🏻‍💻 팀 구성
 
