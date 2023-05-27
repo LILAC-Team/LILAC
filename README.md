@@ -77,6 +77,20 @@
 - _Spring Validation_
 - _Spring Web_
 - _QueryDSL 5.0.0_
+  - _Spring Boot Starter Data JPA_
+  - _Spring Boot Starter Security_
+  - _Spring Boot Starter Validation_
+  - _Spring Boot Starter Web_
+  - _Spring Boot Starter Oauth2_
+  - _Spring Boot Starter Actuator_
+- _SpringFox Swagger2 3.0.0_
+- _Jjwt 0.9.1_
+
+**Database**
+
+- MySQL
+- MongoDB
+- Redis
 
 **Infra**
 
@@ -217,92 +231,67 @@
 
 ```
 ├─api
-│  ├─utils
-│  ├─user.js
-│  ├─player.js
-│  └─album.js
-├─assets
-│  └─img
-│      ├─common
-│      ├─home
-│      ├─
-│      ├─logo
-│      └─
+│  ├─func
+│  │    ├─AlbumCard
+│  └─utils
 ├─components
-│  ├─Common
-│  │  ├─BasicText
-│  │  ├─BasicInput
-│  │  ├─BasicImage
-│  │  ├─CustomTextButton
-│  │  ├─CustomIconButton
-│  │  ├─Header
-│  │  ├─Template
-│  │  ├─NavigationBar
+│  ├─common
 │  │  ├─AlbumCard
-│  │  ├─ProfileImg
+│  │  ├─AudioFileInput
+│  │  ├─BasicImage
+│  │  ├─BasicInput
+│  │  ├─BasicText
+│  │  ├─CommonModal
+│  │  │  ├─LargeModal
+│  │  │  └─SmallModal
+│  │  ├─CustomIconButton
+│  │  ├─CustomTextButton
+│  │  ├─Drawer
+│  │  ├─Header
+│  │  ├─ImageInput
+│  │  ├─Layout
 │  │  ├─MenuBar
-│  │  └─CommonModal
-│  │     ├─SmallModal
-│  │     └─LargeModal
-│  ├─User
-│  │  ├─LogIn
-│  │  └─SignUp
+│  │  ├─NavigationBar
+│  │  └─ProfileImg
+│  ├─Container
+│  │  ├─DragAndDrop
+│  │  └─MyAlbumBox
 │  ├─Home
-│  │  └─BasicSlider
-│  ├─Player
-│  │  ├─PlayerContainer
-│  │  ├─MusicPlayerBar
-│  │  ├─MusicPlayerModal
-│  │  ├─playerMenuBar
-│  │  ├─CommentModal
-│  │  ├─CommentList
-│  │  ├─CommentInput
-│  │  └─MusicControlerContainer
-│  └─Container
-│     ├─DragAndDrop
-│     ├─MyAlbumBox
-│     └─OwnAlbumBox
-├─utils
-|	 ├─Function
-|	 ├─WrapperClass
+│  │  ├─BasicSlider
+│  │  └─MainAlbum
+│  └─Player
+│      ├─CommentCard
+│      ├─CommentDrawer
+│      ├─CommentInput
+│      ├─MusicCard
+│      ├─MusicController
+│      ├─MusicPlayerBar
+│      ├─MusicPlayerDrawer
+│      ├─PlaylistDrawer
+│      └─ReactPlayerPortal
+├─function
+│  └─validation
 ├─hooks
-|	 ├─useTabs.js
-|	 ├─useInput.js
-│  └─useInfiniteScroll.js
 ├─pages
-│  ├─_app
-|  |  ├─index.js
-│  │  └─style.js
-│  ├─_document
-|  |  ├─index.js
-│  │  └─style.js
-│  ├─index
-|  |  ├─index.js
-│  │  └─style.js
-│  ├─form
-│  │  ├─index.js
-│  │  └─style.js
+│  ├─404
 │  ├─album
-│  │  ├─index.js
-│  │  ├─style.js
 │  │  └─[albumId]
-│  │       ├─index.js
-│  │       └─style.js
-│  ├─personal
-│  │  ├─index.js
-│  │  └─style.js
+│  ├─docs
+│  ├─form
+│  ├─login
 │  ├─oauth
-│  │  ├─index.js
-│  │  └─style.js
-│  └─error
-│     ├─index.js
-│     └─style.js
-├─stores
-│  ├─user
-│  ├─player
-│  └─album
+│  └─signup
+├─public
+│  ├─fonts
+│  ├─icons
+│  ├─logIn
+│  └─pictures
+├─store
+│  └─modules
+│      ├─commentList
+│      ├─playList
+│      └─user
 └─styles
-   └GlobalStyles.js
 ```
 
 ## 🗣 협업 환경
