@@ -16,6 +16,40 @@
 - 앨범 등록 및 공유
 - 음원 타임라인 별 댓글 제공
 
+## 🎵 서비스 화면
+
+### 🎺 랜딩 페이지
+
+![랜딩페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/6fc172a6-1c1d-4b52-94be-7ed8661240ba)
+
+### 🎸 메인 페이지
+
+![메인페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/ab605b2a-509a-4e3e-b7a1-5c1f67cb2d9f)
+
+### 💿 앨범등록 페이지
+
+![앨범등록](https://github.com/LILAC-Team/LILAC/assets/97906125/ec755640-53f9-409c-a7f1-f6863531724d)
+
+### 💾 앨범소장
+
+![앨범소장](https://github.com/LILAC-Team/LILAC/assets/97906125/161b0fad-c73f-4b6f-b528-2fab3d5e1544)
+
+### 🎧 플레이어
+
+![플레이어](https://github.com/LILAC-Team/LILAC/assets/97906125/19f67663-e0b7-49ce-9314-af710e1f16ec)
+
+### 💬 댓글
+
+![댓글](https://github.com/LILAC-Team/LILAC/assets/97906125/7684a1d0-5722-42bc-9c43-acafebbefeea)
+
+### 🎹 플레이리스트
+
+![플레이리스트](https://github.com/LILAC-Team/LILAC/assets/97906125/e5b621b2-b09b-445d-b034-a3bfda0729a2)
+
+### 💽 앨범페이지
+
+![앨범페이지](https://github.com/LILAC-Team/LILAC/assets/97906125/276a76c0-d0e2-4ab1-a07f-8917b5e15764)
+
 ## 👩🏻‍💻 팀 구성
 
 |                                                          오윤식                                                          |                                                         김명준                                                         |                                                        김현수                                                        |                                                        정소영                                                         |                                                        조수정                                                        |                                                           최윤지                                                           |
