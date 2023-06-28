@@ -1,10 +1,10 @@
 import * as S from "./style";
 import CustomIconButton from "../CustomIconButton";
+import Drawer from "@/components/common/Drawer";
 import React, { useState, useEffect } from "react";
 import { BiCommentDetail } from "react-icons/bi";
 import { RiPlayListFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
-import Drawer from "@/components/common/Drawer";
 import { commentListState } from "@/store/modules/commentList";
 import { playListState } from "@/store/modules/playList";
 
