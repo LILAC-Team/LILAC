@@ -40,15 +40,6 @@ interface Album {
   memberInfo: MemberInfo;
 }
 
-interface PlayList {
-  musicList: Music[];
-  listSize: number;
-}
-
-interface AppState {
-  playList: playListState;
-}
-
 const initialAlbumDetailData: Album = {
   code: "",
   albumStatus: "",
@@ -76,22 +67,26 @@ const AlbumDetail = () => {
   // SET Router
   const router = useRouter();
   const { albumId } = router.query;
+
   // GET albumDetailData
   const [albumDetailData, setAlbumDetailData] = useState<Album>(
     initialAlbumDetailData
   );
+
   // ADD PlayList
-  // const [addMusic, setAddMusic] = useState("");
   // isRealCollect Modal
   const [isCollectModalOpen, setIsCollectModalOpen] = useState(false);
+
   // CopyAddress Modal
   const [isCopyModalOpen, setIsCopyModalOpen] = useState(false);
+
   // After AddAlbum
   const [changeNext, setChangeNext] = useState(false);
+
   // OnClick 여부
   const [isOnClick, setIsOnClick] = useState(false);
-  // GET PlayList from Redux
 
+  // GET PlayList from Redux
   const dispatch = useDispatch();
 
   // COPY ClipBoard

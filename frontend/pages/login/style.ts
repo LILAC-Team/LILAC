@@ -10,6 +10,7 @@ export const LogInContainer = styled.div`
 `;
 
 export const LogInButton = styled.a``;
+
 export const DocsButton = styled.div`
   width: 328px;
   height: 50px;

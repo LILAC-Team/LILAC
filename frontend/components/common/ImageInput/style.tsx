@@ -10,7 +10,6 @@ export const ImageWrap = styled.div<ImageWrapProps>`
   height: 100%;
   aspect-ratio: 1/1;
   background-color: #e6e6e6;
-  /* border: 2px dashed black; */
   position: relative;
   border-radius: 1rem;
   min-width: 13rem;
@@ -35,6 +34,7 @@ export const ImageWrap = styled.div<ImageWrapProps>`
     justify-content: center;
   }
 `;
+
 export const InputWrap = styled.input`
   display: none;
 `;

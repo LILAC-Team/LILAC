@@ -17,8 +17,7 @@ interface ProfileState {
 }
 
 interface AppState {
-  user: any; // 사용자 상태에 대한 타입을 정의합니다.
-  // ...
+  user: any;
 }
 
 const SignUp = () => {

@@ -1,6 +1,5 @@
 import type { AppProps } from "next/app";
 import { GlobalStyle } from "@/styles/globalStyle";
-import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import wrapper from "@/store/configStore";
 import { persistStore } from "redux-persist";

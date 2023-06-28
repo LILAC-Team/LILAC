@@ -186,8 +186,7 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
         <SmallModal
           handleSetShowModal={() => {
             setIsEditModal(false);
-          }}
-        >
+          }}>
           <S.EditWrapper>
             <S.ImageWrapper>
               <ProfileImg
@@ -219,8 +218,7 @@ const Header = ({ isShown = true, link = "/" }: HeaderProps) => {
         <SmallModal
           handleSetShowModal={() => {
             setIsLogoutModal(false);
-          }}
-        >
+          }}>
           <S.EditWrapper>
             <BasicText
               text="로그아웃 하시겠습니까?"

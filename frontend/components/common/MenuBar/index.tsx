@@ -1,6 +1,6 @@
 import * as S from "./style";
 import CustomIconButton from "../CustomIconButton";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BiCommentDetail } from "react-icons/bi";
 import { RiPlayListFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
@@ -11,9 +11,11 @@ import { playListState } from "@/store/modules/playList";
 interface commentState {
   commentList: commentListState;
 }
+
 interface playerState {
   playList: playListState;
 }
+
 const MenuBar = () => {
   const [state, setState] = React.useState({ bottom: false });
   const [nowOpen, setNowOpen] = useState("");

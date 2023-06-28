@@ -125,6 +125,5 @@ export const ModalSubject = styled.div`
 `;
 
 export const ModalInput = styled.div`
-  /* width: 90%; */
   height: 50%;
 `;

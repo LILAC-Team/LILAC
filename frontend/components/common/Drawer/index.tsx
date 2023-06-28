@@ -1,5 +1,5 @@
 import * as S from "./style";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import MusicPlayerDrawer from "@/components/Player/MusicPlayerDrawer";
 import CommentDrawer from "@/components/Player/CommentDrawer";
@@ -61,8 +61,7 @@ const Drawer = ({ inner, anchor, state, toggleDrawer, time }: DrawerProps) => {
         onOpen={toggleDrawer("bottom", true)}
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
-        PaperProps={{ style: { backgroundColor: "transparent" } }}
-      >
+        PaperProps={{ style: { backgroundColor: "transparent" } }}>
         {inner === "player" && <MusicPlayerDrawer />}
         {inner === "comment" && <CommentDrawer time={time} />}
         {inner === "playlist" && <PlaylistDrawer />}

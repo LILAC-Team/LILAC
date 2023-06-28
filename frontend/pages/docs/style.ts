@@ -41,8 +41,8 @@ export const TopTextWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem 0.5rem 1rem;
-  /* justify-content: center; */
 `;
+
 export const BottomTextWrapper = styled.div`
   width: 100%;
   padding: 0.5rem 1rem 0rem 1rem;
@@ -68,7 +68,6 @@ export const OneSlide = styled.div`
 `;
 
 export const ImageWrap = styled.img`
-  /* width: 100%; */
   height: 50vh;
   padding: 0rem 1rem 0rem 1rem;
 `;

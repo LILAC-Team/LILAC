@@ -6,7 +6,6 @@ export const AudioInput = styled.div`
   background-color: transparent;
   border: 2px dashed #d3d3d3;
   border-radius: 0.5rem;
-  /* max-width: 25rem; */
   text-align: center;
   display: flex;
   justify-content: center;

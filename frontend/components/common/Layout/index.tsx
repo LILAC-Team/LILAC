@@ -34,7 +34,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Head>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <S.ContainerWrap>
         <Header />
@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
         <>
           <MusicPlayerBar onClickEvent={toggleDrawer("bottom", true)} />
           <Drawer
-            inner='player'
+            inner="player"
             toggleDrawer={toggleDrawer}
             state={{ ...state }}
             anchor={"bottom"}

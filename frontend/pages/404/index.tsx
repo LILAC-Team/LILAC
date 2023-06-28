@@ -2,10 +2,6 @@ import BasicText from "@/components/common/BasicText";
 import * as S from "./style";
 
 const NotFound = () => {
-  const data = {
-    name: "hi",
-  };
-
   return (
     <S.ErrorPage>
       <S.HeaderWrapper>
@@ -31,19 +27,9 @@ const NotFound = () => {
         />
       </S.Title>
       <S.Content>
-        <BasicText
-          text="Page Not Found"
-          size="2.3rem"
-          // background="#e3dfff"
-          // color="transparent"
-          clipText={true}
-        />
+        <BasicText text="Page Not Found" size="2.3rem" clipText={true} />
       </S.Content>
       <S.Objects>
-        {/* <S.Rocket
-          src="http://salehriaz.com/404Page/img/rocket.svg"
-          width="40px"
-        /> */}
         <S.Earth
           src="http://salehriaz.com/404Page/img/earth.svg"
           width="100px"

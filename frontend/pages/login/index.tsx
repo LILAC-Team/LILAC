@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
 import * as S from "./style";
 import BasicText from "@/components/common/BasicText";
 import Link from "next/link";

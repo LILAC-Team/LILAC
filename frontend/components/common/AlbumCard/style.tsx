@@ -1,12 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface AlbumCardProps {
   showAlbumDetail: boolean;
 }
 
 export const AlbumCard = styled.div<AlbumCardProps>`
-  /* border: 2px solid yellow; */
-
   width: 100%;
   display: grid;
   grid-template-rows: 1fr 0.4fr;

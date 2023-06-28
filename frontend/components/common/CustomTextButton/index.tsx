@@ -35,8 +35,7 @@ const CustomTextButton = ({
       border={border}
       isBackground={isBackground}
       isDisabled={isDisabled}
-      radius={radius}
-    >
+      radius={radius}>
       {isImage && (
         <S.IconImage>
           <BasicImage isAlbumPage={true} src={src} size="1.6rem" />

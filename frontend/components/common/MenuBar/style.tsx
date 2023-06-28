@@ -30,7 +30,6 @@ export const PlayList = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-  /* aspect-ratio: 1 / 1; */
   display: flex;
   align-items: center;
   justify-content: center;

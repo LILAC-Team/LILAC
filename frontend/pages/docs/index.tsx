@@ -3,7 +3,7 @@ import * as S from "./style";
 import CustomIconButton from "@/components/common/CustomIconButton";
 import BasicImage from "@/components/common/BasicImage";
 import Header from "@/components/common/Header";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SmallModal from "@/components/common/CommonModal/SmallModal";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,13 +14,6 @@ import "swiper/css/pagination";
 import Link from "next/link";
 
 const Docs = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   const [androidModalOpen, setAndroidModalOpen] = useState(false);
   const [iOSModalOpen, setIOSModalOpen] = useState(false);
   const [swipe_android, setSwipe_android] = useState<any>();
@@ -65,8 +58,7 @@ const Docs = () => {
               <S.SliderButton>
                 <CustomIconButton
                   handleOnClickButton={() => swipe_android?.slidePrev()}
-                  isDisabled={reachingFirst_android}
-                >
+                  isDisabled={reachingFirst_android}>
                   <AiOutlineLeft
                     color={reachingFirst_android ? "#D4D2D9" : "#6732FF"}
                   />
@@ -89,11 +81,9 @@ const Docs = () => {
                     ? setReachingFirst_android(true)
                     : setReachingFirst_android(false);
                 }}
-                // navigation
                 pagination={{
                   clickable: true,
-                }}
-              >
+                }}>
                 <SwiperSlide>
                   <S.OneSlide>
                     <S.AllWrap>
@@ -126,7 +116,6 @@ const Docs = () => {
                     />
                   </S.OneSlide>
                 </SwiperSlide>
-                {/* 이미지 수정필요 */}
                 <SwiperSlide>
                   <S.OneSlide>
                     <S.AllWrap>
@@ -203,8 +192,7 @@ const Docs = () => {
               <S.SliderButton>
                 <CustomIconButton
                   handleOnClickButton={() => swipe_android?.slideNext()}
-                  isDisabled={reachingEnd_android}
-                >
+                  isDisabled={reachingEnd_android}>
                   <AiOutlineRight
                     color={reachingEnd_android ? "#D4D2D9" : "#6732FF"}
                   />
@@ -247,14 +235,12 @@ const Docs = () => {
               setIOSModalOpen(false);
               setReachingEnd_iOS(false);
               setReachingFirst_iOS(true);
-            }}
-          >
+            }}>
             <S.SliderWrap>
               <S.SliderButton>
                 <CustomIconButton
                   handleOnClickButton={() => swipe_iOS?.slidePrev()}
-                  isDisabled={reachingFirst_iOS}
-                >
+                  isDisabled={reachingFirst_iOS}>
                   <AiOutlineLeft
                     color={reachingFirst_iOS ? "#D4D2D9" : "#6732FF"}
                   />
@@ -276,8 +262,7 @@ const Docs = () => {
                 // navigation
                 pagination={{
                   clickable: true,
-                }}
-              >
+                }}>
                 <SwiperSlide>
                   <S.OneSlide>
                     <S.AllWrap>
@@ -354,8 +339,7 @@ const Docs = () => {
               <S.SliderButton>
                 <CustomIconButton
                   handleOnClickButton={() => swipe_iOS?.slideNext()}
-                  isDisabled={reachingEnd_iOS}
-                >
+                  isDisabled={reachingEnd_iOS}>
                   <AiOutlineRight
                     color={reachingEnd_iOS ? "#D4D2D9" : "#6732FF"}
                   />
