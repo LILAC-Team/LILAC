@@ -1,24 +1,20 @@
-import * as S from "./style";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import CustomIconButton from "@/components/common/CustomIconButton";
-import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from "react-icons/tb";
-import { IoPlay, IoPause, IoPlayBack, IoPlayForward } from "react-icons/io5";
-import { nextTrack, playListState, prevTrack } from "@/store/modules/playList";
+import * as S from './style';
+import { useSelector, useDispatch } from 'react-redux';
+import CustomIconButton from '@/components/common/CustomIconButton';
+import { TbRepeat, TbRepeatOnce, TbArrowsShuffle } from 'react-icons/tb';
+import { IoPlay, IoPause, IoPlayBack, IoPlayForward } from 'react-icons/io5';
+import { nextTrack, playListState, prevTrack } from '@/store/modules/playList';
 import {
   setLoop,
   setShuffle,
   togglePlay,
   PutStartingPointToZero,
-} from "@/store/modules/playList";
+} from '@/store/modules/playList';
 
 interface playerState {
   playList: playListState;
 }
 const MusicController = ({}) => {
-  const [shuffleState, setShuffleState] = useState(false);
-  const [playState, setPlayState] = useState(false);
-  const [repeatState, setRepeatState] = useState(0);
   const dispatch = useDispatch();
   const { loop, playing, shuffle, OnSeekToZero, currPlayingMusicInfo } =
     useSelector((state: playerState) => state.playList);
