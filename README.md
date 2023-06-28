@@ -145,7 +145,7 @@
 
 ## 📄 컴포넌트 명세서
 
-![컴포넌트 명세서1](https://github.com/suz-dev/fit_with_me/assets/91257772/476e0be7-335e-4c1e-9bce-cbb055b5acff)
+![컴포넌트명세서](https://github.com/LILAC-Team/LILAC/assets/97906125/62de4b22-dcc4-476c-a24d-32333ec8e4f8)
 
 ## ⚙️ 프로젝트 파일 구조
 
